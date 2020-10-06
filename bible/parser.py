@@ -94,11 +94,20 @@ def convert_references_to_verse_ids(references):
     verse_ids = []
 
     for reference in references:
-        start_verse_id = get_verse_id(reference[0], reference[1], reference[2])
-        end_verse_id = get_verse_id(reference[0], reference[3], reference[4])
-        verse_ids.extend(VERSE_IDS[VERSE_IDS.index(start_verse_id):VERSE_IDS.index(end_verse_id) + 1])
+        verse_ids.extend(convert_reference_to_verse_ids(reference))
 
     return verse_ids
+
+
+def convert_reference_to_verse_ids(reference):
+    """
+
+    :param reference:
+    :return:
+    """
+    start_verse_id = get_verse_id(reference[0], reference[1], reference[2])
+    end_verse_id = get_verse_id(reference[0], reference[3], reference[4])
+    return VERSE_IDS[VERSE_IDS.index(start_verse_id):VERSE_IDS.index(end_verse_id) + 1]
 
 
 def get_verse_id(book_of_the_bible, chapter_number, verse_number):
