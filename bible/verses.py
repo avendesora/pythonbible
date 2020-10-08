@@ -1378,7 +1378,7 @@ def get_verse_id(book, chapter, verse):
 
 def get_book_chapter_verse(verse_id):
     if verse_id not in VERSE_IDS:
-        raise InvalidVerseError(verse_id)
+        raise InvalidVerseError(verse_id=verse_id)
 
     return Book(get_book(verse_id)), get_chapter(verse_id), get_verse(verse_id)
 

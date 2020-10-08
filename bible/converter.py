@@ -61,7 +61,7 @@ def convert_verse_ids_to_references(verse_ids):
 
     for verse_id in verse_ids:
         if not is_valid_verse_id(verse_id):
-            raise InvalidVerseError(verse_id)
+            raise InvalidVerseError(verse_id=verse_id)
 
         book, chapter, verse = get_book_chapter_verse(verse_id)
 
