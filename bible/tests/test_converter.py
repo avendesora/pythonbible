@@ -50,7 +50,7 @@ def test_convert_references_to_verse_ids_null():
 
 
 def test_convert_references_to_verse_ids_complex(
-        normalized_references_complex, verse_ids_complex
+    normalized_references_complex, verse_ids_complex
 ):
     # Given a list of complex references
     # When converted into verse ids
@@ -88,7 +88,9 @@ def test_convert_verse_ids_to_references_invalid(invalid_verse_id):
         bible.convert_verse_ids_to_references([invalid_verse_id])
 
 
-def test_convert_verse_ids_to_references_complex(normalized_references_complex, verse_ids_complex):
+def test_convert_verse_ids_to_references_complex(
+    normalized_references_complex, verse_ids_complex
+):
     # Given a list of "complex" verse ids
     # When we convert them into a list of references
     actual_references = bible.convert_verse_ids_to_references(verse_ids_complex)
