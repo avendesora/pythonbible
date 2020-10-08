@@ -1,9 +1,16 @@
 # python-bible
+
 This python library serves several purposes related to the Christian Bible and Scripture references.
+
+<a href="https://github.com/avendesora/python-bible/actions?query=workflow%3ATest" target="_blank">
+    <img src="https://github.com/avendesora/python-bible/workflows/Test/badge.svg" alt="Test">
+</a>
 
 ## Installation
 
-TODO
+```shell script
+pip install python-bible
+```
 
 ## Features
 
@@ -13,8 +20,10 @@ Given a text, search for scripture references and return any that are found in a
 For example, given the following text:
 
 ```python
->>> text = "The parable of the lost sheep is told in Matthew 18:12-14 and Luke 15:3-7."
->>> references = get_references(text)
+import bible
+
+text = "The parable of the lost sheep is told in Matthew 18:12-14 and Luke 15:3-7."
+references = bible.get_references(text)
 ```
 
 The search functionality should return the following list of scripture reference tuples:
@@ -48,8 +57,10 @@ Given a normalized scripture reference, which can contain one or more verses, th
 For example, given the following normalized scripture reference for Genesis 1:1-4:
 
 ```python
->>> reference = (Book.GENESIS, 1, 1, 1, 4)
->>> verse_ids = convert_reference_to_verse_ids(reference)
+import bible
+
+reference = (bible.Book.GENESIS, 1, 1, 1, 4)
+verse_ids = bible.convert_reference_to_verse_ids(reference)
 ```
 
 The conversion functionality would return the following list of verse id integers:
@@ -59,13 +70,27 @@ The conversion functionality would return the following list of verse id integer
 ```
 
 ### Converting a list of verse id integers into a list of normalized scripture reference tuples
+The reverse of the above feature, we can take a list of integer verse ids and convert it back into a list of normalized scripture reference tuples.
 
-TODO
+For example, the following list of verse ids represent the references Matthew 18:12-14 and Luke 15:3-7.
+
+```python
+import bible
+
+verse_ids = [40018012, 40018013, 40018014, 42015003, 42015004, 42015005, 42015006, 42015007, ]
+bible.convert_verse_ids_to_references(verse_ids)
+```
+
+The conversion functionality would return the following list of normalized scripture reference tuples.
+
+```python
+[(<Book.MATTHEW: 40>, 18, 12, 18, 14), (<Book.LUKE: 42>, 15, 3, 15, 7)]
+```
 
 ### Converting a list of normalized scripture reference tuples into a formatted string scripture reference
 
-TODO
+coming soon...
 
 ### Given a list of verse id integers, formatting the related Biblical text for print or web display in one or more open source or public domain versions
 
-TODO
+coming soon...
