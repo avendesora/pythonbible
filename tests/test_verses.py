@@ -44,3 +44,49 @@ def test_get_max_verse_number_invalid_chapter(book, invalid_chapter):
     # Then an exception is raise.
     with pytest.raises(bible.InvalidChapterError):
         bible.get_max_number_of_verses(book, invalid_chapter)
+
+
+def test_get_book_chapter_verse(verse_id, book, chapter, verse):
+    # Given a valid verse id
+    # When using that verse id to get the book, chapter, and verse
+    actual_book, actual_chapter, actual_verse = bible.get_book_chapter_verse(verse_id)
+
+    # Then the results match the expected book, chapter, and verse
+    assert actual_book == book
+    assert actual_chapter == chapter
+    assert actual_verse == verse
+
+
+def test_get_book_chapter_verse_invalid(invalid_verse_id):
+    # Given an invalid verse id
+    # When attempting to get the book, chapter, and verse
+    # Then an error is raised.
+    with pytest.raises(bible.InvalidVerseError):
+        bible.get_book_chapter_verse(invalid_verse_id)
+
+
+def test_get_book(verse_id, book):
+    # Given a valid verse id
+    # When using that verse id to get the book
+    book_number = bible.get_book(verse_id)
+
+    # Then the resulting book matches the expected book
+    assert bible.Book(book_number) == book
+
+
+def test_get_chapter(verse_id):
+    # Given a valid verse id
+    # When using that verse id to get the chapter
+    chapter_number = bible.get_chapter(verse_id)
+
+    # Then the resulting chapter number matches the expected chapter number (1)
+    assert chapter_number == 1
+
+
+def test_get_verse(verse_id):
+    # Given a valid verse id
+    # When using that verse id to get the verse
+    verse_number = bible.get_verse(verse_id)
+
+    # Then the resulting verse number matching the expected verse number (1)
+    assert verse_number == 1

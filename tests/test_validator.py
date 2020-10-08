@@ -73,13 +73,29 @@ def test_is_valid_reference_invalid_chapter(book, invalid_chapter, verse):
     )
 
 
-def test_is_valid_reference_invalid_verse(book, chapter, invalid_verse):
-    # Given a normalized reference tuple with an invalid verse
+def test_is_valid_reference_invalid_start_verse(book, chapter, verse, invalid_verse):
+    # Given a normalized reference tuple with an invalid start verse
+    reference = (book, chapter, invalid_verse, chapter, verse)
     # When we test to see if it is valid
     # Then the result is False
-    assert not bible.is_valid_reference(
-        (book.name(), chapter, invalid_verse, chapter, invalid_verse)
-    )
+    assert not bible.is_valid_reference(reference)
+
+
+def test_is_valid_reference_invalid_end_verse(book, chapter, verse, invalid_verse):
+    # Given a normalized reference tuple with an invalid end verse
+    reference = (book, chapter, verse, chapter, invalid_verse)
+    # When we test to see if it is valid
+    # Then the result is False
+    assert not bible.is_valid_reference(reference)
+
+
+def test_is_valid_reference_smaller_end_verse(book, chapter, verse):
+    # Given a reference where the end verse comes before the start verse
+    reference = (book.name(), chapter, verse + 1, chapter, verse)
+
+    # When we test to see if it is valid
+    # Then the result is false
+    assert not bible.is_valid_reference(reference)
 
 
 def test_is_valid_book(book):
