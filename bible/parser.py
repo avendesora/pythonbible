@@ -1,9 +1,9 @@
 import re
 
-from bible.books import VERSE_IDS
-from bible.errors import InvalidVerseError
 from bible.regular_expressions import BOOK_REGULAR_EXPRESSIONS
 from bible.regular_expressions import SCRIPTURE_REFERENCE_REGULAR_EXPRESSION
+from bible.validator import is_valid_reference
+from bible.verses import get_max_number_of_verses
 
 
 def get_references(text):
@@ -37,92 +37,62 @@ def normalize_reference(reference):
             break
 
     start_chapter = None
+
+    for sub_reference in reference_without_book.split(","):
+        start_chapter, start_verse, end_chapter, end_verse = _process_sub_reference(
+            sub_reference, book, start_chapter
+        )
+
+        new_reference = (book, start_chapter, start_verse, end_chapter, end_verse)
+
+        if is_valid_reference(new_reference):
+            references.append(new_reference)
+        else:
+            # TODO - ignore? raise error?
+            pass
+
+        start_chapter = end_chapter
+
+    return references
+
+
+def _process_sub_reference(sub_reference, book, start_chapter):
     start_verse = None
     end_chapter = None
     end_verse = None
     no_verses = False
 
-    for sub_reference in reference_without_book.split(","):
-        chapter_and_verse_range = sub_reference.split("-")
+    chapter_and_verse_range = sub_reference.split("-")
+    min_chapter_and_verse = chapter_and_verse_range[0]
+    min_chapter_and_verse = min_chapter_and_verse.split(":")
 
-        min_chapter_and_verse = chapter_and_verse_range[0]
-
-        min_chapter_and_verse = min_chapter_and_verse.split(":")
-
-        if len(min_chapter_and_verse) == 1:
-            if start_chapter:
-                start_verse = int(min_chapter_and_verse[0].strip())
-                end_verse = start_verse
-            else:
-                start_chapter = int(min_chapter_and_verse[0].strip())
-                start_verse = 1
-                no_verses = True
-        elif len(min_chapter_and_verse) == 2:
-            start_chapter = int(min_chapter_and_verse[0].strip())
+    if len(min_chapter_and_verse) == 1:
+        if start_chapter:
+            start_verse = int(min_chapter_and_verse[0].strip())
             end_chapter = start_chapter
-            start_verse = int(min_chapter_and_verse[1].strip())
             end_verse = start_verse
+        else:
+            start_chapter = int(min_chapter_and_verse[0].strip())
+            start_verse = 1
+            no_verses = True
+    elif len(min_chapter_and_verse) == 2:
+        start_chapter = int(min_chapter_and_verse[0].strip())
+        end_chapter = start_chapter
+        start_verse = int(min_chapter_and_verse[1].strip())
+        end_verse = start_verse
 
-        if len(chapter_and_verse_range) > 1:
-            max_chapter_and_verse = chapter_and_verse_range[1]
-            max_chapter_and_verse = max_chapter_and_verse.split(":")
+    if len(chapter_and_verse_range) > 1:
+        max_chapter_and_verse = chapter_and_verse_range[1]
+        max_chapter_and_verse = max_chapter_and_verse.split(":")
 
-            if len(max_chapter_and_verse) == 1:
-                if no_verses:
-                    end_chapter = int(max_chapter_and_verse[0].strip())
-                    end_verse = (
-                        999  # TODO - get actual max verse for book and end chapter
-                    )
-                else:
-                    end_verse = int(max_chapter_and_verse[0].strip())
-            elif len(max_chapter_and_verse) == 2:
+        if len(max_chapter_and_verse) == 1:
+            if no_verses:
                 end_chapter = int(max_chapter_and_verse[0].strip())
-                end_verse = int(max_chapter_and_verse[1].strip())
+                end_verse = get_max_number_of_verses(book, end_chapter)
+            else:
+                end_verse = int(max_chapter_and_verse[0].strip())
+        elif len(max_chapter_and_verse) == 2:
+            end_chapter = int(max_chapter_and_verse[0].strip())
+            end_verse = int(max_chapter_and_verse[1].strip())
 
-        references.append((book, start_chapter, start_verse, end_chapter, end_verse))
-
-    # TODO - make sure references are valid
-    return references
-
-
-def convert_references_to_verse_ids(references):
-    """
-
-    :param references:
-    :return:
-    """
-    verse_ids = []
-
-    for reference in references:
-        verse_ids.extend(convert_reference_to_verse_ids(reference))
-
-    return verse_ids
-
-
-def convert_reference_to_verse_ids(reference):
-    """
-
-    :param reference:
-    :return:
-    """
-    start_verse_id = get_verse_id(reference[0], reference[1], reference[2])
-    end_verse_id = get_verse_id(reference[0], reference[3], reference[4])
-    return VERSE_IDS[VERSE_IDS.index(start_verse_id):VERSE_IDS.index(end_verse_id) + 1]
-
-
-def get_verse_id(book_of_the_bible, chapter_number, verse_number):
-    """
-
-    :param book_of_the_bible:
-    :param chapter_number:
-    :param verse_number:
-    :return:
-    """
-    verse_id = int(book_of_the_bible) * 1000000 + chapter_number * 1000 + verse_number
-
-    if verse_id not in VERSE_IDS:
-        raise InvalidVerseError(
-            f"{book_of_the_bible.name()} {chapter_number}:{verse_number} is not a valid Bible verse."
-        )
-
-    return verse_id
+    return start_chapter, start_verse, end_chapter, end_verse

@@ -125,7 +125,7 @@ def test_multiple_full_references():
 
 def test_multiple_full_references_lower_case():
     # given a lower case string with multiple full scripture references
-    full_string = "You should read Matthew 1:18 - 2:18, Luke 3: 5-7, Psalm 130:4,8 and Jeremiah 29:32-30:10,11".lower()
+    full_string = "You should read Matthew 1:18 - 2:18, Luke 3: 5-7, Psalm 130:4,8 and Jeremiah 29:32-30:10,12".lower()
 
     # when evaluating that string against the full regular expression
     match = re.findall(
@@ -141,4 +141,4 @@ def test_multiple_full_references_lower_case():
     assert match[2][0] == "Psalm".lower()
     assert match[2][1] == "130:4,8"
     assert match[3][0] == "Jeremiah".lower()
-    assert match[3][1] == "29:32-30:10,11"
+    assert match[3][1] == "29:32-30:10,12"

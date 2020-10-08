@@ -1,5 +1,4 @@
 from enum import IntEnum
-from pathlib import Path
 
 
 class Book(IntEnum):
@@ -154,6 +153,3 @@ _BOOK_NAMES = {
     Book.MACCABEES_1: "1 Maccabees",
     Book.MACCABEES_2: "2 Maccabees",
 }
-
-with open(Path(__file__).resolve().parent / "data" / "verse_ids.txt") as verse_ids_file:
-    VERSE_IDS = [int(verse_id) for verse_id in verse_ids_file.readlines()]
