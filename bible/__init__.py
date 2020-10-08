@@ -16,4 +16,11 @@ from .validator import (
     is_valid_verse,
     is_valid_verse_id,
 )
-from .verses import get_max_number_of_verses, get_verse_id
+from .verses import (
+    get_book,
+    get_book_chapter_verse,
+    get_chapter,
+    get_max_number_of_verses,
+    get_verse,
+    get_verse_id,
+)
