@@ -88,8 +88,30 @@ The conversion functionality would return the following list of normalized scrip
 ```
 
 ### Converting a list of normalized scripture reference tuples into a formatted string scripture reference
+Given a list of normalized references, this feature formats them into a human-readable scripture reference string.
 
-coming soon...
+It sorts the list so that the references appear in the order they would in the Bible. 
+It also combines verses into ranges when possible.
+
+For example:
+
+```python
+import pythonbible as bible
+
+text = "My favorite verses are Philippians 4:8, Isaiah 55:13, and Philippians 4:4-7."
+references = bible.get_references(text)
+formatted_reference = bible.format_scripture_references(references)
+```
+
+The resulting formatted reference should be:
+
+```python
+'Isaiah 55:13;Philippians 4:4-8'
+```
+
+There are a couple of reference formatting features not yet implemented:
+* Smarter pluralization of the book of Psalms (i.e. If just one Psalm is referenced, the singular "Psalm" should be used, but if more than one Psalm is referenced, the plural "Psalms" should be used.)
+* Optional exclusion of the chapter number for books that contain only one chapter (e.g. Some prefer references like Obadiah 1-4 rather than Obadiah 1:1-4, since Obadiah contains only one chapter.)
 
 ### Given a list of verse id integers, formatting the related Biblical text for print or web display in one or more open source or public domain versions
 
