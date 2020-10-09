@@ -78,7 +78,7 @@ For example, the following list of verse ids represent the references Matthew 18
 import bible
 
 verse_ids = [40018012, 40018013, 40018014, 42015003, 42015004, 42015005, 42015006, 42015007, ]
-bible.convert_verse_ids_to_references(verse_ids)
+references = bible.convert_verse_ids_to_references(verse_ids)
 ```
 
 The conversion functionality would return the following list of normalized scripture reference tuples.
