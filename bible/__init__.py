@@ -1,3 +1,12 @@
+"""
+python-bible includes features for parsing texts for scripture references,
+converting references into integer verse ids for efficient use/storage,
+converting verse ids back into normalized references, and formatting
+references as human-readable strings.
+"""
+
+__version__ = "0.0.1"
+
 from .books import Book
 from .converter import (
     convert_reference_to_verse_ids,
@@ -5,6 +14,7 @@ from .converter import (
     convert_verse_ids_to_references,
 )
 from .errors import InvalidChapterError, InvalidVerseError
+from .formatter import format_scripture_references
 from .parser import (
     get_references,
     normalize_reference,
