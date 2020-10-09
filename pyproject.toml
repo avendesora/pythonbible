@@ -3,7 +3,7 @@ requires = ["flit_core >=2,<4"]
 build-backend = "flit_core.buildapi"
 
 [tool.flit.metadata]
-module = "python-bible"
+module = "pythonbible"
 author = "Nathan Patton"
 author-email = "npatton@gmail.com"
 home-page = "https://github.com/avendesora/python-bible"
