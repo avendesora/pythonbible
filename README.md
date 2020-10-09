@@ -20,10 +20,10 @@ Given a text, search for scripture references and return any that are found in a
 For example, given the following text:
 
 ```python
-import bible
+import pybible
 
 text = "The parable of the lost sheep is told in Matthew 18:12-14 and Luke 15:3-7."
-references = bible.get_references(text)
+references = pybible.get_references(text)
 ```
 
 The search functionality should return the following list of scripture reference tuples:
@@ -57,10 +57,10 @@ Given a normalized scripture reference, which can contain one or more verses, th
 For example, given the following normalized scripture reference for Genesis 1:1-4:
 
 ```python
-import bible
+import pybible
 
-reference = (bible.Book.GENESIS, 1, 1, 1, 4)
-verse_ids = bible.convert_reference_to_verse_ids(reference)
+reference = (pybible.Book.GENESIS, 1, 1, 1, 4)
+verse_ids = pybible.convert_reference_to_verse_ids(reference)
 ```
 
 The conversion functionality would return the following list of verse id integers:
@@ -75,10 +75,10 @@ The reverse of the above feature, we can take a list of integer verse ids and co
 For example, the following list of verse ids represent the references Matthew 18:12-14 and Luke 15:3-7.
 
 ```python
-import bible
+import pybible
 
 verse_ids = [40018012, 40018013, 40018014, 42015003, 42015004, 42015005, 42015006, 42015007, ]
-references = bible.convert_verse_ids_to_references(verse_ids)
+references = pybible.convert_verse_ids_to_references(verse_ids)
 ```
 
 The conversion functionality would return the following list of normalized scripture reference tuples.

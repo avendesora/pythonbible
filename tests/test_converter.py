@@ -1,13 +1,13 @@
 import pytest
 
-import bible
-from bible.converter import is_new_chapter_next_verse
+import pybible
+from pybible.converter import is_new_chapter_next_verse
 
 
 def test_convert_reference_to_verse_ids(reference):
     # Given a valid normalized scripture reference
     # When the reference is converted into a list of verse id integers
-    verse_ids = bible.convert_reference_to_verse_ids(reference)
+    verse_ids = pybible.convert_reference_to_verse_ids(reference)
 
     # Then the resulting list of verse id integers is accurate
     assert len(verse_ids) == 60
@@ -18,7 +18,7 @@ def test_convert_reference_to_verse_ids(reference):
 def test_convert_reference_to_verse_ids_null():
     # Given a null reference
     # When we attempt to convert it into a list of verse ids
-    verse_ids = bible.convert_reference_to_verse_ids(None)
+    verse_ids = pybible.convert_reference_to_verse_ids(None)
 
     # Then the result is null
     assert verse_ids is None
@@ -27,14 +27,14 @@ def test_convert_reference_to_verse_ids_null():
 def test_convert_reference_to_verse_ids_invalid(invalid_reference):
     # Given an invalid reference
     # When we attempt to convert it into a list of verse ids
-    with pytest.raises(bible.InvalidChapterError):
-        bible.convert_reference_to_verse_ids(invalid_reference)
+    with pytest.raises(pybible.InvalidChapterError):
+        pybible.convert_reference_to_verse_ids(invalid_reference)
 
 
 def test_convert_references_to_verse_ids(references, verse_ids):
     # Given a list of valid normalized scripture references
     # When the references are converted into a list of verse id integers
-    actual_verse_ids = bible.convert_references_to_verse_ids(references)
+    actual_verse_ids = pybible.convert_references_to_verse_ids(references)
 
     # Then the resulting list of verse id integers is accurate
     assert actual_verse_ids == verse_ids
@@ -43,7 +43,7 @@ def test_convert_references_to_verse_ids(references, verse_ids):
 def test_convert_references_to_verse_ids_null():
     # Given a null references object
     # When we attempt to convert it into a list of verse ids
-    actual_verse_ids = bible.convert_references_to_verse_ids(None)
+    actual_verse_ids = pybible.convert_references_to_verse_ids(None)
 
     # Then the result is null
     assert actual_verse_ids is None
@@ -54,7 +54,7 @@ def test_convert_references_to_verse_ids_complex(
 ):
     # Given a list of complex references
     # When converted into verse ids
-    actual_verse_ids = bible.convert_references_to_verse_ids(
+    actual_verse_ids = pybible.convert_references_to_verse_ids(
         normalized_references_complex
     )
 
@@ -65,7 +65,7 @@ def test_convert_references_to_verse_ids_complex(
 def test_convert_verse_ids_to_references(verse_ids, references):
     # Given a list of integer verse ids
     # When we convert them into a list of normalized reference tuples
-    actual_references = bible.convert_verse_ids_to_references(verse_ids)
+    actual_references = pybible.convert_verse_ids_to_references(verse_ids)
 
     # Then the resulting list of references is accurate
     assert actual_references == references
@@ -74,7 +74,7 @@ def test_convert_verse_ids_to_references(verse_ids, references):
 def test_convert_verse_ids_to_references_null():
     # Given a null verse_ids object
     # When we attempt to convert them into a list of references
-    actual_references = bible.convert_verse_ids_to_references(None)
+    actual_references = pybible.convert_verse_ids_to_references(None)
 
     # Then the list of references is null
     assert actual_references is None
@@ -84,8 +84,8 @@ def test_convert_verse_ids_to_references_invalid(invalid_verse_id):
     # Given a list of verse ids with an invalid verse id
     # When we attempt to convert them into a list of references
     # Then an error is raised
-    with pytest.raises(bible.InvalidVerseError):
-        bible.convert_verse_ids_to_references([invalid_verse_id])
+    with pytest.raises(pybible.InvalidVerseError):
+        pybible.convert_verse_ids_to_references([invalid_verse_id])
 
 
 def test_convert_verse_ids_to_references_complex(
@@ -93,7 +93,7 @@ def test_convert_verse_ids_to_references_complex(
 ):
     # Given a list of "complex" verse ids
     # When we convert them into a list of references
-    actual_references = bible.convert_verse_ids_to_references(verse_ids_complex)
+    actual_references = pybible.convert_verse_ids_to_references(verse_ids_complex)
 
     # Then the list of references is correct
     assert actual_references == normalized_references_complex
@@ -105,7 +105,7 @@ def test_is_new_chapter_next_verse(book):
     # first chapter and the second verse is the first verse of the next chapter
     chapter_1 = 1
     chapter_2 = 2
-    verse_1 = bible.get_max_number_of_verses(book, chapter_1)
+    verse_1 = pybible.get_max_number_of_verses(book, chapter_1)
     verse_2 = 1
 
     # When we check to see if there are no gaps between the first chapter and verse
@@ -118,7 +118,7 @@ def test_is_new_chapter_next_verse_false(book):
     # Given a book, chapters and verses with a gap
     chapter_1 = 1
     chapter_2 = 2
-    verse_1 = bible.get_max_number_of_verses(book, chapter_1) - 1
+    verse_1 = pybible.get_max_number_of_verses(book, chapter_1) - 1
     verse_2 = 1
 
     # When we check to see if there are no gaps between the first chapter and verse

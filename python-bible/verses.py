@@ -1,7 +1,7 @@
 from pathlib import Path
 
-from bible.books import Book
-from bible.errors import InvalidChapterError, InvalidVerseError
+from pybible.books import Book
+from pybible.errors import InvalidChapterError, InvalidVerseError
 
 with open(Path(__file__).resolve().parent / "data" / "verse_ids.txt") as verse_ids_file:
     VERSE_IDS = [int(verse_id) for verse_id in verse_ids_file.readlines()]

@@ -1,6 +1,6 @@
 import re
 
-from bible.books import Book
+from pybible.books import Book
 
 # noinspection SpellCheckingInspection
 BOOK_REGULAR_EXPRESSIONS = {

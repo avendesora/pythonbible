@@ -1,6 +1,6 @@
-from bible.errors import InvalidVerseError
-from bible.validator import is_valid_verse_id
-from bible.verses import (
+from pybible.errors import InvalidVerseError
+from pybible.validator import is_valid_verse_id
+from pybible.verses import (
     VERSE_IDS,
     get_book_chapter_verse,
     get_max_number_of_verses,

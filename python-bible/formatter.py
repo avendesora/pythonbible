@@ -1,4 +1,4 @@
-from bible.converter import (
+from pybible.converter import (
     convert_references_to_verse_ids,
     convert_verse_ids_to_references,
 )
