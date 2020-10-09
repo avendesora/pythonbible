@@ -1,6 +1,6 @@
 import pytest
 
-import pybible
+import pythonbible as bible
 
 
 @pytest.fixture
@@ -15,7 +15,7 @@ def invalid_verse_id():
 
 @pytest.fixture
 def book():
-    return pybible.Book.GENESIS
+    return bible.Book.GENESIS
 
 
 @pytest.fixture
@@ -51,12 +51,12 @@ def text_with_reference_complex():
 @pytest.fixture
 def normalized_references_complex():
     return [
-        (pybible.Book.PSALMS, 130, 4, 130, 4),
-        (pybible.Book.PSALMS, 130, 8, 130, 8),
-        (pybible.Book.JEREMIAH, 29, 32, 30, 10),
-        (pybible.Book.JEREMIAH, 31, 12, 31, 12),
-        (pybible.Book.MATTHEW, 1, 18, 2, 18),
-        (pybible.Book.LUKE, 3, 5, 3, 7),
+        (bible.Book.PSALMS, 130, 4, 130, 4),
+        (bible.Book.PSALMS, 130, 8, 130, 8),
+        (bible.Book.JEREMIAH, 29, 32, 30, 10),
+        (bible.Book.JEREMIAH, 31, 12, 31, 12),
+        (bible.Book.MATTHEW, 1, 18, 2, 18),
+        (bible.Book.LUKE, 3, 5, 3, 7),
     ]
 
 
@@ -72,12 +72,12 @@ def reference_without_verse_numbers():
 
 @pytest.fixture
 def reference():
-    return pybible.Book.GENESIS, 1, 1, 3, 4
+    return bible.Book.GENESIS, 1, 1, 3, 4
 
 
 @pytest.fixture
 def invalid_reference():
-    return pybible.Book.GENESIS, 1, 1, 100, 100
+    return bible.Book.GENESIS, 1, 1, 100, 100
 
 
 @pytest.fixture
@@ -87,7 +87,7 @@ def reference_string():
 
 @pytest.fixture
 def references():
-    return [(pybible.Book.MATTHEW, 18, 12, 18, 14), (pybible.Book.LUKE, 15, 3, 15, 7)]
+    return [(bible.Book.MATTHEW, 18, 12, 18, 14), (bible.Book.LUKE, 15, 3, 15, 7)]
 
 
 @pytest.fixture

@@ -1,9 +1,9 @@
 import re
 
-from pybible.regular_expressions import BOOK_REGULAR_EXPRESSIONS
-from pybible.regular_expressions import SCRIPTURE_REFERENCE_REGULAR_EXPRESSION
-from pybible.validator import is_valid_reference
-from pybible.verses import get_max_number_of_verses
+from pythonbible.regular_expressions import BOOK_REGULAR_EXPRESSIONS
+from pythonbible.regular_expressions import SCRIPTURE_REFERENCE_REGULAR_EXPRESSION
+from pythonbible.validator import is_valid_reference
+from pythonbible.verses import get_max_number_of_verses
 
 
 def get_references(text):

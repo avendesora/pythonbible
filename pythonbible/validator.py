@@ -1,5 +1,5 @@
-from pybible.books import Book
-from pybible.verses import (
+from pythonbible.books import Book
+from pythonbible.verses import (
     MAX_VERSE_NUMBER_BY_BOOK_AND_CHAPTER,
     VERSE_IDS,
     get_max_number_of_verses,

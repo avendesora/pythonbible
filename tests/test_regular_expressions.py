@@ -1,6 +1,6 @@
 import re
 
-from pybible import regular_expressions
+from pythonbible import regular_expressions
 
 
 def test_chapter_regular_expression():
