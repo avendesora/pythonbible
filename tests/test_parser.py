@@ -44,10 +44,14 @@ def test_normalize_reference_without_verse_numbers(reference_without_verse_numbe
     assert normalized_references[0] == (bible.Book.EXODUS, 20, 1, 20, 26)
 
 
-def test_normalize_reference_range_without_verse_numbers(reference_range_without_verse_numbers):
+def test_normalize_reference_range_without_verse_numbers(
+    reference_range_without_verse_numbers,
+):
     # Given a non-normalized reference that does not contain verse numbers (just book and chapters)
     # When we normalize that reference
-    normalized_references = bible.normalize_reference(reference_range_without_verse_numbers)
+    normalized_references = bible.normalize_reference(
+        reference_range_without_verse_numbers
+    )
 
     # Then the resulting normalized references contain the proper verse numbers
     assert len(normalized_references) == 1
