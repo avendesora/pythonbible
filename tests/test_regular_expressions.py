@@ -142,3 +142,18 @@ def test_multiple_full_references_lower_case():
     assert match[2][1] == "130:4,8"
     assert match[3][0] == "Jeremiah".lower()
     assert match[3][1] == "29:32-30:10,12"
+
+
+def test_reference_with_no_verses():
+    # given a string with a reference with no verse numbers
+    test_string = "The ten commandments can be found in Exodus 20."
+
+    # when evaluating that string against the full regular expression
+    match = re.findall(
+        regular_expressions.SCRIPTURE_REFERENCE_REGULAR_EXPRESSION, test_string
+    )
+
+    # then the matches are found
+    assert len(match) == 1
+    assert match[0][0] == "Exodus"
+    assert match[0][1] == "20"

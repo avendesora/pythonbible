@@ -67,6 +67,11 @@ def non_normalized_reference():
 
 @pytest.fixture
 def reference_without_verse_numbers():
+    return "Exodus 20"
+
+
+@pytest.fixture
+def reference_range_without_verse_numbers():
     return "Genesis 1-4"
 
 

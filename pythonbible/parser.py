@@ -74,6 +74,8 @@ def _process_sub_reference(sub_reference, book, start_chapter):
         else:
             start_chapter = int(min_chapter_and_verse[0].strip())
             start_verse = 1
+            end_chapter = start_chapter
+            end_verse = get_max_number_of_verses(book, end_chapter)
             no_verses = True
     elif len(min_chapter_and_verse) == 2:
         start_chapter = int(min_chapter_and_verse[0].strip())
