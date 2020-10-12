@@ -8,10 +8,22 @@ from pythonbible.verses import (
 
 
 def is_valid_verse_id(verse_id):
+    """
+    Checks to see if the given verse_id is in the list of valid verse ids.
+
+    :param verse_id:
+    :return: True if the verse_id is in the list of valid verse ids; otherwise, False
+    """
     return verse_id in VERSE_IDS
 
 
 def is_valid_reference(reference):
+    """
+    Checks to see if the given reference is a valid normalized scripture reference.
+
+    :param reference:
+    :return: True if the reference is valid; otherwise, False
+    """
     if reference is None or not isinstance(reference, tuple):
         return False
 
@@ -37,10 +49,23 @@ def is_valid_reference(reference):
 
 
 def is_valid_book(book):
+    """
+    Checks to see if the given book is a valid book of the Bible.
+
+    :param book:
+    :return: True if the book is valid; otherwise, False
+    """
     return book and isinstance(book, Book)
 
 
 def is_valid_chapter(book, chapter):
+    """
+    Checks to see if the given chapter number is a valid chapter number for the given book.
+
+    :param book:
+    :param chapter:
+    :return: True, if the chapter is valid for the book; otherwise, False
+    """
     if not is_valid_book(book):
         return False
 
@@ -52,6 +77,14 @@ def is_valid_chapter(book, chapter):
 
 
 def is_valid_verse(book, chapter, verse):
+    """
+    Checks to see if the given verse is a valid verse number for the given book and chapter.
+
+    :param book:
+    :param chapter:
+    :param verse:
+    :return: True if the verse is valid for the book and chapter; otherwise, False
+    """
     if not is_valid_chapter(book, chapter):
         return False
 

@@ -1,13 +1,9 @@
 class InvalidChapterError(Exception):
-    """
-    Raised when the chapter number is not a valid chapter number for the given book of the Bible.
-    """
+    """Raised when the chapter number is not a valid chapter number for the given book of the Bible."""
 
 
 class InvalidVerseError(Exception):
-    """
-    Raised when the verse id or book, chapter, and verse number being processed is not a valid Bible verse.
-    """
+    """Raised when the verse id or book, chapter, and verse number being processed is not a valid Bible verse."""
 
     def __init__(self, message=None, **kwargs):
         self.message = message

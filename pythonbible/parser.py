@@ -9,6 +9,7 @@ from pythonbible.verses import get_max_number_of_verses
 def get_references(text):
     """
     Searches the text for scripture references and returns any that are found in a list of normalized tuple references.
+
     :param text: a string that may contain zero or more scripture references
     :return: a list of tuples. each tuple is in the format (book, start_chapter, start_verse, end_chapter, end_verse)
     """
@@ -23,6 +24,7 @@ def get_references(text):
 def normalize_reference(reference):
     """
     Converts a scripture reference string into a list of normalized tuple references.
+
     :param reference: a string that is a scripture reference
     :return: a list of tuples. each tuple is in the format (book, start_chapter, start_verse, end_chapter, end_verse)
     """
