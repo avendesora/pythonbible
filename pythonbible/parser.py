@@ -2,6 +2,7 @@ import re
 
 from pythonbible.regular_expressions import BOOK_REGULAR_EXPRESSIONS
 from pythonbible.regular_expressions import SCRIPTURE_REFERENCE_REGULAR_EXPRESSION
+from pythonbible.roman_numeral_util import convert_all_roman_numerals_to_integers
 from pythonbible.validator import is_valid_reference
 from pythonbible.verses import get_max_number_of_verses
 
@@ -15,7 +16,10 @@ def get_references(text):
     """
     references = []
 
-    for match in re.finditer(SCRIPTURE_REFERENCE_REGULAR_EXPRESSION, text):
+    # First replace all roman numerals in the text with integers.
+    clean_text = convert_all_roman_numerals_to_integers(text)
+
+    for match in re.finditer(SCRIPTURE_REFERENCE_REGULAR_EXPRESSION, clean_text):
         references.extend(normalize_reference(match[0]))
 
     return references
@@ -64,7 +68,8 @@ def _process_sub_reference(sub_reference, book, start_chapter):
     end_verse = None
     no_verses = False
 
-    chapter_and_verse_range = sub_reference.split("-")
+    clean_sub_reference = sub_reference.replace(".", ":")
+    chapter_and_verse_range = clean_sub_reference.split("-")
     min_chapter_and_verse = chapter_and_verse_range[0]
     min_chapter_and_verse = min_chapter_and_verse.split(":")
 

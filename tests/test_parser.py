@@ -56,3 +56,14 @@ def test_normalize_reference_range_without_verse_numbers(
     # Then the resulting normalized references contain the proper verse numbers
     assert len(normalized_references) == 1
     assert normalized_references[0] == (bible.Book.GENESIS, 1, 1, 4, 26)
+
+
+def test_get_references_roman_numerals(
+    roman_numeral_references, normalized_references_complex
+):
+    # Given a text string with multiple references with roman numerals
+    # When parsing that text
+    references = bible.get_references(roman_numeral_references)
+
+    # Then the references are found and returned in a list of normalized reference tuples
+    assert references == normalized_references_complex

@@ -161,3 +161,8 @@ def verse_ids_complex():
 @pytest.fixture
 def formatted_reference():
     return "Psalms 130:4,8;Jeremiah 29:32-30:10,31:12;Matthew 1:18-2:18;Luke 3:5-7"
+
+
+@pytest.fixture
+def roman_numeral_references():
+    return "Psalm cxxx.4,8, Jeremiah xxix. 32 - xxx. 10, xxxi. 12, Matthew i. 18 - ii. 18, and Luke iii. 5-7."
