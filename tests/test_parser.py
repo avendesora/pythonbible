@@ -67,3 +67,15 @@ def test_get_references_roman_numerals(
 
     # Then the references are found and returned in a list of normalized reference tuples
     assert references == normalized_references_complex
+
+
+def test_philemon_vs_philippians():
+    """https://github.com/avendesora/python-bible/issues/2"""
+    # Given a text string with a reference in the book of Philemon
+    text = "Philemon 1:9"
+
+    # When we parse the references from that text
+    references = bible.get_references(text)
+
+    # Then the parser does not raise an error and returns the appropriate reference
+    assert references == [(bible.Book.PHILEMON, 1, 9, 1, 9)]

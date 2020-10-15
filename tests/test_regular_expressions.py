@@ -1,5 +1,6 @@
 import re
 
+import pythonbible as bible
 from pythonbible import regular_expressions
 
 
@@ -157,3 +158,24 @@ def test_reference_with_no_verses():
     assert len(match) == 1
     assert match[0][0] == "Exodus"
     assert match[0][1] == "20"
+
+
+def test_philemon_not_philippians():
+    # given a string with a Philemon reference
+    text = "Philemon 1:9"
+
+    # when evaluating the string to see if it matches the Philippians regular expression
+    matches = re.findall(
+        regular_expressions.BOOK_REGULAR_EXPRESSIONS.get(bible.Book.PHILIPPIANS), text
+    )
+
+    # then the matches are not found
+    assert len(matches) == 0
+
+    # when evaluating the string to see if it matches the Philemon regular expression
+    matches = re.findall(
+        regular_expressions.BOOK_REGULAR_EXPRESSIONS.get(bible.Book.PHILEMON), text
+    )
+
+    # then the match is found
+    assert len(matches) == 1

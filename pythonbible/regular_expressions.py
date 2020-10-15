@@ -53,7 +53,7 @@ BOOK_REGULAR_EXPRESSIONS = {
     Book.CORINTHIANS_2: r"(?:2|II)(?:\s)?Cor(?:inthians)?",
     Book.GALATIANS: "Gal(?:atians)?",
     Book.EPHESIANS: "Eph(?:esians)?",
-    Book.PHILIPPIANS: "Phil(?:ippians)?",
+    Book.PHILIPPIANS: "Phil(?!emon)(?:ippians)?",
     Book.COLOSSIANS: "Col(?:ossians)?",
     Book.THESSALONIANS_1: r"(?:1|I)(?:\s)?Thess(?:alonians)?",
     Book.THESSALONIANS_2: r"(?:2|II)(?:\s)?Thess(?:alonians)?",
