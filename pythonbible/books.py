@@ -75,11 +75,12 @@ class Book(IntEnum):
     MACCABEES_1 = 71
     MACCABEES_2 = 72
 
-    def name(self):
-        return _BOOK_NAMES.get(self)
+    @property
+    def title(self):
+        return _BOOK_TITLES.get(self)
 
 
-_BOOK_NAMES = {
+_BOOK_TITLES = {
     Book.GENESIS: "Genesis",
     Book.EXODUS: "Exodus",
     Book.LEVITICUS: "Leviticus",

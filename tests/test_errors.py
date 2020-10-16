@@ -34,6 +34,6 @@ def test_invalid_verse_error_with_book_chapter_and_verse(book, chapter, invalid_
     except bible.InvalidVerseError as e:
         # Then the resulting error message is as expected.
         expected_message = (
-            f"{book.name()} {chapter}:{invalid_verse} is not a valid verse."
+            f"{book.title} {chapter}:{invalid_verse} is not a valid verse."
         )
         assert e.message == expected_message

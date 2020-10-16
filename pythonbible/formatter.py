@@ -69,7 +69,7 @@ def format_single_reference(book, start_chapter, start_verse, end_chapter, end_v
     formatted_reference = ""
 
     if book:
-        formatted_reference += f"{book.name()} "
+        formatted_reference += f"{book.title} "
 
     if start_chapter:
         formatted_reference += f"{start_chapter}:{start_verse}"

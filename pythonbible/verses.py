@@ -1350,7 +1350,7 @@ def get_max_number_of_verses(book, chapter):
         return chapter_list[chapter - 1]
     except IndexError:
         raise InvalidChapterError(
-            f"{chapter} is not a valid chapter number for the book of {book.name()}. "
+            f"{chapter} is not a valid chapter number for the book of {book.title}. "
             f"Valid chapter numbers are 1-{len(chapter_list)}."
         )
 
@@ -1369,7 +1369,7 @@ def get_verse_id(book, chapter, verse):
 
     if not 1 <= verse <= max_verse_number:
         raise InvalidVerseError(
-            f"{book.name()} {chapter}:{verse} is not a valid Bible verse. "
+            f"{book.title} {chapter}:{verse} is not a valid Bible verse. "
             f"Valid verses for that book and chapter are 1-{max_verse_number}"
         )
 
