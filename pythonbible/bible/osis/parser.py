@@ -1,3 +1,5 @@
+"""Contains the parser for OSIS format files."""
+
 import os
 from xml.etree import ElementTree
 
@@ -15,10 +17,14 @@ XPATH_VERSE_PARENT = f"{XPATH_VERSE}/.."
 
 
 class OSISParser(BibleParser):
+    """Parse files containing scripture text in the OSIS format."""
+
     def __init__(self, version):
         """
-        Initialize the OSIS Parser with the version, the element tree from the
-        appropriate version XML file, and the namespaces.
+        Initialize the OSIS parser.
+
+        Set the version, the element tree from the appropriate version XML file,
+        and the namespaces.
 
         :param version:
         """
@@ -66,6 +72,8 @@ class OSISParser(BibleParser):
 
     def get_scripture_passage_text(self, verse_ids, include_verse_number=True):
         """
+        Get the scripture passage for the given verse ids.
+
         Given a list of verse ids, return the structured scripture text passage
         organized by book, chapter, and paragraph.
 

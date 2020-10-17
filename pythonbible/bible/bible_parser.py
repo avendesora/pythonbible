@@ -1,7 +1,16 @@
+"""Contains the BibleParser generic parser class."""
+
 from collections import OrderedDict
 
 
 class BibleParser:
+    """
+    Parse files containing scripture text.
+
+    BibleParser is a generic parser to provide common functionality for specific
+    parsers (e.g. OSIS, USFM, USFX, etc.) for parsing scripture text.
+    """
+
     def __init__(self, version):
         """
         Initialize the Bible parser with the version.
@@ -13,6 +22,8 @@ class BibleParser:
 
 def sort_paragraphs(paragraphs):
     """
+    Sort paragraphs of scripture text.
+
     Given a structured collection of paragraphs organized by book, chapter, and
     list of paragraphs, return that collection in an ordered dictionary with the
     books and chapters sorted appropriately. (Assume the list of paragraphs is
