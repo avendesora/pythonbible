@@ -1,7 +1,7 @@
 import os
-from collections import OrderedDict
 from xml.etree import ElementTree
 
+from pythonbible.bible.bible_parser import sort_paragraphs
 from pythonbible.bible.osis.constants import BOOK_IDS, get_book_by_id
 from pythonbible.verses import get_book_chapter_verse, get_verse_id
 
@@ -146,29 +146,12 @@ def get_paragraph_from_element(
             continue
 
         if tag in ["w", "transChange"] and not skip_till_next_verse:
-            paragraph += child_element.text.replace("\n", " ")
-            paragraph += child_element.tail.replace("\n", " ")
+            paragraph += (
+                child_element.text.replace("\n", " ") if child_element.text else ""
+            )
+            paragraph += (
+                child_element.tail.replace("\n", " ") if child_element.tail else ""
+            )
 
     paragraph = paragraph.strip()
     return paragraph, new_current_verse_id
-
-
-def sort_paragraphs(paragraphs):
-    ordered_paragraphs = OrderedDict()
-
-    book_keys = list(paragraphs.keys())
-    book_keys.sort()
-
-    for book in book_keys:
-        chapters = paragraphs.get(book)
-        ordered_chapters = OrderedDict()
-
-        chapter_keys = list(chapters.keys())
-        chapter_keys.sort()
-
-        for chapter in chapter_keys:
-            ordered_chapters[chapter] = chapters.get(chapter)
-
-        ordered_paragraphs[book] = ordered_chapters
-
-    return ordered_paragraphs
