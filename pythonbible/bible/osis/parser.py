@@ -1,7 +1,7 @@
 import os
 from xml.etree import ElementTree
 
-from pythonbible.bible.bible_parser import sort_paragraphs
+from pythonbible.bible.bible_parser import BibleParser, sort_paragraphs
 from pythonbible.bible.osis.constants import BOOK_IDS, get_book_by_id
 from pythonbible.verses import get_book_chapter_verse, get_verse_id
 
@@ -14,19 +14,38 @@ XPATH_VERSE = ".//xmlns:verse[@osisID='{}.{}.{}']"
 XPATH_VERSE_PARENT = f"{XPATH_VERSE}/.."
 
 
-class OSISParser:
+class OSISParser(BibleParser):
     def __init__(self, version):
-        self.version = version
+        """
+        Initialize the OSIS Parser with the version, the element tree from the
+        appropriate version XML file, and the namespaces.
+
+        :param version:
+        """
+        super(OSISParser, self).__init__(version)
+
         self.tree = ElementTree.parse(
             os.path.join(XML_FOLDER, f"{self.version.value.lower()}.xml")
         )
         self.namespaces = {"xmlns": _get_namespace(self.tree.getroot().tag)}
 
     def get_book_title(self, book):
+        """
+        Given a book, return the full title for that book from the XML file.
+
+        :param book:
+        :return: the full title string
+        """
         book_title_element = self._get_book_title_element(book)
         return book_title_element.text
 
     def get_short_book_title(self, book):
+        """
+        Given a book, return the short title for that book from the XML file.
+
+        :param book:
+        :return: the short title string
+        """
         book_title_element = self._get_book_title_element(book)
         return book_title_element.get("short")
 
@@ -34,21 +53,29 @@ class OSISParser:
         xpath = XPATH_BOOK_TITLE.format(BOOK_IDS.get(book))
         return self.tree.find(xpath, namespaces=self.namespaces)
 
-    def get_reference_text(self, verse_id, short_book_title=True):
-        book, chapter, verse = get_book_chapter_verse(verse_id)
-        book_title = (
-            self.get_short_book_title(book)
-            if short_book_title
-            else self.get_book_title(book)
-        )
-        return f"{book_title} {chapter}:{verse}"
-
     def get_verse_text(self, verse_id):
+        """
+        Given a verse_id, return scripture text for that verse.
+
+        :param verse_id:
+        :return: the scripture text string
+        """
         book, chapter, verse = get_book_chapter_verse(verse_id)
         xpath = XPATH_VERSE.format(BOOK_IDS.get(book), chapter, verse)
         return self.tree.find(xpath, namespaces=self.namespaces).tail
 
     def get_scripture_passage_text(self, verse_ids, include_verse_number=True):
+        """
+        Given a list of verse ids, return the structured scripture text passage
+        organized by book, chapter, and paragraph.
+
+        If the include_verse_number parameter is True, include the verse numbers
+        in the scripture passage; otherwise, do not include them.
+
+        :param verse_ids:
+        :param include_verse_number:
+        :return: an OrderedDict(Book, OrderedDict(int, list(string)))
+        """
         paragraphs = _get_paragraphs(
             self.tree, self.namespaces, verse_ids, include_verse_number
         )
@@ -77,7 +104,7 @@ def _get_paragraphs(tree, namespaces, verse_ids, include_verse_number=True):
     paragraph_element = tree.find(
         XPATH_VERSE_PARENT.format(BOOK_IDS.get(book), chapter, verse), namespaces
     )
-    paragraph, current_verse_id = get_paragraph_from_element(
+    paragraph, current_verse_id = _get_paragraph_from_element(
         paragraph_element, verse_ids, current_verse_id, include_verse_number
     )
     current_verse_index = verse_ids.index(current_verse_id) + 1
@@ -105,7 +132,7 @@ def _get_paragraphs(tree, namespaces, verse_ids, include_verse_number=True):
     return paragraph_dictionary
 
 
-def get_paragraph_from_element(
+def _get_paragraph_from_element(
     paragraph_element, verse_ids, current_verse_id, include_verse_number
 ):
     new_current_verse_id = current_verse_id
