@@ -1,5 +1,6 @@
-from pythonbible import Book
+from pythonbible.books import Book
 
+# noinspection SpellCheckingInspection
 BOOK_IDS = {
     Book.GENESIS: "Gen",
     Book.EXODUS: "Exod",
@@ -87,3 +88,11 @@ BOOK_IDS = {
     Book.TOBIT: "Tobit",
     Book.WISDOM_OF_SOLOMON: "Wis",
 }
+
+
+def get_book_by_id(book_id):
+    for next_book, next_book_id in BOOK_IDS.items():
+        if book_id == next_book_id:
+            return next_book
+
+    return None
