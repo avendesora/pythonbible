@@ -17,7 +17,12 @@ XPATH_VERSE_PARENT = f"{XPATH_VERSE}/.."
 
 
 class OSISParser(BibleParser):
-    """Parse files containing scripture text in the OSIS format."""
+    """
+    Parse files containing scripture text in the OSIS format.
+
+    OSISParser extends BibleParser and contains all the functionality necessary
+    to parse XML files that are in the OSIS format.
+    """
 
     def __init__(self, version):
         """
