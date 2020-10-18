@@ -1,7 +1,11 @@
 """Contains the parser for OSIS format files."""
 
 import os
-from xml.etree import ElementTree
+
+try:
+    from defusedxml import ElementTree
+except ModuleNotFoundError:
+    from xml.etree import ElementTree
 
 from pythonbible.bible.bible_parser import BibleParser, sort_paragraphs
 from pythonbible.bible.osis.constants import BOOK_IDS, get_book_by_id
