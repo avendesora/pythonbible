@@ -10,6 +10,15 @@ VERSION_MAP = {Version.AMERICAN_STANDARD: OSISParser, Version.KING_JAMES: OSISPa
 DEFAULT_VERSION = Version.KING_JAMES
 
 
+def get_parser(**kwargs):
+    version = kwargs.get("version", DEFAULT_VERSION)
+    version_map = kwargs.get("version_map", VERSION_MAP)
+    return version_map.get(version)(version)
+
+
+DEFAULT_PARSER = get_parser()
+
+
 # TODO - handle Psalms vs Psalm appropriately
 # TODO - handle single chapter books appropriately (e.g. Obadiah 1-4 rather than Obadiah 1:1-4)
 def format_scripture_references(references, **kwargs):
@@ -77,7 +86,7 @@ def format_single_reference(
     formatted_reference = ""
 
     if book:
-        parser = kwargs.get("parser", get_parser())
+        parser = kwargs.get("parser", DEFAULT_PARSER)
         full_title = kwargs.get("full_title", False)
 
         title = (
@@ -85,9 +94,6 @@ def format_single_reference(
             if full_title
             else parser.get_short_book_title(book)
         )
-
-        if title is None:
-            title = book.title
 
         formatted_reference += f"{title} "
 
@@ -105,7 +111,7 @@ def format_single_reference(
 
 
 def format_scripture_text(verse_ids, **kwargs):
-    parser = kwargs.get("parser", get_parser())
+    parser = kwargs.get("parser", DEFAULT_PARSER)
     include_verse_numbers = kwargs.get("include_verse_numbers", True)
     full_title = kwargs.get("full_title", False)
     title_function = (
@@ -131,9 +137,6 @@ def format_scripture_text(verse_ids, **kwargs):
             if format_type == "html":
                 text += f"<h2>Chapter {chapter}</h2>\n"
             else:
-                if not text.endswith("\n\n"):
-                    text += "\n"
-
                 text += f"Chapter {chapter}\n\n"
 
             for paragraph in paragraphs:
@@ -143,9 +146,3 @@ def format_scripture_text(verse_ids, **kwargs):
                     text += f"   {paragraph}\n"
 
     return text
-
-
-def get_parser(**kwargs):
-    version = kwargs.get("version", DEFAULT_VERSION)
-    version_map = kwargs.get("version_map", VERSION_MAP)
-    return version_map.get(version)(version)

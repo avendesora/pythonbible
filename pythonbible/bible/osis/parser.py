@@ -11,7 +11,6 @@ XML_FOLDER = os.path.join(os.path.dirname(os.path.realpath(__file__)), "versions
 
 XPATH_BOOK = ".//xmlns:div[@osisID='{}']"
 XPATH_BOOK_TITLE = f"{XPATH_BOOK}/xmlns:title"
-XPATH_CHAPTER = ".//xmlns:chapter[@osisRef='{}.{}']"
 XPATH_VERSE = ".//xmlns:verse[@osisID='{}.{}.{}']"
 XPATH_VERSE_PARENT = f"{XPATH_VERSE}/.."
 
@@ -64,17 +63,6 @@ class OSISParser(BibleParser):
         xpath = XPATH_BOOK_TITLE.format(BOOK_IDS.get(book))
         return self.tree.find(xpath, namespaces=self.namespaces)
 
-    def get_verse_text(self, verse_id):
-        """
-        Given a verse_id, return scripture text for that verse.
-
-        :param verse_id:
-        :return: the scripture text string
-        """
-        book, chapter, verse = get_book_chapter_verse(verse_id)
-        xpath = XPATH_VERSE.format(BOOK_IDS.get(book), chapter, verse)
-        return self.tree.find(xpath, namespaces=self.namespaces).tail
-
     def get_scripture_passage_text(self, verse_ids, include_verse_number=True):
         """
         Get the scripture passage for the given verse ids.
@@ -92,14 +80,12 @@ class OSISParser(BibleParser):
         paragraphs = _get_paragraphs(
             self.tree, self.namespaces, verse_ids, include_verse_number
         )
-        return sort_paragraphs(paragraphs)
+
+        return None if paragraphs == [] else sort_paragraphs(paragraphs)
 
 
 def _get_namespace(tag):
-    try:
-        return tag[tag.index("{") + 1 : tag.index("}")]
-    except ValueError:
-        return ""
+    return tag[tag.index("{") + 1 : tag.index("}")]
 
 
 def _strip_namespace_from_tag(tag):
@@ -181,7 +167,7 @@ def _handle_child_element(
     child_element,
     verse_ids,
     skip_till_next_verse,
-    new_current_verse_id,
+    current_verse_id,
     include_verse_number,
 ):
     tag = _strip_namespace_from_tag(child_element.tag)
@@ -191,7 +177,7 @@ def _handle_child_element(
             child_element,
             verse_ids,
             skip_till_next_verse,
-            new_current_verse_id,
+            current_verse_id,
             include_verse_number,
         )
 
@@ -199,7 +185,7 @@ def _handle_child_element(
         return (
             _get_text_and_tail(child_element),
             skip_till_next_verse,
-            new_current_verse_id,
+            current_verse_id,
         )
 
     if tag in ["q"]:
@@ -214,7 +200,7 @@ def _handle_child_element(
                 grandchild_element,
                 verse_ids,
                 skip_till_next_verse,
-                new_current_verse_id,
+                current_verse_id,
                 include_verse_number,
             )
 
@@ -222,42 +208,40 @@ def _handle_child_element(
 
         return paragraph, skip_till_next_verse, new_current_verse_id
 
-    return "", skip_till_next_verse, new_current_verse_id
+    return "", skip_till_next_verse, current_verse_id
 
 
 def _handle_verse_tag(
     child_element,
     verse_ids,
     skip_till_next_verse,
-    new_current_verse_id,
+    current_verse_id,
     include_verse_number,
 ):
     paragraph = ""
     osis_id = child_element.get("osisID")
 
     if osis_id is None:
-        return paragraph, skip_till_next_verse, new_current_verse_id
+        return paragraph, skip_till_next_verse, current_verse_id
 
     book_id, chapter, verse = child_element.get("osisID").split(".")
     book = get_book_by_id(book_id)
     verse_id = get_verse_id(book, int(chapter), int(verse))
 
     if verse_id in verse_ids:
-        new_current_verse_id = verse_id
-
         if skip_till_next_verse:
             skip_till_next_verse = False
 
-            if len(paragraph) > 0:
+            if current_verse_id is not None and verse_id > current_verse_id + 1:
                 paragraph += "... "
 
         if include_verse_number:
             paragraph += f"{verse}. "
 
-        return paragraph, skip_till_next_verse, new_current_verse_id
+        return paragraph, skip_till_next_verse, verse_id
 
     skip_till_next_verse = True
-    return paragraph, skip_till_next_verse, new_current_verse_id
+    return paragraph, skip_till_next_verse, current_verse_id
 
 
 def _get_text_and_tail(element):
