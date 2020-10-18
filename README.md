@@ -2,9 +2,11 @@
 
 This python library serves several purposes related to the Christian Bible and Scripture references.
 
-[![Codacy Badge](https://app.codacy.com/project/badge/Grade/dc1333c64b434f7bb813d08750462921)](https://www.codacy.com/gh/avendesora/python-bible/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=avendesora/python-bible&amp;utm_campaign=Badge_Grade)
-
 ![Test](https://github.com/avendesora/python-bible/workflows/Test/badge.svg)
+
+![CodeQL](https://github.com/avendesora/python-bible/workflows/CodeQL/badge.svg)
+
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/dc1333c64b434f7bb813d08750462921)](https://www.codacy.com/gh/avendesora/python-bible/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=avendesora/python-bible&amp;utm_campaign=Badge_Grade)
 
 ## Installation
 
