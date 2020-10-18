@@ -153,45 +153,114 @@ def _get_paragraph_from_element(
     skip_till_next_verse = False
 
     for child_element in list(paragraph_element):
-        tag = _strip_namespace_from_tag(child_element.tag)
+        (
+            child_paragraph,
+            skip_till_next_verse,
+            new_current_verse_id,
+        ) = _handle_child_element(
+            child_element,
+            verse_ids,
+            skip_till_next_verse,
+            new_current_verse_id,
+            include_verse_number,
+        )
 
-        if tag == "verse":
-            osis_id = child_element.get("osisID")
-
-            if osis_id is None:
-                continue
-
-            book_id, chapter, verse = child_element.get("osisID").split(".")
-            book = get_book_by_id(book_id)
-            verse_id = get_verse_id(book, int(chapter), int(verse))
-
-            if verse_id in verse_ids:
-                new_current_verse_id = verse_id
-
-                if skip_till_next_verse:
-                    skip_till_next_verse = False
-
-                    if len(paragraph) > 0:
-                        paragraph += "... "
-
-                if len(paragraph) > 0 and paragraph[-1] != " ":
-                    paragraph += " "
-
-                if include_verse_number:
-                    paragraph += f"{verse}. "
-
-                continue
-
-            skip_till_next_verse = True
+        if len(child_paragraph) == 0:
             continue
 
-        if tag in ["w", "transChange"] and not skip_till_next_verse:
-            paragraph += (
-                child_element.text.replace("\n", " ") if child_element.text else ""
-            )
-            paragraph += (
-                child_element.tail.replace("\n", " ") if child_element.tail else ""
-            )
+        if len(paragraph) > 0 and not paragraph.endswith(" "):
+            paragraph += " "
+
+        paragraph += child_paragraph
 
     paragraph = paragraph.strip()
     return paragraph, new_current_verse_id
+
+
+def _handle_child_element(
+    child_element,
+    verse_ids,
+    skip_till_next_verse,
+    new_current_verse_id,
+    include_verse_number,
+):
+    tag = _strip_namespace_from_tag(child_element.tag)
+
+    if tag == "verse":
+        return _handle_verse_tag(
+            child_element,
+            verse_ids,
+            skip_till_next_verse,
+            new_current_verse_id,
+            include_verse_number,
+        )
+
+    if tag in ["w", "transChange"] and not skip_till_next_verse:
+        return (
+            _get_text_and_tail(child_element),
+            skip_till_next_verse,
+            new_current_verse_id,
+        )
+
+    if tag in ["q"]:
+        paragraph = ""
+
+        for grandchild_element in list(child_element):
+            (
+                grandchild_paragraph,
+                skip_till_next_verse,
+                new_current_verse_id,
+            ) = _handle_child_element(
+                grandchild_element,
+                verse_ids,
+                skip_till_next_verse,
+                new_current_verse_id,
+                include_verse_number,
+            )
+
+            paragraph += grandchild_paragraph
+
+        return paragraph, skip_till_next_verse, new_current_verse_id
+
+    return "", skip_till_next_verse, new_current_verse_id
+
+
+def _handle_verse_tag(
+    child_element,
+    verse_ids,
+    skip_till_next_verse,
+    new_current_verse_id,
+    include_verse_number,
+):
+    paragraph = ""
+    osis_id = child_element.get("osisID")
+
+    if osis_id is None:
+        return paragraph, skip_till_next_verse, new_current_verse_id
+
+    book_id, chapter, verse = child_element.get("osisID").split(".")
+    book = get_book_by_id(book_id)
+    verse_id = get_verse_id(book, int(chapter), int(verse))
+
+    if verse_id in verse_ids:
+        new_current_verse_id = verse_id
+
+        if skip_till_next_verse:
+            skip_till_next_verse = False
+
+            if len(paragraph) > 0:
+                paragraph += "... "
+
+        if include_verse_number:
+            paragraph += f"{verse}. "
+
+        return paragraph, skip_till_next_verse, new_current_verse_id
+
+    skip_till_next_verse = True
+    return paragraph, skip_till_next_verse, new_current_verse_id
+
+
+def _get_text_and_tail(element):
+    text = element.text.replace("\n", " ") if element.text else ""
+    tail = element.tail.replace("\n", " ") if element.tail else ""
+    return text + tail
