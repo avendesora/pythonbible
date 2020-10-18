@@ -1,5 +1,7 @@
 # python-bible
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/f960c0ad089645e49d91541c6b968fa6)](https://app.codacy.com/gh/avendesora/python-bible?utm_source=github.com&utm_medium=referral&utm_content=avendesora/python-bible&utm_campaign=Badge_Grade_Settings)
+
 This python library serves several purposes related to the Christian Bible and Scripture references.
 
 <a href="https://github.com/avendesora/python-bible/actions?query=workflow%3ATest" target="_blank">
