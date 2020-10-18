@@ -14,6 +14,14 @@ This python library serves several purposes related to the Christian Bible and S
 pip install pythonbible
 ```
 
+### Optional Dependencies
+
+If the [defusedxml](https://github.com/tiran/defusedxml) library is installed, pythonbible will use it to parse XML files rather than the builtin xml.etree libary. Execute the following command if you choose to install the defusedxml python library.
+
+```shell script
+pip install defusedxml
+```
+
 ## Features
 
 ### Searching text for scripture references
