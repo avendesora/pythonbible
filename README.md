@@ -1,6 +1,6 @@
-# python-bible
+# pythonbible
 
-This python library serves several purposes related to the Christian Bible and Scripture references.
+The pythonbible library serves several purposes related to the Christian Bible and Scripture references.
 
 ![Test](https://github.com/avendesora/python-bible/workflows/Test/badge.svg)
 ![CodeQL](https://github.com/avendesora/python-bible/workflows/CodeQL/badge.svg)
@@ -16,10 +16,12 @@ pip install pythonbible
 
 ### Optional Dependencies
 
-If the [defusedxml](https://github.com/tiran/defusedxml) library is installed, pythonbible will use it to parse XML files rather than the builtin xml.etree libary. Execute the following command if you choose to install the defusedxml python library.
+If the [defusedxml](https://github.com/tiran/defusedxml) library is installed, pythonbible will use it to parse XML files rather than the builtin xml.etree libary.
+
+To install pythonbible with all optional dependencies, use the following command.
 
 ```shell script
-pip install defusedxml
+pip install pythonbible[all]
 ```
 
 ## Features
