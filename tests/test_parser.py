@@ -70,7 +70,7 @@ def test_get_references_roman_numerals(
 
 
 def test_philemon_vs_philippians():
-    """https://github.com/avendesora/python-bible/issues/2"""
+    """Test for https://github.com/avendesora/python-bible/issues/2!"""
     # Given a text string with a reference in the book of Philemon
     text = "Philemon 1:9"
 
