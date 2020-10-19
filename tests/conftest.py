@@ -475,3 +475,36 @@ def non_html_scripture_text():
         "joy shall be in heaven over one sinner that repenteth, more than over "
         "ninety and nine just persons, which need no repentance.\n"
     )
+
+
+@pytest.fixture
+def html_scripture_text_one_verse_per_paragraph():
+    return (
+        "<h1>Matthew</h1>\n"
+        "<h2>Chapter 18</h2>\n"
+        "<p>12. How think ye? if a man have an hundred sheep, and one of them "
+        "be gone astray, doth he not leave the ninety and nine, and goeth into "
+        "the mountains, and seeketh that which is gone astray?</p>\n"
+        "<p>13. And if so be that he find it, verily I say unto you, he rejoiceth "
+        "more of that sheep, than of the ninety and nine which went not astray.</p>\n"
+        "<p>14. Even so it is not the will of your Father which is in heaven, "
+        "that one of these little ones should perish.</p>\n"
+        "<h1>Luke</h1>\n"
+        "<h2>Chapter 15</h2>\n"
+        "<p>3. And he spake this parable unto them, saying,</p>\n"
+        "<p>4. What man of you, having an hundred sheep, if he lose one of them, "
+        "doth not leave the ninety and nine in the wilderness, and go after that "
+        "which is lost, until he find it?</p>\n"
+        "<p>5. And when he hath found it, he layeth it on his shoulders, rejoicing.</p>\n"
+        "<p>6. And when he cometh home, he calleth together his friends and neighbours, "
+        "saying unto them, Rejoice with me; for I have found my sheep which was "
+        "lost.</p>\n"
+        "<p>7. I say unto you, that likewise joy shall be in heaven over one sinner "
+        "that repenteth, more than over ninety and nine just persons, which need "
+        "no repentance.</p>\n"
+    )
+
+
+@pytest.fixture
+def verse_text():
+    return "1. In the beginning God created the heaven and the earth."

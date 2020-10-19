@@ -50,3 +50,16 @@ def test_format_scripture_text_non_html(verse_ids, non_html_scripture_text):
 
     # Then the scripture text is formatted correctly.
     assert scripture_text == non_html_scripture_text
+
+
+def test_format_scripture_text_one_verse_per_paragraph(
+    verse_ids, html_scripture_text_one_verse_per_paragraph
+):
+    # Given a list of verse ids
+    # When we get the scripture text for those verse ids
+    scripture_text = bible.format_scripture_text(
+        verse_ids, one_verse_per_paragraph=True
+    )
+
+    # Then the scripture text is formatted correctly.
+    assert scripture_text == html_scripture_text_one_verse_per_paragraph

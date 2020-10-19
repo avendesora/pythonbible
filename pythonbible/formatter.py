@@ -112,7 +112,6 @@ def format_single_reference(
 
 def format_scripture_text(verse_ids, **kwargs):
     parser = kwargs.get("parser", DEFAULT_PARSER)
-    include_verse_numbers = kwargs.get("include_verse_numbers", True)
     full_title = kwargs.get("full_title", False)
     title_function = (
         parser.get_book_title if full_title else parser.get_short_book_title
@@ -120,7 +119,7 @@ def format_scripture_text(verse_ids, **kwargs):
     format_type = kwargs.get("format_type", "html")
     text = ""
 
-    paragraphs = parser.get_scripture_passage_text(verse_ids, include_verse_numbers)
+    paragraphs = parser.get_scripture_passage_text(verse_ids, **kwargs)
 
     for book, chapters in paragraphs.items():
         title = title_function(book)

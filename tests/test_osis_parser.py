@@ -1,3 +1,5 @@
+import pytest
+
 import pythonbible as bible
 from pythonbible.formatter import DEFAULT_PARSER
 
@@ -56,3 +58,28 @@ def test_get_short_book_title():
 
 def test_get_scripture_passage_null():
     assert DEFAULT_PARSER.get_scripture_passage_text(None) is None
+
+
+def test_get_verse_text(verse_id, verse_text):
+    # Given a verse id
+    # When we get the scripture text for that verse id
+    actual_text = DEFAULT_PARSER.get_verse_text(verse_id)
+
+    # Then it is what we expect it to be.
+    assert actual_text == verse_text
+
+
+def test_get_verse_text_null():
+    # Given a null verse id
+    # When we attempt to get the scripture text for that verse id
+    # Then it raise an InvalidVerseError
+    with pytest.raises(bible.InvalidVerseError):
+        DEFAULT_PARSER.get_verse_text(None)
+
+
+def test_get_verse_text_invalid_verse(invalid_verse_id):
+    # Given an invalid verse id
+    # When we attempt to get the scripture text for that verse id
+    # Then it raise an InvalidVerseError
+    with pytest.raises(bible.InvalidVerseError):
+        DEFAULT_PARSER.get_verse_text(invalid_verse_id)
