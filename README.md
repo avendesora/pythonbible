@@ -22,7 +22,7 @@ pip install pythonbible
 
 ### Optional Dependencies
 
-If the [defusedxml](https://github.com/tiran/defusedxml) library is installed, pythonbible will use it to parse XML files rather than the builtin xml.etree libary.
+If the [defusedxml](https://github.com/tiran/defusedxml) library is installed, pythonbible will use it to parse XML files rather than the builtin xml.etree library.
 
 To install pythonbible with all optional dependencies, use the following command.
 
