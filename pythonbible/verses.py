@@ -1337,6 +1337,16 @@ MAX_VERSE_NUMBER_BY_BOOK_AND_CHAPTER = {
 }
 
 
+def get_number_of_chapters(book):
+    """
+    Given a book of the Bible, return the number of chapters in that book.
+
+    :param book:
+    :return: the int number of chapters in the given book of the Bible.
+    """
+    return len(MAX_VERSE_NUMBER_BY_BOOK_AND_CHAPTER.get(book))
+
+
 def get_max_number_of_verses(book, chapter):
     """
 
