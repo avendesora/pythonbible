@@ -4,7 +4,7 @@ from pythonbible.regular_expressions import BOOK_REGULAR_EXPRESSIONS
 from pythonbible.regular_expressions import SCRIPTURE_REFERENCE_REGULAR_EXPRESSION
 from pythonbible.roman_numeral_util import convert_all_roman_numerals_to_integers
 from pythonbible.validator import is_valid_reference
-from pythonbible.verses import get_max_number_of_verses
+from pythonbible.verses import get_max_number_of_verses, get_number_of_chapters
 
 
 def get_references(text):
@@ -44,20 +44,25 @@ def normalize_reference(reference):
 
     start_chapter = None
 
-    for sub_reference in reference_without_book.split(","):
-        start_chapter, start_verse, end_chapter, end_verse = _process_sub_reference(
-            sub_reference, book, start_chapter
-        )
+    if len(reference_without_book.strip()) == 0:
+        max_chapter = get_number_of_chapters(book)
+        max_verse = get_max_number_of_verses(book, max_chapter)
+        references.append((book, 1, 1, max_chapter, max_verse))
+    else:
+        for sub_reference in reference_without_book.split(","):
+            start_chapter, start_verse, end_chapter, end_verse = _process_sub_reference(
+                sub_reference, book, start_chapter
+            )
 
-        new_reference = (book, start_chapter, start_verse, end_chapter, end_verse)
+            new_reference = (book, start_chapter, start_verse, end_chapter, end_verse)
 
-        if is_valid_reference(new_reference):
-            references.append(new_reference)
-        else:
-            # TODO - ignore? raise error?
-            pass
+            if is_valid_reference(new_reference):
+                references.append(new_reference)
+            else:
+                # TODO - ignore? raise error?
+                pass
 
-        start_chapter = end_chapter
+            start_chapter = end_chapter
 
     return references
 
