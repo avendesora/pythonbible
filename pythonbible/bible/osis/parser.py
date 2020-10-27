@@ -287,6 +287,11 @@ def _get_text_and_tail(element):
 
 
 def _is_next_verse(child_element, verse_ids, current_verse_id):
+    tag = _strip_namespace_from_tag(child_element.tag)
+
+    if tag != "verse":
+        return False
+
     osis_id = child_element.get("osisID")
 
     if osis_id is None:
