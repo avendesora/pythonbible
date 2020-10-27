@@ -3,6 +3,7 @@
 The pythonbible library serves several purposes related to the Christian Bible and Scripture references.
 
 [![PyPI version](https://badge.fury.io/py/pythonbible.svg)](https://badge.fury.io/py/pythonbible)
+[![license MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
 ![Test](https://github.com/avendesora/python-bible/workflows/Test/badge.svg)
 ![CodeQL](https://github.com/avendesora/python-bible/workflows/CodeQL/badge.svg)
@@ -13,6 +14,8 @@ The pythonbible library serves several purposes related to the Christian Bible a
 [![Python 3.6](https://img.shields.io/badge/python-3.6-blue.svg)](https://www.python.org/downloads/release/python-360/)
 [![Python 3.7](https://img.shields.io/badge/python-3.7-blue.svg)](https://www.python.org/downloads/release/python-370/)
 [![Python 3.8](https://img.shields.io/badge/python-3.8-blue.svg)](https://www.python.org/downloads/release/python-380/)
+
+
 
 ## Installation
 
