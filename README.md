@@ -9,13 +9,9 @@ The pythonbible library serves several purposes related to the Christian Bible a
 ![CodeQL](https://github.com/avendesora/python-bible/workflows/CodeQL/badge.svg)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/dc1333c64b434f7bb813d08750462921)](https://www.codacy.com/gh/avendesora/python-bible/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=avendesora/python-bible&amp;utm_campaign=Badge_Grade)
 [![Codacy Badge](https://app.codacy.com/project/badge/Coverage/dc1333c64b434f7bb813d08750462921)](https://www.codacy.com/gh/avendesora/python-bible/dashboard?utm_source=github.com&utm_medium=referral&utm_content=avendesora/python-bible&utm_campaign=Badge_Coverage)
-[![Black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
-[![Python 3.6](https://img.shields.io/badge/python-3.6-blue.svg)](https://www.python.org/downloads/release/python-360/)
-[![Python 3.7](https://img.shields.io/badge/python-3.7-blue.svg)](https://www.python.org/downloads/release/python-370/)
-[![Python 3.8](https://img.shields.io/badge/python-3.8-blue.svg)](https://www.python.org/downloads/release/python-380/)
-
-
+[![Python 3.8](https://img.shields.io/badge/python-3.6%20%7C%203.7%20%7C%203.8-blue?logo=python)](https://www.python.org/downloads/release/python-380/)
 
 ## Installation
 
