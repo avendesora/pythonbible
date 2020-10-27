@@ -125,3 +125,16 @@ def test_is_new_chapter_next_verse_false(book):
     # and the second chapter and verse
     # Then the result is False
     assert not is_new_chapter_next_verse(book, chapter_1, verse_1, chapter_2, verse_2)
+
+
+def test_whole_book():
+    """Test for https://github.com/avendesora/python-bible/issues/7!"""
+    # Given a reference that is just a book title
+    reference_string = "Genesis"
+
+    # When we convert that to normalized references
+    references = bible.get_references(reference_string)
+
+    # Then it should return the normalized reference for the entire book.
+    assert len(references) == 1
+    assert references[0] == (bible.Book.GENESIS, 1, 1, 50, 26)
