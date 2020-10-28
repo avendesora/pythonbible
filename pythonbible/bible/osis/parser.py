@@ -169,8 +169,7 @@ def _get_paragraph_from_element(
         if one_verse_per_paragraph and _is_next_verse(
             child_element, verse_ids, new_current_verse_id
         ):
-            paragraph = paragraph.strip()
-            paragraphs.append(paragraph)
+            paragraphs.append(clean_paragraph(paragraph))
             paragraph = ""
 
         (
@@ -193,8 +192,7 @@ def _get_paragraph_from_element(
 
         paragraph += child_paragraph
 
-    paragraph = paragraph.strip()
-    paragraphs.append(paragraph)
+    paragraphs.append(clean_paragraph(paragraph))
     return paragraphs, new_current_verse_id
 
 
@@ -274,6 +272,8 @@ def _handle_verse_tag(
         if include_verse_number:
             paragraph += f"{verse}. "
 
+        paragraph += _get_text_and_tail(child_element)
+
         return paragraph, skip_till_next_verse, verse_id
 
     skip_till_next_verse = True
@@ -305,3 +305,9 @@ def _is_next_verse(child_element, verse_ids, current_verse_id):
         return current_verse_id is not None and verse_id > current_verse_id
 
     return False
+
+
+def clean_paragraph(paragraph):
+    cleaned_paragraph = paragraph.replace("¶", "").replace("  ", " ")
+    cleaned_paragraph = cleaned_paragraph.strip()
+    return cleaned_paragraph
