@@ -98,3 +98,18 @@ def test_get_scripture_passage_one_verse_per_paragraph():
 
     # Then it does not raise an exception
     assert passage is not None
+
+
+def test_exodus_20_3_asv():
+    """Test for https://github.com/avendesora/python-bible/issues/9!"""
+    # Given the reference Exodus 20:3
+    text = "Exodus 20:3"
+
+    # When we get the verse text using the ASV parser
+    references = bible.get_references(text)
+    verse_id = bible.convert_references_to_verse_ids(references)[0]
+    parser = bible.get_parser(version=bible.Version.AMERICAN_STANDARD)
+    verse_text = parser.get_verse_text(verse_id)
+
+    # Then the verse text is not missing any words.
+    assert verse_text == "3. Thou shalt have no other gods before me."
