@@ -3,7 +3,7 @@
 The pythonbible library serves several purposes related to the Christian Bible and Scripture references.
 
 [![PyPI version](https://img.shields.io/pypi/v/pythonbible?color=blue&logo=pypi&logoColor=lightgray)](https://pypi.org/project/pythonbible/)
-[![license MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+[![license MIT](https://img.shields.io/badge/license-MIT-orange.svg)](https://opensource.org/licenses/MIT)
 
 ![Test](https://github.com/avendesora/python-bible/workflows/Test/badge.svg)
 ![CodeQL](https://github.com/avendesora/python-bible/workflows/CodeQL/badge.svg)
