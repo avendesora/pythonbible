@@ -7,7 +7,9 @@ from pythonbible.roman_numeral_util import convert_all_roman_numerals_to_integer
 from pythonbible.validator import is_valid_reference
 from pythonbible.verses import get_max_number_of_verses, get_number_of_chapters
 
-NormalizedReference = namedtuple("NormalizedReference", "book start_chapter start_verse end_chapter end_verse")
+NormalizedReference = namedtuple(
+    "NormalizedReference", "book start_chapter start_verse end_chapter end_verse"
+)
 
 
 def get_references(text):
@@ -57,7 +59,9 @@ def normalize_reference(reference):
                 sub_reference, book, start_chapter
             )
 
-            new_reference = NormalizedReference(book, start_chapter, start_verse, end_chapter, end_verse)
+            new_reference = NormalizedReference(
+                book, start_chapter, start_verse, end_chapter, end_verse
+            )
 
             if is_valid_reference(new_reference):
                 references.append(new_reference)
