@@ -113,3 +113,20 @@ def test_exodus_20_3_asv():
 
     # Then the verse text is not missing any words.
     assert verse_text == "3. Thou shalt have no other gods before me."
+
+
+def test_mark_9_38_kjv():
+    """Test for https://github.com/avendesora/python-bible/issues/12!"""
+    # Given the verse id for Mark 9:38
+    verse_id = 41009038
+
+    # When we get the verse text using the KJV parser
+    parser = bible.get_parser(version=bible.Version.KING_JAMES)
+    verse_text = parser.get_verse_text(verse_id)
+
+    # Then there are no errors and the verse text is as expected
+    assert (
+        verse_text == "38. And John answered him, saying, Master, we saw one "
+        "casting out devils in thy name, and he followeth not us: "
+        "and we forbad him, because he followeth not us."
+    )

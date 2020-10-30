@@ -94,7 +94,10 @@ def reference_string():
 
 @pytest.fixture
 def references():
-    return [bible.NormalizedReference(bible.Book.MATTHEW, 18, 12, 18, 14), bible.NormalizedReference(bible.Book.LUKE, 15, 3, 15, 7)]
+    return [
+        bible.NormalizedReference(bible.Book.MATTHEW, 18, 12, 18, 14),
+        bible.NormalizedReference(bible.Book.LUKE, 15, 3, 15, 7),
+    ]
 
 
 @pytest.fixture
