@@ -35,8 +35,12 @@ def convert_reference_to_verse_ids(reference):
     if reference is None:
         return None
 
-    start_verse_id = get_verse_id(reference.book, reference.start_chapter, reference.start_verse)
-    end_verse_id = get_verse_id(reference.book, reference.end_chapter, reference.end_verse)
+    start_verse_id = get_verse_id(
+        reference.book, reference.start_chapter, reference.start_verse
+    )
+    end_verse_id = get_verse_id(
+        reference.book, reference.end_chapter, reference.end_verse
+    )
     return VERSE_IDS[
         VERSE_IDS.index(start_verse_id) : VERSE_IDS.index(end_verse_id) + 1
     ]
