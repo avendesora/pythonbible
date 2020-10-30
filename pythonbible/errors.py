@@ -19,3 +19,7 @@ class InvalidVerseError(Exception):
                 self.message = f"{self.verse_id} is not a valid verse."
 
         super(InvalidVerseError, self).__init__(self.message)
+
+
+class InvalidBibleParserError(Exception):
+    """Raised when the Bible parser is not valid."""

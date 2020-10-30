@@ -511,3 +511,28 @@ def html_scripture_text_one_verse_per_paragraph():
 @pytest.fixture
 def verse_text():
     return "1. In the beginning God created the heaven and the earth."
+
+
+@pytest.fixture
+def kjv_parser():
+    return bible.get_parser(version=bible.Version.KING_JAMES)
+
+
+@pytest.fixture
+def short_verse_id_list():
+    return [
+        1001001,
+        2020003,
+        41009038,
+    ]
+
+
+@pytest.fixture
+def short_verse_data_json():
+    return {
+        "1001001": "In the beginning God created the heaven and the earth.",
+        "2020003": "Thou shalt have no other gods before me.",
+        "41009038": "And John answered him, saying, Master, we saw one casting "
+        "out devils in thy name, and he followeth not us: and we "
+        "forbad him, because he followeth not us.",
+    }
