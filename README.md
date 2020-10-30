@@ -128,8 +128,8 @@ The resulting formatted reference should be:
 ```
 
 There are a couple of reference formatting features not yet implemented:
-*  Smarter pluralization of the book of Psalms (i.e. If just one Psalm is referenced, the singular "Psalm" should be used, but if more than one Psalm is referenced, the plural "Psalms" should be used.)
-*  Optional exclusion of the chapter number for books that contain only one chapter (e.g. Some prefer references like Obadiah 1-4 rather than Obadiah 1:1-4, since Obadiah contains only one chapter.)
+  * Smarter pluralization of the book of Psalms (i.e. If just one Psalm is referenced, the singular "Psalm" should be used, but if more than one Psalm is referenced, the plural "Psalms" should be used.)
+  * Optional exclusion of the chapter number for books that contain only one chapter (e.g. Some prefer references like Obadiah 1-4 rather than Obadiah 1:1-4, since Obadiah contains only one chapter.)
 
 ### Given a list of verse id integers, formatting the related Biblical text for print or web display in one or more open source or public domain versions
 
