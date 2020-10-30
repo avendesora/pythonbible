@@ -21,10 +21,7 @@ from .formatter import (
     format_single_reference,
     get_parser,
 )
-from .parser import (
-    get_references,
-    normalize_reference,
-)
+from .parser import (NormalizedReference, get_references, normalize_reference)
 from .validator import (
     is_valid_book,
     is_valid_chapter,

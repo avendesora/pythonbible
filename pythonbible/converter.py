@@ -1,4 +1,5 @@
 from pythonbible.errors import InvalidVerseError
+from pythonbible.parser import NormalizedReference
 from pythonbible.validator import is_valid_verse_id
 from pythonbible.verses import (
     VERSE_IDS,
@@ -34,8 +35,8 @@ def convert_reference_to_verse_ids(reference):
     if reference is None:
         return None
 
-    start_verse_id = get_verse_id(reference[0], reference[1], reference[2])
-    end_verse_id = get_verse_id(reference[0], reference[3], reference[4])
+    start_verse_id = get_verse_id(reference.book, reference.start_chapter, reference.start_verse)
+    end_verse_id = get_verse_id(reference.book, reference.end_chapter, reference.end_verse)
     return VERSE_IDS[
         VERSE_IDS.index(start_verse_id) : VERSE_IDS.index(end_verse_id) + 1
     ]
@@ -76,7 +77,7 @@ def convert_verse_ids_to_references(verse_ids):
         # A new book should always mean a new reference.
         if book != current_book:
             references.append(
-                (
+                NormalizedReference(
                     current_book,
                     current_start_chapter,
                     current_start_verse,
@@ -123,7 +124,7 @@ def convert_verse_ids_to_references(verse_ids):
         # verse, then that should mean a new reference.
         if verse != current_end_verse + 1:
             references.append(
-                (
+                NormalizedReference(
                     current_book,
                     current_start_chapter,
                     current_start_verse,
@@ -147,7 +148,7 @@ def convert_verse_ids_to_references(verse_ids):
     # (assuming that at least one verse id was valid).
     if current_book:
         references.append(
-            (
+            NormalizedReference(
                 current_book,
                 current_start_chapter,
                 current_start_verse,
