@@ -221,8 +221,9 @@ def _handle_child_element(
             current_verse_id,
         )
 
-    if tag in ["q"]:
+    if tag in ["q"] and not skip_till_next_verse:
         paragraph = ""
+        new_current_verse_id = current_verse_id
 
         for grandchild_element in list(child_element):
             (
