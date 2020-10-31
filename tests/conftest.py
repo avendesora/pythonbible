@@ -514,6 +514,11 @@ def verse_text():
 
 
 @pytest.fixture
+def verse_text_no_verse_number():
+    return "In the beginning God created the heaven and the earth."
+
+
+@pytest.fixture
 def kjv_parser():
     return bible.get_parser(version=bible.Version.KING_JAMES)
 

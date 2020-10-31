@@ -1,12 +1,9 @@
 import json
 import os
 
-from pythonbible import OSISParser
+from pythonbible.bible.osis.parser import OSISParser
 from pythonbible.errors import InvalidBibleParserError
-from pythonbible.verses import VERSE_IDS
-
-CURRENT_FOLDER = os.path.dirname(os.path.realpath(__file__))
-VERSE_DATA_FOLDER = os.path.join(CURRENT_FOLDER, "verse_data")
+from pythonbible.verses import VERSE_DATA_FOLDER, VERSE_IDS
 
 
 class JSONConverter:

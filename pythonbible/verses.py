@@ -1,7 +1,10 @@
+import json
+import os
 from pathlib import Path
 
 from pythonbible.books import Book
 from pythonbible.errors import InvalidChapterError, InvalidVerseError
+from pythonbible.versions import DEFAULT_VERSION
 
 with open(Path(__file__).resolve().parent / "data" / "verse_ids.txt") as verse_ids_file:
     VERSE_IDS = [int(verse_id) for verse_id in verse_ids_file.readlines()]
@@ -1390,16 +1393,49 @@ def get_book_chapter_verse(verse_id):
     if verse_id not in VERSE_IDS:
         raise InvalidVerseError(verse_id=verse_id)
 
-    return Book(get_book(verse_id)), get_chapter(verse_id), get_verse(verse_id)
+    return (
+        Book(get_book_number(verse_id)),
+        get_chapter_number(verse_id),
+        get_verse_number(verse_id),
+    )
 
 
-def get_book(verse_id):
+def get_book_number(verse_id):
     return int(verse_id / 1000000)
 
 
-def get_chapter(verse_id):
+def get_chapter_number(verse_id):
     return int(verse_id % 1000000 / 1000)
 
 
-def get_verse(verse_id):
+def get_verse_number(verse_id):
     return int(verse_id % 1000)
+
+
+CURRENT_FOLDER = os.path.dirname(os.path.realpath(__file__))
+VERSE_DATA_FOLDER = os.path.join(os.path.join(CURRENT_FOLDER, "bible"), "verse_data")
+VERSE_TEXTS = {}
+
+
+def get_verse_text(verse_id, version=DEFAULT_VERSION):
+    if verse_id not in VERSE_IDS:
+        raise InvalidVerseError(verse_id=verse_id)
+
+    version_verse_texts = _get_version_verse_texts(version)
+    return version_verse_texts.get(verse_id)
+
+
+def _get_version_verse_texts(version):
+    verse_texts = VERSE_TEXTS.get(version)
+
+    if verse_texts is None:
+        json_filename = os.path.join(VERSE_DATA_FOLDER, f"{version.value.lower()}.json")
+        verse_texts = {}
+
+        with open(json_filename, "r") as json_file:
+            for verse_id, verse_text in json.load(json_file).items():
+                verse_texts[int(verse_id)] = verse_text
+
+        VERSE_TEXTS[version] = verse_texts
+
+    return verse_texts

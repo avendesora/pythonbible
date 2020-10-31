@@ -1,6 +1,7 @@
 import pytest
 
 import pythonbible as bible
+from pythonbible import InvalidVerseError
 
 
 def test_get_verse_id(book, chapter, verse, verse_id):
@@ -68,7 +69,7 @@ def test_get_book_chapter_verse_invalid(invalid_verse_id):
 def test_get_book(verse_id, book):
     # Given a valid verse id
     # When using that verse id to get the book
-    book_number = bible.get_book(verse_id)
+    book_number = bible.get_book_number(verse_id)
 
     # Then the resulting book matches the expected book
     assert bible.Book(book_number) == book
@@ -77,7 +78,7 @@ def test_get_book(verse_id, book):
 def test_get_chapter(verse_id):
     # Given a valid verse id
     # When using that verse id to get the chapter
-    chapter_number = bible.get_chapter(verse_id)
+    chapter_number = bible.get_chapter_number(verse_id)
 
     # Then the resulting chapter number matches the expected chapter number (1)
     assert chapter_number == 1
@@ -86,7 +87,24 @@ def test_get_chapter(verse_id):
 def test_get_verse(verse_id):
     # Given a valid verse id
     # When using that verse id to get the verse
-    verse_number = bible.get_verse(verse_id)
+    verse_number = bible.get_verse_number(verse_id)
 
     # Then the resulting verse number matching the expected verse number (1)
     assert verse_number == 1
+
+
+def test_get_verse_text(verse_id, verse_text_no_verse_number):
+    # Given a valid verse id
+    # When using that verse to get the verse text
+    verse_text = bible.get_verse_text(verse_id, version=bible.Version.KING_JAMES)
+
+    # Then the verse text is the appropriate verse text.
+    assert verse_text == verse_text_no_verse_number
+
+
+def test_get_verse_text_invalid(invalid_verse_id):
+    # Given an invalid verse id
+    # When attempting to get the verse text for that verse id
+    # Then an error is raised.
+    with pytest.raises(InvalidVerseError):
+        bible.get_verse_text(invalid_verse_id)

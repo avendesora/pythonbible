@@ -205,3 +205,5 @@ _VERSION_TITLES = {
     Version.YES_WORD: "Yes Word",
     Version.YOUNGS_LITERAL: "Young's Literal Translation of the Bible",
 }
+
+DEFAULT_VERSION = Version.KING_JAMES

@@ -3,11 +3,9 @@ from pythonbible.converter import (
     convert_references_to_verse_ids,
     convert_verse_ids_to_references,
 )
-from pythonbible.versions import Version
+from pythonbible.versions import DEFAULT_VERSION, Version
 
 VERSION_MAP = {Version.AMERICAN_STANDARD: OSISParser, Version.KING_JAMES: OSISParser}
-
-DEFAULT_VERSION = Version.KING_JAMES
 
 
 def get_parser(**kwargs):

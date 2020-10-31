@@ -30,11 +30,12 @@ from .validator import (
     is_valid_verse_id,
 )
 from .verses import (
-    get_book,
     get_book_chapter_verse,
-    get_chapter,
+    get_book_number,
+    get_chapter_number,
     get_max_number_of_verses,
-    get_verse,
     get_verse_id,
+    get_verse_number,
+    get_verse_text,
 )
 from .versions import Version
