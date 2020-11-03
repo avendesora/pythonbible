@@ -222,7 +222,7 @@ def _handle_child_element(
         )
 
     if tag in ["q"] and not skip_till_next_verse:
-        paragraph = ""
+        paragraph = _get_text_and_tail(child_element)
         new_current_verse_id = current_verse_id
 
         for grandchild_element in list(child_element):
@@ -240,7 +240,7 @@ def _handle_child_element(
 
             paragraph += grandchild_paragraph
 
-        return paragraph, skip_till_next_verse, new_current_verse_id
+        return clean_paragraph(paragraph), skip_till_next_verse, new_current_verse_id
 
     return "", skip_till_next_verse, current_verse_id
 
