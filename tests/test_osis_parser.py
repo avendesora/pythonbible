@@ -147,3 +147,16 @@ def test_mark_9_43_kjv():
         "better for thee to enter into life maimed, than having two hands "
         "to go into hell, into the fire that never shall be quenched:"
     )
+
+
+def test_matthew_17_21_asv():
+    """Test for https://github.com/avendesora/python-bible/issues/19!"""
+    # Given the verse id for Matthew 17:21
+    verse_id = 40017021
+
+    # When we get the verse text using the ASV parser
+    parser = bible.get_parser(version=bible.Version.AMERICAN_STANDARD)
+    verse_text = parser.get_verse_text(verse_id)
+
+    # Then there are no errors and the verse text is as expected
+    assert verse_text == "21. But this kind goeth not out save by prayer and fasting."
