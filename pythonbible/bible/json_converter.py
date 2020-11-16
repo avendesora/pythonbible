@@ -30,10 +30,14 @@ class JSONConverter:
 
     def get_verses(self):
         for verse_id in self.verse_ids:
-            print(verse_id)
-            self.verses[verse_id] = self.parser.get_verse_text(
+            verse_text = self.parser.get_verse_text(
                 verse_id, include_verse_number=False
             )
+
+            if verse_text is None or len(verse_text.strip()) == 0:
+                print(f"Verse {verse_id} is empty.")
+
+            self.verses[verse_id] = verse_text
 
     def print_file(self):
         version = self.parser.version
