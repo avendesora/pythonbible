@@ -110,7 +110,7 @@ class OSISParser(BibleParser):
 
 
 def _get_namespace(tag):
-    return tag[tag.index("{") + 1 : tag.index("}")]
+    return tag[tag.index("{") + 1: tag.index("}")]
 
 
 def _strip_namespace_from_tag(tag):
@@ -157,7 +157,7 @@ def _get_paragraphs(tree, namespaces, verse_ids, **kwargs):
 
 
 def _get_paragraph_from_element(
-    paragraph_element, verse_ids, current_verse_id, **kwargs
+        paragraph_element, verse_ids, current_verse_id, **kwargs
 ):
     new_current_verse_id = current_verse_id
     paragraphs = []
@@ -167,7 +167,7 @@ def _get_paragraph_from_element(
 
     for child_element in list(paragraph_element):
         if one_verse_per_paragraph and _is_next_verse(
-            child_element, verse_ids, new_current_verse_id
+                child_element, verse_ids, new_current_verse_id
         ):
             paragraphs.append(clean_paragraph(paragraph))
             paragraph = ""
@@ -197,11 +197,11 @@ def _get_paragraph_from_element(
 
 
 def _handle_child_element(
-    child_element,
-    verse_ids,
-    skip_till_next_verse,
-    current_verse_id,
-    **kwargs,
+        child_element,
+        verse_ids,
+        skip_till_next_verse,
+        current_verse_id,
+        **kwargs,
 ):
     tag = _strip_namespace_from_tag(child_element.tag)
 
@@ -214,15 +214,26 @@ def _handle_child_element(
             **kwargs,
         )
 
-    if tag in ["w", "transChange"] and not skip_till_next_verse:
+    if tag in ["w", "transChange", ] and not skip_till_next_verse:
         return (
-            _get_text_and_tail(child_element),
+            _get_element_text_and_tail(child_element),
             skip_till_next_verse,
             current_verse_id,
         )
 
-    if tag in ["q"] and not skip_till_next_verse:
+    if tag in ["rdg", ] and not skip_till_next_verse:
+        return (
+            _get_element_text(child_element),
+            skip_till_next_verse,
+            current_verse_id
+        )
+
+    if tag in ["q", "note", ] and not skip_till_next_verse:
         paragraph = ""
+
+        if tag == "q":
+            paragraph += _get_element_text_and_tail(child_element)
+
         new_current_verse_id = current_verse_id
 
         for grandchild_element in list(child_element):
@@ -240,17 +251,17 @@ def _handle_child_element(
 
             paragraph += grandchild_paragraph
 
-        return paragraph, skip_till_next_verse, new_current_verse_id
+        return clean_paragraph(paragraph), skip_till_next_verse, new_current_verse_id
 
     return "", skip_till_next_verse, current_verse_id
 
 
 def _handle_verse_tag(
-    child_element,
-    verse_ids,
-    skip_till_next_verse,
-    current_verse_id,
-    **kwargs,
+        child_element,
+        verse_ids,
+        skip_till_next_verse,
+        current_verse_id,
+        **kwargs,
 ):
     paragraph = ""
     osis_id = child_element.get("osisID")
@@ -273,7 +284,7 @@ def _handle_verse_tag(
         if include_verse_number:
             paragraph += f"{verse}. "
 
-        paragraph += _get_text_and_tail(child_element)
+        paragraph += _get_element_text_and_tail(child_element)
 
         return paragraph, skip_till_next_verse, verse_id
 
@@ -281,10 +292,16 @@ def _handle_verse_tag(
     return paragraph, skip_till_next_verse, current_verse_id
 
 
-def _get_text_and_tail(element):
-    text = element.text.replace("\n", " ") if element.text else ""
-    tail = element.tail.replace("\n", " ") if element.tail else ""
-    return text + tail
+def _get_element_text_and_tail(element):
+    return _get_element_text(element) + _get_element_tail(element)
+
+
+def _get_element_text(element):
+    return element.text.replace("\n", " ") if element.text else ""
+
+
+def _get_element_tail(element):
+    return element.tail.replace("\n", " ") if element.tail else ""
 
 
 def _is_next_verse(child_element, verse_ids, current_verse_id):

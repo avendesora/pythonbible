@@ -130,3 +130,33 @@ def test_mark_9_38_kjv():
         "casting out devils in thy name, and he followeth not us: "
         "and we forbad him, because he followeth not us."
     )
+
+
+def test_mark_9_43_kjv():
+    """Test for https://github.com/avendesora/python-bible/issues/16!"""
+    # Given the verse id for Mark 9:43
+    verse_id = 41009043
+
+    # When we get the verse text using the KJV parser
+    parser = bible.get_parser(version=bible.Version.KING_JAMES)
+    verse_text = parser.get_verse_text(verse_id)
+
+    # Then there are no errors and the verse text is as expected
+    assert (
+        verse_text == "43. And if thy hand offend thee, cut it off: it is "
+        "better for thee to enter into life maimed, than having two hands "
+        "to go into hell, into the fire that never shall be quenched:"
+    )
+
+
+def test_matthew_17_21_asv():
+    """Test for https://github.com/avendesora/python-bible/issues/19!"""
+    # Given the verse id for Matthew 17:21
+    verse_id = 40017021
+
+    # When we get the verse text using the ASV parser
+    parser = bible.get_parser(version=bible.Version.AMERICAN_STANDARD)
+    verse_text = parser.get_verse_text(verse_id)
+
+    # Then there are no errors and the verse text is as expected
+    assert verse_text == "21. But this kind goeth not out save by prayer and fasting."
