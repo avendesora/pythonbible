@@ -18,13 +18,16 @@ from .errors import (
     InvalidBibleParserError,
     InvalidChapterError,
     InvalidVerseError,
+    MissingBookFileError,
     MissingVerseFileError,
 )
 from .formatter import (
     format_scripture_references,
     format_scripture_text,
     format_single_reference,
+    get_book_titles,
     get_parser,
+    get_verse_text,
 )
 from .parser import NormalizedReference, get_references, normalize_reference
 from .validator import (
@@ -41,6 +44,5 @@ from .verses import (
     get_max_number_of_verses,
     get_verse_id,
     get_verse_number,
-    get_verse_text,
 )
 from .versions import Version

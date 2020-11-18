@@ -87,21 +87,6 @@ def test_get_verse_text_invalid_verse(invalid_verse_id):
         DEFAULT_PARSER.get_verse_text(invalid_verse_id)
 
 
-def test_get_scripture_passage_one_verse_per_paragraph():
-    """Test for https://github.com/avendesora/python-bible/issues/5."""
-    # Given "Genesis 1" as a reference / verse ids
-    references = bible.get_references("Genesis 1")
-    verse_ids = bible.convert_references_to_verse_ids(references)
-
-    # When we get the scripture passage with one verse per paragraph
-    passage = DEFAULT_PARSER.get_scripture_passage_text(
-        verse_ids, one_verse_per_paragraph=True
-    )
-
-    # Then it does not raise an exception
-    assert passage is not None
-
-
 def test_exodus_20_3_asv():
     """Test for https://github.com/avendesora/python-bible/issues/9!"""
     # Given the reference Exodus 20:3

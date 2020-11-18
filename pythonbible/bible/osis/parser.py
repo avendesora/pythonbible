@@ -45,6 +45,7 @@ class OSISParser(BibleParser):
         )
         self.namespaces = {"xmlns": _get_namespace(self.tree.getroot().tag)}
 
+    @lru_cache(maxsize=None)
     def get_book_title(self, book):
         """
         Given a book, return the full title for that book from the XML file.
@@ -55,6 +56,7 @@ class OSISParser(BibleParser):
         book_title_element = self._get_book_title_element(book)
         return book_title_element.text
 
+    @lru_cache(maxsize=None)
     def get_short_book_title(self, book):
         """
         Given a book, return the short title for that book from the XML file.
@@ -65,6 +67,7 @@ class OSISParser(BibleParser):
         book_title_element = self._get_book_title_element(book)
         return book_title_element.get("short")
 
+    @lru_cache(maxsize=None)
     def _get_book_title_element(self, book):
         xpath = XPATH_BOOK_TITLE.format(BOOK_IDS.get(book))
         return self.tree.find(xpath, namespaces=self.namespaces)
@@ -91,22 +94,18 @@ class OSISParser(BibleParser):
         verse_ids = tuple(verse_ids)
 
         # keyword arguments
-        one_verse_per_paragraph = kwargs.get("one_verse_per_paragraph", False)
         include_verse_number = kwargs.get("include_verse_number", True)
 
         return self._get_scripture_passage_text_memoized(
-            verse_ids, one_verse_per_paragraph, include_verse_number
+            verse_ids, include_verse_number
         )
 
     @lru_cache(maxsize=None)
-    def _get_scripture_passage_text_memoized(
-        self, verse_ids, one_verse_per_paragraph, include_verse_number
-    ):
+    def _get_scripture_passage_text_memoized(self, verse_ids, include_verse_number):
         paragraphs = _get_paragraphs(
             self.tree,
             self.namespaces,
             verse_ids,
-            one_verse_per_paragraph,
             include_verse_number,
         )
 
@@ -135,13 +134,10 @@ class OSISParser(BibleParser):
 
     @lru_cache(maxsize=None)
     def _get_verse_text_memoized(self, verse_id, include_verse_number):
-        one_verse_per_paragraph = False
-
         paragraphs = _get_paragraphs(
             self.tree,
             self.namespaces,
             tuple([verse_id]),
-            one_verse_per_paragraph,
             include_verse_number,
         )
         verse_text = ""
@@ -164,9 +160,7 @@ def _strip_namespace_from_tag(tag):
     return tag.replace(_get_namespace(tag), "").replace("{", "").replace("}", "")
 
 
-def _get_paragraphs(
-    tree, namespaces, verse_ids, one_verse_per_paragraph, include_verse_number
-):
+def _get_paragraphs(tree, namespaces, verse_ids, include_verse_number):
     current_verse_id = verse_ids[0]
     book, chapter, verse = get_book_chapter_verse(current_verse_id)
     paragraph_element = tree.find(
@@ -176,7 +170,6 @@ def _get_paragraphs(
         paragraph_element,
         verse_ids,
         current_verse_id,
-        one_verse_per_paragraph,
         include_verse_number,
     )
     current_verse_index = verse_ids.index(current_verse_id) + 1
@@ -187,7 +180,6 @@ def _get_paragraphs(
             tree,
             namespaces,
             verse_ids[current_verse_index:],
-            one_verse_per_paragraph,
             include_verse_number,
         )
 
@@ -213,7 +205,6 @@ def _get_paragraph_from_element(
     paragraph_element,
     verse_ids,
     current_verse_id,
-    one_verse_per_paragraph,
     include_verse_number,
 ):
     new_current_verse_id = current_verse_id
@@ -222,12 +213,6 @@ def _get_paragraph_from_element(
     skip_till_next_verse = False
 
     for child_element in list(paragraph_element):
-        if one_verse_per_paragraph and _is_next_verse(
-            child_element, verse_ids, new_current_verse_id
-        ):
-            paragraphs.append(clean_paragraph(paragraph))
-            paragraph = ""
-
         (
             child_paragraph,
             skip_till_next_verse,
@@ -237,7 +222,6 @@ def _get_paragraph_from_element(
             verse_ids,
             skip_till_next_verse,
             new_current_verse_id,
-            one_verse_per_paragraph,
             include_verse_number,
         )
 
@@ -259,7 +243,6 @@ def _handle_child_element(
     verse_ids,
     skip_till_next_verse,
     current_verse_id,
-    one_verse_per_paragraph,
     include_verse_number,
 ):
     tag = _strip_namespace_from_tag(child_element.tag)
@@ -305,7 +288,6 @@ def _handle_child_element(
                 verse_ids,
                 skip_till_next_verse,
                 current_verse_id,
-                one_verse_per_paragraph,
                 include_verse_number,
             )
 
@@ -365,28 +347,6 @@ def _get_element_text(element):
 @lru_cache(maxsize=None)
 def _get_element_tail(element):
     return element.tail.replace("\n", " ") if element.tail else ""
-
-
-@lru_cache(maxsize=None)
-def _is_next_verse(child_element, verse_ids, current_verse_id):
-    tag = _strip_namespace_from_tag(child_element.tag)
-
-    if tag != "verse":
-        return False
-
-    osis_id = child_element.get("osisID")
-
-    if osis_id is None:
-        return False
-
-    book_id, chapter, verse = child_element.get("osisID").split(".")
-    book = get_book_by_id(book_id)
-    verse_id = get_verse_id(book, int(chapter), int(verse))
-
-    if verse_id in verse_ids:
-        return current_verse_id is not None and verse_id > current_verse_id
-
-    return False
 
 
 @lru_cache(maxsize=None)

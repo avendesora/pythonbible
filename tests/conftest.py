@@ -115,6 +115,16 @@ def verse_ids():
 
 
 @pytest.fixture
+def verse_ids_multiple_chapters():
+    return [
+        40018012,
+        40018013,
+        40018014,
+        40019001,
+    ]
+
+
+@pytest.fixture
 def verse_ids_complex():
     return [
         19130004,
@@ -492,19 +502,10 @@ def html_scripture_text_one_verse_per_paragraph():
         "more of that sheep, than of the ninety and nine which went not astray.</p>\n"
         "<p>14. Even so it is not the will of your Father which is in heaven, "
         "that one of these little ones should perish.</p>\n"
-        "<h1>Luke</h1>\n"
-        "<h2>Chapter 15</h2>\n"
-        "<p>3. And he spake this parable unto them, saying,</p>\n"
-        "<p>4. What man of you, having an hundred sheep, if he lose one of them, "
-        "doth not leave the ninety and nine in the wilderness, and go after that "
-        "which is lost, until he find it?</p>\n"
-        "<p>5. And when he hath found it, he layeth it on his shoulders, rejoicing.</p>\n"
-        "<p>6. And when he cometh home, he calleth together his friends and neighbours, "
-        "saying unto them, Rejoice with me; for I have found my sheep which was "
-        "lost.</p>\n"
-        "<p>7. I say unto you, that likewise joy shall be in heaven over one sinner "
-        "that repenteth, more than over ninety and nine just persons, which need "
-        "no repentance.</p>\n"
+        "<h2>Chapter 19</h2>\n"
+        "<p>1. And it came to pass, that when Jesus had finished these sayings, he "
+        "departed from Galilee, and came into the coasts of Judaea beyond "
+        "Jordan;</p>\n"
     )
 
 
@@ -559,3 +560,31 @@ def short_verse_data_json_asv():
         "thy name; and we forbade him, because he followed not us.",
         "41009046": "",
     }
+
+
+@pytest.fixture
+def short_book_title_data_json():
+    return {
+        "1": ["The First Book of Moses, called Genesis", "Genesis"],
+        "2": ["The Second Book of Moses, called Exodus", "Exodus"],
+        "41": ["THE GOSPEL ACCORDING TO ST. MARK", "Mark"],
+    }
+
+
+@pytest.fixture
+def short_book_title_data_json_asv():
+    return {
+        "1": ["The First Book of Moses, Commonly Called Genesis", "Genesis"],
+        "2": ["The Second Book of Moses, Commonly Called Exodus", "Exodus"],
+        "41": ["The Gospel According to Mark", "Mark"],
+    }
+
+
+@pytest.fixture
+def long_book_title():
+    return "The First Book of Moses, called Genesis"
+
+
+@pytest.fixture
+def short_book_title():
+    return "Genesis"

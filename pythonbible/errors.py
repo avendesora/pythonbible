@@ -27,3 +27,7 @@ class InvalidBibleParserError(Exception):
 
 class MissingVerseFileError(Exception):
     """Raised when the verse file for a given version is not found."""
+
+
+class MissingBookFileError(Exception):
+    """Raised when the book file for a given version is not found."""

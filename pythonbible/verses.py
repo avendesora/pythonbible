@@ -1,5 +1,3 @@
-import json
-import os
 from functools import lru_cache
 from pathlib import Path
 from typing import Dict, List, Optional, Tuple
@@ -8,9 +6,7 @@ from pythonbible.books import Book
 from pythonbible.errors import (
     InvalidChapterError,
     InvalidVerseError,
-    MissingVerseFileError,
 )
-from pythonbible.versions import DEFAULT_VERSION, Version
 
 with open(Path(__file__).resolve().parent / "data" / "verse_ids.txt") as verse_ids_file:
     VERSE_IDS: List[int] = [int(verse_id) for verse_id in verse_ids_file.readlines()]
@@ -1346,8 +1342,10 @@ MAX_VERSE_NUMBER_BY_BOOK_AND_CHAPTER: Dict[Book, List[int]] = {
 }
 
 
+@lru_cache(maxsize=None)
 def get_number_of_chapters(book: Book) -> int:
-    """Given a book of the Bible, return the int number of chapters in that book.
+    """
+    Given a book of the Bible, return the int number of chapters in that book.
 
     :param book:
     :return: the int number of chapters in the given book of the Bible.
@@ -1355,8 +1353,10 @@ def get_number_of_chapters(book: Book) -> int:
     return len(MAX_VERSE_NUMBER_BY_BOOK_AND_CHAPTER[book])
 
 
+@lru_cache(maxsize=None)
 def get_max_number_of_verses(book: Book, chapter: int) -> Optional[int]:
-    """Given a Book enum and chapter number int, if valid, return the int number of verses in that Book and chapter.
+    """
+    Given a Book enum and chapter number int, if valid, return the int number of verses in that Book and chapter.
 
     :param book:
     :param chapter:
@@ -1373,8 +1373,10 @@ def get_max_number_of_verses(book: Book, chapter: int) -> Optional[int]:
         )
 
 
+@lru_cache(maxsize=None)
 def get_verse_id(book: Book, chapter: int, verse: int) -> Optional[int]:
-    """Given the Book enum, chapter number int, and verse number int return the verse id if it exists.
+    """
+    Given the Book enum, chapter number int, and verse number int return the verse id if it exists.
 
     :param book:
     :param chapter:
@@ -1395,8 +1397,10 @@ def get_verse_id(book: Book, chapter: int, verse: int) -> Optional[int]:
     return int(book) * 1000000 + chapter * 1000 + verse
 
 
+@lru_cache(maxsize=None)
 def get_book_chapter_verse(verse_id: int) -> Optional[Tuple[Book, int, int]]:
-    """Given a verse id return the tuple containing the Book enum, the chapter number int, and the verse number int.
+    """
+    Given a verse id return the tuple containing the Book enum, the chapter number int, and the verse number int.
 
     :param verse_id:
     :return: (Book, chapter number, verse number)
@@ -1411,8 +1415,10 @@ def get_book_chapter_verse(verse_id: int) -> Optional[Tuple[Book, int, int]]:
     )
 
 
+@lru_cache(maxsize=None)
 def get_book_number(verse_id: int) -> int:
-    """Given a verse id return the int book number.
+    """
+    Given a verse id return the int book number.
 
     :param verse_id:
     :return: int book number
@@ -1420,8 +1426,10 @@ def get_book_number(verse_id: int) -> int:
     return int(verse_id / 1000000)
 
 
+@lru_cache(maxsize=None)
 def get_chapter_number(verse_id: int) -> int:
-    """Given a verse id return the int chapter number.
+    """
+    Given a verse id return the int chapter number.
 
     :param verse_id:
     :return: int chapter number
@@ -1429,49 +1437,12 @@ def get_chapter_number(verse_id: int) -> int:
     return int(verse_id % 1000000 / 1000)
 
 
+@lru_cache(maxsize=None)
 def get_verse_number(verse_id: int) -> int:
-    """Given a verse id return the int verse number.
+    """
+    Given a verse id return the int verse number.
 
     :param verse_id:
     :return: int verse number
     """
     return int(verse_id % 1000)
-
-
-CURRENT_FOLDER: str = os.path.dirname(os.path.realpath(__file__))
-VERSE_DATA_FOLDER: str = os.path.join(
-    os.path.join(CURRENT_FOLDER, "bible"), "verse_data"
-)
-VERSE_TEXTS: Dict[Version, Dict[int, str]] = {}
-
-
-@lru_cache(maxsize=None)
-def get_verse_text(verse_id: int, version: Version = DEFAULT_VERSION) -> Optional[str]:
-    if verse_id not in VERSE_IDS:
-        raise InvalidVerseError(verse_id=verse_id)
-
-    try:
-        version_verse_texts = _get_version_verse_texts(version)
-    except FileNotFoundError as e:
-        raise MissingVerseFileError(e)
-
-    return version_verse_texts.get(verse_id)
-
-
-@lru_cache(maxsize=None)
-def _get_version_verse_texts(version: Version) -> Dict[int, str]:
-    verse_texts: Optional[Dict[int, str]] = VERSE_TEXTS.get(version)
-
-    if verse_texts is None:
-        json_filename: str = os.path.join(
-            VERSE_DATA_FOLDER, f"{version.value.lower()}.json"
-        )
-        verse_texts = {}
-
-        with open(json_filename, "r") as json_file:
-            for verse_id, verse_text in json.load(json_file).items():
-                verse_texts[int(verse_id)] = verse_text
-
-        VERSE_TEXTS[version] = verse_texts
-
-    return verse_texts
