@@ -524,11 +524,17 @@ def kjv_parser():
 
 
 @pytest.fixture
+def asv_parser():
+    return bible.get_parser(version=bible.Version.AMERICAN_STANDARD)
+
+
+@pytest.fixture
 def short_verse_id_list():
     return [
         1001001,
         2020003,
         41009038,
+        41009046,
     ]
 
 
@@ -540,4 +546,16 @@ def short_verse_data_json():
         "41009038": "And John answered him, saying, Master, we saw one casting "
         "out devils in thy name, and he followeth not us: and we "
         "forbad him, because he followeth not us.",
+        "41009046": "Where their worm dieth not, and the fire is not quenched.",
+    }
+
+
+@pytest.fixture
+def short_verse_data_json_asv():
+    return {
+        "1001001": "In the beginning God created the heavens and the earth.",
+        "2020003": "Thou shalt have no other gods before me.",
+        "41009038": "John said unto him, Teacher, we saw one casting out demons in "
+        "thy name; and we forbade him, because he followed not us.",
+        "41009046": "",
     }

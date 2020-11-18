@@ -14,7 +14,12 @@ from .converter import (
     convert_references_to_verse_ids,
     convert_verse_ids_to_references,
 )
-from .errors import InvalidBibleParserError, InvalidChapterError, InvalidVerseError
+from .errors import (
+    InvalidBibleParserError,
+    InvalidChapterError,
+    InvalidVerseError,
+    MissingVerseFileError,
+)
 from .formatter import (
     format_scripture_references,
     format_scripture_text,

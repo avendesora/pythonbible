@@ -23,3 +23,7 @@ class InvalidVerseError(Exception):
 
 class InvalidBibleParserError(Exception):
     """Raised when the Bible parser is not valid."""
+
+
+class MissingVerseFileError(Exception):
+    """Raised when the verse file for a given version is not found."""

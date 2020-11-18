@@ -1,3 +1,5 @@
+import time
+
 import pytest
 
 import pythonbible as bible
@@ -160,3 +162,75 @@ def test_matthew_17_21_asv():
 
     # Then there are no errors and the verse text is as expected
     assert verse_text == "21. But this kind goeth not out save by prayer and fasting."
+
+
+def test_scripture_text_caching():
+    # Given a lengthy reference
+    references = bible.get_references("James")
+    verse_ids = bible.convert_references_to_verse_ids(references)
+
+    # When getting the scripture text multiple times
+    parser = bible.get_parser()
+
+    first_start_time = time.time()
+    first_text = parser.get_scripture_passage_text(verse_ids)
+    second_start_time = time.time()
+    second_text = parser.get_scripture_passage_text(verse_ids)
+    end_time = time.time()
+
+    first_time = second_start_time - first_start_time
+    second_time = end_time - second_start_time
+
+    # Then the results are cached, so we get the same results much faster the second time
+    assert first_time * 0.1 > second_time
+    assert first_text == second_text
+
+
+def test_scripture_text_caching_across_versions():
+    # Given a lengthy reference
+    references = bible.get_references("Ephesians")
+    verse_ids = bible.convert_references_to_verse_ids(references)
+
+    # When getting the scripture text multiple times from multiple versions
+    kjv_parser = bible.get_parser(version=bible.Version.KING_JAMES)
+    asv_parser = bible.get_parser(version=bible.Version.AMERICAN_STANDARD)
+
+    first_start_time = time.time()
+    first_text = kjv_parser.get_scripture_passage_text(verse_ids)
+    second_start_time = time.time()
+    second_text = asv_parser.get_scripture_passage_text(verse_ids)
+    third_start_time = time.time()
+    third_text = kjv_parser.get_scripture_passage_text(verse_ids)
+    end_time = time.time()
+
+    first_time = second_start_time - first_start_time
+    second_time = third_start_time - second_start_time
+    third_time = end_time - third_start_time
+
+    # Then the caching only works within a version and not across versions
+    assert first_time * 0.1 < second_time
+    assert first_text != second_text
+    assert first_time * 0.1 > third_time
+    assert first_text == third_text
+
+
+def test_verse_text_caching():
+    # Given a lengthy reference
+    references = bible.get_references("Jude")
+    verse_ids = bible.convert_references_to_verse_ids(references)
+
+    # When getting the scripture text multiple times
+    parser = bible.get_parser()
+
+    first_start_time = time.time()
+    first_verses = [parser.get_verse_text(verse_id) for verse_id in verse_ids]
+    second_start_time = time.time()
+    second_verses = [parser.get_verse_text(verse_id) for verse_id in verse_ids]
+    end_time = time.time()
+
+    first_time = second_start_time - first_start_time
+    second_time = end_time - second_start_time
+
+    # Then the results are cached, so we get the same results much faster the second time
+    assert first_time * 0.1 > second_time
+    assert first_verses == second_verses

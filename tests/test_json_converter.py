@@ -10,15 +10,31 @@ TEST_DATA_FOLDER = os.path.dirname(os.path.realpath(__file__))
 
 
 def test_json_converter(kjv_parser, short_verse_id_list, short_verse_data_json):
+    _run_json_converter_test_for_version(
+        kjv_parser, short_verse_id_list, short_verse_data_json
+    )
+
+
+def test_json_converter_blank_verse(
+    asv_parser, short_verse_id_list, short_verse_data_json_asv
+):
+    _run_json_converter_test_for_version(
+        asv_parser, short_verse_id_list, short_verse_data_json_asv
+    )
+
+
+def _run_json_converter_test_for_version(
+    parser, short_verse_id_list, short_verse_data_json
+):
     # Given a parser, a data folder, a list of verse ids, and no existing json file.
     json_filename = os.path.join(
-        TEST_DATA_FOLDER, f"{kjv_parser.version.value.lower()}.json"
+        TEST_DATA_FOLDER, f"{parser.version.value.lower()}.json"
     )
     remove_file_if_exists(json_filename)
 
     # When we use the json converter to generate the json file
     json_converter = JSONConverter(
-        kjv_parser, data_folder=TEST_DATA_FOLDER, verse_ids=short_verse_id_list
+        parser, data_folder=TEST_DATA_FOLDER, verse_ids=short_verse_id_list
     )
     json_converter.generate_json_file()
 
