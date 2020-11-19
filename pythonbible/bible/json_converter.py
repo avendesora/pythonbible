@@ -22,6 +22,10 @@ class JSONConverter:
         Initialize the JSONConverter with a BibleParser instance and optional
         alternate data folder and list of verse ids.
 
+        If no data folder is specified, the data folder in the same directory
+        as this class will be used. If no verse ids are specified, the list of
+        all verse ids will be used.
+
         :param parser: BibleParser instance with version
         :param kwargs: optional "data_folder" and "verse_ids"
         """
