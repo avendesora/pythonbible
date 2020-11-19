@@ -19,3 +19,15 @@ class InvalidVerseError(Exception):
                 self.message = f"{self.verse_id} is not a valid verse."
 
         super(InvalidVerseError, self).__init__(self.message)
+
+
+class InvalidBibleParserError(Exception):
+    """Raised when the Bible parser is not valid."""
+
+
+class MissingVerseFileError(Exception):
+    """Raised when the verse file for a given version is not found."""
+
+
+class MissingBookFileError(Exception):
+    """Raised when the book file for a given version is not found."""

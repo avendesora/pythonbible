@@ -14,12 +14,20 @@ from .converter import (
     convert_references_to_verse_ids,
     convert_verse_ids_to_references,
 )
-from .errors import InvalidChapterError, InvalidVerseError
+from .errors import (
+    InvalidBibleParserError,
+    InvalidChapterError,
+    InvalidVerseError,
+    MissingBookFileError,
+    MissingVerseFileError,
+)
 from .formatter import (
     format_scripture_references,
     format_scripture_text,
     format_single_reference,
+    get_book_titles,
     get_parser,
+    get_verse_text,
 )
 from .parser import NormalizedReference, get_references, normalize_reference
 from .validator import (
@@ -30,11 +38,11 @@ from .validator import (
     is_valid_verse_id,
 )
 from .verses import (
-    get_book,
     get_book_chapter_verse,
-    get_chapter,
+    get_book_number,
+    get_chapter_number,
     get_max_number_of_verses,
-    get_verse,
     get_verse_id,
+    get_verse_number,
 )
 from .versions import Version
