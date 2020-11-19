@@ -15,7 +15,16 @@ from pythonbible.versions import Version
 
 
 class JSONConverter:
+    """Convert XML scripture files into faster verse and book title JSON files."""
+
     def __init__(self, parser: BibleParser, **kwargs) -> None:
+        """
+        Initialize the JSONConverter with a BibleParser instance and optional
+        alternate data folder and list of verse ids.
+
+        :param parser: BibleParser instance with version
+        :param kwargs: optional "data_folder" and "verse_ids"
+        """
         self.parser: BibleParser = parser
         self.data_folder: str = kwargs.get("data_folder", DATA_FOLDER)
         self.verse_ids: List[int] = kwargs.get("verse_ids", VERSE_IDS)
@@ -23,11 +32,21 @@ class JSONConverter:
         self.verses: Dict[int, str] = {}
 
     def generate_book_file(self) -> None:
+        """
+        Generate the book title JSON file for the given version.
+
+        :return: None
+        """
         self._validate_parser()
         self._get_books()
         self._print_books_file()
 
     def generate_verse_file(self) -> None:
+        """
+        Generate the verse text JSON file for the given version.
+
+        :return: None
+        """
         self._validate_parser()
         self._get_verses()
         self._print_verses_file()
