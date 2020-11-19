@@ -19,8 +19,7 @@ class JSONConverter:
 
     def __init__(self, parser: BibleParser, **kwargs) -> None:
         """
-        Initialize the JSONConverter with a BibleParser instance and optional
-        alternate data folder and list of verse ids.
+        Initialize with a BibleParser and optional data folder and list of verse ids.
 
         If no data folder is specified, the data folder in the same directory
         as this class will be used. If no verse ids are specified, the list of
