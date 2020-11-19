@@ -107,15 +107,10 @@ def format_single_reference(
     formatted_reference = ""
 
     if book:
-        parser = kwargs.get("parser", DEFAULT_PARSER)
+        version = kwargs.get("version", DEFAULT_VERSION)
+        book_titles = get_book_titles(book, version)
         full_title = kwargs.get("full_title", False)
-
-        title = (
-            parser.get_book_title(book)
-            if full_title
-            else parser.get_short_book_title(book)
-        )
-
+        title = book_titles.long_title if full_title else book_titles.short_title
         formatted_reference += f"{title} "
 
     if start_chapter:
