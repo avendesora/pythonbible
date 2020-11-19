@@ -1,13 +1,29 @@
+import json
+import os
+from functools import lru_cache
+from typing import Dict, NamedTuple, Optional
+
 from pythonbible.bible.osis.parser import OSISParser
+from pythonbible.books import Book
 from pythonbible.converter import (
     convert_references_to_verse_ids,
     convert_verse_ids_to_references,
 )
-from pythonbible.versions import Version
+from pythonbible.errors import (
+    InvalidVerseError,
+    MissingBookFileError,
+    MissingVerseFileError,
+)
+from pythonbible.verses import VERSE_IDS, get_book_chapter_verse
+from pythonbible.versions import DEFAULT_VERSION, Version
+
+
+class BookTitles(NamedTuple):
+    long_title: str
+    short_title: str
+
 
 VERSION_MAP = {Version.AMERICAN_STANDARD: OSISParser, Version.KING_JAMES: OSISParser}
-
-DEFAULT_VERSION = Version.KING_JAMES
 
 
 def get_parser(**kwargs):
@@ -17,6 +33,11 @@ def get_parser(**kwargs):
 
 
 DEFAULT_PARSER = get_parser()
+
+CURRENT_FOLDER: str = os.path.dirname(os.path.realpath(__file__))
+DATA_FOLDER: str = os.path.join(os.path.join(CURRENT_FOLDER, "bible"), "data")
+VERSE_TEXTS: Dict[Version, Dict[int, str]] = {}
+BOOK_TITLES: Dict[Version, Dict[Book, BookTitles]] = {}
 
 
 # TODO - handle Psalms vs Psalm appropriately
@@ -111,37 +132,177 @@ def format_single_reference(
 
 
 def format_scripture_text(verse_ids, **kwargs):
-    parser = kwargs.get("parser", DEFAULT_PARSER)
+    one_verse_per_paragraph = kwargs.get("one_verse_per_paragraph", False)
     full_title = kwargs.get("full_title", False)
+    format_type = kwargs.get("format_type", "html")
+    include_verse_numbers = kwargs.get("include_verse_numbers", True)
+    parser = kwargs.get("parser", DEFAULT_PARSER)
+
+    if one_verse_per_paragraph or (verse_ids and len(verse_ids) == 1):
+        return format_scripture_text_verse_by_verse(
+            verse_ids, parser.version, full_title, format_type, include_verse_numbers
+        )
+
+    return format_scripture_text_with_parser(
+        verse_ids, parser, full_title, format_type, include_verse_numbers
+    )
+
+
+def format_scripture_text_verse_by_verse(
+    verse_ids, version, full_title, format_type, include_verse_numbers
+):
+    verse_ids.sort()
+    text = ""
+    current_book = None
+    current_chapter = None
+
+    for verse_id in verse_ids:
+        book, chapter_number, verse_number = get_book_chapter_verse(verse_id)
+
+        if book != current_book:
+            current_book = book
+            current_chapter = chapter_number
+            book_titles = get_book_titles(book, version)
+            title = book_titles.long_title if full_title else book_titles.short_title
+            text += _format_title(title, format_type, len(text) == 0)
+            text += _format_chapter(chapter_number, format_type)
+
+        elif chapter_number != current_chapter:
+            current_chapter = chapter_number
+            text += _format_chapter(chapter_number, format_type)
+
+        verse_text = get_verse_text(verse_id, version)
+
+        if include_verse_numbers:
+            verse_text = f"{verse_number}. {verse_text}"
+
+        text += _format_paragraph(verse_text, format_type)
+
+    return text
+
+
+def format_scripture_text_with_parser(
+    verse_ids, parser, full_title, format_type, include_verse_numbers
+):
     title_function = (
         parser.get_book_title if full_title else parser.get_short_book_title
     )
-    format_type = kwargs.get("format_type", "html")
     text = ""
 
-    paragraphs = parser.get_scripture_passage_text(verse_ids, **kwargs)
+    paragraphs = parser.get_scripture_passage_text(
+        verse_ids, include_verse_number=include_verse_numbers
+    )
 
     for book, chapters in paragraphs.items():
         title = title_function(book)
-
-        if format_type == "html":
-            text += f"<h1>{title}</h1>\n"
-        else:
-            if len(text) > 0:
-                text += "\n\n"
-
-            text += f"{title}\n\n"
+        text += _format_title(title, format_type, len(text) == 0)
 
         for chapter, paragraphs in chapters.items():
-            if format_type == "html":
-                text += f"<h2>Chapter {chapter}</h2>\n"
-            else:
-                text += f"Chapter {chapter}\n\n"
+            text += _format_chapter(chapter, format_type)
 
             for paragraph in paragraphs:
-                if format_type == "html":
-                    text += f"<p>{paragraph}</p>\n"
-                else:
-                    text += f"   {paragraph}\n"
+                text += _format_paragraph(paragraph, format_type)
 
     return text
+
+
+def _format_title(title, format_type, is_first_book):
+    if format_type == "html":
+        return f"<h1>{title}</h1>\n"
+
+    if not is_first_book:
+        return f"\n\n{title}\n\n"
+
+    return f"{title}\n\n"
+
+
+def _format_chapter(chapter, format_type):
+    if format_type == "html":
+        return f"<h2>Chapter {chapter}</h2>\n"
+
+    return f"Chapter {chapter}\n\n"
+
+
+def _format_paragraph(paragraph, format_type):
+    if format_type == "html":
+        return f"<p>{paragraph}</p>\n"
+
+    return f"   {paragraph}\n"
+
+
+@lru_cache(maxsize=None)
+def get_verse_text(verse_id: int, version: Version = DEFAULT_VERSION) -> Optional[str]:
+    """
+    Given a verse id and, optionally, a Bible version, return the text for that verse.
+
+    :param verse_id:
+    :param version:
+    :return: the verse text
+    """
+    if verse_id not in VERSE_IDS:
+        raise InvalidVerseError(verse_id=verse_id)
+
+    try:
+        version_verse_texts = _get_version_verse_texts(version)
+    except FileNotFoundError as e:
+        raise MissingVerseFileError(e)
+
+    return version_verse_texts.get(verse_id)
+
+
+@lru_cache(maxsize=None)
+def _get_version_verse_texts(version: Version) -> Dict[int, str]:
+    verse_texts: Optional[Dict[int, str]] = VERSE_TEXTS.get(version)
+
+    if verse_texts is None:
+        json_filename: str = os.path.join(
+            os.path.join(DATA_FOLDER, version.value.lower()), "verses.json"
+        )
+        verse_texts = {}
+
+        with open(json_filename, "r") as json_file:
+            for verse_id, verse_text in json.load(json_file).items():
+                verse_texts[int(verse_id)] = verse_text
+
+        VERSE_TEXTS[version] = verse_texts
+
+    return verse_texts
+
+
+@lru_cache(maxsize=None)
+def get_book_titles(
+    book: Book, version: Version = DEFAULT_VERSION
+) -> Optional[BookTitles]:
+    """
+    Given a book of the Bible and optionally a version return the book title.
+
+    :param book:
+    :param version:
+    :return: the book title
+    """
+    try:
+        version_book_tiles = _get_version_book_titles(version)
+    except FileNotFoundError as e:
+        raise MissingBookFileError(e)
+
+    return version_book_tiles.get(book)
+
+
+@lru_cache(maxsize=None)
+def _get_version_book_titles(version: Version) -> Dict[Book, BookTitles]:
+    book_titles: Optional[Dict[Book, BookTitles]] = BOOK_TITLES.get(version)
+
+    if book_titles is None:
+        json_filename: str = os.path.join(
+            os.path.join(DATA_FOLDER, version.value.lower()), "books.json"
+        )
+        book_titles = {}
+
+        with open(json_filename, "r") as json_file:
+            for book_id, titles in json.load(json_file).items():
+                book: Book = Book(int(book_id))
+                book_titles[book] = BookTitles(titles[0], titles[1])
+
+        BOOK_TITLES[version] = book_titles
+
+    return book_titles
