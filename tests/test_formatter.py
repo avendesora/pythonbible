@@ -117,7 +117,7 @@ def test_get_verse_text_invalid(invalid_verse_id):
     # Given an invalid verse id
     # When attempting to get the verse text for that verse id
     # Then an error is raised.
-    with pytest.raises(bible.InvalidVerseError):
+    with pytest.raises(bible.InvalidVerseError, match="1100100 is not a valid verse."):
         bible.get_verse_text(invalid_verse_id)
 
 

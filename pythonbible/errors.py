@@ -15,7 +15,7 @@ class InvalidVerseError(Exception):
         if not self.message:
             if self.book and self.chapter and self.verse:
                 self.message = f"{self.book.title} {self.chapter}:{self.verse} is not a valid verse."
-            else:
+            elif self.verse_id:
                 self.message = f"{self.verse_id} is not a valid verse."
 
         super(InvalidVerseError, self).__init__(self.message)

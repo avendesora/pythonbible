@@ -84,7 +84,7 @@ def test_convert_verse_ids_to_references_invalid(invalid_verse_id):
     # Given a list of verse ids with an invalid verse id
     # When we attempt to convert them into a list of references
     # Then an error is raised
-    with pytest.raises(bible.InvalidVerseError):
+    with pytest.raises(bible.InvalidVerseError, match="1100100 is not a valid verse."):
         bible.convert_verse_ids_to_references([invalid_verse_id])
 
 
