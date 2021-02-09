@@ -9,6 +9,11 @@ class InvalidVerseError(Exception):
     """Raised when the verse id or book, chapter, and verse number being processed is not a valid Bible verse."""
 
     def __init__(self, message: Optional[str] = None, **kwargs) -> None:
+        """
+
+        :param message: optional message string
+        :param kwargs: optional keyword arguments (verse_id, book, chapter, verse) for more specific messaging
+        """
         self.message: Optional[str] = message
         self.verse_id: Optional[Any] = kwargs.get("verse_id")
         self.book: Optional[Any] = kwargs.get("book")
