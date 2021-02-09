@@ -17,7 +17,6 @@ classifiers = [
     "Programming Language :: Python",
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3 :: Only",
-    "Programming Language :: Python :: 3.6",
     "Programming Language :: Python :: 3.7",
     "Programming Language :: Python :: 3.8",
     "Programming Language :: Python :: 3.9",
@@ -25,15 +24,15 @@ classifiers = [
 ]
 requires = []
 description-file = "README.md"
-requires-python = ">=3.6"
+requires-python = ">=3.7"
 
 #[tool.flit.metadata.urls]
 #Documentation = ""
 
 [tool.flit.metadata.requires-extra]
 test = [
-    "pytest >=6.1.1",
-    "pytest-cov >=2.10.1",
+    "pytest >=6.2.2",
+    "pytest-cov >=2.11.1",
 ]
 doc = [
 ]
