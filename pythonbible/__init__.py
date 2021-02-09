@@ -29,7 +29,8 @@ from .formatter import (
     get_parser,
     get_verse_text,
 )
-from .parser import NormalizedReference, get_references, normalize_reference
+from .normalized_reference import NormalizedReference
+from .parser import get_references, normalize_reference
 from .validator import (
     is_valid_book,
     is_valid_chapter,

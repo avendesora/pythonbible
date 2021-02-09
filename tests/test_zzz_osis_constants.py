@@ -1,5 +1,4 @@
 import pythonbible as bible
-
 from pythonbible.bible.osis.constants import get_book_by_id
 
 

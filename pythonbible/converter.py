@@ -1,5 +1,8 @@
+from typing import List, Optional
+
+from pythonbible.books import Book
 from pythonbible.errors import InvalidVerseError
-from pythonbible.parser import NormalizedReference
+from pythonbible.normalized_reference import NormalizedReference
 from pythonbible.validator import is_valid_verse_id
 from pythonbible.verses import (
     VERSE_IDS,
@@ -9,36 +12,34 @@ from pythonbible.verses import (
 )
 
 
-def convert_references_to_verse_ids(references):
+def convert_references_to_verse_ids(references: List[NormalizedReference]) -> List[int]:
     """
 
     :param references: a list of normalized reference tuples
     :return: the list of verse ids associated with each of the references in the reference list
     """
-    if references is None:
-        return None
+    verse_ids: List[int] = []
 
-    verse_ids = []
-
-    for reference in references:
-        verse_ids.extend(convert_reference_to_verse_ids(reference))
+    if references is not None:
+        for reference in references:
+            verse_ids.extend(convert_reference_to_verse_ids(reference))
 
     return verse_ids
 
 
-def convert_reference_to_verse_ids(reference):
+def convert_reference_to_verse_ids(reference: NormalizedReference) -> List[int]:
     """
 
     :param reference: a normalized reference tuple
     :return: the list of verse ids associated with the reference
     """
     if reference is None:
-        return None
+        return []
 
-    start_verse_id = get_verse_id(
+    start_verse_id: int = get_verse_id(
         reference.book, reference.start_chapter, reference.start_verse
     )
-    end_verse_id = get_verse_id(
+    end_verse_id: int = get_verse_id(
         reference.book, reference.end_chapter, reference.end_verse
     )
     return VERSE_IDS[
@@ -46,37 +47,41 @@ def convert_reference_to_verse_ids(reference):
     ]
 
 
-def convert_verse_ids_to_references(verse_ids):
+def convert_verse_ids_to_references(verse_ids: List[int]) -> List[NormalizedReference]:
     """
 
     :param verse_ids:
     :return: a list of normalized reference tuples
     """
-    if verse_ids is None:
-        return None
+    references: List[NormalizedReference] = []
+
+    if verse_ids is None or len(verse_ids) == 0:
+        return references
 
     verse_ids.sort()
 
-    references = []
-    current_book = None
-    current_start_chapter = None
-    current_start_verse = None
-    current_end_chapter = None
-    current_end_verse = None
+    # Initialize with the first verse id in the list
+    first_verse = verse_ids[0]
 
-    for verse_id in verse_ids:
+    if not is_valid_verse_id(first_verse):
+        raise InvalidVerseError(verse_id=first_verse)
+
+    book: Book
+    chapter: int
+    verse: int
+    book, chapter, verse = get_book_chapter_verse(verse_ids[0])
+    current_book: Book = book
+    current_start_chapter: int = chapter
+    current_start_verse: int = verse
+    current_end_chapter: int = chapter
+    current_end_verse: int = verse
+
+    # Loop through the remaining verse ids in the list
+    for verse_id in verse_ids[1:]:
         if not is_valid_verse_id(verse_id):
             raise InvalidVerseError(verse_id=verse_id)
 
         book, chapter, verse = get_book_chapter_verse(verse_id)
-
-        if current_book is None:
-            current_book = book
-            current_start_chapter = chapter
-            current_start_verse = verse
-            current_end_chapter = chapter
-            current_end_verse = verse
-            continue
 
         # A new book should always mean a new reference.
         if book != current_book:
@@ -107,7 +112,7 @@ def convert_verse_ids_to_references(verse_ids):
 
             if not is_next_verse:
                 references.append(
-                    (
+                    NormalizedReference(
                         current_book,
                         current_start_chapter,
                         current_start_verse,
@@ -126,7 +131,7 @@ def convert_verse_ids_to_references(verse_ids):
         # At this point, the book and chapter should be the same as the previous
         # verse id, so if the verse is not the next verse after the previous
         # verse, then that should mean a new reference.
-        if verse != current_end_verse + 1:
+        if verse != (current_end_verse if current_end_verse else 0) + 1:
             references.append(
                 NormalizedReference(
                     current_book,
@@ -164,10 +169,16 @@ def convert_verse_ids_to_references(verse_ids):
     return references
 
 
-def is_new_chapter_next_verse(book, end_chapter, end_verse, chapter, verse):
-    max_verse = get_max_number_of_verses(book, end_chapter)
+def is_new_chapter_next_verse(
+    book: Book,
+    end_chapter: Optional[int],
+    end_verse: Optional[int],
+    chapter: int,
+    verse: int,
+) -> bool:
+    max_verse: int = get_max_number_of_verses(book, end_chapter)
 
     if end_verse != max_verse:
         return False
 
-    return chapter == (end_chapter + 1) and verse == 1
+    return chapter == ((end_chapter if end_chapter else 0) + 1) and verse == 1

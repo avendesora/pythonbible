@@ -8,8 +8,10 @@ def test_get_references(text_with_reference):
 
     # Then the references are found and returned in a list of normalized reference tuples
     assert len(references) == 2
-    assert references[0] == (bible.Book.MATTHEW, 18, 12, 18, 14)
-    assert references[1] == (bible.Book.LUKE, 15, 3, 15, 7)
+    assert references[0] == bible.NormalizedReference(
+        bible.Book.MATTHEW, 18, 12, 18, 14
+    )
+    assert references[1] == bible.NormalizedReference(bible.Book.LUKE, 15, 3, 15, 7)
 
 
 def test_get_references_complex(
@@ -31,7 +33,9 @@ def test_normalize_reference(non_normalized_reference):
     # Then the reference is returned as a list of tuples with the book enum,
     # start chapter, start verse, end chapter, and end verse
     assert len(normalized_references) == 1
-    assert normalized_references[0] == (bible.Book.MATTHEW, 18, 12, 18, 14)
+    assert normalized_references[0] == bible.NormalizedReference(
+        bible.Book.MATTHEW, 18, 12, 18, 14
+    )
 
 
 def test_normalize_reference_without_verse_numbers(reference_without_verse_numbers):
@@ -41,7 +45,9 @@ def test_normalize_reference_without_verse_numbers(reference_without_verse_numbe
 
     # Then the resulting normalized references contain the proper verse numbers
     assert len(normalized_references) == 1
-    assert normalized_references[0] == (bible.Book.EXODUS, 20, 1, 20, 26)
+    assert normalized_references[0] == bible.NormalizedReference(
+        bible.Book.EXODUS, 20, 1, 20, 26
+    )
 
 
 def test_normalize_reference_range_without_verse_numbers(
@@ -55,7 +61,9 @@ def test_normalize_reference_range_without_verse_numbers(
 
     # Then the resulting normalized references contain the proper verse numbers
     assert len(normalized_references) == 1
-    assert normalized_references[0] == (bible.Book.GENESIS, 1, 1, 4, 26)
+    assert normalized_references[0] == bible.NormalizedReference(
+        bible.Book.GENESIS, 1, 1, 4, 26
+    )
 
 
 def test_get_references_roman_numerals(
@@ -78,4 +86,4 @@ def test_philemon_vs_philippians():
     references = bible.get_references(text)
 
     # Then the parser does not raise an error and returns the appropriate reference
-    assert references == [(bible.Book.PHILEMON, 1, 9, 1, 9)]
+    assert references == [bible.NormalizedReference(bible.Book.PHILEMON, 1, 9, 1, 9)]

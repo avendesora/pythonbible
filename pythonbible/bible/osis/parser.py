@@ -3,15 +3,16 @@
 import os
 from functools import lru_cache
 
+from pythonbible.bible.bible_parser import BibleParser, sort_paragraphs
+from pythonbible.bible.osis.constants import BOOK_IDS, get_book_by_id
+from pythonbible.errors import InvalidVerseError
+from pythonbible.verses import get_book_chapter_verse, get_verse_id
+
 try:
     from defusedxml import ElementTree
 except ModuleNotFoundError:
     from xml.etree import ElementTree
 
-from pythonbible.bible.bible_parser import BibleParser, sort_paragraphs
-from pythonbible.bible.osis.constants import BOOK_IDS, get_book_by_id
-from pythonbible.errors import InvalidVerseError
-from pythonbible.verses import get_book_chapter_verse, get_verse_id
 
 XML_FOLDER = os.path.join(os.path.dirname(os.path.realpath(__file__)), "versions")
 

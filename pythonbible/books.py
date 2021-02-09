@@ -1,4 +1,5 @@
 from enum import IntEnum
+from typing import Dict
 
 
 class Book(IntEnum):
@@ -76,11 +77,11 @@ class Book(IntEnum):
     MACCABEES_2 = 72
 
     @property
-    def title(self):
-        return _BOOK_TITLES.get(self)
+    def title(self) -> str:
+        return _BOOK_TITLES.get(self, "")
 
 
-_BOOK_TITLES = {
+_BOOK_TITLES: Dict[Book, str] = {
     Book.GENESIS: "Genesis",
     Book.EXODUS: "Exodus",
     Book.LEVITICUS: "Leviticus",

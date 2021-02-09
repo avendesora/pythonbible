@@ -1,8 +1,9 @@
 import json
 import os
 from functools import lru_cache
-from typing import Dict, NamedTuple, Optional
+from typing import Any, Callable, Dict, List, NamedTuple, Optional, Type
 
+from pythonbible.bible.bible_parser import BibleParser
 from pythonbible.bible.osis.parser import OSISParser
 from pythonbible.books import Book
 from pythonbible.converter import (
@@ -14,6 +15,7 @@ from pythonbible.errors import (
     MissingBookFileError,
     MissingVerseFileError,
 )
+from pythonbible.normalized_reference import NormalizedReference
 from pythonbible.verses import VERSE_IDS, get_book_chapter_verse
 from pythonbible.versions import DEFAULT_VERSION, Version
 
@@ -23,16 +25,21 @@ class BookTitles(NamedTuple):
     short_title: str
 
 
-VERSION_MAP = {Version.AMERICAN_STANDARD: OSISParser, Version.KING_JAMES: OSISParser}
+VERSION_MAP: Dict[Version, Type[BibleParser]] = {
+    Version.AMERICAN_STANDARD: OSISParser,
+    Version.KING_JAMES: OSISParser,
+}
 
 
-def get_parser(**kwargs):
-    version = kwargs.get("version", DEFAULT_VERSION)
-    version_map = kwargs.get("version_map", VERSION_MAP)
-    return version_map.get(version)(version)
+def get_parser(**kwargs) -> BibleParser:
+    version: Version = kwargs.get("version", DEFAULT_VERSION)
+    version_map: Dict[Version, Type[BibleParser]] = kwargs.get(
+        "version_map", VERSION_MAP
+    )
+    return version_map.get(version, OSISParser)(version)
 
 
-DEFAULT_PARSER = get_parser()
+DEFAULT_PARSER: BibleParser = get_parser()
 
 CURRENT_FOLDER: str = os.path.dirname(os.path.realpath(__file__))
 DATA_FOLDER: str = os.path.join(os.path.join(CURRENT_FOLDER, "bible"), "data")
@@ -42,7 +49,9 @@ BOOK_TITLES: Dict[Version, Dict[Book, BookTitles]] = {}
 
 # TODO - handle Psalms vs Psalm appropriately
 # TODO - handle single chapter books appropriately (e.g. Obadiah 1-4 rather than Obadiah 1:1-4)
-def format_scripture_references(references, **kwargs):
+def format_scripture_references(
+    references: Optional[List[NormalizedReference]], **kwargs
+) -> Optional[str]:
     """
 
     :param references: a list of normalized scripture references
@@ -51,50 +60,69 @@ def format_scripture_references(references, **kwargs):
     if references is None:
         return None
 
-    verse_ids = convert_references_to_verse_ids(references)
+    verse_ids: List[int] = convert_references_to_verse_ids(references)
     verse_ids.sort()
-    sorted_references = convert_verse_ids_to_references(verse_ids)
+    sorted_references: List[NormalizedReference] = convert_verse_ids_to_references(
+        verse_ids
+    )
 
-    formatted_reference = ""
+    formatted_reference: str = ""
 
-    previous_reference = None
+    previous_reference: Optional[NormalizedReference] = None
 
     for reference in sorted_references:
-        book, start_chapter, start_verse, end_chapter, end_verse = reference
-
         # First reference
         if previous_reference is None:
             formatted_reference += format_single_reference(
-                book, start_chapter, start_verse, end_chapter, end_verse, **kwargs
+                reference.book,
+                reference.start_chapter,
+                reference.start_verse,
+                reference.end_chapter,
+                reference.end_verse,
+                **kwargs,
             )
             previous_reference = reference
             continue
 
-        previous_book = previous_reference[0]
+        previous_book: Optional[Book] = previous_reference.book
 
         # Reference with a new book
-        if previous_book != book:
+        if previous_book != reference.book:
             formatted_reference += ";"
             formatted_reference += format_single_reference(
-                book, start_chapter, start_verse, end_chapter, end_verse, **kwargs
+                reference.book,
+                reference.start_chapter,
+                reference.start_verse,
+                reference.end_chapter,
+                reference.end_verse,
+                **kwargs,
             )
             previous_reference = reference
             continue
 
-        previous_end_chapter = previous_reference[3]
+        previous_end_chapter: Optional[int] = previous_reference.end_chapter
 
         # Reference with a new chapter
-        if previous_end_chapter != start_chapter or end_chapter > start_chapter:
+        if previous_end_chapter != reference.start_chapter or (
+            reference.end_chapter
+            and reference.start_chapter
+            and reference.end_chapter > reference.start_chapter
+        ):
             formatted_reference += ","
             formatted_reference += format_single_reference(
-                None, start_chapter, start_verse, end_chapter, end_verse, **kwargs
+                None,
+                reference.start_chapter,
+                reference.start_verse,
+                reference.end_chapter,
+                reference.end_verse,
+                **kwargs,
             )
             continue
 
         # Reference with same book and chapter as previous reference
         formatted_reference += ","
         formatted_reference += format_single_reference(
-            None, None, start_verse, None, end_verse, **kwargs
+            None, None, reference.start_verse, None, reference.end_verse, **kwargs
         )
         previous_reference = reference
 
@@ -102,23 +130,32 @@ def format_scripture_references(references, **kwargs):
 
 
 def format_single_reference(
-    book, start_chapter, start_verse, end_chapter, end_verse, **kwargs
-):
-    formatted_reference = ""
+    book: Optional[Book],
+    start_chapter: Optional[int],
+    start_verse,
+    end_chapter: Optional[int],
+    end_verse,
+    **kwargs,
+) -> str:
+    formatted_reference: str = ""
 
     if book:
-        version = kwargs.get("version", DEFAULT_VERSION)
-        book_titles = get_book_titles(book, version)
-        full_title = kwargs.get("full_title", False)
-        title = book_titles.long_title if full_title else book_titles.short_title
-        formatted_reference += f"{title} "
+        version: Version = kwargs.get("version", DEFAULT_VERSION)
+        book_titles: Optional[BookTitles] = get_book_titles(book, version)
+        full_title: bool = kwargs.get("full_title", False)
+
+        if book_titles:
+            title: str = (
+                book_titles.long_title if full_title else book_titles.short_title
+            )
+            formatted_reference += f"{title} "
 
     if start_chapter:
         formatted_reference += f"{start_chapter}:{start_verse}"
     else:
         formatted_reference += f"{start_verse}"
 
-    if end_chapter and end_chapter > start_chapter:
+    if end_chapter and start_chapter and end_chapter > start_chapter:
         formatted_reference += f"-{end_chapter}:{end_verse}"
     elif end_verse > start_verse:
         formatted_reference += f"-{end_verse}"
@@ -126,14 +163,14 @@ def format_single_reference(
     return formatted_reference
 
 
-def format_scripture_text(verse_ids, **kwargs):
-    one_verse_per_paragraph = kwargs.get("one_verse_per_paragraph", False)
-    full_title = kwargs.get("full_title", False)
-    format_type = kwargs.get("format_type", "html")
-    include_verse_numbers = kwargs.get("include_verse_numbers", True)
-    parser = kwargs.get("parser", DEFAULT_PARSER)
+def format_scripture_text(verse_ids: List[int], **kwargs) -> str:
+    one_verse_per_paragraph: bool = kwargs.get("one_verse_per_paragraph", False)
+    full_title: bool = kwargs.get("full_title", False)
+    format_type: str = kwargs.get("format_type", "html")
+    include_verse_numbers: bool = kwargs.get("include_verse_numbers", True)
+    parser: BibleParser = kwargs.get("parser", DEFAULT_PARSER)
 
-    if one_verse_per_paragraph or (verse_ids and len(verse_ids) == 1):
+    if one_verse_per_paragraph or len(verse_ids) == 1:
         return format_scripture_text_verse_by_verse(
             verse_ids, parser.version, full_title, format_type, include_verse_numbers
         )
@@ -144,12 +181,16 @@ def format_scripture_text(verse_ids, **kwargs):
 
 
 def format_scripture_text_verse_by_verse(
-    verse_ids, version, full_title, format_type, include_verse_numbers
-):
+    verse_ids: List[int],
+    version: Version,
+    full_title: bool,
+    format_type: str,
+    include_verse_numbers: bool,
+) -> str:
     verse_ids.sort()
-    text = ""
-    current_book = None
-    current_chapter = None
+    text: str = ""
+    current_book: Optional[Book] = None
+    current_chapter: Optional[int] = None
 
     for verse_id in verse_ids:
         book, chapter_number, verse_number = get_book_chapter_verse(verse_id)
@@ -157,16 +198,21 @@ def format_scripture_text_verse_by_verse(
         if book != current_book:
             current_book = book
             current_chapter = chapter_number
-            book_titles = get_book_titles(book, version)
-            title = book_titles.long_title if full_title else book_titles.short_title
-            text += _format_title(title, format_type, len(text) == 0)
+            book_titles: Optional[BookTitles] = get_book_titles(book, version)
+
+            if book_titles:
+                title: str = (
+                    book_titles.long_title if full_title else book_titles.short_title
+                )
+                text += _format_title(title, format_type, len(text) == 0)
+
             text += _format_chapter(chapter_number, format_type)
 
         elif chapter_number != current_chapter:
             current_chapter = chapter_number
             text += _format_chapter(chapter_number, format_type)
 
-        verse_text = get_verse_text(verse_id, version)
+        verse_text: Optional[str] = get_verse_text(verse_id, version)
 
         if include_verse_numbers:
             verse_text = f"{verse_number}. {verse_text}"
@@ -177,19 +223,23 @@ def format_scripture_text_verse_by_verse(
 
 
 def format_scripture_text_with_parser(
-    verse_ids, parser, full_title, format_type, include_verse_numbers
-):
-    title_function = (
+    verse_ids: List[int],
+    parser: BibleParser,
+    full_title: bool,
+    format_type: str,
+    include_verse_numbers: bool,
+) -> str:
+    title_function: Callable[[Any], Any] = (
         parser.get_book_title if full_title else parser.get_short_book_title
     )
-    text = ""
+    text: str = ""
 
-    paragraphs = parser.get_scripture_passage_text(
+    paragraphs: Any = parser.get_scripture_passage_text(
         verse_ids, include_verse_number=include_verse_numbers
     )
 
     for book, chapters in paragraphs.items():
-        title = title_function(book)
+        title: str = title_function(book)
         text += _format_title(title, format_type, len(text) == 0)
 
         for chapter, paragraphs in chapters.items():
@@ -201,7 +251,7 @@ def format_scripture_text_with_parser(
     return text
 
 
-def _format_title(title, format_type, is_first_book):
+def _format_title(title: str, format_type: str, is_first_book: bool) -> str:
     if format_type == "html":
         return f"<h1>{title}</h1>\n"
 
@@ -211,14 +261,14 @@ def _format_title(title, format_type, is_first_book):
     return f"{title}\n\n"
 
 
-def _format_chapter(chapter, format_type):
+def _format_chapter(chapter: int, format_type: str) -> str:
     if format_type == "html":
         return f"<h2>Chapter {chapter}</h2>\n"
 
     return f"Chapter {chapter}\n\n"
 
 
-def _format_paragraph(paragraph, format_type):
+def _format_paragraph(paragraph: Optional[str], format_type: str) -> str:
     if format_type == "html":
         return f"<p>{paragraph}</p>\n"
 
@@ -238,7 +288,7 @@ def get_verse_text(verse_id: int, version: Version = DEFAULT_VERSION) -> Optiona
         raise InvalidVerseError(verse_id=verse_id)
 
     try:
-        version_verse_texts = _get_version_verse_texts(version)
+        version_verse_texts: Dict[int, str] = _get_version_verse_texts(version)
     except FileNotFoundError as e:
         raise MissingVerseFileError(e)
 
@@ -276,7 +326,7 @@ def get_book_titles(
     :return: the book title
     """
     try:
-        version_book_tiles = _get_version_book_titles(version)
+        version_book_tiles: Dict[Book, BookTitles] = _get_version_book_titles(version)
     except FileNotFoundError as e:
         raise MissingBookFileError(e)
 

@@ -20,8 +20,8 @@ def test_convert_reference_to_verse_ids_null():
     # When we attempt to convert it into a list of verse ids
     verse_ids = bible.convert_reference_to_verse_ids(None)
 
-    # Then the result is null
-    assert verse_ids is None
+    # Then the result is an empty list
+    assert len(verse_ids) == 0
 
 
 def test_convert_reference_to_verse_ids_invalid(invalid_reference):
@@ -45,8 +45,8 @@ def test_convert_references_to_verse_ids_null():
     # When we attempt to convert it into a list of verse ids
     actual_verse_ids = bible.convert_references_to_verse_ids(None)
 
-    # Then the result is null
-    assert actual_verse_ids is None
+    # Then the result is an empty list
+    assert len(actual_verse_ids) == 0
 
 
 def test_convert_references_to_verse_ids_complex(
@@ -76,8 +76,8 @@ def test_convert_verse_ids_to_references_null():
     # When we attempt to convert them into a list of references
     actual_references = bible.convert_verse_ids_to_references(None)
 
-    # Then the list of references is null
-    assert actual_references is None
+    # Then the list of references is empty
+    assert len(actual_references) == 0
 
 
 def test_convert_verse_ids_to_references_invalid(invalid_verse_id):
@@ -86,6 +86,14 @@ def test_convert_verse_ids_to_references_invalid(invalid_verse_id):
     # Then an error is raised
     with pytest.raises(bible.InvalidVerseError, match="1100100 is not a valid verse."):
         bible.convert_verse_ids_to_references([invalid_verse_id])
+
+
+def test_convert_verse_ids_to_references_invalid2(verse_id, invalid_verse_id):
+    # Given a list of verse ids with an invalid verse id
+    # When we attempt to convert them into a list of references
+    # Then an error is raised
+    with pytest.raises(bible.InvalidVerseError, match="1100100 is not a valid verse."):
+        bible.convert_verse_ids_to_references([verse_id, invalid_verse_id])
 
 
 def test_convert_verse_ids_to_references_complex(
@@ -137,4 +145,4 @@ def test_whole_book():
 
     # Then it should return the normalized reference for the entire book.
     assert len(references) == 1
-    assert references[0] == (bible.Book.GENESIS, 1, 1, 50, 26)
+    assert references[0] == bible.NormalizedReference(bible.Book.GENESIS, 1, 1, 50, 26)

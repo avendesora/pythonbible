@@ -1,8 +1,10 @@
 from enum import Enum
 
-
 # This comes from crosswire.org "Standard OSIS Codes for Bible Editions"
 # noinspection SpellCheckingInspection
+from typing import Dict
+
+
 class Version(Enum):
     # Ancient Language Editions
     STEPHANUS_GNT = "Steph"
@@ -103,12 +105,12 @@ class Version(Enum):
     YOUNGS_LITERAL = "YLT"
 
     @property
-    def title(self):
-        return _VERSION_TITLES.get(self)
+    def title(self) -> str:
+        return _VERSION_TITLES.get(self, "")
 
 
 # noinspection SpellCheckingInspection
-_VERSION_TITLES = {
+_VERSION_TITLES: Dict[Version, str] = {
     # Ancient Language Editions
     Version.STEPHANUS_GNT: "Stephanus GNT",
     Version.LATIN_VULGATE: "Latin Vulgate",
@@ -206,4 +208,4 @@ _VERSION_TITLES = {
     Version.YOUNGS_LITERAL: "Young's Literal Translation of the Bible",
 }
 
-DEFAULT_VERSION = Version.KING_JAMES
+DEFAULT_VERSION: Version = Version.KING_JAMES

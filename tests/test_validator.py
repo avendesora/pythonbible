@@ -61,7 +61,9 @@ def test_is_valid_reference_invalid_book(book, chapter, verse):
     # Given a normalized reference tuple with an invalid book
     # When we test to see if it is valid
     # Then the result is False
-    assert not bible.is_valid_reference((book.title, chapter, verse, chapter, verse))
+    assert not bible.is_valid_reference(
+        bible.NormalizedReference(book.title, chapter, verse, chapter, verse)
+    )
 
 
 def test_is_valid_reference_invalid_chapter(book, invalid_chapter, verse):
@@ -69,13 +71,15 @@ def test_is_valid_reference_invalid_chapter(book, invalid_chapter, verse):
     # When we test to see if it is valid
     # Then the result is False
     assert not bible.is_valid_reference(
-        (book.title, invalid_chapter, verse, invalid_chapter, verse)
+        bible.NormalizedReference(
+            book.title, invalid_chapter, verse, invalid_chapter, verse
+        )
     )
 
 
 def test_is_valid_reference_invalid_start_verse(book, chapter, verse, invalid_verse):
     # Given a normalized reference tuple with an invalid start verse
-    reference = (book, chapter, invalid_verse, chapter, verse)
+    reference = bible.NormalizedReference(book, chapter, invalid_verse, chapter, verse)
     # When we test to see if it is valid
     # Then the result is False
     assert not bible.is_valid_reference(reference)
@@ -83,7 +87,7 @@ def test_is_valid_reference_invalid_start_verse(book, chapter, verse, invalid_ve
 
 def test_is_valid_reference_invalid_end_verse(book, chapter, verse, invalid_verse):
     # Given a normalized reference tuple with an invalid end verse
-    reference = (book, chapter, verse, chapter, invalid_verse)
+    reference = bible.NormalizedReference(book, chapter, verse, chapter, invalid_verse)
     # When we test to see if it is valid
     # Then the result is False
     assert not bible.is_valid_reference(reference)
@@ -91,7 +95,9 @@ def test_is_valid_reference_invalid_end_verse(book, chapter, verse, invalid_vers
 
 def test_is_valid_reference_smaller_end_verse(book, chapter, verse):
     # Given a reference where the end verse comes before the start verse
-    reference = (book.title, chapter, verse + 1, chapter, verse)
+    reference = bible.NormalizedReference(
+        book.title, chapter, verse + 1, chapter, verse
+    )
 
     # When we test to see if it is valid
     # Then the result is false

@@ -3,10 +3,7 @@ from pathlib import Path
 from typing import Dict, List, Optional, Tuple
 
 from pythonbible.books import Book
-from pythonbible.errors import (
-    InvalidChapterError,
-    InvalidVerseError,
-)
+from pythonbible.errors import InvalidChapterError, InvalidVerseError
 
 with open(Path(__file__).resolve().parent / "data" / "verse_ids.txt") as verse_ids_file:
     VERSE_IDS: List[int] = [int(verse_id) for verse_id in verse_ids_file.readlines()]
@@ -1354,7 +1351,7 @@ def get_number_of_chapters(book: Book) -> int:
 
 
 @lru_cache(maxsize=None)
-def get_max_number_of_verses(book: Book, chapter: int) -> Optional[int]:
+def get_max_number_of_verses(book: Book, chapter: int) -> int:
     """
     Given a Book enum and chapter number int, if valid, return the int number of verses in that Book and chapter.
 
@@ -1374,7 +1371,7 @@ def get_max_number_of_verses(book: Book, chapter: int) -> Optional[int]:
 
 
 @lru_cache(maxsize=None)
-def get_verse_id(book: Book, chapter: int, verse: int) -> Optional[int]:
+def get_verse_id(book: Book, chapter: int, verse: int) -> int:
     """
     Given the Book enum, chapter number int, and verse number int return the verse id if it exists.
 
@@ -1398,7 +1395,7 @@ def get_verse_id(book: Book, chapter: int, verse: int) -> Optional[int]:
 
 
 @lru_cache(maxsize=None)
-def get_book_chapter_verse(verse_id: int) -> Optional[Tuple[Book, int, int]]:
+def get_book_chapter_verse(verse_id: int) -> Tuple[Book, int, int]:
     """
     Given a verse id return the tuple containing the Book enum, the chapter number int, and the verse number int.
 

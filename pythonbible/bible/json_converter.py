@@ -6,11 +6,7 @@ from pythonbible.bible.bible_parser import BibleParser
 from pythonbible.bible.osis.parser import OSISParser
 from pythonbible.errors import InvalidBibleParserError
 from pythonbible.formatter import DATA_FOLDER
-from pythonbible.verses import (
-    VERSE_IDS,
-    get_book_chapter_verse,
-    get_book_number,
-)
+from pythonbible.verses import VERSE_IDS, get_book_chapter_verse, get_book_number
 from pythonbible.versions import Version
 
 
