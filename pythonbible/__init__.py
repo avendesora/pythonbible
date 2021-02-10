@@ -16,6 +16,7 @@ from .converter import (
 )
 from .errors import (
     InvalidBibleParserError,
+    InvalidBookError,
     InvalidChapterError,
     InvalidVerseError,
     MissingBookFileError,

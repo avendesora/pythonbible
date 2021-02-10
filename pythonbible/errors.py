@@ -1,6 +1,10 @@
 from typing import Any, Optional
 
 
+class InvalidBookError(Exception):
+    """Raised when the book id is not valid."""
+
+
 class InvalidChapterError(Exception):
     """Raised when the chapter number is not a valid chapter number for the given book of the Bible."""
 

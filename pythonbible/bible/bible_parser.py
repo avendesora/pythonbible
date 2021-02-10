@@ -1,6 +1,10 @@
 """Contains the BibleParser generic parser class."""
 from abc import abstractmethod
 from collections import OrderedDict
+from typing import Dict, List
+
+from pythonbible.books import Book
+from pythonbible.versions import Version
 
 
 class BibleParser:
@@ -11,16 +15,16 @@ class BibleParser:
     parsers (e.g. OSIS, USFM, USFX, etc.) for parsing scripture text.
     """
 
-    def __init__(self, version):
+    def __init__(self, version: Version) -> None:
         """
         Initialize the Bible parser with the version.
 
         :param version:
         """
-        self.version = version
+        self.version: Version = version
 
     @abstractmethod
-    def get_book_title(self, book):
+    def get_book_title(self, book: Book) -> str:
         """
         Given a book, return the full title for that book from the XML file.
 
@@ -29,7 +33,7 @@ class BibleParser:
         """
 
     @abstractmethod
-    def get_short_book_title(self, book):
+    def get_short_book_title(self, book: Book) -> str:
         """
         Given a book, return the short title for that book from the XML file.
 
@@ -38,7 +42,9 @@ class BibleParser:
         """
 
     @abstractmethod
-    def get_scripture_passage_text(self, verse_ids, **kwargs):
+    def get_scripture_passage_text(
+        self, verse_ids: List[int], **kwargs
+    ) -> Dict[Book, Dict[int, List[str]]]:
         """
         Get the scripture passage for the given verse ids.
 
@@ -54,7 +60,7 @@ class BibleParser:
         """
 
     @abstractmethod
-    def get_verse_text(self, verse_id, **kwargs):
+    def get_verse_text(self, verse_id: int, **kwargs) -> str:
         """
         Get the scripture text for the given verse id.
 
@@ -69,7 +75,7 @@ class BibleParser:
         """
 
 
-def sort_paragraphs(paragraphs):
+def sort_paragraphs(paragraphs: Dict[Book, Dict[int, List[str]]]):
     """
     Sort paragraphs of scripture text.
 
@@ -81,20 +87,20 @@ def sort_paragraphs(paragraphs):
     :param paragraphs:
     :return: an OrderedDict(Book, OrderedDict(int, list(string)))
     """
-    ordered_paragraphs = OrderedDict()
+    ordered_paragraphs: Dict[Book, Dict[int, List[str]]] = OrderedDict()
 
-    book_keys = list(paragraphs.keys())
+    book_keys: List[Book] = list(paragraphs.keys())
     book_keys.sort()
 
     for book in book_keys:
-        chapters = paragraphs.get(book)
-        ordered_chapters = OrderedDict()
+        chapters: Dict[int, List[str]] = paragraphs.get(book, OrderedDict())
+        ordered_chapters: Dict[int, List[str]] = OrderedDict()
 
-        chapter_keys = list(chapters.keys())
+        chapter_keys: List[int] = list(chapters.keys())
         chapter_keys.sort()
 
         for chapter in chapter_keys:
-            ordered_chapters[chapter] = chapters.get(chapter)
+            ordered_chapters[chapter] = chapters.get(chapter, [])
 
         ordered_paragraphs[book] = ordered_chapters
 

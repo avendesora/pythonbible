@@ -4,6 +4,7 @@ from typing import Dict, List, Tuple
 
 from pythonbible.bible.bible_parser import BibleParser
 from pythonbible.bible.osis.parser import OSISParser
+from pythonbible.books import Book
 from pythonbible.errors import InvalidBibleParserError
 from pythonbible.formatter import DATA_FOLDER
 from pythonbible.verses import VERSE_IDS, get_book_chapter_verse, get_book_number
@@ -69,11 +70,10 @@ class JSONConverter:
             if book_id in self.books.keys():
                 continue
 
-            book_chapter_and_verse = get_book_chapter_verse(verse_id)
+            book: Book
+            book, _, _ = get_book_chapter_verse(verse_id)
 
-            if book_chapter_and_verse:
-                book, _, _ = book_chapter_and_verse
-
+            if book:
                 long_book_title: str = self.parser.get_book_title(book)
                 short_book_title: str = self.parser.get_short_book_title(book)
                 self.books[book_id] = (long_book_title, short_book_title)
@@ -106,7 +106,7 @@ def _print_file(data_folder: str, version: Version, filename: str, data: dict) -
         json.dump(data, json_file)
 
 
-def _make_sure_directory_exists(directory):
+def _make_sure_directory_exists(directory) -> None:
     try:
         os.makedirs(directory)
     except FileExistsError:

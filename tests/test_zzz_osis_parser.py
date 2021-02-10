@@ -59,7 +59,7 @@ def test_get_short_book_title():
 
 
 def test_get_scripture_passage_null():
-    assert DEFAULT_PARSER.get_scripture_passage_text(None) is None
+    assert len(DEFAULT_PARSER.get_scripture_passage_text(None)) == 0
 
 
 def test_get_verse_text(verse_id, verse_text):
