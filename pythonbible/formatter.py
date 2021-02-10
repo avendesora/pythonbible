@@ -51,14 +51,14 @@ BOOK_TITLES: Dict[Version, Dict[Book, BookTitles]] = {}
 # TODO - handle single chapter books appropriately (e.g. Obadiah 1-4 rather than Obadiah 1:1-4)
 def format_scripture_references(
     references: Optional[List[NormalizedReference]], **kwargs
-) -> Optional[str]:
+) -> str:
     """
 
     :param references: a list of normalized scripture references
     :return: a string version of the references formatted to be human-readable
     """
     if references is None:
-        return None
+        return ""
 
     verse_ids: List[int] = convert_references_to_verse_ids(references)
     verse_ids.sort()
