@@ -101,7 +101,7 @@ For example, given the following normalized scripture reference for Genesis 1:1-
 ```python
 import pythonbible as bible
 
-reference = (bible.Book.GENESIS, 1, 1, 1, 4)
+reference = bible.NormalizedReference(bible.Book.GENESIS, 1, 1, 1, 4)
 verse_ids = bible.convert_reference_to_verse_ids(reference)
 ```
 
