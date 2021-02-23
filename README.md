@@ -55,7 +55,7 @@ references = bible.get_references(text)
 
 The search functionality should return the following list of scripture references:
 
-```python
+```
 [
     NormalizedReference(
         book=<Book.MATTHEW: 40>, 
@@ -114,7 +114,7 @@ The conversion functionality would return the following list of verse id integer
 ### Converting a list of verse id integers into a list of normalized scripture references
 The reverse of the above feature, we can take a list of integer verse ids and convert it back into a list of normalized scripture references.
 
-For example, the following list of verse ids represent the references Matthew 18:12-14 and Luke 15:3-7.
+For example, the following list of verse ids represents the references Matthew 18:12-14 and Luke 15:3-7.
 
 ```python
 import pythonbible as bible
@@ -125,7 +125,7 @@ references = bible.convert_verse_ids_to_references(verse_ids)
 
 The conversion functionality would return the following list of normalized scripture references.
 
-```python
+```
 [
     NormalizedReference(
         book=<Book.MATTHEW: 40>, 
@@ -170,6 +170,24 @@ There are a couple of reference formatting features not yet implemented:
 *   Smarter pluralization of the book of Psalms (i.e. If just one Psalm is referenced, the singular "Psalm" should be used, but if more than one Psalm is referenced, the plural "Psalms" should be used.)
 *   Optional exclusion of the chapter number for books that contain only one chapter (e.g. Some prefer references like Obadiah 1-4 rather than Obadiah 1:1-4, since Obadiah contains only one chapter.)
 
-### Given a list of verse id integers, formatting the related Biblical text for print or web display in one or more open source or public domain versions
+### Formatting Biblical text for print or web display in one or more open-source or public domain versions
 
-coming soon...
+This is still a work in progress, but there is some existing functionality related to this.
+
+The pythonbible library currently includes a parser to parse [OSIS](https://ebible.org/osis/) formatted XML files. Future plans are to support other formats (namely [USFM](https://paratext.org/usfm/)) and to separate this functionality out into a separate library that parses these files and converts them into a more efficient format for use in Python. The pythonbible library could then use the output of that parsing library.
+
+We have used the OSIS parser to convert the King James and American Standard versions into JSON. This allows for very efficient lookups to get the text for a given verse id. However, it doesn't currently support paragraph formatting, poetry structure, notes, etc. It only supports the raw text. Those JSON files have been added to this library and can be currently used to retrieve the text for a single verse:
+
+```python
+import pythonbible as bible
+
+verse_text = bible.get_verse_text(1001001)
+```
+
+The resulting verse_text would be:
+
+```python
+'In the beginning God created the heaven and the earth.'
+```
+
+
