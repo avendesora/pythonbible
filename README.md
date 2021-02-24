@@ -181,7 +181,7 @@ We have used the OSIS parser to convert the King James and American Standard ver
 ```python
 import pythonbible as bible
 
-verse_text = bible.get_verse_text(1001001)
+verse_text = bible.get_verse_text(1001001, version=bible.Version.KING_JAMES)
 ```
 
 The resulting verse_text would be:
@@ -190,4 +190,4 @@ The resulting verse_text would be:
 'In the beginning God created the heaven and the earth.'
 ```
 
-
+The version argument is optional and currently defaults to ``KING_JAMES``. Ideally, that default will be configurable in a future release.
