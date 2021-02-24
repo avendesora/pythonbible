@@ -1,57 +1,59 @@
 from collections import OrderedDict
+from typing import Dict, List
 
 import pytest
 
 import pythonbible as bible
+from pythonbible.bible.bible_parser import BibleParser
 
 
 @pytest.fixture
-def verse_id():
+def verse_id() -> int:
     return 1001001
 
 
 @pytest.fixture
-def invalid_verse_id():
+def invalid_verse_id() -> int:
     return 1100100
 
 
 @pytest.fixture
-def book():
+def book() -> bible.Book:
     return bible.Book.GENESIS
 
 
 @pytest.fixture
-def chapter():
+def chapter() -> int:
     return 1
 
 
 @pytest.fixture
-def verse():
+def verse() -> int:
     return 1
 
 
 @pytest.fixture
-def invalid_chapter():
+def invalid_chapter() -> int:
     return 100
 
 
 @pytest.fixture
-def invalid_verse():
+def invalid_verse() -> int:
     return 100
 
 
 @pytest.fixture
-def text_with_reference():
+def text_with_reference() -> str:
     return "The parable of the lost sheep is told in Matthew 18:12-14 and Luke 15:3-7."
 
 
 @pytest.fixture
-def text_with_reference_complex():
+def text_with_reference_complex() -> str:
     return "You should read Psalm 130:4,8, Jeremiah 29:32-30:10,31:12, Matthew 1:18 - 2:18, and Luke 3: 5-7."
 
 
 @pytest.fixture
-def normalized_references_complex():
+def normalized_references_complex() -> List[bible.NormalizedReference]:
     return [
         bible.NormalizedReference(bible.Book.PSALMS, 130, 4, 130, 4),
         bible.NormalizedReference(bible.Book.PSALMS, 130, 8, 130, 8),
@@ -63,37 +65,37 @@ def normalized_references_complex():
 
 
 @pytest.fixture
-def non_normalized_reference():
+def non_normalized_reference() -> str:
     return "Matthew 18:12-14"
 
 
 @pytest.fixture
-def reference_without_verse_numbers():
+def reference_without_verse_numbers() -> str:
     return "Exodus 20"
 
 
 @pytest.fixture
-def reference_range_without_verse_numbers():
+def reference_range_without_verse_numbers() -> str:
     return "Genesis 1-4"
 
 
 @pytest.fixture
-def reference():
+def reference() -> bible.NormalizedReference:
     return bible.NormalizedReference(bible.Book.GENESIS, 1, 1, 3, 4)
 
 
 @pytest.fixture
-def invalid_reference():
+def invalid_reference() -> bible.NormalizedReference:
     return bible.NormalizedReference(bible.Book.GENESIS, 1, 1, 100, 100)
 
 
 @pytest.fixture
-def reference_string():
+def reference_string() -> str:
     return "Genesis 1:1-3:4"
 
 
 @pytest.fixture
-def references():
+def references() -> List[bible.NormalizedReference]:
     return [
         bible.NormalizedReference(bible.Book.MATTHEW, 18, 12, 18, 14),
         bible.NormalizedReference(bible.Book.LUKE, 15, 3, 15, 7),
@@ -101,7 +103,7 @@ def references():
 
 
 @pytest.fixture
-def verse_ids():
+def verse_ids() -> List[int]:
     return [
         40018012,
         40018013,
@@ -115,7 +117,7 @@ def verse_ids():
 
 
 @pytest.fixture
-def verse_ids_multiple_chapters():
+def verse_ids_multiple_chapters() -> List[int]:
     return [
         40018012,
         40018013,
@@ -125,7 +127,7 @@ def verse_ids_multiple_chapters():
 
 
 @pytest.fixture
-def verse_ids_complex():
+def verse_ids_complex() -> List[int]:
     return [
         19130004,
         19130008,
@@ -174,17 +176,17 @@ def verse_ids_complex():
 
 
 @pytest.fixture
-def formatted_reference():
+def formatted_reference() -> str:
     return "Psalms 130:4,8;Jeremiah 29:32-30:10,31:12;Matthew 1:18-2:18;Luke 3:5-7"
 
 
 @pytest.fixture
-def roman_numeral_references():
+def roman_numeral_references() -> str:
     return "Psalm cxxx.4,8, Jeremiah xxix. 32 - xxx. 10, xxxi. 12, Matthew i. 18 - ii. 18, and Luke iii. 5-7."
 
 
 @pytest.fixture
-def kjv_passage():
+def kjv_passage() -> Dict[bible.Book, Dict[int, List[str]]]:
     return OrderedDict(
         [
             (
@@ -267,7 +269,7 @@ def kjv_passage():
 
 
 @pytest.fixture
-def kjv_passage_no_verse_numbers():
+def kjv_passage_no_verse_numbers() -> Dict[bible.Book, Dict[int, List[str]]]:
     return OrderedDict(
         [
             (
@@ -350,7 +352,7 @@ def kjv_passage_no_verse_numbers():
 
 
 @pytest.fixture
-def asv_passage():
+def asv_passage() -> Dict[bible.Book, Dict[int, List[str]]]:
     return OrderedDict(
         [
             (
@@ -439,7 +441,7 @@ def asv_passage():
 
 
 @pytest.fixture
-def html_scripture_text():
+def html_scripture_text() -> str:
     return (
         "<h1>Matthew</h1>\n"
         "<h2>Chapter 18</h2>\n"
@@ -465,7 +467,7 @@ def html_scripture_text():
 
 
 @pytest.fixture
-def non_html_scripture_text():
+def non_html_scripture_text() -> str:
     return (
         "Matthew\n\n"
         "Chapter 18\n\n"
@@ -491,7 +493,7 @@ def non_html_scripture_text():
 
 
 @pytest.fixture
-def html_scripture_text_one_verse_per_paragraph():
+def html_scripture_text_one_verse_per_paragraph() -> str:
     return (
         "<h1>Matthew</h1>\n"
         "<h2>Chapter 18</h2>\n"
@@ -510,27 +512,27 @@ def html_scripture_text_one_verse_per_paragraph():
 
 
 @pytest.fixture
-def verse_text():
+def verse_text() -> str:
     return "1. In the beginning God created the heaven and the earth."
 
 
 @pytest.fixture
-def verse_text_no_verse_number():
+def verse_text_no_verse_number() -> str:
     return "In the beginning God created the heaven and the earth."
 
 
 @pytest.fixture
-def kjv_parser():
+def kjv_parser() -> BibleParser:
     return bible.get_parser(version=bible.Version.KING_JAMES)
 
 
 @pytest.fixture
-def asv_parser():
+def asv_parser() -> BibleParser:
     return bible.get_parser(version=bible.Version.AMERICAN_STANDARD)
 
 
 @pytest.fixture
-def short_verse_id_list():
+def short_verse_id_list() -> List[int]:
     return [
         1001001,
         2020003,
@@ -540,7 +542,7 @@ def short_verse_id_list():
 
 
 @pytest.fixture
-def short_verse_data_json():
+def short_verse_data_json() -> Dict[str, str]:
     return {
         "1001001": "In the beginning God created the heaven and the earth.",
         "2020003": "Thou shalt have no other gods before me.",
@@ -552,7 +554,7 @@ def short_verse_data_json():
 
 
 @pytest.fixture
-def short_verse_data_json_asv():
+def short_verse_data_json_asv() -> Dict[str, str]:
     return {
         "1001001": "In the beginning God created the heavens and the earth.",
         "2020003": "Thou shalt have no other gods before me.",
@@ -563,7 +565,7 @@ def short_verse_data_json_asv():
 
 
 @pytest.fixture
-def short_book_title_data_json():
+def short_book_title_data_json() -> Dict[str, List[str]]:
     return {
         "1": ["The First Book of Moses, called Genesis", "Genesis"],
         "2": ["The Second Book of Moses, called Exodus", "Exodus"],
@@ -572,7 +574,7 @@ def short_book_title_data_json():
 
 
 @pytest.fixture
-def short_book_title_data_json_asv():
+def short_book_title_data_json_asv() -> Dict[str, List[str]]:
     return {
         "1": ["The First Book of Moses, Commonly Called Genesis", "Genesis"],
         "2": ["The Second Book of Moses, Commonly Called Exodus", "Exodus"],
@@ -581,10 +583,10 @@ def short_book_title_data_json_asv():
 
 
 @pytest.fixture
-def long_book_title():
+def long_book_title() -> str:
     return "The First Book of Moses, called Genesis"
 
 
 @pytest.fixture
-def short_book_title():
+def short_book_title() -> str:
     return "Genesis"

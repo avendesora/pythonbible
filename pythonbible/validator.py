@@ -1,4 +1,7 @@
+from typing import List, Optional
+
 from pythonbible.books import Book
+from pythonbible.normalized_reference import NormalizedReference
 from pythonbible.verses import (
     MAX_VERSE_NUMBER_BY_BOOK_AND_CHAPTER,
     VERSE_IDS,
@@ -7,7 +10,7 @@ from pythonbible.verses import (
 )
 
 
-def is_valid_verse_id(verse_id):
+def is_valid_verse_id(verse_id: int) -> bool:
     """
     Checks to see if the given verse_id is in the list of valid verse ids.
 
@@ -17,48 +20,45 @@ def is_valid_verse_id(verse_id):
     return verse_id in VERSE_IDS
 
 
-def is_valid_reference(reference):
+def is_valid_reference(reference: NormalizedReference) -> bool:
     """
     Checks to see if the given reference is a valid normalized scripture reference.
 
     :param reference:
     :return: True if the reference is valid; otherwise, False
     """
-    if reference is None or not isinstance(reference, tuple):
+    if reference is None or not isinstance(reference, NormalizedReference):
         return False
 
-    if len(reference) != 5:
+    if not is_valid_verse(
+        reference.book, reference.start_chapter, reference.start_verse
+    ):
         return False
 
-    book = reference[0]
-    start_chapter = reference[1]
-    start_verse = reference[2]
-    end_chapter = reference[3]
-    end_verse = reference[4]
-
-    if not is_valid_verse(book, start_chapter, start_verse):
+    if not is_valid_verse(reference.book, reference.end_chapter, reference.end_verse):
         return False
 
-    if not is_valid_verse(book, end_chapter, end_verse):
-        return False
-
-    start_verse_id = get_verse_id(book, start_chapter, start_verse)
-    end_verse_id = get_verse_id(book, end_chapter, end_verse)
+    start_verse_id: int = get_verse_id(
+        reference.book, reference.start_chapter, reference.start_verse
+    )
+    end_verse_id: int = get_verse_id(
+        reference.book, reference.end_chapter, reference.end_verse
+    )
 
     return start_verse_id <= end_verse_id
 
 
-def is_valid_book(book):
+def is_valid_book(book: Book) -> bool:
     """
     Checks to see if the given book is a valid book of the Bible.
 
     :param book:
     :return: True if the book is valid; otherwise, False
     """
-    return book and isinstance(book, Book)
+    return book is not None and isinstance(book, Book)
 
 
-def is_valid_chapter(book, chapter):
+def is_valid_chapter(book: Book, chapter: int) -> bool:
     """
     Checks to see if the given chapter number is a valid chapter number for the given book.
 
@@ -72,11 +72,12 @@ def is_valid_chapter(book, chapter):
     if chapter is None or not isinstance(chapter, int):
         return False
 
-    chapter_list = MAX_VERSE_NUMBER_BY_BOOK_AND_CHAPTER.get(book)
-    return 1 <= chapter <= len(chapter_list)
+    chapter_list: Optional[List[int]] = MAX_VERSE_NUMBER_BY_BOOK_AND_CHAPTER.get(book)
+
+    return chapter_list is not None and 1 <= chapter <= len(chapter_list)
 
 
-def is_valid_verse(book, chapter, verse):
+def is_valid_verse(book: Book, chapter: int, verse: int) -> bool:
     """
     Checks to see if the given verse is a valid verse number for the given book and chapter.
 
@@ -91,5 +92,6 @@ def is_valid_verse(book, chapter, verse):
     if verse is None or not isinstance(verse, int):
         return False
 
-    max_verse = get_max_number_of_verses(book, chapter)
+    max_verse: int = get_max_number_of_verses(book, chapter)
+
     return 1 <= verse <= max_verse

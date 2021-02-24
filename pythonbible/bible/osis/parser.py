@@ -2,23 +2,27 @@
 
 import os
 from functools import lru_cache
+from typing import Dict, List, Tuple
+from xml.etree.ElementTree import Element
+
+from pythonbible.bible.bible_parser import BibleParser, sort_paragraphs
+from pythonbible.bible.osis.constants import BOOK_IDS, get_book_by_id
+from pythonbible.books import Book
+from pythonbible.errors import InvalidVerseError
+from pythonbible.verses import get_book_chapter_verse, get_verse_id
+from pythonbible.versions import Version
 
 try:
     from defusedxml import ElementTree
 except ModuleNotFoundError:
     from xml.etree import ElementTree
 
-from pythonbible.bible.bible_parser import BibleParser, sort_paragraphs
-from pythonbible.bible.osis.constants import BOOK_IDS, get_book_by_id
-from pythonbible.errors import InvalidVerseError
-from pythonbible.verses import get_book_chapter_verse, get_verse_id
+XML_FOLDER: str = os.path.join(os.path.dirname(os.path.realpath(__file__)), "versions")
 
-XML_FOLDER = os.path.join(os.path.dirname(os.path.realpath(__file__)), "versions")
-
-XPATH_BOOK = ".//xmlns:div[@osisID='{}']"
-XPATH_BOOK_TITLE = f"{XPATH_BOOK}/xmlns:title"
-XPATH_VERSE = ".//xmlns:verse[@osisID='{}.{}.{}']"
-XPATH_VERSE_PARENT = f"{XPATH_VERSE}/.."
+XPATH_BOOK: str = ".//xmlns:div[@osisID='{}']"
+XPATH_BOOK_TITLE: str = f"{XPATH_BOOK}/xmlns:title"
+XPATH_VERSE: str = ".//xmlns:verse[@osisID='{}.{}.{}']"
+XPATH_VERSE_PARENT: str = f"{XPATH_VERSE}/.."
 
 
 class OSISParser(BibleParser):
@@ -29,7 +33,7 @@ class OSISParser(BibleParser):
     to parse XML files that are in the OSIS format.
     """
 
-    def __init__(self, version):
+    def __init__(self, version: Version) -> None:
         """
         Initialize the OSIS parser.
 
@@ -40,39 +44,43 @@ class OSISParser(BibleParser):
         """
         super(OSISParser, self).__init__(version)
 
-        self.tree = ElementTree.parse(
+        self.tree: ElementTree = ElementTree.parse(
             os.path.join(XML_FOLDER, f"{self.version.value.lower()}.xml")
         )
-        self.namespaces = {"xmlns": _get_namespace(self.tree.getroot().tag)}
+        self.namespaces: Dict[str, str] = {
+            "xmlns": _get_namespace(self.tree.getroot().tag)
+        }
 
     @lru_cache(maxsize=None)
-    def get_book_title(self, book):
+    def get_book_title(self, book: Book) -> str:
         """
         Given a book, return the full title for that book from the XML file.
 
         :param book:
         :return: the full title string
         """
-        book_title_element = self._get_book_title_element(book)
-        return book_title_element.text
+        book_title_element: Element = self._get_book_title_element(book)
+        return book_title_element.text if book_title_element.text else ""
 
     @lru_cache(maxsize=None)
-    def get_short_book_title(self, book):
+    def get_short_book_title(self, book: Book) -> str:
         """
         Given a book, return the short title for that book from the XML file.
 
         :param book:
         :return: the short title string
         """
-        book_title_element = self._get_book_title_element(book)
-        return book_title_element.get("short")
+        book_title_element: Element = self._get_book_title_element(book)
+        return book_title_element.get("short", "")
 
     @lru_cache(maxsize=None)
-    def _get_book_title_element(self, book):
-        xpath = XPATH_BOOK_TITLE.format(BOOK_IDS.get(book))
+    def _get_book_title_element(self, book: Book) -> Element:
+        xpath: str = XPATH_BOOK_TITLE.format(BOOK_IDS.get(book))
         return self.tree.find(xpath, namespaces=self.namespaces)
 
-    def get_scripture_passage_text(self, verse_ids, **kwargs):
+    def get_scripture_passage_text(
+        self, verse_ids: List[int], **kwargs
+    ) -> Dict[Book, Dict[int, List[str]]]:
         """
         Get the scripture passage for the given verse ids.
 
@@ -84,34 +92,37 @@ class OSISParser(BibleParser):
 
         :param verse_ids:
         :param kwargs
-        :return: an OrderedDict(Book, OrderedDict(int, list(string)))
+        :return: the scripture passage text in a dictionary of books to
+        dictionary of chapter numbers to lists of paragraph strings
         """
         if verse_ids is None or len(verse_ids) == 0:
-            return None
+            return {}
 
         # Sort the verse ids and the convert it into a tuple so it's hashable
         verse_ids.sort()
-        verse_ids = tuple(verse_ids)
+        verse_ids_tuple: Tuple = tuple(verse_ids)
 
         # keyword arguments
-        include_verse_number = kwargs.get("include_verse_number", True)
+        include_verse_number: bool = kwargs.get("include_verse_number", True)
 
         return self._get_scripture_passage_text_memoized(
-            verse_ids, include_verse_number
+            verse_ids_tuple, include_verse_number
         )
 
     @lru_cache(maxsize=None)
-    def _get_scripture_passage_text_memoized(self, verse_ids, include_verse_number):
-        paragraphs = _get_paragraphs(
+    def _get_scripture_passage_text_memoized(
+        self, verse_ids, include_verse_number
+    ) -> Dict[Book, Dict[int, List[str]]]:
+        paragraphs: Dict[Book, Dict[int, List[str]]] = _get_paragraphs(
             self.tree,
             self.namespaces,
             verse_ids,
             include_verse_number,
         )
 
-        return None if paragraphs == [] else sort_paragraphs(paragraphs)
+        return sort_paragraphs(paragraphs)
 
-    def get_verse_text(self, verse_id, **kwargs):
+    def get_verse_text(self, verse_id: int, **kwargs) -> str:
         """
         Get the scripture text for the given verse id.
 
@@ -128,19 +139,21 @@ class OSISParser(BibleParser):
             raise InvalidVerseError("Verse id cannot be None.")
 
         # keyword arguments
-        include_verse_number = kwargs.get("include_verse_number", True)
+        include_verse_number: bool = kwargs.get("include_verse_number", True)
 
         return self._get_verse_text_memoized(verse_id, include_verse_number)
 
     @lru_cache(maxsize=None)
-    def _get_verse_text_memoized(self, verse_id, include_verse_number):
-        paragraphs = _get_paragraphs(
+    def _get_verse_text_memoized(
+        self, verse_id: int, include_verse_number: bool
+    ) -> str:
+        paragraphs: Dict[Book, Dict[int, List[str]]] = _get_paragraphs(
             self.tree,
             self.namespaces,
             tuple([verse_id]),
             include_verse_number,
         )
-        verse_text = ""
+        verse_text: str = ""
 
         for chapters in paragraphs.values():
             for chapter_paragraphs in chapters.values():
@@ -151,29 +164,38 @@ class OSISParser(BibleParser):
 
 
 @lru_cache(maxsize=None)
-def _get_namespace(tag):
+def _get_namespace(tag: str) -> str:
     return tag[tag.index("{") + 1 : tag.index("}")]
 
 
 @lru_cache(maxsize=None)
-def _strip_namespace_from_tag(tag):
+def _strip_namespace_from_tag(tag: str) -> str:
     return tag.replace(_get_namespace(tag), "").replace("{", "").replace("}", "")
 
 
-def _get_paragraphs(tree, namespaces, verse_ids, include_verse_number):
-    current_verse_id = verse_ids[0]
+def _get_paragraphs(
+    tree: ElementTree,
+    namespaces: Dict[str, str],
+    verse_ids: Tuple[int, ...],
+    include_verse_number: bool,
+) -> Dict[Book, Dict[int, List[str]]]:
+    current_verse_id: int = verse_ids[0]
+    book: Book
+    chapter: int
+    verse: int
     book, chapter, verse = get_book_chapter_verse(current_verse_id)
-    paragraph_element = tree.find(
+    paragraph_element: Element = tree.find(
         XPATH_VERSE_PARENT.format(BOOK_IDS.get(book), chapter, verse), namespaces
     )
+    paragraphs: List[str]
     paragraphs, current_verse_id = _get_paragraph_from_element(
         paragraph_element,
         verse_ids,
         current_verse_id,
         include_verse_number,
     )
-    current_verse_index = verse_ids.index(current_verse_id) + 1
-    paragraph_dictionary = {}
+    current_verse_index: int = verse_ids.index(current_verse_id) + 1
+    paragraph_dictionary: Dict[Book, Dict[int, List[str]]] = {}
 
     if current_verse_index < len(verse_ids):
         paragraph_dictionary = _get_paragraphs(
@@ -183,16 +205,8 @@ def _get_paragraphs(tree, namespaces, verse_ids, include_verse_number):
             include_verse_number,
         )
 
-    book_dictionary = paragraph_dictionary.get(book)
-
-    if book_dictionary is None:
-        book_dictionary = {}
-
-    chapter_list = book_dictionary.get(int(chapter))
-
-    if chapter_list is None:
-        chapter_list = []
-
+    book_dictionary: Dict[int, List[str]] = paragraph_dictionary.get(book, {})
+    chapter_list: List[str] = book_dictionary.get(int(chapter), [])
     paragraphs.extend(chapter_list)
     book_dictionary[int(chapter)] = paragraphs
     paragraph_dictionary[book] = book_dictionary
@@ -202,15 +216,16 @@ def _get_paragraphs(tree, namespaces, verse_ids, include_verse_number):
 
 @lru_cache(maxsize=None)
 def _get_paragraph_from_element(
-    paragraph_element,
-    verse_ids,
-    current_verse_id,
-    include_verse_number,
-):
-    new_current_verse_id = current_verse_id
-    paragraphs = []
-    paragraph = ""
-    skip_till_next_verse = False
+    paragraph_element: Element,
+    verse_ids: Tuple[int, ...],
+    current_verse_id: int,
+    include_verse_number: bool,
+) -> Tuple[List[str], int]:
+    new_current_verse_id: int = current_verse_id
+    paragraphs: List[str] = []
+    paragraph: str = ""
+    skip_till_next_verse: bool = False
+    child_paragraph: str
 
     for child_element in list(paragraph_element):
         (
@@ -239,13 +254,13 @@ def _get_paragraph_from_element(
 
 @lru_cache(maxsize=None)
 def _handle_child_element(
-    child_element,
-    verse_ids,
-    skip_till_next_verse,
-    current_verse_id,
-    include_verse_number,
-):
-    tag = _strip_namespace_from_tag(child_element.tag)
+    child_element: Element,
+    verse_ids: Tuple[int, ...],
+    skip_till_next_verse: bool,
+    current_verse_id: int,
+    include_verse_number: bool,
+) -> Tuple[str, bool, int]:
+    tag: str = _strip_namespace_from_tag(child_element.tag)
 
     if tag == "verse":
         return _handle_verse_tag(
@@ -271,12 +286,12 @@ def _handle_child_element(
         )
 
     if tag in ["q", "note"] and not skip_till_next_verse:
-        paragraph = ""
+        paragraph: str = ""
 
         if tag == "q":
             paragraph += _get_element_text_and_tail(child_element)
 
-        new_current_verse_id = current_verse_id
+        new_current_verse_id: int = current_verse_id
 
         for grandchild_element in list(child_element):
             (
@@ -300,21 +315,24 @@ def _handle_child_element(
 
 @lru_cache(maxsize=None)
 def _handle_verse_tag(
-    child_element,
-    verse_ids,
-    skip_till_next_verse,
-    current_verse_id,
-    include_verse_number,
-):
-    paragraph = ""
-    osis_id = child_element.get("osisID")
+    child_element: Element,
+    verse_ids: Tuple[int, ...],
+    skip_till_next_verse: bool,
+    current_verse_id: int,
+    include_verse_number: bool,
+) -> Tuple[str, bool, int]:
+    paragraph: str = ""
+    osis_id: str = child_element.get("osisID", "..")
 
-    if osis_id is None:
+    if osis_id == "..":
         return paragraph, skip_till_next_verse, current_verse_id
 
-    book_id, chapter, verse = child_element.get("osisID").split(".")
-    book = get_book_by_id(book_id)
-    verse_id = get_verse_id(book, int(chapter), int(verse))
+    book_id: str
+    chapter: str
+    verse: str
+    book_id, chapter, verse = osis_id.split(".")
+    book: Book = get_book_by_id(book_id)
+    verse_id: int = get_verse_id(book, int(chapter), int(verse))
 
     if verse_id in verse_ids:
         if skip_till_next_verse:
@@ -335,22 +353,22 @@ def _handle_verse_tag(
 
 
 @lru_cache(maxsize=None)
-def _get_element_text_and_tail(element):
+def _get_element_text_and_tail(element: Element) -> str:
     return _get_element_text(element) + _get_element_tail(element)
 
 
 @lru_cache(maxsize=None)
-def _get_element_text(element):
+def _get_element_text(element: Element) -> str:
     return element.text.replace("\n", " ") if element.text else ""
 
 
 @lru_cache(maxsize=None)
-def _get_element_tail(element):
+def _get_element_tail(element: Element) -> str:
     return element.tail.replace("\n", " ") if element.tail else ""
 
 
 @lru_cache(maxsize=None)
-def clean_paragraph(paragraph):
-    cleaned_paragraph = paragraph.replace("¶", "").replace("  ", " ")
+def clean_paragraph(paragraph: str) -> str:
+    cleaned_paragraph: str = paragraph.replace("¶", "").replace("  ", " ")
     cleaned_paragraph = cleaned_paragraph.strip()
     return cleaned_paragraph

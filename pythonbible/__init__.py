@@ -5,7 +5,7 @@ converting verse ids back into normalized references, and formatting
 references as human-readable strings.
 """
 
-__version__ = "0.1.5"
+__version__ = "0.3.0"
 
 from .bible.osis.parser import OSISParser
 from .books import Book
@@ -16,6 +16,7 @@ from .converter import (
 )
 from .errors import (
     InvalidBibleParserError,
+    InvalidBookError,
     InvalidChapterError,
     InvalidVerseError,
     MissingBookFileError,
@@ -29,7 +30,8 @@ from .formatter import (
     get_parser,
     get_verse_text,
 )
-from .parser import NormalizedReference, get_references, normalize_reference
+from .normalized_reference import NormalizedReference
+from .parser import get_references, normalize_reference
 from .validator import (
     is_valid_book,
     is_valid_chapter,
@@ -42,6 +44,7 @@ from .verses import (
     get_book_number,
     get_chapter_number,
     get_max_number_of_verses,
+    get_number_of_chapters,
     get_verse_id,
     get_verse_number,
 )

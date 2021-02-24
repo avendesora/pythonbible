@@ -1,7 +1,10 @@
+from typing import Dict
+
 from pythonbible.books import Book
+from pythonbible.errors import InvalidBookError
 
 # noinspection SpellCheckingInspection
-BOOK_IDS = {
+BOOK_IDS: Dict[Book, str] = {
     Book.GENESIS: "Gen",
     Book.EXODUS: "Exod",
     Book.LEVITICUS: "Lev",
@@ -90,9 +93,9 @@ BOOK_IDS = {
 }
 
 
-def get_book_by_id(book_id):
+def get_book_by_id(book_id: str) -> Book:
     for next_book, next_book_id in BOOK_IDS.items():
         if book_id == next_book_id:
             return next_book
 
-    return None
+    raise InvalidBookError

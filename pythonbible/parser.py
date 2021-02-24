@@ -1,28 +1,27 @@
 import re
-from collections import namedtuple
+from typing import List
 
-from pythonbible.regular_expressions import BOOK_REGULAR_EXPRESSIONS
-from pythonbible.regular_expressions import SCRIPTURE_REFERENCE_REGULAR_EXPRESSION
+from pythonbible.normalized_reference import NormalizedReference
+from pythonbible.regular_expressions import (
+    BOOK_REGULAR_EXPRESSIONS,
+    SCRIPTURE_REFERENCE_REGULAR_EXPRESSION,
+)
 from pythonbible.roman_numeral_util import convert_all_roman_numerals_to_integers
 from pythonbible.validator import is_valid_reference
 from pythonbible.verses import get_max_number_of_verses, get_number_of_chapters
 
-NormalizedReference = namedtuple(
-    "NormalizedReference", "book start_chapter start_verse end_chapter end_verse"
-)
 
-
-def get_references(text):
+def get_references(text: str) -> List[NormalizedReference]:
     """
     Searches the text for scripture references and returns any that are found in a list of normalized tuple references.
 
     :param text: a string that may contain zero or more scripture references
     :return: a list of tuples. each tuple is in the format (book, start_chapter, start_verse, end_chapter, end_verse)
     """
-    references = []
+    references: List[NormalizedReference] = []
 
     # First replace all roman numerals in the text with integers.
-    clean_text = convert_all_roman_numerals_to_integers(text)
+    clean_text: str = convert_all_roman_numerals_to_integers(text)
 
     for match in re.finditer(SCRIPTURE_REFERENCE_REGULAR_EXPRESSION, clean_text):
         references.extend(normalize_reference(match[0]))
