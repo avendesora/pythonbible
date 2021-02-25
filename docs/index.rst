@@ -16,7 +16,7 @@ Having trouble? We'd like to help!
 
 * Report bugs with pythonbible in our `issue tracker`_.
 
-.. _issue tracker: https://github.com/avendesora/python-bible/issues
+.. _issue tracker: https://github.com/avendesora/pythonbible/issues
 
 First steps
 ===========

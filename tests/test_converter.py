@@ -154,7 +154,7 @@ def test_is_new_chapter_next_verse_false(book: bible.Book) -> None:
 
 
 def test_whole_book() -> None:
-    """Test for https://github.com/avendesora/python-bible/issues/7!"""
+    """Test for https://github.com/avendesora/pythonbible/issues/7!"""
     # Given a reference that is just a book title
     reference_string: str = "Genesis"
 

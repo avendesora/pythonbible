@@ -5,10 +5,10 @@ The pythonbible library serves several purposes related to the Christian Bible a
 [![PyPI version](https://img.shields.io/pypi/v/pythonbible?color=blue&logo=pypi&logoColor=lightgray)](https://pypi.org/project/pythonbible/)
 [![license MIT](https://img.shields.io/badge/license-MIT-orange.svg)](https://opensource.org/licenses/MIT)
 
-![Test](https://github.com/avendesora/python-bible/workflows/Test/badge.svg)
-![CodeQL](https://github.com/avendesora/python-bible/workflows/CodeQL/badge.svg)
-[![Codacy Badge](https://app.codacy.com/project/badge/Grade/dc1333c64b434f7bb813d08750462921)](https://www.codacy.com/gh/avendesora/python-bible/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=avendesora/python-bible&amp;utm_campaign=Badge_Grade)
-[![Codacy Badge](https://app.codacy.com/project/badge/Coverage/dc1333c64b434f7bb813d08750462921)](https://www.codacy.com/gh/avendesora/python-bible/dashboard?utm_source=github.com&utm_medium=referral&utm_content=avendesora/python-bible&utm_campaign=Badge_Coverage)
+![Test](https://github.com/avendesora/pythonbible/workflows/Test/badge.svg)
+![CodeQL](https://github.com/avendesora/pythonbible/workflows/CodeQL/badge.svg)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/dc1333c64b434f7bb813d08750462921)](https://www.codacy.com/gh/avendesora/pythonbible/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=avendesora/pythonbible&amp;utm_campaign=Badge_Grade)
+[![Codacy Badge](https://app.codacy.com/project/badge/Coverage/dc1333c64b434f7bb813d08750462921)](https://www.codacy.com/gh/avendesora/pythonbible/dashboard?utm_source=github.com&utm_medium=referral&utm_content=avendesora/pythonbible&utm_campaign=Badge_Coverage)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
 [![Python 3.9](https://img.shields.io/badge/python-3.7%20%7C%203.8%20%7C%203.9-blue?logo=python&logoColor=lightgray)](https://www.python.org/downloads/release/python-390/)
