@@ -55,7 +55,7 @@ def convert_verse_ids_to_references(verse_ids: List[int]) -> List[NormalizedRefe
     """
     references: List[NormalizedReference] = []
 
-    if verse_ids is None or len(verse_ids) == 0:
+    if verse_ids is None or not verse_ids:
         return references
 
     verse_ids.sort()
@@ -131,7 +131,7 @@ def convert_verse_ids_to_references(verse_ids: List[int]) -> List[NormalizedRefe
         # At this point, the book and chapter should be the same as the previous
         # verse id, so if the verse is not the next verse after the previous
         # verse, then that should mean a new reference.
-        if verse != (current_end_verse if current_end_verse else 0) + 1:
+        if verse != (current_end_verse or 0) + 1:
             references.append(
                 NormalizedReference(
                     current_book,
@@ -181,4 +181,4 @@ def is_new_chapter_next_verse(
     if end_verse != max_verse:
         return False
 
-    return chapter == ((end_chapter if end_chapter else 0) + 1) and verse == 1
+    return chapter == (end_chapter or 0) + 1 and verse == 1
