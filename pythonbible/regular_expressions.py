@@ -1,6 +1,7 @@
 import re
 from typing import Dict, Pattern
 
+from pythonbible.book_groups import BookGroup
 from pythonbible.books import Book
 
 # noinspection SpellCheckingInspection
@@ -92,4 +93,27 @@ FULL_CHAPTER_AND_VERSE_REGEX: str = f"({RANGE_REGEX}({ADDITIONAL_REFERENCE_REGEX
 
 SCRIPTURE_REFERENCE_REGULAR_EXPRESSION: Pattern[str] = re.compile(
     fr"({BOOK_REGEX})\s*({FULL_CHAPTER_AND_VERSE_REGEX})?", re.IGNORECASE | re.UNICODE
+)
+
+BOOK_GROUP_REGULAR_EXPRESSIONS: Dict[BookGroup, str] = {
+    BookGroup.OLD_TESTAMENT: "Old Testament",
+    BookGroup.OLD_TESTAMENT_LAW: "Law",
+    BookGroup.OLD_TESTAMENT_HISTORY: "History",
+    BookGroup.OLD_TESTAMENT_POETRY_WISDOM: "Poetry|Wisdom",
+    BookGroup.OLD_TESTAMENT_MAJOR_PROPHETS: "Major Prophets",
+    BookGroup.OLD_TESTAMENT_MINOR_PROPHETS: "Minor Prophets",
+    BookGroup.OLD_TESTAMENT_PROPHECY: "Prophecy",
+    BookGroup.NEW_TESTAMENT: "New Testament",
+    BookGroup.NEW_TESTAMENT_GOSPELS: "Gospels",
+    BookGroup.NEW_TESTAMENT_HISTORY: "History",
+    BookGroup.NEW_TESTAMENT_PAUL_EPISTLES: "Pauline Epistles|Paul's Epistles|Epistles of Paul",
+    BookGroup.NEW_TESTAMENT_GENERAL_EPISTLES: "General Epistles",
+    BookGroup.NEW_TESTAMENT_EPISTLES: "Epistles",
+    BookGroup.NEW_TESTAMENT_APOCALYPTIC: "Apocalyptic",
+}
+
+BOOK_GROUP_REGEX: str = "|".join(BOOK_GROUP_REGULAR_EXPRESSIONS.values())
+
+BOOK_GROUP_REGULAR_EXPRESSION: Pattern[str] = re.compile(
+    fr"{BOOK_GROUP_REGEX}", re.IGNORECASE | re.UNICODE
 )

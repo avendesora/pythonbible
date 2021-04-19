@@ -191,3 +191,18 @@ def test_philemon_not_philippians() -> None:
 
     # then the match is found
     assert len(matches) == 1
+
+
+def test_book_group_regular_expression_old_testament() -> None:
+    # given a string with "Old Testament"
+    text: str = "The entire Old Testament of the Bible"
+
+    # when evaluating the string to see if it matches the Old Testament regular expression
+    matches: List[Match[str]] = re.findall(
+        regular_expressions.BOOK_GROUP_REGULAR_EXPRESSIONS.get(
+            bible.BookGroup.OLD_TESTAMENT, ""
+        ),
+        text,
+    )
+
+    assert len(matches) == 1
