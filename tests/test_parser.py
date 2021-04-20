@@ -120,15 +120,15 @@ def test_book_alternative_names(book_alternative_names) -> None:
             assert alternative_references == references
 
 
-# def test_cross_book_reference_just_books() -> None:
-#     # Given a text string with a reference that ranges over multiple books of the Bible
-#     text: str = "Genesis - Deuteronomy"
-#
-#     # When we parse the references from that text
-#     references: List[bible.NormalizedReference] = bible.get_references(text)
-#
-#     # Then the parser does not raise an error and returns the appropriate reference
-#     deuteronomy: bible.Book = bible.Book.DEUTERONOMY
-#     max_chapter: int = bible.get_number_of_chapters(deuteronomy)
-#     max_verse: int = bible.get_max_number_of_verses(deuteronomy, max_chapter)
-#     assert references == [bible.NormalizedReference(bible.Book.GENESIS, 1, 1, max_chapter, max_verse, deuteronomy)]
+def test_cross_book_reference_just_books() -> None:
+    # Given a text string with a reference that ranges over multiple books of the Bible
+    text: str = "Genesis - Deuteronomy"
+
+    # When we parse the references from that text
+    references: List[bible.NormalizedReference] = bible.get_references(text)
+
+    # Then the parser does not raise an error and returns the appropriate reference
+    deuteronomy: bible.Book = bible.Book.DEUTERONOMY
+    max_chapter: int = bible.get_number_of_chapters(deuteronomy)
+    max_verse: int = bible.get_max_number_of_verses(deuteronomy, max_chapter)
+    assert references == [bible.NormalizedReference(bible.Book.GENESIS, 1, 1, max_chapter, max_verse, deuteronomy)]

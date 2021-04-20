@@ -1,14 +1,15 @@
 import re
-from typing import List
+from typing import List, Optional, Match, AnyStr
 
-from pythonbible.normalized_reference import NormalizedReference
-from pythonbible.regular_expressions import (
+from .books import Book
+from .normalized_reference import NormalizedReference
+from .regular_expressions import (
     BOOK_REGULAR_EXPRESSIONS,
     SCRIPTURE_REFERENCE_REGULAR_EXPRESSION,
 )
-from pythonbible.roman_numeral_util import convert_all_roman_numerals_to_integers
-from pythonbible.validator import is_valid_reference
-from pythonbible.verses import get_max_number_of_verses, get_number_of_chapters
+from .roman_numeral_util import convert_all_roman_numerals_to_integers
+from .validator import is_valid_reference
+from .verses import get_max_number_of_verses, get_number_of_chapters
 
 
 def get_references(text: str) -> List[NormalizedReference]:
@@ -29,46 +30,110 @@ def get_references(text: str) -> List[NormalizedReference]:
     return references
 
 
-def normalize_reference(reference):
+def normalize_reference(reference: str) -> List[NormalizedReference]:
     """
     Converts a scripture reference string into a list of normalized tuple references.
 
     :param reference: a string that is a scripture reference
     :return: a list of tuples. each tuple is in the format (book, start_chapter, start_verse, end_chapter, end_verse)
     """
-    references = []
-    book = None
+    references: List[NormalizedReference] = []
+    books: list[Book] = []
+    cleaned_references: list[str] = []
+    reference_without_books: str = reference
+    start: int
+    end: int
+    book_found: bool = True
 
-    for book, regular_expression in BOOK_REGULAR_EXPRESSIONS.items():
-        match = re.match(regular_expression, reference, re.IGNORECASE)
+    while book_found:
+        book_found = False
 
-        if match:
-            reference_without_book = reference.replace(match[0], "")
-            break
+        for book, regular_expression in BOOK_REGULAR_EXPRESSIONS.items():
+            match: Optional[Match[AnyStr]] = re.search(regular_expression, reference_without_books, re.IGNORECASE)
 
-    start_chapter = None
+            if match:
+                start, end = match.regs[0]
 
-    if len(reference_without_book.strip()) == 0:
-        max_chapter = get_number_of_chapters(book)
-        max_verse = get_max_number_of_verses(book, max_chapter)
-        references.append(NormalizedReference(book, 1, 1, max_chapter, max_verse))
-    else:
-        for sub_reference in reference_without_book.split(","):
-            start_chapter, start_verse, end_chapter, end_verse = _process_sub_reference(
-                sub_reference, book, start_chapter
-            )
+                if start != 0 and len(books) == 0:
+                    continue
 
-            new_reference = NormalizedReference(
-                book, start_chapter, start_verse, end_chapter, end_verse
-            )
+                book_found = True
 
-            if is_valid_reference(new_reference):
-                references.append(new_reference)
-            else:
-                # TODO - ignore? raise error?
-                pass
+                if len(books) > 0:
+                    cleaned_references.append(reference_without_books[:start])
 
-            start_chapter = end_chapter
+                reference_without_books = reference_without_books[end:]
+                books.append(book)
+                continue
+
+    cleaned_references.append(reference_without_books)
+
+    if len(books) == 0:
+        return references
+
+    if len(books) > 2:
+        raise Exception("Scripture reference ranges currently only allow up to two books.")
+
+    # First Book
+    first_book_references = _process_sub_references(books[0], cleaned_references[0].strip())
+
+    if len(books) == 1:
+        return first_book_references
+
+    # Second Book
+    second_book_references = _process_sub_references(books[1], cleaned_references[1].strip())
+
+    if len(first_book_references) > 1:
+        references.extend(first_book_references[:-1])
+
+    # Combine last first reference with first second reference
+    last_first_reference = first_book_references[-1]
+    first_second_reference = second_book_references[0]
+
+    references.append(NormalizedReference(
+        last_first_reference.book,
+        last_first_reference.start_chapter,
+        last_first_reference.start_verse,
+        first_second_reference.end_chapter,
+        first_second_reference.end_verse,
+        first_second_reference.book
+    ))
+
+    if len(second_book_references) > 1:
+        references.extend(second_book_references[1:])
+
+    return references
+
+
+def _process_sub_references(book: Book, reference: str) -> List[NormalizedReference]:
+    references: List[NormalizedReference] = []
+    start_chapter: Optional[int] = None
+
+    for sub_reference in reference.split(","):
+        if (len(sub_reference) == 0 or sub_reference == "-") and len(references) == 0:
+            max_chapter: int = get_number_of_chapters(book)
+            max_verse: int = get_max_number_of_verses(book, max_chapter)
+            references.append(NormalizedReference(book, 1, 1, max_chapter, max_verse))
+            continue
+
+        if sub_reference.endswith("-"):
+            sub_reference = sub_reference[:-1]
+
+        start_chapter, start_verse, end_chapter, end_verse = _process_sub_reference(
+            sub_reference, book, start_chapter
+        )
+
+        new_reference = NormalizedReference(
+            book, start_chapter, start_verse, end_chapter, end_verse
+        )
+
+        if is_valid_reference(new_reference):
+            references.append(new_reference)
+        else:
+            # TODO - ignore? raise error?
+            pass
+
+        start_chapter = end_chapter
 
     return references
 

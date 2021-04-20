@@ -5,7 +5,7 @@ from pythonbible.book_groups import BookGroup
 from pythonbible.books import Book
 
 
-def build_book_regex(book: str, prefix: str = None, suffix: str = None) -> str:
+def build_book_regular_expression(book: str, prefix: str = None, suffix: str = None) -> str:
     return _add_suffix(_add_prefix(book, prefix), suffix)
 
 
@@ -17,34 +17,34 @@ def _add_suffix(regex: str, suffix: str = None) -> str:
     return regex if suffix is None else fr"{regex}(?:\s*{suffix})?"
 
 
-SAMUEL_REGEX = r"Sam\.*(?:uel)?"
-KINGS_REGEX = r"K(?:in)?gs\.*"
+SAMUEL_REGULAR_EXPRESSION = r"Sam\.*(?:uel)?"
+KINGS_REGULAR_EXPRESSION = r"K(?:in)?gs\.*"
 # noinspection SpellCheckingInspection
-CHRONICLES_REGEX = r"Chr\.*(?:o\.*(?:n\.*(?:icles)?)?)?"
+CHRONICLES_REGULAR_EXPRESSION = r"Chr\.*(?:o\.*(?:n\.*(?:icles)?)?)?"
 # noinspection SpellCheckingInspection
-CORINTHIANS_REGEX = r"Cor\.*(?:inthians)?"
+CORINTHIANS_REGULAR_EXPRESSION = r"Cor\.*(?:inthians)?"
 # noinspection SpellCheckingInspection
-THESSALONIANS_REGEX = r"Thess\.*(?:alonians)?"
+THESSALONIANS_REGULAR_EXPRESSION = r"Thess\.*(?:alonians)?"
 # noinspection SpellCheckingInspection
-TIMOTHY_REGEX = r"Tim\.*(?:othy)?"
-PETER_REGEX = r"Pet\.*(?:er)?"
+TIMOTHY_REGULAR_EXPRESSION = r"Tim\.*(?:othy)?"
+PETER_REGULAR_EXPRESSION = r"Pet\.*(?:er)?"
 
-FIRST_REGEX = "1|I"
-SECOND_REGEX = "2|II"
-THIRD_REGEX = "3|III"
+FIRST = "1|I"
+SECOND = "2|II"
+THIRD = "3|III"
 
-FIRST_BOOK = fr"{FIRST_REGEX}|(First\s+Book\s+of(?:\s+the)?)"
-SECOND_BOOK = fr"{SECOND_REGEX}|(Second\s+Book\s+of(?:\s+the)?)"
+FIRST_BOOK = fr"{FIRST}|(First\s+Book\s+of(?:\s+the)?)"
+SECOND_BOOK = fr"{SECOND}|(Second\s+Book\s+of(?:\s+the)?)"
 
 EPISTLE_OF_PAUL_TO = r"Epistle\s+of\s+Paul\s+(?:the\s+Apostle\s+)?to(?:\s+the)?"
 GENERAL_EPISTLE_OF = r"(?:General\s+)?Epistle\s+(?:General\s+)?of"
 
-FIRST_PAUL_EPISTLE = fr"{FIRST_REGEX}|(First\s+{EPISTLE_OF_PAUL_TO})"
-SECOND_PAUL_EPISTLE = fr"{SECOND_REGEX}|(Second\s+{EPISTLE_OF_PAUL_TO})"
+FIRST_PAUL_EPISTLE = fr"{FIRST}|(First\s+{EPISTLE_OF_PAUL_TO})"
+SECOND_PAUL_EPISTLE = fr"{SECOND}|(Second\s+{EPISTLE_OF_PAUL_TO})"
 
-FIRST_GENERAL_EPISTLE = fr"{FIRST_REGEX}|(First\s+{GENERAL_EPISTLE_OF})"
-SECOND_GENERAL_EPISTLE = fr"{SECOND_REGEX}|(Second\s+{GENERAL_EPISTLE_OF})"
-THIRD_GENERAL_EPISTLE = fr"{THIRD_REGEX}|(Third\s+{GENERAL_EPISTLE_OF})"
+FIRST_GENERAL_EPISTLE = fr"{FIRST}|(First\s+{GENERAL_EPISTLE_OF})"
+SECOND_GENERAL_EPISTLE = fr"{SECOND}|(Second\s+{GENERAL_EPISTLE_OF})"
+THIRD_GENERAL_EPISTLE = fr"{THIRD}|(Third\s+{GENERAL_EPISTLE_OF})"
 
 
 # noinspection SpellCheckingInspection
@@ -57,32 +57,32 @@ BOOK_REGULAR_EXPRESSIONS: Dict[Book, str] = {
     Book.JOSHUA: r"Josh\.*(?:ua)?",
     Book.JUDGES: r"Judg\.*(?:es)?",
     Book.RUTH: "Ruth",
-    Book.SAMUEL_1: build_book_regex(
-        SAMUEL_REGEX,
+    Book.SAMUEL_1: build_book_regular_expression(
+        SAMUEL_REGULAR_EXPRESSION,
         prefix=FIRST_BOOK,
         suffix=fr"Otherwise\s+Called\s+The\s+First\s+Book\s+of\s+the\s+Kings",
     ),
-    Book.SAMUEL_2: build_book_regex(
-        SAMUEL_REGEX,
+    Book.SAMUEL_2: build_book_regular_expression(
+        SAMUEL_REGULAR_EXPRESSION,
         prefix=SECOND_BOOK,
         suffix=fr"Otherwise\s+Called\s+The\s+Second\s+Book\s+of\s+the\s+Kings",
     ),
-    Book.KINGS_1: build_book_regex(
-        KINGS_REGEX,
+    Book.KINGS_1: build_book_regular_expression(
+        KINGS_REGULAR_EXPRESSION,
         prefix=FIRST_BOOK,
         suffix=fr"\,\s+Commonly\s+Called\s+the\s+Third\s+Book\s+of\s+the\s+Kings",
     ),
-    Book.KINGS_2: build_book_regex(
-        KINGS_REGEX,
+    Book.KINGS_2: build_book_regular_expression(
+        KINGS_REGULAR_EXPRESSION,
         prefix=SECOND_BOOK,
         suffix=fr"\,\s+Commonly\s+Called\s+the\s+Fourth\s+Book\s+of\s+the\s+Kings",
     ),
-    Book.CHRONICLES_1: build_book_regex(
-        CHRONICLES_REGEX,
+    Book.CHRONICLES_1: build_book_regular_expression(
+        CHRONICLES_REGULAR_EXPRESSION,
         prefix=FIRST_BOOK,
     ),
-    Book.CHRONICLES_2: build_book_regex(
-        CHRONICLES_REGEX,
+    Book.CHRONICLES_2: build_book_regular_expression(
+        CHRONICLES_REGULAR_EXPRESSION,
         prefix=SECOND_BOOK,
     ),
     Book.EZRA: "Ezra",
@@ -91,15 +91,15 @@ BOOK_REGULAR_EXPRESSIONS: Dict[Book, str] = {
     Book.JOB: "Job",
     Book.PSALMS: r"Ps\.*(?:a\.*)?(?:lm(?:s)?)?",
     Book.PROVERBS: r"Prov\.*(?:erbs)?",
-    Book.ECCLESIASTES: build_book_regex(
+    Book.ECCLESIASTES: build_book_regular_expression(
         r"Ecc\.*(?:l\.*(?:es\.*(?:iastes)?)?)?", suffix=r"or\,\s+the\s+Preacher"
     ),
-    Book.SONG_OF_SONGS: build_book_regex(
+    Book.SONG_OF_SONGS: build_book_regular_expression(
         "Song", suffix=r"of ((Sol\.*(?:omon)?)|Songs)"
     ),
     Book.ISAIAH: r"Isa\.*(?:iah)?",
     Book.JEREMIAH: r"Jer\.*(?:emiah)?",
-    Book.LAMENTATIONS: build_book_regex(
+    Book.LAMENTATIONS: build_book_regular_expression(
         r"Lam\.*(?:entations)?", suffix=r"of\s+Jeremiah"
     ),
     Book.EZEKIEL: r"Ezek\.*(?:iel)?",
@@ -120,33 +120,33 @@ BOOK_REGULAR_EXPRESSIONS: Dict[Book, str] = {
     Book.MARK: "Mark",
     Book.LUKE: "Luke",
     Book.JOHN: r"(?<!(?:1|2|3|I)\s)(?<!(?:1|2|3|I))John",
-    Book.ACTS: build_book_regex("Acts", suffix="of the Apostles"),
+    Book.ACTS: build_book_regular_expression("Acts", suffix="of the Apostles"),
     Book.ROMANS: r"Rom\.*(?:ans)?",
-    Book.CORINTHIANS_1: build_book_regex(CORINTHIANS_REGEX, prefix=FIRST_PAUL_EPISTLE),
-    Book.CORINTHIANS_2: build_book_regex(CORINTHIANS_REGEX, prefix=SECOND_PAUL_EPISTLE),
+    Book.CORINTHIANS_1: build_book_regular_expression(CORINTHIANS_REGULAR_EXPRESSION, prefix=FIRST_PAUL_EPISTLE),
+    Book.CORINTHIANS_2: build_book_regular_expression(CORINTHIANS_REGULAR_EXPRESSION, prefix=SECOND_PAUL_EPISTLE),
     Book.GALATIANS: r"Gal\.*(?:atians)?",
     Book.EPHESIANS: r"Eph\.*(?:esians)?",
     Book.PHILIPPIANS: r"Phil\.*(?!emon)(?:ippians)?",
     Book.COLOSSIANS: r"Col\.*(?:ossians)?",
-    Book.THESSALONIANS_1: build_book_regex(
-        THESSALONIANS_REGEX, prefix=FIRST_PAUL_EPISTLE
+    Book.THESSALONIANS_1: build_book_regular_expression(
+        THESSALONIANS_REGULAR_EXPRESSION, prefix=FIRST_PAUL_EPISTLE
     ),
-    Book.THESSALONIANS_2: build_book_regex(
-        THESSALONIANS_REGEX, prefix=SECOND_PAUL_EPISTLE
+    Book.THESSALONIANS_2: build_book_regular_expression(
+        THESSALONIANS_REGULAR_EXPRESSION, prefix=SECOND_PAUL_EPISTLE
     ),
-    Book.TIMOTHY_1: build_book_regex(TIMOTHY_REGEX, prefix=FIRST_PAUL_EPISTLE),
-    Book.TIMOTHY_2: build_book_regex(TIMOTHY_REGEX, prefix=SECOND_PAUL_EPISTLE),
+    Book.TIMOTHY_1: build_book_regular_expression(TIMOTHY_REGULAR_EXPRESSION, prefix=FIRST_PAUL_EPISTLE),
+    Book.TIMOTHY_2: build_book_regular_expression(TIMOTHY_REGULAR_EXPRESSION, prefix=SECOND_PAUL_EPISTLE),
     Book.TITUS: r"Tit\.*(?:us)?",
     Book.PHILEMON: r"(Phlm|Phile)\.*(?:m(?:on)?)?",
     Book.HEBREWS: r"Heb\.*(?:rews)?",
     Book.JAMES: r"Ja(?:me)?s\.*",
-    Book.PETER_1: build_book_regex(PETER_REGEX, prefix=FIRST_GENERAL_EPISTLE),
-    Book.PETER_2: build_book_regex(PETER_REGEX, prefix=SECOND_GENERAL_EPISTLE),
-    Book.JOHN_1: build_book_regex("John", prefix=FIRST_GENERAL_EPISTLE),
-    Book.JOHN_2: build_book_regex("John", prefix=SECOND_GENERAL_EPISTLE),
-    Book.JOHN_3: build_book_regex("John", prefix=THIRD_GENERAL_EPISTLE),
+    Book.PETER_1: build_book_regular_expression(PETER_REGULAR_EXPRESSION, prefix=FIRST_GENERAL_EPISTLE),
+    Book.PETER_2: build_book_regular_expression(PETER_REGULAR_EXPRESSION, prefix=SECOND_GENERAL_EPISTLE),
+    Book.JOHN_1: build_book_regular_expression("John", prefix=FIRST_GENERAL_EPISTLE),
+    Book.JOHN_2: build_book_regular_expression("John", prefix=SECOND_GENERAL_EPISTLE),
+    Book.JOHN_3: build_book_regular_expression("John", prefix=THIRD_GENERAL_EPISTLE),
     Book.JUDE: "Jude",
-    Book.REVELATION: build_book_regex(
+    Book.REVELATION: build_book_regular_expression(
         r"Rev\.*(?:elation)?", suffix="of ((Jesus Christ)|John|(St. John the Divine))"
     ),
     # Book.ESDRAS_1: None,
