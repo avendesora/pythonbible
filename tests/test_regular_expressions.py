@@ -125,14 +125,10 @@ def test_multiple_full_references() -> None:
 
     # then the matches are found
     assert len(match) == 4
-    assert match[0][0] == "Matthew"
-    assert match[0][1] == "1:18 - 2:18"
-    assert match[1][0] == "Luke"
-    assert match[1][1] == "3: 5-7"
-    assert match[2][0] == "Psalm"
-    assert match[2][1] == "130:4,8"
-    assert match[3][0] == "Jeremiah"
-    assert match[3][1] == "29:32-30:10,11"
+    assert match[0][0] == "Matthew 1:18 - 2:18"
+    assert match[1][0] == "Luke 3: 5-7"
+    assert match[2][0] == "Psalm 130:4,8"
+    assert match[3][0] == "Jeremiah 29:32-30:10,11"
 
 
 def test_multiple_full_references_lower_case() -> None:
@@ -146,14 +142,10 @@ def test_multiple_full_references_lower_case() -> None:
 
     # then the matches are found
     assert len(match) == 4
-    assert match[0][0] == "Matthew".lower()
-    assert match[0][1] == "1:18 - 2:18"
-    assert match[1][0] == "Luke".lower()
-    assert match[1][1] == "3: 5-7"
-    assert match[2][0] == "Psalm".lower()
-    assert match[2][1] == "130:4,8"
-    assert match[3][0] == "Jeremiah".lower()
-    assert match[3][1] == "29:32-30:10,12"
+    assert match[0][0] == "Matthew 1:18 - 2:18".lower()
+    assert match[1][0] == "Luke 3: 5-7".lower()
+    assert match[2][0] == "Psalm 130:4,8".lower()
+    assert match[3][0] == "Jeremiah 29:32-30:10,12".lower()
 
 
 def test_reference_with_no_verses() -> None:
@@ -167,8 +159,7 @@ def test_reference_with_no_verses() -> None:
 
     # then the matches are found
     assert len(match) == 1
-    assert match[0][0] == "Exodus"
-    assert match[0][1] == "20"
+    assert match[0][0] == "Exodus 20"
 
 
 def test_philemon_not_philippians() -> None:
@@ -191,6 +182,16 @@ def test_philemon_not_philippians() -> None:
 
     # then the match is found
     assert len(matches) == 1
+
+
+def test_cross_book_regex() -> None:
+    # given a reference that ranges over multiple books
+    text: str = "The books of the law are Genesis - Deuteronomy"
+
+    matches: List[Match[str]] = re.findall(regular_expressions.CROSS_BOOK_REGEX, text)
+
+    assert len(matches) == 1
+    assert matches[0][0] == "Genesis - Deuteronomy"
 
 
 def test_book_group_regular_expression_old_testament() -> None:

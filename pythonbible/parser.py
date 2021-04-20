@@ -81,7 +81,7 @@ def _process_sub_reference(sub_reference, book, start_chapter):
 
     clean_sub_reference = sub_reference.replace(".", ":")
     chapter_and_verse_range = clean_sub_reference.split("-")
-    min_chapter_and_verse = chapter_and_verse_range[0]
+    min_chapter_and_verse = chapter_and_verse_range[0].strip()
     min_chapter_and_verse = min_chapter_and_verse.split(":")
 
     if len(min_chapter_and_verse) == 1:
