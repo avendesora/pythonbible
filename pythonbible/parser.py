@@ -1,5 +1,5 @@
 import re
-from typing import List, Optional, Match, AnyStr, Tuple
+from typing import Dict, List, Match, Optional, Pattern, Tuple
 
 from .books import Book
 from .normalized_reference import NormalizedReference
@@ -12,11 +12,14 @@ from .validator import is_valid_reference
 from .verses import get_max_number_of_verses, get_number_of_chapters
 
 
-def get_references(text: str) -> List[NormalizedReference]:
+def get_references(
+    text: str, book_groups: Dict[str, List[Book]] = None
+) -> List[NormalizedReference]:
     """
     Searches the text for scripture references and returns any that are found in a list of normalized tuple references.
 
     :param text: a string that may contain zero or more scripture references
+    :param book_groups: an optional dictionary of BookGroup (e.g. Old Testament) to its related regular expression
     :return: a list of tuples. each tuple is in the format (book, start_chapter, start_verse, end_chapter, end_verse)
     """
     references: List[NormalizedReference] = []
@@ -26,6 +29,54 @@ def get_references(text: str) -> List[NormalizedReference]:
 
     for match in re.finditer(SCRIPTURE_REFERENCE_REGULAR_EXPRESSION, clean_text):
         references.extend(normalize_reference(match[0]))
+
+    if book_groups:
+        book_group_regex: Pattern[str] = re.compile(
+            "|".join(book_groups.keys()), re.IGNORECASE | re.UNICODE
+        )
+
+        for initial_match in re.finditer(book_group_regex, clean_text):
+            books: List[Book] = []
+
+            for regular_expression, books in book_groups.items():
+                final_match: Optional[Match[str]] = re.match(
+                    regular_expression, initial_match[0], re.IGNORECASE
+                )
+
+                if final_match:
+                    break
+
+            start_book: Book = books[0]
+            previous_book: Book = start_book
+            max_chapter: int
+            max_verse: int
+
+            for book in books:
+                if book == start_book:
+                    continue
+
+                if book.value == previous_book.value + 1:
+                    previous_book = book
+                    continue
+
+                max_chapter = get_number_of_chapters(previous_book)
+                max_verse = get_max_number_of_verses(previous_book, max_chapter)
+                references.append(
+                    NormalizedReference(
+                        start_book, 1, 1, max_chapter, max_verse, previous_book
+                    )
+                )
+
+                start_book = book
+                previous_book = book
+
+            max_chapter = get_number_of_chapters(previous_book)
+            max_verse = get_max_number_of_verses(previous_book, max_chapter)
+            references.append(
+                NormalizedReference(
+                    start_book, 1, 1, max_chapter, max_verse, previous_book
+                )
+            )
 
     return references
 
@@ -49,7 +100,7 @@ def normalize_reference(reference: str) -> List[NormalizedReference]:
         book_found = False
 
         for book, regular_expression in BOOK_REGULAR_EXPRESSIONS.items():
-            match: Optional[Match[AnyStr]] = re.search(
+            match: Optional[Match[str]] = re.search(
                 regular_expression, reference_without_books, re.IGNORECASE
             )
 
@@ -140,7 +191,9 @@ def _process_sub_references(book: Book, reference: str) -> List[NormalizedRefere
     return references
 
 
-def _process_sub_reference(sub_reference: str, book: Book, start_chapter: int) -> Tuple[int, int, int, int]:
+def _process_sub_reference(
+    sub_reference: str, book: Book, start_chapter: int
+) -> Tuple[int, int, int, int]:
     start_verse: int = 0
     end_chapter: int = start_chapter
     end_verse: int = start_verse

@@ -8,7 +8,7 @@ references as human-readable strings.
 __version__ = "0.4.0"
 
 from .bible.osis.parser import OSISParser
-from .book_groups import BookGroup
+from .book_groups import BookGroup, BOOK_GROUPS
 from .books import Book
 from .converter import (
     convert_reference_to_verse_ids,

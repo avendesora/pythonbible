@@ -151,3 +151,51 @@ def test_cross_book_reference_complex() -> None:
         bible.NormalizedReference(bible.Book.GENESIS, 50, 3, 1, 14, bible.Book.EXODUS),
         bible.NormalizedReference(bible.Book.EXODUS, 2, 3, 20, 5, None),
     ]
+
+
+def test_book_group_reference() -> None:
+    # Given a text string with a book group reference
+    text: str = "This class is a survey of the Old Testament of the Bible."
+
+    # When we parse the references from that text using the optional book_groups parameter
+    references: List[bible.NormalizedReference] = bible.get_references(
+        text, book_groups=bible.BOOK_GROUPS
+    )
+
+    # Then the parser returns the appropriate book group reference
+    malachi: bible.Book = bible.Book.MALACHI
+    max_chapter: int = bible.get_number_of_chapters(malachi)
+    max_verse: int = bible.get_max_number_of_verses(malachi, max_chapter)
+    assert references == [
+        bible.NormalizedReference(
+            bible.Book.GENESIS, 1, 1, max_chapter, max_verse, malachi
+        ),
+    ]
+
+
+def test_book_group_reference_custom() -> None:
+    # Given a custom dictionary of book group regular expressions
+    book_groups: Dict[str, List[bible.Book]] = {
+        "my custom book group": [
+            bible.Book.GENESIS,
+            bible.Book.EXODUS,
+            bible.Book.MATTHEW,
+            bible.Book.MARK,
+            bible.Book.JUDE,
+        ]
+    }
+
+    # and a text string containing a custom book group reference
+    text: str = "Can you find my custom book group?"
+
+    # When we parse the references from that text
+    references: List[bible.NormalizedReference] = bible.get_references(
+        text, book_groups=book_groups
+    )
+
+    # Then the parser returns the appropriate book group references
+    assert references == [
+        bible.NormalizedReference(bible.Book.GENESIS, 1, 1, 40, 38, bible.Book.EXODUS),
+        bible.NormalizedReference(bible.Book.MATTHEW, 1, 1, 16, 20, bible.Book.MARK),
+        bible.NormalizedReference(bible.Book.JUDE, 1, 1, 1, 25, bible.Book.JUDE),
+    ]
