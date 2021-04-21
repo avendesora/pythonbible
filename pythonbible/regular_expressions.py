@@ -5,7 +5,9 @@ from pythonbible.book_groups import BookGroup
 from pythonbible.books import Book
 
 
-def build_book_regular_expression(book: str, prefix: str = None, suffix: str = None) -> str:
+def build_book_regular_expression(
+    book: str, prefix: str = None, suffix: str = None
+) -> str:
     return _add_suffix(_add_prefix(book, prefix), suffix)
 
 
@@ -122,8 +124,12 @@ BOOK_REGULAR_EXPRESSIONS: Dict[Book, str] = {
     Book.JOHN: r"(?<!(?:1|2|3|I)\s)(?<!(?:1|2|3|I))John",
     Book.ACTS: build_book_regular_expression("Acts", suffix="of the Apostles"),
     Book.ROMANS: r"Rom\.*(?:ans)?",
-    Book.CORINTHIANS_1: build_book_regular_expression(CORINTHIANS_REGULAR_EXPRESSION, prefix=FIRST_PAUL_EPISTLE),
-    Book.CORINTHIANS_2: build_book_regular_expression(CORINTHIANS_REGULAR_EXPRESSION, prefix=SECOND_PAUL_EPISTLE),
+    Book.CORINTHIANS_1: build_book_regular_expression(
+        CORINTHIANS_REGULAR_EXPRESSION, prefix=FIRST_PAUL_EPISTLE
+    ),
+    Book.CORINTHIANS_2: build_book_regular_expression(
+        CORINTHIANS_REGULAR_EXPRESSION, prefix=SECOND_PAUL_EPISTLE
+    ),
     Book.GALATIANS: r"Gal\.*(?:atians)?",
     Book.EPHESIANS: r"Eph\.*(?:esians)?",
     Book.PHILIPPIANS: r"Phil\.*(?!emon)(?:ippians)?",
@@ -134,14 +140,22 @@ BOOK_REGULAR_EXPRESSIONS: Dict[Book, str] = {
     Book.THESSALONIANS_2: build_book_regular_expression(
         THESSALONIANS_REGULAR_EXPRESSION, prefix=SECOND_PAUL_EPISTLE
     ),
-    Book.TIMOTHY_1: build_book_regular_expression(TIMOTHY_REGULAR_EXPRESSION, prefix=FIRST_PAUL_EPISTLE),
-    Book.TIMOTHY_2: build_book_regular_expression(TIMOTHY_REGULAR_EXPRESSION, prefix=SECOND_PAUL_EPISTLE),
+    Book.TIMOTHY_1: build_book_regular_expression(
+        TIMOTHY_REGULAR_EXPRESSION, prefix=FIRST_PAUL_EPISTLE
+    ),
+    Book.TIMOTHY_2: build_book_regular_expression(
+        TIMOTHY_REGULAR_EXPRESSION, prefix=SECOND_PAUL_EPISTLE
+    ),
     Book.TITUS: r"Tit\.*(?:us)?",
     Book.PHILEMON: r"(Phlm|Phile)\.*(?:m(?:on)?)?",
     Book.HEBREWS: r"Heb\.*(?:rews)?",
     Book.JAMES: r"Ja(?:me)?s\.*",
-    Book.PETER_1: build_book_regular_expression(PETER_REGULAR_EXPRESSION, prefix=FIRST_GENERAL_EPISTLE),
-    Book.PETER_2: build_book_regular_expression(PETER_REGULAR_EXPRESSION, prefix=SECOND_GENERAL_EPISTLE),
+    Book.PETER_1: build_book_regular_expression(
+        PETER_REGULAR_EXPRESSION, prefix=FIRST_GENERAL_EPISTLE
+    ),
+    Book.PETER_2: build_book_regular_expression(
+        PETER_REGULAR_EXPRESSION, prefix=SECOND_GENERAL_EPISTLE
+    ),
     Book.JOHN_1: build_book_regular_expression("John", prefix=FIRST_GENERAL_EPISTLE),
     Book.JOHN_2: build_book_regular_expression("John", prefix=SECOND_GENERAL_EPISTLE),
     Book.JOHN_3: build_book_regular_expression("John", prefix=THIRD_GENERAL_EPISTLE),

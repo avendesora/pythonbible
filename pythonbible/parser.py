@@ -49,7 +49,9 @@ def normalize_reference(reference: str) -> List[NormalizedReference]:
         book_found = False
 
         for book, regular_expression in BOOK_REGULAR_EXPRESSIONS.items():
-            match: Optional[Match[AnyStr]] = re.search(regular_expression, reference_without_books, re.IGNORECASE)
+            match: Optional[Match[AnyStr]] = re.search(
+                regular_expression, reference_without_books, re.IGNORECASE
+            )
 
             if match:
                 start, end = match.regs[0]
@@ -68,20 +70,18 @@ def normalize_reference(reference: str) -> List[NormalizedReference]:
 
     cleaned_references.append(reference_without_books)
 
-    if len(books) == 0:
-        return references
-
-    if len(books) > 2:
-        raise Exception("Scripture reference ranges currently only allow up to two books.")
-
     # First Book
-    first_book_references = _process_sub_references(books[0], cleaned_references[0].strip())
+    first_book_references = _process_sub_references(
+        books[0], cleaned_references[0].strip()
+    )
 
     if len(books) == 1:
         return first_book_references
 
     # Second Book
-    second_book_references = _process_sub_references(books[1], cleaned_references[1].strip())
+    second_book_references = _process_sub_references(
+        books[1], cleaned_references[1].strip()
+    )
 
     if len(first_book_references) > 1:
         references.extend(first_book_references[:-1])
@@ -90,14 +90,16 @@ def normalize_reference(reference: str) -> List[NormalizedReference]:
     last_first_reference = first_book_references[-1]
     first_second_reference = second_book_references[0]
 
-    references.append(NormalizedReference(
-        last_first_reference.book,
-        last_first_reference.start_chapter,
-        last_first_reference.start_verse,
-        first_second_reference.end_chapter,
-        first_second_reference.end_verse,
-        first_second_reference.book
-    ))
+    references.append(
+        NormalizedReference(
+            last_first_reference.book,
+            last_first_reference.start_chapter,
+            last_first_reference.start_verse,
+            first_second_reference.end_chapter,
+            first_second_reference.end_verse,
+            first_second_reference.book,
+        )
+    )
 
     if len(second_book_references) > 1:
         references.extend(second_book_references[1:])
