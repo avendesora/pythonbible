@@ -62,22 +62,22 @@ BOOK_REGULAR_EXPRESSIONS: Dict[Book, str] = {
     Book.SAMUEL_1: build_book_regular_expression(
         SAMUEL_REGULAR_EXPRESSION,
         prefix=FIRST_BOOK,
-        suffix=fr"Otherwise\s+Called\s+The\s+First\s+Book\s+of\s+the\s+Kings",
+        suffix=r"Otherwise\s+Called\s+The\s+First\s+Book\s+of\s+the\s+Kings",
     ),
     Book.SAMUEL_2: build_book_regular_expression(
         SAMUEL_REGULAR_EXPRESSION,
         prefix=SECOND_BOOK,
-        suffix=fr"Otherwise\s+Called\s+The\s+Second\s+Book\s+of\s+the\s+Kings",
+        suffix=r"Otherwise\s+Called\s+The\s+Second\s+Book\s+of\s+the\s+Kings",
     ),
     Book.KINGS_1: build_book_regular_expression(
         KINGS_REGULAR_EXPRESSION,
         prefix=FIRST_BOOK,
-        suffix=fr"\,\s+Commonly\s+Called\s+the\s+Third\s+Book\s+of\s+the\s+Kings",
+        suffix=r"\,\s+Commonly\s+Called\s+the\s+Third\s+Book\s+of\s+the\s+Kings",
     ),
     Book.KINGS_2: build_book_regular_expression(
         KINGS_REGULAR_EXPRESSION,
         prefix=SECOND_BOOK,
-        suffix=fr"\,\s+Commonly\s+Called\s+the\s+Fourth\s+Book\s+of\s+the\s+Kings",
+        suffix=r"\,\s+Commonly\s+Called\s+the\s+Fourth\s+Book\s+of\s+the\s+Kings",
     ),
     Book.CHRONICLES_1: build_book_regular_expression(
         CHRONICLES_REGULAR_EXPRESSION,

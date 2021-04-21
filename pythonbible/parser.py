@@ -1,5 +1,5 @@
 import re
-from typing import List, Optional, Match, AnyStr
+from typing import List, Optional, Match, AnyStr, Tuple
 
 from .books import Book
 from .normalized_reference import NormalizedReference
@@ -109,7 +109,7 @@ def normalize_reference(reference: str) -> List[NormalizedReference]:
 
 def _process_sub_references(book: Book, reference: str) -> List[NormalizedReference]:
     references: List[NormalizedReference] = []
-    start_chapter: Optional[int] = None
+    start_chapter: int = 0
 
     for sub_reference in reference.split(","):
         if (len(sub_reference) == 0 or sub_reference == "-") and len(references) == 0:
@@ -140,19 +140,18 @@ def _process_sub_references(book: Book, reference: str) -> List[NormalizedRefere
     return references
 
 
-def _process_sub_reference(sub_reference, book, start_chapter):
-    start_verse = None
-    end_chapter = None
-    end_verse = None
-    no_verses = False
+def _process_sub_reference(sub_reference: str, book: Book, start_chapter: int) -> Tuple[int, int, int, int]:
+    start_verse: int = 0
+    end_chapter: int = start_chapter
+    end_verse: int = start_verse
+    no_verses: bool = False
 
-    clean_sub_reference = sub_reference.replace(".", ":")
-    chapter_and_verse_range = clean_sub_reference.split("-")
-    min_chapter_and_verse = chapter_and_verse_range[0].strip()
-    min_chapter_and_verse = min_chapter_and_verse.split(":")
+    clean_sub_reference: str = sub_reference.replace(".", ":")
+    chapter_and_verse_range: List[str] = clean_sub_reference.split("-")
+    min_chapter_and_verse: List[str] = chapter_and_verse_range[0].strip().split(":")
 
     if len(min_chapter_and_verse) == 1:
-        if start_chapter:
+        if start_chapter > 0:
             start_verse = int(min_chapter_and_verse[0].strip())
             end_chapter = start_chapter
             end_verse = start_verse
@@ -169,8 +168,7 @@ def _process_sub_reference(sub_reference, book, start_chapter):
         end_verse = start_verse
 
     if len(chapter_and_verse_range) > 1:
-        max_chapter_and_verse = chapter_and_verse_range[1]
-        max_chapter_and_verse = max_chapter_and_verse.split(":")
+        max_chapter_and_verse = chapter_and_verse_range[1].split(":")
 
         if len(max_chapter_and_verse) == 1:
             if no_verses:
