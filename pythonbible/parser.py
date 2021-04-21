@@ -31,52 +31,7 @@ def get_references(
         references.extend(normalize_reference(match[0]))
 
     if book_groups:
-        book_group_regex: Pattern[str] = re.compile(
-            "|".join(book_groups.keys()), re.IGNORECASE | re.UNICODE
-        )
-
-        for initial_match in re.finditer(book_group_regex, clean_text):
-            books: List[Book] = []
-
-            for regular_expression, books in book_groups.items():
-                final_match: Optional[Match[str]] = re.match(
-                    regular_expression, initial_match[0], re.IGNORECASE
-                )
-
-                if final_match:
-                    break
-
-            start_book: Book = books[0]
-            previous_book: Book = start_book
-            max_chapter: int
-            max_verse: int
-
-            for book in books:
-                if book == start_book:
-                    continue
-
-                if book.value == previous_book.value + 1:
-                    previous_book = book
-                    continue
-
-                max_chapter = get_number_of_chapters(previous_book)
-                max_verse = get_max_number_of_verses(previous_book, max_chapter)
-                references.append(
-                    NormalizedReference(
-                        start_book, 1, 1, max_chapter, max_verse, previous_book
-                    )
-                )
-
-                start_book = book
-                previous_book = book
-
-            max_chapter = get_number_of_chapters(previous_book)
-            max_verse = get_max_number_of_verses(previous_book, max_chapter)
-            references.append(
-                NormalizedReference(
-                    start_book, 1, 1, max_chapter, max_verse, previous_book
-                )
-            )
+        references.extend(_get_book_group_references(clean_text, book_groups))
 
     return references
 
@@ -234,3 +189,59 @@ def _process_sub_reference(
             end_verse = int(max_chapter_and_verse[1].strip())
 
     return start_chapter, start_verse, end_chapter, end_verse
+
+
+def _get_book_group_references(
+    text: str, book_groups: Dict[str, List[Book]]
+) -> List[NormalizedReference]:
+    references: List[NormalizedReference] = []
+    book_group_regex: Pattern[str] = re.compile(
+        "|".join(book_groups.keys()), re.IGNORECASE | re.UNICODE
+    )
+
+    for match in re.finditer(book_group_regex, text):
+        references.extend(_process_book_group_match(match[0], book_groups))
+
+    return references
+
+
+def _process_book_group_match(
+    text: str, book_groups: Dict[str, List[Book]]
+) -> List[NormalizedReference]:
+    references: List[NormalizedReference] = []
+    books: List[Book] = []
+
+    for regular_expression, books in book_groups.items():
+        match: Optional[Match[str]] = re.match(regular_expression, text, re.IGNORECASE)
+
+        if match:
+            break
+
+    start_book: Book = books[0]
+    previous_book: Book = start_book
+    max_chapter: int
+    max_verse: int
+
+    for book in books:
+        if book == start_book:
+            continue
+
+        if book.value == previous_book.value + 1:
+            previous_book = book
+            continue
+
+        references.append(_build_book_group_reference(start_book, previous_book))
+        start_book = book
+        previous_book = book
+
+    references.append(_build_book_group_reference(start_book, previous_book))
+
+    return references
+
+
+def _build_book_group_reference(
+    start_book: Book, end_book: Book
+) -> NormalizedReference:
+    max_chapter: int = get_number_of_chapters(end_book)
+    max_verse: int = get_max_number_of_verses(end_book, max_chapter)
+    return NormalizedReference(start_book, 1, 1, max_chapter, max_verse, end_book)
