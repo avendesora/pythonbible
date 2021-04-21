@@ -36,11 +36,13 @@ def convert_reference_to_verse_ids(reference: NormalizedReference) -> List[int]:
     if reference is None:
         return []
 
+    end_book = reference.book if reference.end_book is None else reference.end_book
+
     start_verse_id: int = get_verse_id(
         reference.book, reference.start_chapter, reference.start_verse
     )
     end_verse_id: int = get_verse_id(
-        reference.book, reference.end_chapter, reference.end_verse
+        end_book, reference.end_chapter, reference.end_verse
     )
     return VERSE_IDS[
         VERSE_IDS.index(start_verse_id) : VERSE_IDS.index(end_verse_id) + 1

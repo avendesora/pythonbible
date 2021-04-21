@@ -3,6 +3,7 @@ from typing import List
 import pytest
 
 import pythonbible as bible
+import pythonbible.verses
 from pythonbible.converter import is_new_chapter_next_verse
 
 
@@ -164,3 +165,25 @@ def test_whole_book() -> None:
     # Then it should return the normalized reference for the entire book.
     assert len(references) == 1
     assert references[0] == bible.NormalizedReference(bible.Book.GENESIS, 1, 1, 50, 26)
+
+
+def test_cross_book() -> None:
+    # Given a reference that spans multiple books
+    reference_string: str = "Paul's epistles"
+
+    # When we convert that to normalized references
+    references: List[bible.NormalizedReference] = bible.get_references(
+        reference_string, book_groups=bible.BOOK_GROUPS
+    )
+
+    # and then convert that to verse ids
+    verse_ids: List[int] = bible.convert_references_to_verse_ids(references)
+
+    # Then it return the verse ids for the verses in all of the books in the reference.
+    first_verse_id = 45001001
+    last_verse_id = 57001025
+    all_verse_ids = pythonbible.verses.VERSE_IDS
+    first_verse_index = all_verse_ids.index(first_verse_id)
+    last_verse_index = all_verse_ids.index(last_verse_id)
+    expected_verse_ids = all_verse_ids[first_verse_index : last_verse_index + 1]
+    assert verse_ids == expected_verse_ids

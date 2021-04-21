@@ -219,8 +219,6 @@ def _process_book_group_match(
 
     start_book: Book = books[0]
     previous_book: Book = start_book
-    max_chapter: int
-    max_verse: int
 
     for book in books[1:]:
         if book.value == previous_book.value + 1:
