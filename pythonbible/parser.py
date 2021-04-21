@@ -222,10 +222,7 @@ def _process_book_group_match(
     max_chapter: int
     max_verse: int
 
-    for book in books:
-        if book == start_book:
-            continue
-
+    for book in books[1:]:
         if book.value == previous_book.value + 1:
             previous_book = book
             continue

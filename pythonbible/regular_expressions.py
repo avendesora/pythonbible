@@ -25,7 +25,7 @@ CHRONICLES_REGULAR_EXPRESSION = r"Chr\.*(?:o\.*(?:n\.*(?:icles)?)?)?"
 # noinspection SpellCheckingInspection
 CORINTHIANS_REGULAR_EXPRESSION = r"Cor\.*(?:inthians)?"
 # noinspection SpellCheckingInspection
-THESSALONIANS_REGULAR_EXPRESSION = r"Thess\.*(?:alonians)?"
+THESSALONIANS_REGULAR_EXPRESSION = r"Th\.*(?:ess\.*(?:alonians)?)?"
 # noinspection SpellCheckingInspection
 TIMOTHY_REGULAR_EXPRESSION = r"Tim\.*(?:othy)?"
 PETER_REGULAR_EXPRESSION = r"Pet\.*(?:er)?"
@@ -130,7 +130,7 @@ BOOK_REGULAR_EXPRESSIONS: Dict[Book, str] = {
     ),
     Book.GALATIANS: r"Gal\.*(?:atians)?",
     Book.EPHESIANS: r"Eph\.*(?:esians)?",
-    Book.PHILIPPIANS: r"Phil\.*(?!emon)(?:ippians)?",
+    Book.PHILIPPIANS: r"Phil\.*(?!e\.*(?:m\.*(?:on)?)?)(?:ippians)?",
     Book.COLOSSIANS: r"Col\.*(?:ossians)?",
     Book.THESSALONIANS_1: build_book_regular_expression(
         THESSALONIANS_REGULAR_EXPRESSION, prefix=FIRST_PAUL_EPISTLE
@@ -145,7 +145,7 @@ BOOK_REGULAR_EXPRESSIONS: Dict[Book, str] = {
         TIMOTHY_REGULAR_EXPRESSION, prefix=SECOND_PAUL_EPISTLE
     ),
     Book.TITUS: r"Tit\.*(?:us)?",
-    Book.PHILEMON: r"(Phlm|Phile)\.*(?:m(?:on)?)?",
+    Book.PHILEMON: r"(Phlm|Phile)\.*(?:m\.*(?:on)?)?",
     Book.HEBREWS: r"Heb\.*(?:rews)?",
     Book.JAMES: r"Ja(?:me)?s\.*",
     Book.PETER_1: build_book_regular_expression(
