@@ -17,7 +17,7 @@ from pythonbible.errors import (
     MissingVerseFileError,
 )
 from pythonbible.normalized_reference import NormalizedReference
-from pythonbible.verses import get_book_chapter_verse, VERSE_IDS
+from pythonbible.verses import get_book_chapter_verse, get_number_of_chapters, VERSE_IDS
 from pythonbible.versions import DEFAULT_VERSION, Version
 
 
@@ -52,7 +52,7 @@ BOOK_TITLES: Dict[Version, Dict[Book, BookTitles]] = {}
 # TODO - handle Psalms vs Psalm appropriately
 # TODO - handle single chapter books appropriately (e.g. Obadiah 1-4 rather than Obadiah 1:1-4)
 def format_scripture_references(
-        references: Optional[List[NormalizedReference]], **kwargs
+    references: Optional[List[NormalizedReference]], **kwargs
 ) -> str:
     """
 
@@ -82,39 +82,21 @@ def format_scripture_references(
             if previous_reference:
                 formatted_reference += ";"
 
-            formatted_reference += format_single_reference(
-                reference.book,
-                reference.start_chapter,
-                reference.start_verse,
-                reference.end_chapter,
-                reference.end_verse,
-                reference.end_book,
-                **kwargs,
-            )
+            formatted_reference += format_single_reference(reference, **kwargs)
             previous_reference = reference
             continue
 
         if _is_reference_with_a_new_chapter(previous_reference, reference):
             formatted_reference += ","
             formatted_reference += format_single_reference(
-                None,
-                reference.start_chapter,
-                reference.start_verse,
-                reference.end_chapter,
-                reference.end_verse,
-                **kwargs,
+                reference, include_books=False, **kwargs
             )
             continue
 
         # Reference with same book and chapter as previous reference
         formatted_reference += ","
         formatted_reference += format_single_reference(
-            None,
-            None,
-            reference.start_verse,
-            None,
-            reference.end_verse,
-            **kwargs,
+            reference, include_books=False, include_chapters=False, **kwargs
         )
         previous_reference = reference
 
@@ -129,12 +111,12 @@ def _get_previous_book(reference: Optional[NormalizedReference]) -> Optional[Boo
 
 
 def _is_reference_with_a_new_chapter(
-        previous_reference: Optional[NormalizedReference],
-        current_reference: NormalizedReference,
+    previous_reference: Optional[NormalizedReference],
+    current_reference: NormalizedReference,
 ) -> bool:
     if (
-            previous_reference
-            and previous_reference.end_chapter != current_reference.start_chapter
+        previous_reference
+        and previous_reference.end_chapter != current_reference.start_chapter
     ):
         return True
 
@@ -142,32 +124,38 @@ def _is_reference_with_a_new_chapter(
 
 
 def format_single_reference(
-        book: Optional[Book],
-        start_chapter: Optional[int],
-        start_verse: int,
-        end_chapter: Optional[int],
-        end_verse: int,
-        end_book: Optional[Book] = None,
-        **kwargs,
+    reference: NormalizedReference,
+    include_books: bool = True,
+    include_chapters: bool = True,
+    **kwargs,
 ) -> str:
     formatted_reference: str = ""
+    force_include_chapters: bool = kwargs.get("always_include_chapter_numbers", False)
 
-    if book:
-        start_book_title: Optional[str] = _get_book_title(book, **kwargs)
+    if include_books:
+        start_book_title: Optional[str] = _get_book_title(reference.book, **kwargs)
         formatted_reference += f"{start_book_title} "
 
-    if start_chapter:
-        formatted_reference += f"{start_chapter}:{start_verse}"
+    if include_chapters and (
+        not _is_single_chapter_book(reference.book) or force_include_chapters
+    ):
+        formatted_reference += f"{reference.start_chapter}:{reference.start_verse}"
     else:
-        formatted_reference += f"{start_verse}"
+        formatted_reference += f"{reference.start_verse}"
 
-    if end_book and end_book != book:
-        end_book_title: Optional[str] = _get_book_title(end_book, **kwargs)
-        formatted_reference += f"-{end_book_title} {end_chapter}:{end_verse}"
-    elif end_chapter and start_chapter and end_chapter > start_chapter:
-        formatted_reference += f"-{end_chapter}:{end_verse}"
-    elif end_verse > start_verse:
-        formatted_reference += f"-{end_verse}"
+    if include_books and reference.end_book and reference.end_book != reference.book:
+        end_book_title: Optional[str] = _get_book_title(reference.end_book, **kwargs)
+
+        if _is_single_chapter_book(reference.end_book) and not force_include_chapters:
+            formatted_reference += f"-{end_book_title} {reference.end_verse}"
+        else:
+            formatted_reference += (
+                f"-{end_book_title} {reference.end_chapter}:{reference.end_verse}"
+            )
+    elif include_chapters and reference.end_chapter > reference.start_chapter:
+        formatted_reference += f"-{reference.end_chapter}:{reference.end_verse}"
+    elif reference.end_verse > reference.start_verse:
+        formatted_reference += f"-{reference.end_verse}"
 
     return formatted_reference
 
@@ -182,6 +170,10 @@ def _get_book_title(book: Book, **kwargs) -> Optional[str]:
         if book_titles
         else None
     )
+
+
+def _is_single_chapter_book(book: Book) -> bool:
+    return get_number_of_chapters(book) == 1
 
 
 def format_scripture_text(verse_ids: List[int], **kwargs) -> str:
@@ -202,11 +194,11 @@ def format_scripture_text(verse_ids: List[int], **kwargs) -> str:
 
 
 def format_scripture_text_verse_by_verse(
-        verse_ids: List[int],
-        version: Version,
-        full_title: bool,
-        format_type: str,
-        include_verse_numbers: bool,
+    verse_ids: List[int],
+    version: Version,
+    full_title: bool,
+    format_type: str,
+    include_verse_numbers: bool,
 ) -> str:
     verse_ids.sort()
     text: str = ""
@@ -244,11 +236,11 @@ def format_scripture_text_verse_by_verse(
 
 
 def format_scripture_text_with_parser(
-        verse_ids: List[int],
-        parser: BibleParser,
-        full_title: bool,
-        format_type: str,
-        include_verse_numbers: bool,
+    verse_ids: List[int],
+    parser: BibleParser,
+    full_title: bool,
+    format_type: str,
+    include_verse_numbers: bool,
 ) -> str:
     title_function: Callable[[Any], Any] = (
         parser.get_book_title if full_title else parser.get_short_book_title
@@ -337,7 +329,7 @@ def _get_version_verse_texts(version: Version) -> Dict[int, str]:
 
 @lru_cache(maxsize=None)
 def get_book_titles(
-        book: Book, version: Version = DEFAULT_VERSION
+    book: Book, version: Version = DEFAULT_VERSION
 ) -> Optional[BookTitles]:
     """
     Given a book of the Bible and optionally a version return the book title.
