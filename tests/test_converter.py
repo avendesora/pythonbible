@@ -3,7 +3,6 @@ from typing import List
 import pytest
 
 import pythonbible as bible
-from pythonbible.converter import is_new_chapter_next_verse
 from pythonbible.verses import VERSE_IDS
 
 
@@ -124,34 +123,6 @@ def test_convert_verse_ids_to_references_complex(
 
     # Then the list of references is correct
     assert actual_references == normalized_references_complex
-
-
-def test_is_new_chapter_next_verse(book: bible.Book) -> None:
-    # Given a book, start chapter, start verse, next chapter, next verse such that
-    # the chapters are consecutive and the first verse is the last verse of the
-    # first chapter and the second verse is the first verse of the next chapter
-    chapter_1: int = 1
-    chapter_2: int = 2
-    verse_1: int = bible.get_max_number_of_verses(book, chapter_1)
-    verse_2: int = 1
-
-    # When we check to see if there are no gaps between the first chapter and verse
-    # and the second chapter and verse
-    # Then the result is True
-    assert is_new_chapter_next_verse(book, chapter_1, verse_1, chapter_2, verse_2)
-
-
-def test_is_new_chapter_next_verse_false(book: bible.Book) -> None:
-    # Given a book, chapters and verses with a gap
-    chapter_1: int = 1
-    chapter_2: int = 2
-    verse_1: int = bible.get_max_number_of_verses(book, chapter_1) - 1
-    verse_2: int = 1
-
-    # When we check to see if there are no gaps between the first chapter and verse
-    # and the second chapter and verse
-    # Then the result is False
-    assert not is_new_chapter_next_verse(book, chapter_1, verse_1, chapter_2, verse_2)
 
 
 def test_whole_book() -> None:
