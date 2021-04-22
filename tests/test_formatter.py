@@ -190,3 +190,14 @@ def test_get_book_titles_no_version_file(book: bible.Book) -> None:
     # Then a MissingBookFileError is raised.
     with pytest.raises(bible.MissingBookFileError):
         bible.get_book_titles(book, version)
+
+
+def test_format_scripture_references_multiple_book_range() -> None:
+    # Given a reference that spans multiple books
+    references = bible.get_references("Old Testament", book_groups=bible.BOOK_GROUPS)
+
+    # When formatting that reference into a reference string
+    reference_string = bible.format_scripture_references(references)
+
+    # Then the resulting reference string should be a range that spans multiple books.
+    assert reference_string == "Genesis 1:1-Malachi 4:6"
