@@ -52,7 +52,7 @@ def convert_verse_ids_to_references(verse_ids: List[int]) -> List[NormalizedRefe
     """
     references: List[NormalizedReference] = []
 
-    if verse_ids is None or len(verse_ids) == 0:
+    if verse_ids is None or not verse_ids:
         return references
 
     verse_ids.sort()
