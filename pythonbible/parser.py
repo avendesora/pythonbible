@@ -62,12 +62,12 @@ def normalize_reference(reference: str) -> List[NormalizedReference]:
             if match:
                 start, end = match.regs[0]
 
-                if start != 0 and len(books) == 0:
+                if start != 0 and not books:
                     continue
 
                 book_found = True
 
-                if len(books) > 0:
+                if books:
                     cleaned_references.append(reference_without_books[:start])
 
                 reference_without_books = reference_without_books[end:]

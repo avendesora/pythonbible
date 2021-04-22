@@ -3,8 +3,8 @@ from typing import List
 import pytest
 
 import pythonbible as bible
-import pythonbible.verses
 from pythonbible.converter import is_new_chapter_next_verse
+from pythonbible.verses import VERSE_IDS
 
 
 def test_convert_reference_to_verse_ids(reference: bible.NormalizedReference) -> None:
@@ -180,10 +180,24 @@ def test_cross_book() -> None:
     verse_ids: List[int] = bible.convert_references_to_verse_ids(references)
 
     # Then it return the verse ids for the verses in all of the books in the reference.
-    first_verse_id = 45001001
-    last_verse_id = 57001025
-    all_verse_ids = pythonbible.verses.VERSE_IDS
-    first_verse_index = all_verse_ids.index(first_verse_id)
-    last_verse_index = all_verse_ids.index(last_verse_id)
-    expected_verse_ids = all_verse_ids[first_verse_index : last_verse_index + 1]
-    assert verse_ids == expected_verse_ids
+    first_verse: int = VERSE_IDS.index(45001001)
+    last_verse: int = VERSE_IDS.index(57001025)
+    assert verse_ids == VERSE_IDS[first_verse : last_verse + 1]
+
+
+def test_cross_book_reverse() -> None:
+    # Given a list of verse ids that spans multiple books
+    first_verse: int = VERSE_IDS.index(45001001)
+    last_verse: int = VERSE_IDS.index(57001025)
+    verse_ids: List[int] = VERSE_IDS[first_verse : last_verse + 1]
+
+    # When we convert that to normalized references
+    references: List[bible.NormalizedReference] = bible.convert_verse_ids_to_references(
+        verse_ids
+    )
+
+    # Then the result is a single normalized reference that spans multiple books
+    # rather than one for each book.
+    assert references == [
+        bible.NormalizedReference(bible.Book.ROMANS, 1, 1, 1, 25, bible.Book.PHILEMON),
+    ]
