@@ -17,7 +17,12 @@ from pythonbible.errors import (
     MissingVerseFileError,
 )
 from pythonbible.normalized_reference import NormalizedReference
-from pythonbible.verses import get_book_chapter_verse, get_number_of_chapters, VERSE_IDS
+from pythonbible.verses import (
+    get_book_chapter_verse,
+    get_max_number_of_verses,
+    get_number_of_chapters,
+    VERSE_IDS,
+)
 from pythonbible.versions import DEFAULT_VERSION, Version
 
 
@@ -129,38 +134,51 @@ def format_single_reference(
     include_chapters: bool = True,
     **kwargs,
 ) -> str:
-    formatted_reference: str = ""
-    force_include_chapters: bool = kwargs.get("always_include_chapter_numbers", False)
+    start_book: str = _get_start_book(reference, include_books, **kwargs)
+    start_chapter: str = _get_start_chapter(reference, include_chapters, **kwargs)
+    start_verse: str = _get_start_verse(reference, **kwargs)
+    end_book: str = _get_end_book(reference, include_books, **kwargs)
+    end_chapter: str = _get_end_chapter(reference, include_chapters, **kwargs)
+    end_verse: str = _get_end_verse(reference, **kwargs)
 
-    if include_books:
-        start_book_title: Optional[str] = _get_book_title(reference.book, **kwargs)
-        formatted_reference += f"{start_book_title} "
+    start_separator: str = " " if start_book and (start_chapter or start_verse) else ""
+    end_separator: str = " " if end_book and (end_chapter or end_verse) else ""
+    range_separator: str = " - " if end_book else "-" if end_chapter or end_verse else ""
 
-    if include_chapters and (
-        not _is_single_chapter_book(reference.book) or force_include_chapters
-    ):
-        formatted_reference += f"{reference.start_chapter}:{reference.start_verse}"
-    else:
-        formatted_reference += f"{reference.start_verse}"
-
-    if include_books and reference.end_book and reference.end_book != reference.book:
-        end_book_title: Optional[str] = _get_book_title(reference.end_book, **kwargs)
-
-        if _is_single_chapter_book(reference.end_book) and not force_include_chapters:
-            formatted_reference += f"-{end_book_title} {reference.end_verse}"
-        else:
-            formatted_reference += (
-                f"-{end_book_title} {reference.end_chapter}:{reference.end_verse}"
-            )
-    elif include_chapters and reference.end_chapter > reference.start_chapter:
-        formatted_reference += f"-{reference.end_chapter}:{reference.end_verse}"
-    elif reference.end_verse > reference.start_verse:
-        formatted_reference += f"-{reference.end_verse}"
-
-    return formatted_reference
+    return "".join(
+        [
+            start_book,
+            start_separator,
+            start_chapter,
+            start_verse,
+            range_separator,
+            end_book,
+            end_separator,
+            end_chapter,
+            end_verse,
+        ]
+    )
 
 
-def _get_book_title(book: Book, **kwargs) -> Optional[str]:
+def _get_start_book(
+    reference: NormalizedReference, include_books: bool = True, **kwargs
+) -> str:
+    return _get_book_title(reference.book, include_books, **kwargs)
+
+
+def _get_end_book(
+    reference: NormalizedReference, include_books: bool = True, **kwargs
+) -> str:
+    if reference.end_book and reference.end_book != reference.book:
+        return _get_book_title(reference.end_book, include_books, **kwargs)
+
+    return ""
+
+
+def _get_book_title(book: Book, include_books: bool = True, **kwargs) -> str:
+    if not include_books:
+        return ""
+
     version: Version = kwargs.get("version", DEFAULT_VERSION)
     full_title: bool = kwargs.get("full_title", False)
     book_titles: Optional[BookTitles] = get_book_titles(book, version)
@@ -168,7 +186,132 @@ def _get_book_title(book: Book, **kwargs) -> Optional[str]:
     return (
         (book_titles.long_title if full_title else book_titles.short_title)
         if book_titles
-        else None
+        else ""
+    )
+
+
+def _get_start_chapter(
+    reference: NormalizedReference, include_chapters: bool = True, **kwargs
+) -> str:
+    if not include_chapters:
+        return ""
+
+    force_include_chapters: bool = kwargs.get("always_include_chapter_numbers", False)
+
+    if (
+        _does_reference_include_all_verses_in_start_book(reference)
+        and not force_include_chapters
+    ):
+        return ""
+
+    if _is_single_chapter_book(reference.book) and not force_include_chapters:
+        return ""
+
+    return f"{reference.start_chapter}:"
+
+
+def _get_start_verse(reference: NormalizedReference, **kwargs) -> str:
+    force_include_chapters: bool = kwargs.get("always_include_chapter_numbers", False)
+
+    if (
+        _does_reference_include_all_verses_in_start_book(reference)
+        and not force_include_chapters
+    ):
+        return ""
+
+    return f"{reference.start_verse}"
+
+
+def _get_end_chapter(
+    reference: NormalizedReference, include_chapters: bool = True, **kwargs
+) -> str:
+    if not include_chapters:
+        return ""
+
+    force_include_chapters: bool = kwargs.get("always_include_chapter_numbers", False)
+
+    if reference.end_book and reference.book != reference.end_book:
+        if (
+            _does_reference_include_all_verses_in_end_book(reference)
+            and not force_include_chapters
+        ):
+            return ""
+
+        if _is_single_chapter_book(reference.end_book) and not force_include_chapters:
+            return ""
+
+        return f"{reference.end_chapter}:"
+
+    if (
+        _does_reference_include_all_verses_in_start_book(reference)
+        and not force_include_chapters
+    ):
+        return ""
+
+    if _is_single_chapter_book(reference.book) and not force_include_chapters:
+        return ""
+
+    if reference.start_chapter == reference.end_chapter:
+        return ""
+
+    return f"{reference.end_chapter}:"
+
+
+def _get_end_verse(reference: NormalizedReference, **kwargs) -> str:
+    force_include_chapters: bool = kwargs.get("always_include_chapter_numbers", False)
+
+    if reference.end_book and reference.book != reference.end_book:
+        if (
+            _does_reference_include_all_verses_in_end_book(reference)
+            and not force_include_chapters
+        ):
+            return ""
+
+        return f"{reference.end_verse}"
+
+    if (
+        _does_reference_include_all_verses_in_start_book(reference)
+        and not force_include_chapters
+    ):
+        return ""
+
+    return (
+        f"{reference.end_verse}"
+        if reference.start_verse != reference.end_verse
+        or reference.start_chapter != reference.end_chapter
+        else ""
+    )
+
+
+def _does_reference_include_all_verses_in_start_book(reference: NormalizedReference):
+    if reference.start_chapter != 1:
+        return False
+
+    if reference.start_verse != 1:
+        return False
+
+    if reference.end_book and reference.end_book != reference.book:
+        return True
+
+    max_chapters = get_number_of_chapters(reference.book)
+
+    if reference.end_chapter != max_chapters:
+        return False
+
+    return reference.end_verse == get_max_number_of_verses(reference.book, max_chapters)
+
+
+def _does_reference_include_all_verses_in_end_book(reference: NormalizedReference):
+    if not reference.end_book or reference.book == reference.end_book:
+        return _does_reference_include_all_verses_in_start_book(reference)
+
+    max_chapters = get_number_of_chapters(reference.end_book)
+
+    if reference.end_chapter != max_chapters:
+        return False
+
+    return reference.end_verse == get_max_number_of_verses(
+        reference.end_book, max_chapters
     )
 
 

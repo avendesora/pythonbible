@@ -196,18 +196,18 @@ def test_format_scripture_references_multiple_book_range() -> None:
     reference_string: str = bible.format_scripture_references(references)
 
     # Then the resulting reference string should be a range that spans multiple books.
-    assert reference_string == "Genesis 1:1-Malachi 4:6"
+    assert reference_string == "Genesis - Malachi"
 
 
 def test_single_chapter_books() -> None:
     # Given a reference for a book that has only one chapter
-    references: List[bible.NormalizedReference] = bible.get_references("Obadiah")
+    references: List[bible.NormalizedReference] = bible.get_references("Obadiah 1:2-4")
 
     # When formatting that reference into a reference string
     reference_string: str = bible.format_scripture_references(references)
 
     # Then the resulting reference includes the book title and verse numbers but not chapter numbers.
-    assert reference_string == "Obadiah 1-21"
+    assert reference_string == "Obadiah 2-4"
 
 
 def test_single_chapter_book_in_multiple_book_reference() -> None:
@@ -221,7 +221,7 @@ def test_single_chapter_book_in_multiple_book_reference() -> None:
 
     # Then the resulting reference has chapter numbers for the book with multiple
     # chapters and no chapter numbers for the single chapter book.
-    assert reference_string == "Amos 1:3-Obadiah 12"
+    assert reference_string == "Amos 1:3 - Obadiah 12"
 
 
 def test_single_chapter_books_force_chapter_numbers() -> None:
