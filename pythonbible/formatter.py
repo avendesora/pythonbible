@@ -18,10 +18,10 @@ from pythonbible.errors import (
 )
 from pythonbible.normalized_reference import NormalizedReference
 from pythonbible.verses import (
+    VERSE_IDS,
     get_book_chapter_verse,
     get_max_number_of_verses,
     get_number_of_chapters,
-    VERSE_IDS,
 )
 from pythonbible.versions import DEFAULT_VERSION, Version
 
@@ -143,7 +143,9 @@ def format_single_reference(
 
     start_separator: str = " " if start_book and (start_chapter or start_verse) else ""
     end_separator: str = " " if end_book and (end_chapter or end_verse) else ""
-    range_separator: str = " - " if end_book else "-" if end_chapter or end_verse else ""
+    range_separator: str = (
+        " - " if end_book else "-" if end_chapter or end_verse else ""
+    )
 
     return "".join(
         [
@@ -302,9 +304,6 @@ def _does_reference_include_all_verses_in_start_book(reference: NormalizedRefere
 
 
 def _does_reference_include_all_verses_in_end_book(reference: NormalizedReference):
-    if not reference.end_book or reference.book == reference.end_book:
-        return _does_reference_include_all_verses_in_start_book(reference)
-
     max_chapters = get_number_of_chapters(reference.end_book)
 
     if reference.end_chapter != max_chapters:

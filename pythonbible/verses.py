@@ -1384,12 +1384,11 @@ def get_verse_id(book: Book, chapter: int, verse: int) -> int:
     # Not only will this get the max verse number, it will validate the chapter.
     max_verse_number: Optional[int] = get_max_number_of_verses(book, chapter)
 
-    if max_verse_number:
-        if not 1 <= verse <= max_verse_number:
-            raise InvalidVerseError(
-                f"{book.title} {chapter}:{verse} is not a valid Bible verse. "
-                f"Valid verses for that book and chapter are 1-{max_verse_number}"
-            )
+    if max_verse_number and not 1 <= verse <= max_verse_number:
+        raise InvalidVerseError(
+            f"{book.title} {chapter}:{verse} is not a valid Bible verse. "
+            f"Valid verses for that book and chapter are 1-{max_verse_number}"
+        )
 
     return int(book) * 1000000 + chapter * 1000 + verse
 

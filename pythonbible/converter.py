@@ -4,7 +4,7 @@ from pythonbible.books import Book
 from pythonbible.errors import InvalidVerseError
 from pythonbible.normalized_reference import NormalizedReference
 from pythonbible.validator import is_valid_verse_id
-from pythonbible.verses import get_book_chapter_verse, get_verse_id, VERSE_IDS
+from pythonbible.verses import VERSE_IDS, get_book_chapter_verse, get_verse_id
 
 
 def convert_references_to_verse_ids(references: List[NormalizedReference]) -> List[int]:

@@ -236,3 +236,30 @@ def test_single_chapter_books_force_chapter_numbers() -> None:
 
     # Then the resulting reference includes the book title and verse numbers but not chapter numbers.
     assert reference_string == "Obadiah 1:1-21"
+
+
+def test_cross_book_range_not_whole_books_or_chapters() -> None:
+    # Given a reference that is a range that spans multiple books but not entire books/chapters
+    original_reference_string = "Genesis 50:3 - Exodus 1:10"
+    references: List[bible.NormalizedReference] = bible.get_references(
+        original_reference_string
+    )
+
+    # When formatting that reference into a reference string
+    reference_string: str = bible.format_scripture_references(references)
+
+    # Then the resulting reference string includes chapter and verse numbers
+    assert reference_string == original_reference_string
+
+
+def test_multi_chapter_book_reference_contains_whole_book() -> None:
+    # Given a reference that contains all the verses of a single book that has multiple chapters
+    references: List[bible.NormalizedReference] = bible.get_references(
+        "Genesis 1:1-50:26"
+    )
+
+    # When formatting that reference into a reference string
+    reference_string: str = bible.format_scripture_references(references)
+
+    # Then the resulting reference string does not include chapter and verse numbers
+    assert reference_string == "Genesis"

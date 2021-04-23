@@ -1,4 +1,4 @@
-from enum import auto, Enum
+from enum import Enum, auto
 from typing import Dict, List
 
 from .books import Book
