@@ -19,8 +19,8 @@ def test_get_references(text_with_reference: str) -> None:
 
 
 def test_get_references_complex(
-    text_with_reference_complex: str,
-    normalized_references_complex: List[bible.NormalizedReference],
+        text_with_reference_complex: str,
+        normalized_references_complex: List[bible.NormalizedReference],
 ) -> None:
     # Given a text string with multiple complex references
     # When parsing that text
@@ -48,7 +48,7 @@ def test_normalize_reference(non_normalized_reference: str) -> None:
 
 
 def test_normalize_reference_without_verse_numbers(
-    reference_without_verse_numbers: str,
+        reference_without_verse_numbers: str,
 ) -> None:
     # Given a non-normalized reference that does not contain verse numbers (just book and chapters)
     # When we normalize that reference
@@ -64,7 +64,7 @@ def test_normalize_reference_without_verse_numbers(
 
 
 def test_normalize_reference_range_without_verse_numbers(
-    reference_range_without_verse_numbers: str,
+        reference_range_without_verse_numbers: str,
 ) -> None:
     # Given a non-normalized reference that does not contain verse numbers (just book and chapters)
     # When we normalize that reference
@@ -80,8 +80,8 @@ def test_normalize_reference_range_without_verse_numbers(
 
 
 def test_get_references_roman_numerals(
-    roman_numeral_references: str,
-    normalized_references_complex: List[bible.NormalizedReference],
+        roman_numeral_references: str,
+        normalized_references_complex: List[bible.NormalizedReference],
 ) -> None:
     # Given a text string with multiple references with roman numerals
     # When parsing that text
@@ -198,4 +198,17 @@ def test_book_group_reference_custom() -> None:
         bible.NormalizedReference(bible.Book.GENESIS, 1, 1, 40, 38, bible.Book.EXODUS),
         bible.NormalizedReference(bible.Book.MATTHEW, 1, 1, 16, 20, bible.Book.MARK),
         bible.NormalizedReference(bible.Book.JUDE, 1, 1, 1, 25, bible.Book.JUDE),
+    ]
+
+
+def test_single_chapter_book_without_chapter_number() -> None:
+    # Given a reference string that does not include the chapter number for a book that only has one chapter
+    text: str = "Obadiah 3-6"
+
+    # When we parse the references from that text
+    references: List[bible.NormalizedReference] = bible.get_references(text)
+
+    # Then the parser returns the appropriate normalized reference with chapter and verse numbers
+    assert references == [
+        bible.NormalizedReference(bible.Book.OBADIAH, 1, 3, 1, 6, None)
     ]
