@@ -9,7 +9,11 @@ from .regular_expressions import (
 )
 from .roman_numeral_util import convert_all_roman_numerals_to_integers
 from .validator import is_valid_reference
-from .verses import get_max_number_of_verses, get_number_of_chapters
+from .verses import (
+    get_max_number_of_verses,
+    get_number_of_chapters,
+    is_single_chapter_book,
+)
 
 
 def get_references(
@@ -162,6 +166,11 @@ def _process_sub_reference(
         if start_chapter > 0:
             start_verse = int(min_chapter_and_verse[0].strip())
             end_chapter = start_chapter
+            end_verse = start_verse
+        elif is_single_chapter_book(book):
+            start_chapter = 1
+            start_verse = int(min_chapter_and_verse[0].strip())
+            end_chapter = 1
             end_verse = start_verse
         else:
             start_chapter = int(min_chapter_and_verse[0].strip())

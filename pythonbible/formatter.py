@@ -22,6 +22,7 @@ from pythonbible.verses import (
     get_book_chapter_verse,
     get_max_number_of_verses,
     get_number_of_chapters,
+    is_single_chapter_book,
 )
 from pythonbible.versions import DEFAULT_VERSION, Version
 
@@ -206,7 +207,7 @@ def _get_start_chapter(
     ):
         return ""
 
-    if _is_single_chapter_book(reference.book) and not force_include_chapters:
+    if is_single_chapter_book(reference.book) and not force_include_chapters:
         return ""
 
     return f"{reference.start_chapter}:"
@@ -239,7 +240,7 @@ def _get_end_chapter(
         ):
             return ""
 
-        if _is_single_chapter_book(reference.end_book) and not force_include_chapters:
+        if is_single_chapter_book(reference.end_book) and not force_include_chapters:
             return ""
 
         return f"{reference.end_chapter}:"
@@ -250,7 +251,7 @@ def _get_end_chapter(
     ):
         return ""
 
-    if _is_single_chapter_book(reference.book) and not force_include_chapters:
+    if is_single_chapter_book(reference.book) and not force_include_chapters:
         return ""
 
     if reference.start_chapter == reference.end_chapter:
@@ -312,10 +313,6 @@ def _does_reference_include_all_verses_in_end_book(reference: NormalizedReferenc
     return reference.end_verse == get_max_number_of_verses(
         reference.end_book, max_chapters
     )
-
-
-def _is_single_chapter_book(book: Book) -> bool:
-    return get_number_of_chapters(book) == 1
 
 
 def format_scripture_text(verse_ids: List[int], **kwargs) -> str:

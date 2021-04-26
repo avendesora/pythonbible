@@ -1351,6 +1351,11 @@ def get_number_of_chapters(book: Book) -> int:
 
 
 @lru_cache(maxsize=None)
+def is_single_chapter_book(book: Book) -> bool:
+    return get_number_of_chapters(book) == 1
+
+
+@lru_cache(maxsize=None)
 def get_max_number_of_verses(book: Book, chapter: int) -> int:
     """
     Given a Book enum and chapter number int, if valid, return the int number of verses in that Book and chapter.
