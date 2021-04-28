@@ -1,4 +1,9 @@
-import re
+try:
+    import regex as re
+except ModuleNotFoundError:
+    import re
+
+
 from typing import Dict, Pattern
 
 from pythonbible.books import Book

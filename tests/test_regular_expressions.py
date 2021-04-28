@@ -1,4 +1,8 @@
-import re
+try:
+    import regex as re
+except ModuleNotFoundError:
+    import re
+
 from typing import List, Match, Optional
 
 import pythonbible as bible
