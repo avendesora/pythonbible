@@ -92,64 +92,7 @@ def convert_verse_ids_to_references(verse_ids: List[int]) -> List[NormalizedRefe
             previous_verse_id = verse_id
             continue
 
-<<<<<<< HEAD
-        # A new chapter should mean a new reference unless the previous verse was
-        # the last verse of the previous chapter and the current verse is the first
-        # verse of the next chapter.
-        if chapter != current_end_chapter:
-            is_next_verse = is_new_chapter_next_verse(
-                current_book, current_end_chapter, current_end_verse, chapter, verse
-            )
-
-            if not is_next_verse:
-                references.append(
-                    NormalizedReference(
-                        current_book,
-                        current_start_chapter,
-                        current_start_verse,
-                        current_end_chapter,
-                        current_end_verse,
-                    )
-                )
-
-                current_start_chapter = chapter
-                current_start_verse = verse
-
-            current_end_chapter = chapter
-            current_end_verse = verse
-            continue
-
-        # At this point, the book and chapter should be the same as the previous
-        # verse id, so if the verse is not the next verse after the previous
-        # verse, then that should mean a new reference.
-        if verse != (current_end_verse or 0) + 1:
-            references.append(
-                NormalizedReference(
-                    current_book,
-                    current_start_chapter,
-                    current_start_verse,
-                    current_end_chapter,
-                    current_end_verse,
-                )
-            )
-
-            current_start_chapter = chapter
-            current_start_verse = verse
-            current_end_chapter = chapter
-            current_end_verse = verse
-            continue
-
-        # At this point, this is the next verse in the range, so just update the
-        # current end chapter and verse
-        current_end_chapter = chapter
-        current_end_verse = verse
-
-    # The last reference doesn't get created during the loop, so create it now
-    # (assuming that at least one verse id was valid).
-    if current_book:
-=======
         # At the beginning of a new range, so create the reference and reset all of the fields.
->>>>>>> feature/book-groups
         references.append(
             NormalizedReference(
                 start_book,
@@ -181,8 +124,4 @@ def convert_verse_ids_to_references(verse_ids: List[int]) -> List[NormalizedRefe
         )
     )
 
-<<<<<<< HEAD
-    return chapter == (end_chapter or 0) + 1 and verse == 1
-=======
     return references
->>>>>>> feature/book-groups
