@@ -1,4 +1,8 @@
-import re
+try:
+    import regex as re
+except ModuleNotFoundError:
+    import re
+
 from enum import IntEnum
 from typing import List, Match, Pattern
 
