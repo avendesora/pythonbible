@@ -175,8 +175,9 @@ BOOK_REGULAR_EXPRESSIONS: Dict[Book, str] = {
 }
 
 BOOK_REGEX: str = "|".join(
-    [fr"\b{value}\b\.?" for value in BOOK_REGULAR_EXPRESSIONS.values()]
+    fr"\b{value}\b\.?" for value in BOOK_REGULAR_EXPRESSIONS.values()
 )
+
 CHAPTER_REGEX: str = r"(\d{1,3})"
 CHAPTER_VERSE_SEPARATOR: str = r"([:.])"
 VERSE_REGEX: str = r"(\d{1,3})"
