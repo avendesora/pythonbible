@@ -6,7 +6,6 @@ except ModuleNotFoundError:
 from typing import List, Match, Optional
 
 import pythonbible as bible
-import pythonbible.book_groups
 from pythonbible import regular_expressions
 
 
