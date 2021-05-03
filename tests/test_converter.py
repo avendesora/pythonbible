@@ -3,7 +3,7 @@ from typing import List
 import pytest
 
 import pythonbible as bible
-from pythonbible.converter import is_new_chapter_next_verse
+from pythonbible.verses import VERSE_IDS
 
 
 def test_convert_reference_to_verse_ids(reference: bible.NormalizedReference) -> None:
@@ -125,34 +125,6 @@ def test_convert_verse_ids_to_references_complex(
     assert actual_references == normalized_references_complex
 
 
-def test_is_new_chapter_next_verse(book: bible.Book) -> None:
-    # Given a book, start chapter, start verse, next chapter, next verse such that
-    # the chapters are consecutive and the first verse is the last verse of the
-    # first chapter and the second verse is the first verse of the next chapter
-    chapter_1: int = 1
-    chapter_2: int = 2
-    verse_1: int = bible.get_max_number_of_verses(book, chapter_1)
-    verse_2: int = 1
-
-    # When we check to see if there are no gaps between the first chapter and verse
-    # and the second chapter and verse
-    # Then the result is True
-    assert is_new_chapter_next_verse(book, chapter_1, verse_1, chapter_2, verse_2)
-
-
-def test_is_new_chapter_next_verse_false(book: bible.Book) -> None:
-    # Given a book, chapters and verses with a gap
-    chapter_1: int = 1
-    chapter_2: int = 2
-    verse_1: int = bible.get_max_number_of_verses(book, chapter_1) - 1
-    verse_2: int = 1
-
-    # When we check to see if there are no gaps between the first chapter and verse
-    # and the second chapter and verse
-    # Then the result is False
-    assert not is_new_chapter_next_verse(book, chapter_1, verse_1, chapter_2, verse_2)
-
-
 def test_whole_book() -> None:
     """Test for https://github.com/avendesora/pythonbible/issues/7!"""
     # Given a reference that is just a book title
@@ -164,3 +136,39 @@ def test_whole_book() -> None:
     # Then it should return the normalized reference for the entire book.
     assert len(references) == 1
     assert references[0] == bible.NormalizedReference(bible.Book.GENESIS, 1, 1, 50, 26)
+
+
+def test_cross_book() -> None:
+    # Given a reference that spans multiple books
+    reference_string: str = "Paul's epistles"
+
+    # When we convert that to normalized references
+    references: List[bible.NormalizedReference] = bible.get_references(
+        reference_string, book_groups=bible.BOOK_GROUPS
+    )
+
+    # and then convert that to verse ids
+    verse_ids: List[int] = bible.convert_references_to_verse_ids(references)
+
+    # Then it return the verse ids for the verses in all of the books in the reference.
+    first_verse: int = VERSE_IDS.index(45001001)
+    last_verse: int = VERSE_IDS.index(57001025)
+    assert verse_ids == VERSE_IDS[first_verse : last_verse + 1]
+
+
+def test_cross_book_reverse() -> None:
+    # Given a list of verse ids that spans multiple books
+    first_verse: int = VERSE_IDS.index(45001001)
+    last_verse: int = VERSE_IDS.index(57001025)
+    verse_ids: List[int] = VERSE_IDS[first_verse : last_verse + 1]
+
+    # When we convert that to normalized references
+    references: List[bible.NormalizedReference] = bible.convert_verse_ids_to_references(
+        verse_ids
+    )
+
+    # Then the result is a single normalized reference that spans multiple books
+    # rather than one for each book.
+    assert references == [
+        bible.NormalizedReference(bible.Book.ROMANS, 1, 1, 1, 25, bible.Book.PHILEMON),
+    ]
