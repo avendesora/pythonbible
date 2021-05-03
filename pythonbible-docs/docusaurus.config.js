@@ -91,8 +91,7 @@ module.exports = {
           sidebarPath: require.resolve('./sidebars.js'),
           // Please change this to your repo.
           editUrl:
-            'https://github.com/avendesora/pythonbible/edit/feature/book-groups/pythonbible-docs/',
-            // 'https://github.com/avendesora/pythonbible/edit/main/pythonbible-docs/',
+            'https://github.com/avendesora/pythonbible/edit/main/pythonbible-docs/',
         },
         blog: {
           showReadingTime: true,
