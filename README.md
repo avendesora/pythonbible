@@ -55,21 +55,23 @@ references = bible.get_references(text)
 
 The search functionality should return the following list of scripture references:
 
-```
+```python
 [
     NormalizedReference(
         book=<Book.MATTHEW: 40>, 
         start_chapter=18, 
         start_verse=12, 
         end_chapter=18, 
-        end_verse=14
+        end_verse=14,
+        end_book=None
     ),
     NormalizedReference(
         book=<Book.LUKE: 42>, 
         start_chapter=15, 
         start_verse=3, 
         end_chapter=15, 
-        end_verse=7
+        end_verse=7,
+        end_book=None
     )
 ]
 ```
@@ -125,21 +127,23 @@ references = bible.convert_verse_ids_to_references(verse_ids)
 
 The conversion functionality would return the following list of normalized scripture references.
 
-```
+```python
 [
     NormalizedReference(
         book=<Book.MATTHEW: 40>, 
         start_chapter=18, 
         start_verse=12, 
         end_chapter=18, 
-        end_verse=14
+        end_verse=14,
+        end_book=None
     ),
     NormalizedReference(
         book=<Book.LUKE: 42>, 
         start_chapter=15, 
         start_verse=3, 
         end_chapter=15, 
-        end_verse=7
+        end_verse=7,
+        end_book=None
     )
 ]
 ```
