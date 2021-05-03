@@ -1351,6 +1351,11 @@ def get_number_of_chapters(book: Book) -> int:
 
 
 @lru_cache(maxsize=None)
+def is_single_chapter_book(book: Book) -> bool:
+    return get_number_of_chapters(book) == 1
+
+
+@lru_cache(maxsize=None)
 def get_max_number_of_verses(book: Book, chapter: int) -> int:
     """
     Given a Book enum and chapter number int, if valid, return the int number of verses in that Book and chapter.
@@ -1384,12 +1389,11 @@ def get_verse_id(book: Book, chapter: int, verse: int) -> int:
     # Not only will this get the max verse number, it will validate the chapter.
     max_verse_number: Optional[int] = get_max_number_of_verses(book, chapter)
 
-    if max_verse_number:
-        if not 1 <= verse <= max_verse_number:
-            raise InvalidVerseError(
-                f"{book.title} {chapter}:{verse} is not a valid Bible verse. "
-                f"Valid verses for that book and chapter are 1-{max_verse_number}"
-            )
+    if max_verse_number and not 1 <= verse <= max_verse_number:
+        raise InvalidVerseError(
+            f"{book.title} {chapter}:{verse} is not a valid Bible verse. "
+            f"Valid verses for that book and chapter are 1-{max_verse_number}"
+        )
 
     return int(book) * 1000000 + chapter * 1000 + verse
 

@@ -112,7 +112,7 @@ def test_get_verse_text_invalid_verse(invalid_verse_id: int) -> None:
 
 
 def test_exodus_20_3_asv() -> None:
-    """Test for https://github.com/avendesora/python-bible/issues/9!"""
+    """Test for https://github.com/avendesora/pythonbible/issues/9!"""
     # Given the reference Exodus 20:3
     text: str = "Exodus 20:3"
 
@@ -127,7 +127,7 @@ def test_exodus_20_3_asv() -> None:
 
 
 def test_mark_9_38_kjv() -> None:
-    """Test for https://github.com/avendesora/python-bible/issues/12!"""
+    """Test for https://github.com/avendesora/pythonbible/issues/12!"""
     # Given the verse id for Mark 9:38
     verse_id: int = 41009038
 
@@ -144,7 +144,7 @@ def test_mark_9_38_kjv() -> None:
 
 
 def test_mark_9_43_kjv() -> None:
-    """Test for https://github.com/avendesora/python-bible/issues/16!"""
+    """Test for https://github.com/avendesora/pythonbible/issues/16!"""
     # Given the verse id for Mark 9:43
     verse_id: int = 41009043
 
@@ -161,7 +161,7 @@ def test_mark_9_43_kjv() -> None:
 
 
 def test_matthew_17_21_asv() -> None:
-    """Test for https://github.com/avendesora/python-bible/issues/19!"""
+    """Test for https://github.com/avendesora/pythonbible/issues/19!"""
     # Given the verse id for Matthew 17:21
     verse_id: int = 40017021
 

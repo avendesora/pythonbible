@@ -51,26 +51,20 @@ def test_format_scripture_reference_single_verse(verse_id: int) -> None:
 
     # When we format the reference for it for different versions
     short_kjv_reference: str = bible.format_single_reference(
-        book, chapter, verse, chapter, verse, version=bible.Version.KING_JAMES
+        bible.NormalizedReference(book, chapter, verse, chapter, verse),
+        version=bible.Version.KING_JAMES,
     )
     short_asv_reference: str = bible.format_single_reference(
-        book, chapter, verse, chapter, verse, version=bible.Version.AMERICAN_STANDARD
+        bible.NormalizedReference(book, chapter, verse, chapter, verse),
+        version=bible.Version.KING_JAMES,
     )
     long_kjv_reference: str = bible.format_single_reference(
-        book,
-        chapter,
-        verse,
-        chapter,
-        verse,
+        bible.NormalizedReference(book, chapter, verse, chapter, verse),
         version=bible.Version.KING_JAMES,
         full_title=True,
     )
     long_asv_reference: str = bible.format_single_reference(
-        book,
-        chapter,
-        verse,
-        chapter,
-        verse,
+        bible.NormalizedReference(book, chapter, verse, chapter, verse),
         version=bible.Version.AMERICAN_STANDARD,
         full_title=True,
     )
@@ -190,3 +184,82 @@ def test_get_book_titles_no_version_file(book: bible.Book) -> None:
     # Then a MissingBookFileError is raised.
     with pytest.raises(bible.MissingBookFileError):
         bible.get_book_titles(book, version)
+
+
+def test_format_scripture_references_multiple_book_range() -> None:
+    # Given a reference that spans multiple books
+    references: List[bible.NormalizedReference] = bible.get_references(
+        "Old Testament", book_groups=bible.BOOK_GROUPS
+    )
+
+    # When formatting that reference into a reference string
+    reference_string: str = bible.format_scripture_references(references)
+
+    # Then the resulting reference string should be a range that spans multiple books.
+    assert reference_string == "Genesis - Malachi"
+
+
+def test_single_chapter_books() -> None:
+    # Given a reference for a book that has only one chapter
+    references: List[bible.NormalizedReference] = bible.get_references("Obadiah 1:2-4")
+
+    # When formatting that reference into a reference string
+    reference_string: str = bible.format_scripture_references(references)
+
+    # Then the resulting reference includes the book title and verse numbers but not chapter numbers.
+    assert reference_string == "Obadiah 2-4"
+
+
+def test_single_chapter_book_in_multiple_book_reference() -> None:
+    # Given a reference that includes a book with only one chapter but spans multiple books
+    references: List[bible.NormalizedReference] = bible.get_references(
+        "Amos 1:3 - Obadiah 1:12"
+    )
+
+    # When formatting that reference into a reference string
+    reference_string: str = bible.format_scripture_references(references)
+
+    # Then the resulting reference has chapter numbers for the book with multiple
+    # chapters and no chapter numbers for the single chapter book.
+    assert reference_string == "Amos 1:3 - Obadiah 12"
+
+
+def test_single_chapter_books_force_chapter_numbers() -> None:
+    # Given a reference for a book that has only one chapter
+    references: List[bible.NormalizedReference] = bible.get_references("Obadiah")
+
+    # When formatting that reference into a reference string and including the keyword
+    # argument to force include chapter numbers
+    reference_string: str = bible.format_scripture_references(
+        references, always_include_chapter_numbers=True
+    )
+
+    # Then the resulting reference includes the book title and verse numbers but not chapter numbers.
+    assert reference_string == "Obadiah 1:1-21"
+
+
+def test_cross_book_range_not_whole_books_or_chapters() -> None:
+    # Given a reference that is a range that spans multiple books but not entire books/chapters
+    original_reference_string = "Genesis 50:3 - Exodus 1:10"
+    references: List[bible.NormalizedReference] = bible.get_references(
+        original_reference_string
+    )
+
+    # When formatting that reference into a reference string
+    reference_string: str = bible.format_scripture_references(references)
+
+    # Then the resulting reference string includes chapter and verse numbers
+    assert reference_string == original_reference_string
+
+
+def test_multi_chapter_book_reference_contains_whole_book() -> None:
+    # Given a reference that contains all the verses of a single book that has multiple chapters
+    references: List[bible.NormalizedReference] = bible.get_references(
+        "Genesis 1:1-50:26"
+    )
+
+    # When formatting that reference into a reference string
+    reference_string: str = bible.format_scripture_references(references)
+
+    # Then the resulting reference string does not include chapter and verse numbers
+    assert reference_string == "Genesis"
