@@ -6,7 +6,7 @@ build-backend = "flit_core.buildapi"
 module = "pythonbible"
 author = "Nathan Patton"
 author-email = "npatton@gmail.com"
-home-page = "https://github.com/avendesora/python-bible"
+home-page = "https://github.com/avendesora/pythonbible"
 classifiers = [
     "Intended Audience :: Information Technology",
     "Intended Audience :: Developers",
