@@ -427,7 +427,7 @@ def _format_paragraph(paragraph: Optional[str], format_type: str) -> str:
     return f"   {paragraph}\n"
 
 
-@lru_cache
+@lru_cache()
 def get_verse_text(verse_id: int, version: Version = DEFAULT_VERSION) -> Optional[str]:
     """
     Given a verse id and, optionally, a Bible version, return the text for that verse.
@@ -447,7 +447,7 @@ def get_verse_text(verse_id: int, version: Version = DEFAULT_VERSION) -> Optiona
     return version_verse_texts.get(verse_id)
 
 
-@lru_cache
+@lru_cache()
 def _get_version_verse_texts(version: Version) -> Dict[int, str]:
     verse_texts: Optional[Dict[int, str]] = VERSE_TEXTS.get(version)
 
@@ -466,7 +466,7 @@ def _get_version_verse_texts(version: Version) -> Dict[int, str]:
     return verse_texts
 
 
-@lru_cache
+@lru_cache()
 def get_book_titles(
     book: Book, version: Version = DEFAULT_VERSION
 ) -> Optional[BookTitles]:
@@ -485,7 +485,7 @@ def get_book_titles(
     return version_book_tiles.get(book)
 
 
-@lru_cache
+@lru_cache()
 def _get_version_book_titles(version: Version) -> Dict[Book, BookTitles]:
     book_titles: Optional[Dict[Book, BookTitles]] = BOOK_TITLES.get(version)
 
