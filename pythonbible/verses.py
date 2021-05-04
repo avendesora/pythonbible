@@ -1339,7 +1339,7 @@ MAX_VERSE_NUMBER_BY_BOOK_AND_CHAPTER: Dict[Book, List[int]] = {
 }
 
 
-@lru_cache(maxsize=None)
+@lru_cache
 def get_number_of_chapters(book: Book) -> int:
     """
     Given a book of the Bible, return the int number of chapters in that book.
@@ -1350,12 +1350,12 @@ def get_number_of_chapters(book: Book) -> int:
     return len(MAX_VERSE_NUMBER_BY_BOOK_AND_CHAPTER[book])
 
 
-@lru_cache(maxsize=None)
+@lru_cache
 def is_single_chapter_book(book: Book) -> bool:
     return get_number_of_chapters(book) == 1
 
 
-@lru_cache(maxsize=None)
+@lru_cache
 def get_max_number_of_verses(book: Book, chapter: int) -> int:
     """
     Given a Book enum and chapter number int, if valid, return the int number of verses in that Book and chapter.
@@ -1375,7 +1375,7 @@ def get_max_number_of_verses(book: Book, chapter: int) -> int:
         )
 
 
-@lru_cache(maxsize=None)
+@lru_cache
 def get_verse_id(book: Book, chapter: int, verse: int) -> int:
     """
     Given the Book enum, chapter number int, and verse number int return the verse id if it exists.
@@ -1398,7 +1398,7 @@ def get_verse_id(book: Book, chapter: int, verse: int) -> int:
     return int(book) * 1000000 + chapter * 1000 + verse
 
 
-@lru_cache(maxsize=None)
+@lru_cache
 def get_book_chapter_verse(verse_id: int) -> Tuple[Book, int, int]:
     """
     Given a verse id return the tuple containing the Book enum, the chapter number int, and the verse number int.
@@ -1416,7 +1416,7 @@ def get_book_chapter_verse(verse_id: int) -> Tuple[Book, int, int]:
     )
 
 
-@lru_cache(maxsize=None)
+@lru_cache
 def get_book_number(verse_id: int) -> int:
     """
     Given a verse id return the int book number.
@@ -1427,7 +1427,7 @@ def get_book_number(verse_id: int) -> int:
     return int(verse_id / 1000000)
 
 
-@lru_cache(maxsize=None)
+@lru_cache
 def get_chapter_number(verse_id: int) -> int:
     """
     Given a verse id return the int chapter number.
@@ -1438,7 +1438,7 @@ def get_chapter_number(verse_id: int) -> int:
     return int(verse_id % 1000000 / 1000)
 
 
-@lru_cache(maxsize=None)
+@lru_cache
 def get_verse_number(verse_id: int) -> int:
     """
     Given a verse id return the int verse number.
