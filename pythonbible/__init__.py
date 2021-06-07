@@ -15,6 +15,7 @@ from .converter import (
     convert_references_to_verse_ids,
     convert_verse_ids_to_references,
 )
+from .counters import count_books, count_chapters, count_verses
 from .errors import (
     InvalidBibleParserError,
     InvalidBookError,
