@@ -132,3 +132,8 @@ dmypy.json
 /.idea/
 .idea/
 /.mutmut-cache
+
+# docusaurus
+/pythonbible-docs/.docusaurus
+/pythonbible-docs/build
+/pythonbible-docs/node_modules

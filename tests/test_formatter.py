@@ -139,7 +139,7 @@ def test_get_verse_text_no_version_file(verse_id: int) -> None:
 
 def test_verse_text_caching() -> None:
     # Given a lengthy reference
-    references: List[bible.NormalizedReference] = bible.get_references("Jeremiah")
+    references: List[bible.NormalizedReference] = bible.get_references("Jeremiah 29")
     verse_ids: List[int] = bible.convert_references_to_verse_ids(references)
 
     # When getting the scripture text multiple times

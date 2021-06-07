@@ -51,7 +51,7 @@ class OSISParser(BibleParser):
             "xmlns": _get_namespace(self.tree.getroot().tag)
         }
 
-    @lru_cache(maxsize=None)
+    @lru_cache()
     def get_book_title(self, book: Book) -> str:
         """
         Given a book, return the full title for that book from the XML file.
@@ -62,7 +62,7 @@ class OSISParser(BibleParser):
         book_title_element: Element = self._get_book_title_element(book)
         return book_title_element.text or ""
 
-    @lru_cache(maxsize=None)
+    @lru_cache()
     def get_short_book_title(self, book: Book) -> str:
         """
         Given a book, return the short title for that book from the XML file.
@@ -73,7 +73,7 @@ class OSISParser(BibleParser):
         book_title_element: Element = self._get_book_title_element(book)
         return book_title_element.get("short", "")
 
-    @lru_cache(maxsize=None)
+    @lru_cache()
     def _get_book_title_element(self, book: Book) -> Element:
         xpath: str = XPATH_BOOK_TITLE.format(BOOK_IDS.get(book))
         return self.tree.find(xpath, namespaces=self.namespaces)
@@ -109,7 +109,7 @@ class OSISParser(BibleParser):
             verse_ids_tuple, include_verse_number
         )
 
-    @lru_cache(maxsize=None)
+    @lru_cache()
     def _get_scripture_passage_text_memoized(
         self, verse_ids, include_verse_number
     ) -> Dict[Book, Dict[int, List[str]]]:
@@ -143,7 +143,7 @@ class OSISParser(BibleParser):
 
         return self._get_verse_text_memoized(verse_id, include_verse_number)
 
-    @lru_cache(maxsize=None)
+    @lru_cache()
     def _get_verse_text_memoized(
         self, verse_id: int, include_verse_number: bool
     ) -> str:
@@ -163,12 +163,12 @@ class OSISParser(BibleParser):
         return verse_text
 
 
-@lru_cache(maxsize=None)
+@lru_cache()
 def _get_namespace(tag: str) -> str:
     return tag[tag.index("{") + 1 : tag.index("}")]
 
 
-@lru_cache(maxsize=None)
+@lru_cache()
 def _strip_namespace_from_tag(tag: str) -> str:
     return tag.replace(_get_namespace(tag), "").replace("{", "").replace("}", "")
 
@@ -214,7 +214,7 @@ def _get_paragraphs(
     return paragraph_dictionary
 
 
-@lru_cache(maxsize=None)
+@lru_cache()
 def _get_paragraph_from_element(
     paragraph_element: Element,
     verse_ids: Tuple[int, ...],
@@ -252,7 +252,7 @@ def _get_paragraph_from_element(
     return paragraphs, new_current_verse_id
 
 
-@lru_cache(maxsize=None)
+@lru_cache()
 def _handle_child_element(
     child_element: Element,
     verse_ids: Tuple[int, ...],
@@ -313,7 +313,7 @@ def _handle_child_element(
     return "", skip_till_next_verse, current_verse_id
 
 
-@lru_cache(maxsize=None)
+@lru_cache()
 def _handle_verse_tag(
     child_element: Element,
     verse_ids: Tuple[int, ...],
@@ -352,22 +352,22 @@ def _handle_verse_tag(
     return paragraph, skip_till_next_verse, current_verse_id
 
 
-@lru_cache(maxsize=None)
+@lru_cache()
 def _get_element_text_and_tail(element: Element) -> str:
     return _get_element_text(element) + _get_element_tail(element)
 
 
-@lru_cache(maxsize=None)
+@lru_cache()
 def _get_element_text(element: Element) -> str:
     return element.text.replace("\n", " ") if element.text else ""
 
 
-@lru_cache(maxsize=None)
+@lru_cache()
 def _get_element_tail(element: Element) -> str:
     return element.tail.replace("\n", " ") if element.tail else ""
 
 
-@lru_cache(maxsize=None)
+@lru_cache()
 def clean_paragraph(paragraph: str) -> str:
     cleaned_paragraph: str = paragraph.replace("¶", "").replace("  ", " ")
     return cleaned_paragraph.strip()

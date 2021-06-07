@@ -13,6 +13,10 @@ The pythonbible library serves several purposes related to the Christian Bible a
 
 [![Python 3.9](https://img.shields.io/badge/python-3.7%20%7C%203.8%20%7C%203.9-blue?logo=python&logoColor=lightgray)](https://www.python.org/downloads/release/python-390/)
 
+## Documentation
+
+The full documentation for pythonbible can be found at [http://pythonbible.fliturgy.com](http://pythonbible.fliturgy.com/docs/intro).
+
 ## Installation
 
 ```shell script
