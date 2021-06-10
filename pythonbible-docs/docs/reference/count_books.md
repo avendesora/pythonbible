@@ -4,7 +4,7 @@ sidebar_position: 7
 
 # count_books
 
-The `count_books` function, given `string` containing one or more Scripture references or a `NormalizedReference` object or a `List` of `NormalizedReference` objects, returns the `int` count of the books of the Bible included in the given reference(s).
+The `count_books` function, given a `string` containing one or more Scripture references or a `NormalizedReference` object or a `List` of `NormalizedReference` objects, returns the `int` count of the books of the Bible included in the given reference(s).
 
 ## Input
 
@@ -38,7 +38,7 @@ bible.count_books("The first five books of the Bible are Genesis - Deuteronomy."
 ```python title="Code"
 import pythonbible as bible
 
-# Matthew - John
+# Matthew - John (i.e. bible.get_references("Matthew - John")
 reference = bible.NormalizedReference(
     book=bible.Book.MATTHEW,
     start_chapter=1,
@@ -59,7 +59,7 @@ bible.count_books(reference)
 ```python title="Code"
 import pythonbible as bible
 
-# Genesis and Matthew - John
+# Genesis and Matthew - John (i.e. bible.get_references("Genesis, Matthew - John"))
 references = [
     bible.NormalizedReference(
         book=bible.Book.GENESIS,

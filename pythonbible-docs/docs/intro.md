@@ -22,7 +22,7 @@ However, if using Python 3.6, you must have the [dataclasses](https://github.com
 pip install dataclasses
 ```
 
-If using Python 3.7+, the dataclasses library is included in the standard library and does not need to be installed separately.
+If using Python 3.7+, the standard library includes dataclasses, and it does not need to be installed separately.
 
 ## Installation
 
