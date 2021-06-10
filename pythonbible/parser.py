@@ -127,7 +127,9 @@ def _process_sub_references(book: Book, reference: str) -> List[NormalizedRefere
     start_chapter: int = 0
 
     for sub_reference in reference.split(","):
-        if (len(sub_reference) == 0 or sub_reference == "-") and len(references) == 0:
+        if (len(sub_reference) == 0 or sub_reference in ["-", "."]) and len(
+            references
+        ) == 0:
             max_chapter: int = get_number_of_chapters(book)
             max_verse: int = get_max_number_of_verses(book, max_chapter)
             references.append(NormalizedReference(book, 1, 1, max_chapter, max_verse))
