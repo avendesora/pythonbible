@@ -1,5 +1,5 @@
 ---
-sidebar_position: 26
+sidebar_position: 29
 ---
 
 # is_valid_verse

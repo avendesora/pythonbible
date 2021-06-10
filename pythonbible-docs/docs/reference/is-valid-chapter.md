@@ -1,5 +1,5 @@
 ---
-sidebar_position: 24
+sidebar_position: 27
 ---
 
 # is_valid_chapter
