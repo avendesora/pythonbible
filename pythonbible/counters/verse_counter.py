@@ -13,12 +13,12 @@ def count_verses(references: List[NormalizedReference]) -> int:
 
 
 @count_verses.register
-def _(reference: NormalizedReference) -> int:
+def _count_verses_single(reference: NormalizedReference) -> int:
     return _get_number_of_verses_in_reference(reference)
 
 
 @count_verses.register
-def _(reference: str) -> int:
+def _count_verses_string(reference: str) -> int:
     return _get_number_verses_in_references(get_references(reference))
 
 

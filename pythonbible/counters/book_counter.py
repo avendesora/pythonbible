@@ -12,12 +12,12 @@ def count_books(references: List[NormalizedReference]) -> int:
 
 
 @count_books.register
-def _(reference: NormalizedReference) -> int:
+def _count_books_single(reference: NormalizedReference) -> int:
     return _get_number_of_books_in_reference(reference)
 
 
 @count_books.register
-def _(reference: str) -> int:
+def _count_books_string(reference: str) -> int:
     return _get_number_of_books_in_references(get_references(reference))
 
 

@@ -53,8 +53,8 @@ def normalize_reference(reference: str) -> List[NormalizedReference]:
     :return: a list of tuples. each tuple is in the format (book, start_chapter, start_verse, end_chapter, end_verse)
     """
     references: List[NormalizedReference] = []
-    books: list[Book] = []
-    cleaned_references: list[str] = []
+    books: List[Book] = []
+    cleaned_references: List[str] = []
     reference_without_books: str = reference
     start: int
     end: int

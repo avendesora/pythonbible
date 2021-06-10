@@ -13,12 +13,12 @@ def count_chapters(references: List[NormalizedReference]) -> int:
 
 
 @count_chapters.register
-def _(reference: NormalizedReference) -> int:
+def _count_chapters_single(reference: NormalizedReference) -> int:
     return _get_number_of_chapters_in_reference(reference)
 
 
 @count_chapters.register
-def _(reference: str) -> int:
+def _count_chapters_string(reference: str) -> int:
     return _get_number_of_chapters_in_references(get_references(reference))
 
 
