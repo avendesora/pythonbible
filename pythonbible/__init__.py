@@ -5,7 +5,7 @@ converting verse ids back into normalized references, and formatting
 references as human-readable strings.
 """
 
-__version__ = "0.4.1"
+__version__ = "0.5.0"
 
 from .bible.osis.parser import OSISParser
 from .book_groups import BOOK_GROUPS, BookGroup
@@ -15,6 +15,9 @@ from .converter import (
     convert_references_to_verse_ids,
     convert_verse_ids_to_references,
 )
+from .counters.book_counter import count_books
+from .counters.chapter_counter import count_chapters
+from .counters.verse_counter import count_verses
 from .errors import (
     InvalidBibleParserError,
     InvalidBookError,

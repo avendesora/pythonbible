@@ -1,5 +1,5 @@
 ---
-sidebar_position: 19
+sidebar_position: 22
 ---
 
 # get_verse_text
