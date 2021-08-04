@@ -15,7 +15,7 @@ The pythonbible library serves several purposes related to the Christian Bible a
 
 ## Documentation
 
-The full documentation for pythonbible can be found at [http://pythonbible.fliturgy.com](http://pythonbible.fliturgy.com/docs/intro).
+The full documentation for pythonbible can be found at [docs.python.bible](https://docs.python.bible/docs/intro).
 
 ## Installation
 
