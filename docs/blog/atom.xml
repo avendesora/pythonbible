@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-    <id>https://pythonbible.fliturgy.com/blog</id>
+    <id>https://docs.python.bible/blog</id>
     <title>pythonbible Blog</title>
     <updated>2015-10-25T23:29:00.000Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
-    <link rel="alternate" href="https://pythonbible.fliturgy.com/blog"/>
+    <link rel="alternate" href="https://docs.python.bible/blog"/>
     <subtitle>pythonbible Blog</subtitle>
-    <icon>https://pythonbible.fliturgy.com/img/favicon.ico</icon>
+    <icon>https://docs.python.bible/img/favicon.ico</icon>
 </feed>

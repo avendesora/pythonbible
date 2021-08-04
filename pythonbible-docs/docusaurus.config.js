@@ -2,12 +2,12 @@
 module.exports = {
   title: 'pythonbible',
   tagline: '',
-  url: 'https://pythonbible.fliturgy.com',
+  url: 'https://docs.python.bible',
   baseUrl: '/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
-  organizationName: 'fliturgy', // Usually your GitHub org/user name.
+  organizationName: 'avendesora', // Usually your GitHub org/user name.
   projectName: 'pythonbible', // Usually your repo name.
   themeConfig: {
     navbar: {
