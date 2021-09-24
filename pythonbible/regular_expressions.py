@@ -125,8 +125,8 @@ BOOK_REGULAR_EXPRESSIONS: Dict[Book, str] = {
     Book.MATTHEW: r"Mat\.*(?:t\.*(?:hew)?)?",
     Book.MARK: r"Mar\.*(?:k)?",
     Book.LUKE: r"Luk\.*(?:e)?",
-    Book.JOHN: r"(?<!(?:1|2|3|I)\s)(?<!(?:1|2|3|I))"+JOHN_REGULAR_EXPRESSION
-    Book.ACTS: build_book_regular_expression("Acts", suffix="of the Apostles"),
+    Book.JOHN: r"(?<!(?:1|2|3|I)\s)(?<!(?:1|2|3|I))"+JOHN_REGULAR_EXPRESSION,
+    Book.ACTS: build_book_regular_expression(r"Act\.*(?:s)?", suffix="of the Apostles"),
     Book.ROMANS: r"Rom\.*(?:ans)?",
     Book.CORINTHIANS_1: build_book_regular_expression(
         CORINTHIANS_REGULAR_EXPRESSION, prefix=FIRST_PAUL_EPISTLE
