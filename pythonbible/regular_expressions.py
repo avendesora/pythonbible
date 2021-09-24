@@ -152,7 +152,7 @@ BOOK_REGULAR_EXPRESSIONS: Dict[Book, str] = {
     ),
     Book.TITUS: r"Tit\.*(?:us)?",
     # assume 'Phi' is Philemon if Philippians failed?
-    Book.PHILEMON: r"(Phi|Phlm|Phile)\.*(?:m\.*(?:on)?)?", 
+    Book.PHILEMON: r"(Philemon|Phile|Phi|Phlm).(?:m.(?:on)?)?", 
     Book.HEBREWS: r"Heb\.*(?:rews)?",
     Book.JAMES: r"Ja(?:me)?s\.*",
     Book.PETER_1: build_book_regular_expression(
