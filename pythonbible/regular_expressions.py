@@ -151,8 +151,8 @@ BOOK_REGULAR_EXPRESSIONS: Dict[Book, str] = {
         TIMOTHY_REGULAR_EXPRESSION, prefix=SECOND_PAUL_EPISTLE
     ),
     Book.TITUS: r"Tit\.*(?:us)?",
-    # assume 'Phi' is Philemon if Philippians failed?
-    Book.PHILEMON: r"(Philemon|Phile|Phi|Phlm).(?:m.(?:on)?)?", 
+    # assume 'Phi' is Philemon if Philippians failed
+    Book.PHILEMON: r"(Philemon|Philem\.*|Phile\.*|Phlm\.*|Phi\.*)",
     Book.HEBREWS: r"Heb\.*(?:rews)?",
     Book.JAMES: r"Ja(?:me)?s\.*",
     Book.PETER_1: build_book_regular_expression(
