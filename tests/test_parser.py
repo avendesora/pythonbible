@@ -212,3 +212,21 @@ def test_single_chapter_book_without_chapter_number() -> None:
     assert references == [
         bible.NormalizedReference(bible.Book.OBADIAH, 1, 3, 1, 6, None)
     ]
+
+
+def test_book_alternative_names_verbum(book_alternative_names_verbum) -> None:
+    # Given the books of the Bible with their alternative names/abbreviations
+
+    for book, alternative_names in book_alternative_names_verbum.items():
+        references = bible.get_references(f"{book.title} 1:1-2")
+
+        for alternative_name in alternative_names:
+            if len(alternative_name.replace(" ", "")) < 3:
+                continue
+
+            # When we parse the references with the alternative name
+            alternative_references = bible.get_references(f"{alternative_name} 1:1-2")
+
+            # Then the alternative references match the baseline references
+            print(alternative_name)
+            assert alternative_references == references

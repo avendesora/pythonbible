@@ -23,22 +23,18 @@ def _add_suffix(regex: str, suffix: str = None) -> str:
     return regex if suffix is None else fr"{regex}(?:\s*{suffix})?"
 
 
-SAMUEL_REGULAR_EXPRESSION = r"Sam\.*(?:uel)?"
-KINGS_REGULAR_EXPRESSION = r"K(?:in)?gs\.*"
-# noinspection SpellCheckingInspection
-CHRONICLES_REGULAR_EXPRESSION = r"Chr\.*(?:o\.*(?:n\.*(?:icles)?)?)?"
-JOHN_REGULAR_EXPRESSION = r"Joh\.*(?:n)?"
-# noinspection SpellCheckingInspection
-CORINTHIANS_REGULAR_EXPRESSION = r"Cor\.*(?:inthians)?"
-# noinspection SpellCheckingInspection
-THESSALONIANS_REGULAR_EXPRESSION = r"Th\.*(?:(s|(ess))\.*(?:alonians)?)?"
-# noinspection SpellCheckingInspection
-TIMOTHY_REGULAR_EXPRESSION = r"Tim\.*(?:othy)?"
-PETER_REGULAR_EXPRESSION = r"Pet\.*(?:er)?"
+SAMUEL_REGULAR_EXPRESSION = r"(Samuel|Sam\.*|Sa\.*|Sm\.*)"
+KINGS_REGULAR_EXPRESSION = r"(Kings|Kgs\.*|Kin\.*|Ki\.*)"
+CHRONICLES_REGULAR_EXPRESSION = r"(Chronicles|Chron\.*|Chro\.*|Chr\.*|Ch\.*)"
+JOHN_REGULAR_EXPRESSION = r"(John|Joh\.*|Jhn\.*|Jo\.*|Jn\.*)"
+CORINTHIANS_REGULAR_EXPRESSION = r"Co\.*(?:r\.*(?:inthians)?)?"
+THESSALONIANS_REGULAR_EXPRESSION = r"Th\.*(?:(s|(es(?:s)?))\.*(?:alonians)?)?"
+TIMOTHY_REGULAR_EXPRESSION = r"Ti\.*(?:m\.*(?:othy)?)?"
+PETER_REGULAR_EXPRESSION = r"(Pe\.*(?:t\.*(?:er)?)?|Pt\.*)"
 
-FIRST = "1|I"
-SECOND = "2|II"
-THIRD = "3|III"
+FIRST = r"1|I\s+|1st\s+|First\s+"
+SECOND = r"2|II|2nd\s+|Second\s+"
+THIRD = r"3|III|3rd\s+|Third\s+"
 
 FIRST_BOOK = fr"{FIRST}|(First\s+Book\s+of(?:\s+the)?)"
 SECOND_BOOK = fr"{SECOND}|(Second\s+Book\s+of(?:\s+the)?)"
@@ -60,9 +56,9 @@ BOOK_REGULAR_EXPRESSIONS: Dict[Book, str] = {
     Book.LEVITICUS: r"Lev\.*(?:iticus)?",
     Book.NUMBERS: r"Num\.*(?:bers)?",
     Book.DEUTERONOMY: r"Deu\.*(?:t\.*)?(?:eronomy)?",
-    Book.JOSHUA: r"Jos\.*(?:h\.*(?:ua)?)?",
-    Book.JUDGES: r"J(?:(?:dg\.*)|(?:udg\.*(?:es)?))",
-    Book.RUTH: r"Rut\.*(?:h)?",
+    Book.JOSHUA: r"(Joshua|Josh\.*|Jos\.*|Jsh\.*)",
+    Book.JUDGES: r"(Judges|Judg\.*|Jdgs\.*|Jdg\.*)",
+    Book.RUTH: r"(Ruth|Rut\.*|Rth\.*)",
     Book.SAMUEL_1: build_book_regular_expression(
         SAMUEL_REGULAR_EXPRESSION,
         prefix=FIRST_BOOK,
@@ -95,26 +91,22 @@ BOOK_REGULAR_EXPRESSIONS: Dict[Book, str] = {
     Book.NEHEMIAH: r"Neh\.*(?:emiah)?",
     Book.ESTHER: r"Est\.*(?:h\.*)?(?:er)?",
     Book.JOB: "Job",
-    Book.PSALMS: r"Ps\.*(?:a\.*)?(?:lm(?:s)?)?",
-    Book.PROVERBS: r"Pro\.*(?:v\.*)?(?:erbs)?",
-    Book.ECCLESIASTES: build_book_regular_expression(
-        r"Ecc\.*(?:l\.*(?:es\.*(?:iastes)?)?)?", suffix=r"or\,\s+the\s+Preacher"
-    ),
-    Book.SONG_OF_SONGS: build_book_regular_expression(
-        "Song", suffix=r"of ((Sol\.*(?:omon)?)|Songs)"
-    ),
+    Book.PSALMS: r"(Psalms|Psalm|Pslm\.*|Psa\.*|Psm\.*|Pss\.*|Ps\.*)",
+    Book.PROVERBS: r"(Proverbs|Prov\.*|Pro\.*|Prv\.*)",
+    Book.ECCLESIASTES: r"(Ecclesiastes(?:\s+or\,\s+the\s+Preacher)?|Eccles\.*|Eccle\.*|Eccl\.*|Ecc\.*|Ec\.*|Qoh\.*)",
+    Book.SONG_OF_SONGS: r"(Song(?: of (Solomon|Songs|Sol\.*))?)|Canticles|(Canticle(?: of Canticles)?)|SOS|Cant",
     Book.ISAIAH: r"Isa\.*(?:iah)?",
     Book.JEREMIAH: r"Jer\.*(?:emiah)?",
     Book.LAMENTATIONS: build_book_regular_expression(
         r"Lam\.*(?:entations)?", suffix=r"of\s+Jeremiah"
     ),
-    Book.EZEKIEL: r"Eze\.*(?:k\.*(?:iel)?)?",
+    Book.EZEKIEL: r"(Ezekiel|Ezek\.*|Eze\.*|Ezk\.*)",
     Book.DANIEL: r"Dan\.*(?:iel)?",
     Book.HOSEA: r"Hos\.*(?:ea)?",
     Book.JOEL: r"Joe\.*(?:l)?",
     Book.AMOS: r"Amo\.*(?:s)?",
     Book.OBADIAH: r"Oba\.*(?:d\.*(?:iah)?)?",
-    Book.JONAH: r"Jon\.*(?:ah)?",
+    Book.JONAH: r"Jonah|Jon\.*|Jnh\.*",
     Book.MICAH: r"Mic\.*(?:ah)?",
     Book.NAHUM: r"Nah\.*(?:um)?",
     Book.HABAKKUK: r"Hab\.*(?:akkuk)?",
@@ -123,7 +115,7 @@ BOOK_REGULAR_EXPRESSIONS: Dict[Book, str] = {
     Book.ZECHARIAH: r"Zec\.*(?:h\.*(?:ariah)?)?",
     Book.MALACHI: r"Mal\.*(?:achi)?",
     Book.MATTHEW: r"Mat\.*(?:t\.*(?:hew)?)?",
-    Book.MARK: r"Mar\.*(?:k)?",
+    Book.MARK: r"Mark|Mar\.*|Mrk\.*",
     Book.LUKE: r"Luk\.*(?:e)?",
     Book.JOHN: r"(?<!(?:1|2|3|I)\s)(?<!(?:1|2|3|I))" + JOHN_REGULAR_EXPRESSION,
     Book.ACTS: build_book_regular_expression(r"Act\.*(?:s)?", suffix="of the Apostles"),
@@ -135,7 +127,7 @@ BOOK_REGULAR_EXPRESSIONS: Dict[Book, str] = {
         CORINTHIANS_REGULAR_EXPRESSION, prefix=SECOND_PAUL_EPISTLE
     ),
     Book.GALATIANS: r"Gal\.*(?:atians)?",
-    Book.EPHESIANS: r"Eph\.*(?:esians)?",
+    Book.EPHESIANS: r"Eph\.*(?:es\.*(?:ians)?)?",
     Book.PHILIPPIANS: r"Ph(?:(p\.*)|(?:il\.*(?!e\.*(?:m\.*(?:on)?)?)(?:ippians)?))",
     Book.COLOSSIANS: r"Col\.*(?:ossians)?",
     Book.THESSALONIANS_1: build_book_regular_expression(
@@ -152,7 +144,7 @@ BOOK_REGULAR_EXPRESSIONS: Dict[Book, str] = {
     ),
     Book.TITUS: r"Tit\.*(?:us)?",
     # assume 'Phi' is Philemon if Philippians failed
-    Book.PHILEMON: r"(Philemon|Philem\.*|Phile\.*|Phlm\.*|Phi\.*)",
+    Book.PHILEMON: r"(Philemon|Philem\.*|Phile\.*|Phlm\.*|Phi\.*|Phm\.*)",
     Book.HEBREWS: r"Heb\.*(?:rews)?",
     Book.JAMES: r"Ja(?:me)?s\.*",
     Book.PETER_1: build_book_regular_expression(
