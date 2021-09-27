@@ -1094,6 +1094,8 @@ def book_alternative_names() -> Dict[bible.Book, List[str]]:
 @pytest.fixture
 def book_alternative_names_verbum() -> Dict[bible.Book, List[str]]:
     """
+    These are the abbreviations supported by verbum.
+
     https://support.verbum.com/hc/en-us/articles/360021231612-Bible-Book-Abbreviations
     """
     return {
