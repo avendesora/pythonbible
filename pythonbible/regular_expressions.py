@@ -31,7 +31,7 @@ JOHN_REGULAR_EXPRESSION = r"Joh\.*(?:n)?"
 # noinspection SpellCheckingInspection
 CORINTHIANS_REGULAR_EXPRESSION = r"Cor\.*(?:inthians)?"
 # noinspection SpellCheckingInspection
-THESSALONIANS_REGULAR_EXPRESSION = r"Th\.*(?:e\.*)?(?:ss\.*(?:alonians)?)?"
+THESSALONIANS_REGULAR_EXPRESSION = r"Th\.*(?:(s|(ess))\.*(?:alonians)?)?"
 # noinspection SpellCheckingInspection
 TIMOTHY_REGULAR_EXPRESSION = r"Tim\.*(?:othy)?"
 PETER_REGULAR_EXPRESSION = r"Pet\.*(?:er)?"
@@ -61,7 +61,7 @@ BOOK_REGULAR_EXPRESSIONS: Dict[Book, str] = {
     Book.NUMBERS: r"Num\.*(?:bers)?",
     Book.DEUTERONOMY: r"Deu\.*(?:t\.*)?(?:eronomy)?",
     Book.JOSHUA: r"Jos\.*(?:h\.*(?:ua)?)?",
-    Book.JUDGES: r"J\.*(?:(?:dg)|(?:udg\.*(?:es)?))",
+    Book.JUDGES: r"J(?:(?:dg\.*)|(?:udg\.*(?:es)?))",
     Book.RUTH: r"Rut\.*(?:h)?",
     Book.SAMUEL_1: build_book_regular_expression(
         SAMUEL_REGULAR_EXPRESSION,
@@ -125,7 +125,7 @@ BOOK_REGULAR_EXPRESSIONS: Dict[Book, str] = {
     Book.MATTHEW: r"Mat\.*(?:t\.*(?:hew)?)?",
     Book.MARK: r"Mar\.*(?:k)?",
     Book.LUKE: r"Luk\.*(?:e)?",
-    Book.JOHN: r"(?<!(?:1|2|3|I)\s)(?<!(?:1|2|3|I))"+JOHN_REGULAR_EXPRESSION,
+    Book.JOHN: r"(?<!(?:1|2|3|I)\s)(?<!(?:1|2|3|I))" + JOHN_REGULAR_EXPRESSION,
     Book.ACTS: build_book_regular_expression(r"Act\.*(?:s)?", suffix="of the Apostles"),
     Book.ROMANS: r"Rom\.*(?:ans)?",
     Book.CORINTHIANS_1: build_book_regular_expression(
@@ -136,7 +136,7 @@ BOOK_REGULAR_EXPRESSIONS: Dict[Book, str] = {
     ),
     Book.GALATIANS: r"Gal\.*(?:atians)?",
     Book.EPHESIANS: r"Eph\.*(?:esians)?",
-    Book.PHILIPPIANS: r"Ph(?:p|(?:il\.*(?!e\.*(?:m\.*(?:on)?)?)(?:ippians)?))",
+    Book.PHILIPPIANS: r"Ph(?:(p\.*)|(?:il\.*(?!e\.*(?:m\.*(?:on)?)?)(?:ippians)?))",
     Book.COLOSSIANS: r"Col\.*(?:ossians)?",
     Book.THESSALONIANS_1: build_book_regular_expression(
         THESSALONIANS_REGULAR_EXPRESSION, prefix=FIRST_PAUL_EPISTLE

@@ -605,8 +605,8 @@ def book_alternative_names() -> Dict[bible.Book, List[str]]:
         bible.Book.EXODUS: [
             # "Ex",  # This may match too many things
             # "Ex.",  # This may match too many things
-            # "Exo",  # This may match too many things
-            # "Exo.",  # This may match too many things
+            "Exo",
+            "Exo.",
             "Exod",
             "Exod.",
             "The Second Book of Moses, called Exodus",
@@ -625,20 +625,30 @@ def book_alternative_names() -> Dict[bible.Book, List[str]]:
             "The Fourth Book of Moses, Commonly Called Numbers",
         ],
         bible.Book.DEUTERONOMY: [
+            "Deu",
+            "Deu.",
             "Deut",
             "Deut.",
             "The Fifth Book of Moses, Commonly Called Deuteronomy",
             "The Fifth Book of Moses, called Deuteronomy",
         ],
         bible.Book.JOSHUA: [
+            "Jos",
+            "Jos.",
             "Josh",
             "Josh.",
             "The Book of Joshua",
         ],
         bible.Book.JUDGES: [
+            "Jdg",
+            "Jdg.",
+            "Judg",
+            "Judg.",
             "The Book of Judges",
         ],
         bible.Book.RUTH: [
+            "Rut",
+            "Rut.",
             "The Book of Ruth",
         ],
         bible.Book.SAMUEL_1: [
@@ -710,6 +720,8 @@ def book_alternative_names() -> Dict[bible.Book, List[str]]:
             "The Second Book of the Chronicles",
         ],
         bible.Book.EZRA: [
+            "Ezr",
+            "Ezr.",
             "The Book of Ezra",
         ],
         bible.Book.NEHEMIAH: [
@@ -718,6 +730,8 @@ def book_alternative_names() -> Dict[bible.Book, List[str]]:
             "The Book of Nehemiah",
         ],
         bible.Book.ESTHER: [
+            "Est",
+            "Est.",
             "Esth",
             "Esth.",
             "The Book of Esther",
@@ -735,6 +749,8 @@ def book_alternative_names() -> Dict[bible.Book, List[str]]:
             "The Book of Psalms",
         ],
         bible.Book.PROVERBS: [
+            "Pro",
+            "Pro.",
             "Prov",
             "Prov.",
             "The Proverbs",
@@ -773,6 +789,8 @@ def book_alternative_names() -> Dict[bible.Book, List[str]]:
             "The Lamentations of Jeremiah",
         ],
         bible.Book.EZEKIEL: [
+            "Eze",
+            "Eze.",
             "Ezek",
             "Ezek.",
             "The Book of Ezekiel",
@@ -789,12 +807,18 @@ def book_alternative_names() -> Dict[bible.Book, List[str]]:
             "The Book of Hosea",
         ],
         bible.Book.JOEL: [
+            "Joe",
+            "Joe.",
             "The Book of Joel",
         ],
         bible.Book.AMOS: [
+            "Amo",
+            "Amo.",
             "The Book of Amos",
         ],
         bible.Book.OBADIAH: [
+            "Oba",
+            "Oba.",
             "Obad",
             "Obad.",
             "The Book of Obadiah",
@@ -820,6 +844,8 @@ def book_alternative_names() -> Dict[bible.Book, List[str]]:
             "The Book of Habakkuk",
         ],
         bible.Book.ZEPHANIAH: [
+            "Zep",
+            "Zep.",
             "Zeph",
             "Zeph.",
             "The Book of Zephaniah",
@@ -830,6 +856,8 @@ def book_alternative_names() -> Dict[bible.Book, List[str]]:
             "The Book of Haggai",
         ],
         bible.Book.ZECHARIAH: [
+            "Zec",
+            "Zec.",
             "Zech",
             "Zech.",
             "The Book of Zechariah",
@@ -840,20 +868,28 @@ def book_alternative_names() -> Dict[bible.Book, List[str]]:
             "The Book of Malachi",
         ],
         bible.Book.MATTHEW: [
+            "Mat",
+            "Mat.",
             "Matt",
             "Matt.",
             "The Gospel According to Matthew",
             "The Gospel According to St. Matthew",
         ],
         bible.Book.MARK: [
+            "Mar",
+            "Mar.",
             "The Gospel According to Mark",
             "The Gospel According to St. Mark",
         ],
         bible.Book.LUKE: [
+            "Luk",
+            "Luk.",
             "The Gospel According to Luke",
             "The Gospel According to St. Luke",
         ],
         bible.Book.JOHN: [
+            "Joh",
+            "Joh.",
             "The Gospel According to John",
             "The Gospel According to St. John",
         ],
@@ -899,6 +935,8 @@ def book_alternative_names() -> Dict[bible.Book, List[str]]:
             "THE EPISTLE OF PAUL THE APOSTLE TO THE EPHESIANS",
         ],
         bible.Book.PHILIPPIANS: [
+            "Php",
+            "Php.",
             "Phil",
             "Phil.",
             "The Epistle of Paul to the Philippians",
@@ -913,10 +951,14 @@ def book_alternative_names() -> Dict[bible.Book, List[str]]:
         bible.Book.THESSALONIANS_1: [
             "1 Th",
             "1 Th.",
+            "1 Ths",
+            "1 Ths.",
             "1 Thess",
             "1 Thess.",
             "I Th",
             "I Th.",
+            "I Ths",
+            "I Ths.",
             "I Thess",
             "I Thess.",
             "I Thessalonians",
@@ -926,10 +968,14 @@ def book_alternative_names() -> Dict[bible.Book, List[str]]:
         bible.Book.THESSALONIANS_2: [
             "2 Th",
             "2 Th.",
+            "2 Ths",
+            "2 Ths.",
             "2 Thess",
             "2 Thess.",
             "II Th",
             "II Th.",
+            "II Ths",
+            "II Ths.",
             "II Thess",
             "II Thess.",
             "II Thessalonians",
@@ -961,6 +1007,8 @@ def book_alternative_names() -> Dict[bible.Book, List[str]]:
             "THE EPISTLE OF PAUL THE APOSTLE TO TITUS",
         ],
         bible.Book.PHILEMON: [
+            "Phi",
+            "Phi.",
             "Phlm",
             "Phlm.",
             "Phile",
@@ -1001,21 +1049,35 @@ def book_alternative_names() -> Dict[bible.Book, List[str]]:
             "THE SECOND EPISTLE GENERAL OF PETER",
         ],
         bible.Book.JOHN_1: [
+            "1 Joh",
+            "1 Joh.",
+            "I Joh",
+            "I Joh.",
             "I John",
             "The First Epistle of John",
             "THE FIRST EPISTLE GENERAL OF JOHN",
         ],
         bible.Book.JOHN_2: [
+            "2 Joh",
+            "2 Joh.",
+            "II Joh",
+            "II Joh.",
             "II John",
             "The Second Epistle of John",
             "THE SECOND EPISTLE OF JOHN",
         ],
         bible.Book.JOHN_3: [
+            "3 Joh",
+            "3 Joh.",
+            "III Joh",
+            "III Joh.",
             "III John",
             "The Third Epistle of John",
             "THE THIRD EPISTLE OF JOHN",
         ],
         bible.Book.JUDE: [
+            "Jud",
+            "Jud.",
             "The Epistle of Jude",
             "THE GENERAL EPISTLE OF JUDE",
         ],
