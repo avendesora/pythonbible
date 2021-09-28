@@ -5,7 +5,7 @@ converting verse ids back into normalized references, and formatting
 references as human-readable strings.
 """
 
-__version__ = "0.5.0"
+__version__ = "0.6.0"
 
 from .bible.osis.parser import OSISParser
 from .book_groups import BOOK_GROUPS, BookGroup
