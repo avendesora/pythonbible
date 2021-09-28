@@ -6,7 +6,7 @@ build-backend = "flit_core.buildapi"
 module = "pythonbible"
 author = "Nathan Patton"
 author-email = "npatton@gmail.com"
-home-page = "http://pythonbible.fliturgy.com"
+home-page = "https://docs.python.bible"
 classifiers = [
     "Intended Audience :: Information Technology",
     "Intended Audience :: Developers",
@@ -27,7 +27,7 @@ description-file = "README.md"
 requires-python = ">=3.7"
 
 [tool.flit.metadata.urls]
-Documentation = "http://pythonbible.fliturgy.com/docs/intro"
+Documentation = "https://docs.python.bible/docs/intro"
 Source = "https://github.com/avendesora/pythonbible"
 
 [tool.flit.metadata.requires-extra]
