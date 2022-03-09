@@ -10,71 +10,71 @@ The search for references is case-insensitive; and, generally, a period trailing
 
 This list is subject to change (especially in pre 1.0.0 releases). If you see anything that needs to be changed, removed, and/or added, please submit an [issue in GitHub](https://github.com/avendesora/pythonbible/issues) (or submit a pull request - contributions are welcome).
 
-| Book            | Abbreviations and Alternate Titles |
-| --------------- | ---------------------------------- |
-| Genesis         | Gen |
-| Exodus          | Exod, Exo |
-| Leviticus       | Lev |
-| Numbers         | Num |
-| Deuteronomy     | Deut, Deu |
-| Joshua          | Josh, Jos, Jsh |
-| Judges          | Judg, Jdgs, Jdg |
-| Ruth            | Rut, Rth |
-| 1 Samuel        | 1Samuel, I Samuel, 1st Samuel, First Samuel, 1 Sam, 1Sam, I Sam, 1st Sam, First Sam, 1 Sa, 1Sa, I Sa, 1st Sa, First Sa, 1 Sm, 1Sm, I Sm, 1st Sm, First Sm |
-| 2 Samuel        | 2Samuel, II Samuel, 2nd Samuel, Second Samuel, 2 Sam, 2Sam, II Sam, 2nd Sam, Second Sam, 2 Sa, 2Sa, II Sa, 2nd Sa, Second Sa, 2 Sm, 2Sm, II Sm, 2nd Sm, Second Sm |
-| 1 Kings         | 1Kings, I Kings, 1st Kings, First Kings, 1 Kgs, 1Kgs, I Kgs, 1st Kgs, First Kgs, 1 Kin, 1Kin, I Kin, 1st Kin, First Kin, 1 Ki, 1Ki, I Ki, 1st Ki, First Ki |
-| 2 Kings         | 2Kings, II Kings, 2nd Kings, Second Kings, 2 Kgs, 2Kgs, II Kgs, 2nd Kgs, Second Kgs, 2 Kin, 2Kin, II Kin, 2nd Kin, Second Kin, 2 Ki, 2KI, I Ki, 2nd Ki, Second Ki |
-| 1 Chronicles    | 1Chronicles, I Chronicles, 1st Chronicles, First Chronicles, 1 Chron, 1Chron, I Chron, 1st Chron, First Chron, 1 Chro, 1Chro, I Chro, 1st Chro, First Chro, 1 Chr, 1Chr, I Chr, 1st Chr, First Chr, 1 Ch, 1Ch, I Ch, 1st Ch, First Ch |
-| 2 Chronicles    | 2Chronicles, II Chronicles, 2nd Chronicles, Second Chronicles, 2 Chron, 2Chron, II Chron, 2nd Chron, Second Chron, 2 Chro, 2Chro, II Chro, 2nd Chro, Second Chro, 2 Chr, 2Chr, II Chr, 2nd Chr, Second Chr, 2 Ch, 2Ch, II Ch, 2nd Ch, Second Ch |
-| Ezra            | Ezr |
-| Nehemiah        | Neh |
-| Esther          | Esth, Est |
-| Job             | |
-| Psalms          | Psalm, Pslm, Psa, Psm, Pss, Ps |
-| Proverbs        | Prov, Pro, Prv |
-| Ecclesiastes    | Eccles, Eccle, Eccl, Ecc, Ec, Qoh |
-| Song of Songs   | Song of Solomon, Song of Sol, Canticle of Canticles, Canticles, Cant, SOS |
-| Isaiah          | Isa |
-| Jeremiah        | Jer |
-| Lamentations    | Lamentations of Jeremiah, Lam |
-| Ezekiel         | Ezek, Eze, Ezk |
-| Daniel          | Dan |
-| Hosea           | Hos |
-| Joel            | Joe |
-| Amos            | Amo |
-| Obadiah         | Obad, Oba |
-| Jonah           | Jon, Jnh |
-| Micah           | Mic |
-| Nahum           | Nah |
-| Habakkuk        | Hab |
-| Zephaniah       | Zeph, Zep |
-| Haggai          | Hag |
-| Zechariah       | Zech, Zec |
-| Malachi         | Mal |
-| Matthew         | Matt, Mat |
-| Mark            | Mar, Mrk |
-| Luke            | Luk |
-| John            | Joh, Jhn, Jo, Jn |
-| Acts            | Acts of the Apostles, Act |
-| Romans          | Rom |
-| 1 Corinthians   | 1Corinthians, I Corinthians, 1st Corinthians, First Corinthians, 1 Cor, 1Cor, I Cor, 1st Cor, First Cor, 1 Co, 1Co, I Co, 1st Co, First Co |
-| 2 Corinthians   | 2Corinthians, II Corinthians, 2nd Corinthians, Second Corinthians, 2 Cor, 2Cor, II Cor, 2nd Cor, Second Cor, 2 Co, 2Co, II Co, 2nd Co, Second Co |
-| Galatians       | Gal |
-| Ephesians       | Ephes, Eph |
-| Philippians     | Phil, Php |
-| Colossians      | Col |
-| 1 Thessalonians | 1Thessalonians, I Thessalonians, 1st Thessalonians, First Thessalonians, 1 Thess, 1Thess, I Thess, 1st Thess, First Thess, 1 Thes, 1Thes, I Thes, 1st Thes, First Thes, 1 Ths, 1Ths, I Ths, 1st Ths, First Ths |
-| 2 Thessalonians | 2Thessalonians, II Thessalonians, 2nd Thessalonians, Second Thessalonians, 2 Thess, 2Thess, II Thess, 2nd Thess, Second Thess, 2 Thes, 2Thes, II Thes, 2nd Thes, Second Thes, 2 Ths, 2Ths, II Ths, 2nd Ths, Second Ths |
-| 1 Timothy       | 1Timothy, I Timothy, 1st Timothy, First Timothy, 1 Tim, 1Tim, I Tim, 1st Tim, First Tim, 1 Ti, 1Ti, I Ti, 1st Ti, First Ti |
-| 2 Timothy       | 2Timothy, II Timothy, 2nd Timothy, Second Timothy, 2 Tim, 2Tim, II Tim, 2nd Tim, Second Tim, 2 Ti, 2Ti, II Ti, 2nd Ti, Second Ti |
-| Titus           | Tit |
-| Philemon        | Philem, Phile, Phlm, Phi, Phm |
-| Hebrews         | Heb |
-| James           | Jas |
-| 1 Peter         | 1Peter, I Peter, 1st Peter, First Peter, 1 Pet, 1Pet, I Pet, 1st Pet, First Pet, 1 Pe, 1Pe, I Pe, 1st Pe, First Pe, 1 Pt, 1Pt, I Pt, 1st Pt, First Pt |
-| 2 Peter         | 2Peter, II Peter, 2nd Peter, Second Peter, 2 Pet, 2Pet, II Pet, 2nd Pet, Second Pet, 2 Pe, 2Pe, II Pe, 2nd Pe, Second Pe, 2 Pt, 2Pt, II Pt, 2nd Pt, Second Pt |
-| 1 John          | 1John, I John, 1st John, First John, 1 Joh, 1Joh, I Joh, 1st Joh, First Joh, 1 Jhn, 1Jhn, I Jhn, 1st Jhn, First Jhn, 1 Jo, 1Jo, I Jo, 1st Jo, First Jo, 1 Jn, 1Jn, I Jn, 1st Jn, First Jn |
-| 2 John          | 2John, II John, 2nd John, Second John, 2 Joh, 2Joh, II Joh, 2nd Joh, Second Joh, 2 Jhn, 2Jhn, II Jhn, 2nd Jhn, Second Jhn, 2 Jo, 2Jo, II Jo, 2nd Jo, Second Jo, 2 Jn, 2Jn, II Jn, 2nd Jn, Second Jn |
-| 3 John          | 3John, III John, 3rd John, Third John, 3 Joh, 3Joh, III Joh, 3rd Joh, Third Joh, 3 Jhn, 3Jhn, III Jhn, 3rd Jhn, Third Jhn, 3 Jo, 3Jo, III Jo, 3rd Jo, Third Jo, 3 Jn, 3Jn, III Jn, 3rd Jn, Third Jn |
-| Jude            | Jud |
-| Revelation      | Revelation of Jesus Christ, Revelation of John, Revelation of St. John the Divine, Rev, Rev of Jesus Christ, Rev of John, Rev of St. John the Divine |
+| Book                 | Abbreviations and Alternate Titles |
+| -------------------- | ---------------------------------- |
+| Genesis              | Gen |
+| Exodus               | Exod, Exo |
+| Leviticus            | Lev |
+| Numbers              | Num |
+| Deuteronomy          | Deut, Deu |
+| Joshua               | Josh, Jos, Jsh |
+| Judges               | Judg, Jdgs, Jdg |
+| Ruth                 | Rut, Rth |
+| 1&nbsp;Samuel        | 1Samuel, I&nbsp;Samuel, 1st&nbsp;Samuel, First&nbsp;Samuel, 1&nbsp;Sam, 1Sam, I&nbsp;Sam, 1st&nbsp;Sam, First&nbsp;Sam, 1&nbsp;Sa, 1Sa, I&nbsp;Sa, 1st&nbsp;Sa, First&nbsp;Sa, 1&nbsp;Sm, 1Sm, I&nbsp;Sm, 1st&nbsp;Sm, First&nbsp;Sm |
+| 2&nbsp;Samuel        | 2Samuel, II&nbsp;Samuel, 2nd&nbsp;Samuel, Second&nbsp;Samuel, 2&nbsp;Sam, 2Sam, II&nbsp;Sam, 2nd&nbsp;Sam, Second&nbsp;Sam, 2&nbsp;Sa, 2Sa, II&nbsp;Sa, 2nd&nbsp;Sa, Second&nbsp;Sa, 2&nbsp;Sm, 2Sm, II&nbsp;Sm, 2nd&nbsp;Sm, Second&nbsp;Sm |
+| 1&nbsp;Kings         | 1Kings, I&nbsp;Kings, 1st&nbsp;Kings, First&nbsp;Kings, 1&nbsp;Kgs, 1Kgs, I&nbsp;Kgs, 1st&nbsp;Kgs, First&nbsp;Kgs, 1&nbsp;Kin, 1Kin, I&nbsp;Kin, 1st&nbsp;Kin, First&nbsp;Kin, 1&nbsp;Ki, 1Ki, I&nbsp;Ki, 1st&nbsp;Ki, First&nbsp;Ki |
+| 2&nbsp;Kings         | 2Kings, II&nbsp;Kings, 2nd&nbsp;Kings, Second&nbsp;Kings, 2&nbsp;Kgs, 2Kgs, II&nbsp;Kgs, 2nd&nbsp;Kgs, Second&nbsp;Kgs, 2&nbsp;Kin, 2Kin, II&nbsp;Kin, 2nd&nbsp;Kin, Second&nbsp;Kin, 2&nbsp;Ki, 2KI, I&nbsp;Ki, 2nd&nbsp;Ki, Second&nbsp;Ki |
+| 1&nbsp;Chronicles    | 1Chronicles, I&nbsp;Chronicles, 1st&nbsp;Chronicles, First&nbsp;Chronicles, 1&nbsp;Chron, 1Chron, I&nbsp;Chron, 1st&nbsp;Chron, First&nbsp;Chron, 1&nbsp;Chro, 1Chro, I&nbsp;Chro, 1st&nbsp;Chro, First&nbsp;Chro, 1&nbsp;Chr, 1Chr, I&nbsp;Chr, 1st&nbsp;Chr, First&nbsp;Chr, 1&nbsp;Ch, 1Ch, I&nbsp;Ch, 1st&nbsp;Ch, First&nbsp;Ch |
+| 2&nbsp;Chronicles    | 2Chronicles, II&nbsp;Chronicles, 2nd&nbsp;Chronicles, Second&nbsp;Chronicles, 2&nbsp;Chron, 2Chron, II&nbsp;Chron, 2nd&nbsp;Chron, Second&nbsp;Chron, 2&nbsp;Chro, 2Chro, II&nbsp;Chro, 2nd&nbsp;Chro, Second&nbsp;Chro, 2&nbsp;Chr, 2Chr, II&nbsp;Chr, 2nd&nbsp;Chr, Second&nbsp;Chr, 2&nbsp;Ch, 2Ch, II&nbsp;Ch, 2nd&nbsp;Ch, Second&nbsp;Ch |
+| Ezra                 | Ezr |
+| Nehemiah             | Neh |
+| Esther               | Esth, Est |
+| Job                  | |
+| Psalms               | Psalm, Pslm, Psa, Psm, Pss, Ps |
+| Proverbs             | Prov, Pro, Prv |
+| Ecclesiastes         | Eccles, Eccle, Eccl, Ecc, Ec, Qoh |
+| Song of Songs        | Song&nbsp;of&nbsp;Solomon, Song&nbsp;of&nbsp;Sol, Canticle&nbsp;of&nbsp;Canticles, Canticles, Cant, SOS |
+| Isaiah               | Isa |
+| Jeremiah             | Jer |
+| Lamentations         | Lamentations&nbsp;of&nbsp;Jeremiah, Lam |
+| Ezekiel              | Ezek, Eze, Ezk |
+| Daniel               | Dan |
+| Hosea                | Hos |
+| Joel                 | Joe |
+| Amos                 | Amo |
+| Obadiah              | Obad, Oba |
+| Jonah                | Jon, Jnh |
+| Micah                | Mic |
+| Nahum                | Nah |
+| Habakkuk             | Hab |
+| Zephaniah            | Zeph, Zep |
+| Haggai               | Hag |
+| Zechariah            | Zech, Zec |
+| Malachi              | Mal |
+| Matthew              | Matt, Mat |
+| Mark                 | Mar, Mrk |
+| Luke                 | Luk |
+| John                 | Joh, Jhn, Jo, Jn |
+| Acts                 | Acts&nbsp;of&nbsp;the&nbsp;Apostles, Act |
+| Romans               | Rom |
+| 1&nbsp;Corinthians   | 1Corinthians, I&nbsp;Corinthians, 1st&nbsp;Corinthians, First&nbsp;Corinthians, 1&nbsp;Cor, 1Cor, I&nbsp;Cor, 1st&nbsp;Cor, First&nbsp;Cor, 1&nbsp;Co, 1Co, I&nbsp;Co, 1st&nbsp;Co, First&nbsp;Co |
+| 2&nbsp;Corinthians   | 2Corinthians, II&nbsp;Corinthians, 2nd&nbsp;Corinthians, Second&nbsp;Corinthians, 2&nbsp;Cor, 2Cor, II&nbsp;Cor, 2nd&nbsp;Cor, Second&nbsp;Cor, 2&nbsp;Co, 2Co, II&nbsp;Co, 2nd&nbsp;Co, Second&nbsp;Co |
+| Galatians            | Gal |
+| Ephesians            | Ephes, Eph |
+| Philippians          | Phil, Php |
+| Colossians           | Col |
+| 1&nbsp;Thessalonians | 1Thessalonians, I&nbsp;Thessalonians, 1st&nbsp;Thessalonians, First&nbsp;Thessalonians, 1&nbsp;Thess, 1Thess, I&nbsp;Thess, 1st&nbsp;Thess, First&nbsp;Thess, 1&nbsp;Thes, 1Thes, I&nbsp;Thes, 1st&nbsp;Thes, First&nbsp;Thes, 1&nbsp;Ths, 1Ths, I&nbsp;Ths, 1st&nbsp;Ths, First&nbsp;Ths |
+| 2&nbsp;Thessalonians | 2Thessalonians, II&nbsp;Thessalonians, 2nd&nbsp;Thessalonians, Second&nbsp;Thessalonians, 2&nbsp;Thess, 2Thess, II&nbsp;Thess, 2nd&nbsp;Thess, Second&nbsp;Thess, 2&nbsp;Thes, 2Thes, II&nbsp;Thes, 2nd&nbsp;Thes, Second&nbsp;Thes, 2&nbsp;Ths, 2Ths, II&nbsp;Ths, 2nd&nbsp;Ths, Second&nbsp;Ths |
+| 1&nbsp;Timothy       | 1Timothy, I&nbsp;Timothy, 1st&nbsp;Timothy, First&nbsp;Timothy, 1&nbsp;Tim, 1Tim, I&nbsp;Tim, 1st&nbsp;Tim, First&nbsp;Tim, 1&nbsp;Ti, 1Ti, I&nbsp;Ti, 1st&nbsp;Ti, First&nbsp;Ti |
+| 2&nbsp;Timothy       | 2Timothy, II&nbsp;Timothy, 2nd&nbsp;Timothy, Second&nbsp;Timothy, 2&nbsp;Tim, 2Tim, II&nbsp;Tim, 2nd&nbsp;Tim, Second&nbsp;Tim, 2&nbsp;Ti, 2Ti, II&nbsp;Ti, 2nd&nbsp;Ti, Second&nbsp;Ti |
+| Titus                | Tit |
+| Philemon             | Philem, Phile, Phlm, Phi, Phm |
+| Hebrews              | Heb |
+| James                | Jas |
+| 1&nbsp;Peter         | 1Peter, I&nbsp;Peter, 1st&nbsp;Peter, First&nbsp;Peter, 1&nbsp;Pet, 1Pet, I&nbsp;Pet, 1st&nbsp;Pet, First&nbsp;Pet, 1&nbsp;Pe, 1Pe, I&nbsp;Pe, 1st&nbsp;Pe, First&nbsp;Pe, 1&nbsp;Pt, 1Pt, I&nbsp;Pt, 1st&nbsp;Pt, First&nbsp;Pt |
+| 2&nbsp;Peter         | 2Peter, II&nbsp;Peter, 2nd&nbsp;Peter, Second&nbsp;Peter, 2&nbsp;Pet, 2Pet, II&nbsp;Pet, 2nd&nbsp;Pet, Second&nbsp;Pet, 2&nbsp;Pe, 2Pe, II&nbsp;Pe, 2nd&nbsp;Pe, Second&nbsp;Pe, 2&nbsp;Pt, 2Pt, II&nbsp;Pt, 2nd&nbsp;Pt, Second&nbsp;Pt |
+| 1&nbsp;John          | 1John, I&nbsp;John, 1st&nbsp;John, First&nbsp;John, 1&nbsp;Joh, 1Joh, I&nbsp;Joh, 1st&nbsp;Joh, First&nbsp;Joh, 1&nbsp;Jhn, 1Jhn, I&nbsp;Jhn, 1st&nbsp;Jhn, First&nbsp;Jhn, 1&nbsp;Jo, 1Jo, I&nbsp;Jo, 1st&nbsp;Jo, First&nbsp;Jo, 1&nbsp;Jn, 1Jn, I&nbsp;Jn, 1st&nbsp;Jn, First&nbsp;Jn |
+| 2&nbsp;John          | 2John, II&nbsp;John, 2nd&nbsp;John, Second&nbsp;John, 2&nbsp;Joh, 2Joh, II&nbsp;Joh, 2nd&nbsp;Joh, Second&nbsp;Joh, 2&nbsp;Jhn, 2Jhn, II&nbsp;Jhn, 2nd&nbsp;Jhn, Second&nbsp;Jhn, 2&nbsp;Jo, 2Jo, II&nbsp;Jo, 2nd&nbsp;Jo, Second&nbsp;Jo, 2&nbsp;Jn, 2Jn, II&nbsp;Jn, 2nd&nbsp;Jn, Second&nbsp;Jn |
+| 3&nbsp;John          | 3John, III&nbsp;John, 3rd&nbsp;John, Third&nbsp;John, 3&nbsp;Joh, 3Joh, III&nbsp;Joh, 3rd&nbsp;Joh, Third&nbsp;Joh, 3&nbsp;Jhn, 3Jhn, III&nbsp;Jhn, 3rd&nbsp;Jhn, Third&nbsp;Jhn, 3&nbsp;Jo, 3Jo, III&nbsp;Jo, 3rd&nbsp;Jo, Third&nbsp;Jo, 3&nbsp;Jn, 3Jn, III&nbsp;Jn, 3rd&nbsp;Jn, Third&nbsp;Jn |
+| Jude                 | Jud |
+| Revelation           | Revelation&nbsp;of&nbsp;Jesus&nbsp;Christ, Revelation&nbsp;of&nbsp;John, Revelation&nbsp;of&nbsp;St.&nbsp;John&nbsp;the&nbsp;Divine, Rev, Rev&nbsp;of&nbsp;Jesus&nbsp;Christ, Rev&nbsp;of&nbsp;John, Rev&nbsp;of&nbsp;St.&nbsp;John&nbsp;the&nbsp;Divine |
