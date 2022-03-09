@@ -39,7 +39,7 @@ test = [
 doc = [
     "furo >=2022.3.4",
     "Sphinx >=4.4.0",
-    "sphinx-toolbox >=2.18.0"
+    "sphinx-toolbox >=2.18.0",
 ]
 dev = [
     "bandit >=1.7.4",
@@ -48,5 +48,5 @@ dev = [
     "prospector >=1.7.6",
 ]
 all = [
-    "defusedxml >=0.7.1,
+    "defusedxml >=0.7.1",
 ]
