@@ -194,15 +194,463 @@
 <h1>Advanced Usage<a class="headerlink" href="#advanced-usage" title="Permalink to this headline">#</a></h1>
 <div class="section" id="single-chapter-books">
 <h2>Single Chapter Books<a class="headerlink" href="#single-chapter-books" title="Permalink to this headline">#</a></h2>
-<p>…</p>
+<p>Several books of the Bible only contain one chapter, and there is some special functionality in pythonbible related to this.</p>
+<div class="section" id="finding-references">
+<h3>Finding References<a class="headerlink" href="#finding-references" title="Permalink to this headline">#</a></h3>
+<p>When parsing a given text to find all the references contained within, if we find a reference for a single chapter book that contains only one number, rather than both chapter and verse numbers, we assume that number to be the verse number.</p>
+<div class="section" id="example-obadiah-1-vs-genesis-1">
+<h4>Example: Obadiah 1 vs Genesis 1<a class="headerlink" href="#example-obadiah-1-vs-genesis-1" title="Permalink to this headline">#</a></h4>
+<div class="code-cell docutils container">
+<div class="prompt code-cell-prompt notranslate">In [1]:</div>
+<div class="code-cell-code highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pythonbible</span> <span class="k">as</span> <span class="nn">bible</span>
+
+<span class="n">references</span> <span class="o">=</span> <span class="n">bible</span><span class="o">.</span><span class="n">get_references</span><span class="p">(</span><span class="s2">"Obadiah 1"</span><span class="p">)</span>
+<span class="n">references</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="output-cell docutils container">
+<div class="prompt output-cell-prompt notranslate">[1]:</div>
+<div class="output-cell-code highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">NormalizedReference</span><span class="p">(</span>
+    <span class="n">book</span><span class="o">=&lt;</span><span class="n">Book</span><span class="o">.</span><span class="n">OBADIAH</span><span class="p">:</span> <span class="mi">31</span><span class="o">&gt;</span><span class="p">,</span>
+    <span class="n">start_chapter</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">start_verse</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">end_chapter</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">end_verse</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">end_book</span><span class="o">=</span><span class="kc">None</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>If a reference like this was found for a non single chapter book, the number would be assumed to be a chapter number rather than a verse number.</p>
+<div class="code-cell docutils container">
+<div class="prompt code-cell-prompt notranslate">In [2]:</div>
+<div class="code-cell-code highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">references</span> <span class="o">=</span> <span class="n">bible</span><span class="o">.</span><span class="n">get_references</span><span class="p">(</span><span class="s2">"Genesis 1"</span><span class="p">)</span>
+<span class="n">references</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="output-cell docutils container">
+<div class="prompt output-cell-prompt notranslate">[2]:</div>
+<div class="output-cell-code highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">NormalizedReference</span><span class="p">(</span>
+    <span class="n">book</span><span class="o">=&lt;</span><span class="n">Book</span><span class="o">.</span><span class="n">GENESIS</span><span class="p">:</span> <span class="mi">1</span><span class="o">&gt;</span><span class="p">,</span>
+    <span class="n">start_chapter</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">start_verse</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">end_chapter</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">end_verse</span><span class="o">=</span><span class="mi">31</span><span class="p">,</span>
+    <span class="n">end_book</span><span class="o">=</span><span class="kc">None</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>Rather than being interpreted as Genesis 1:1, this would be interpreted as Genesis 1:1-31.</p>
+</div>
+<div class="section" id="example-philemon-3-6-vs-genesis-3-6">
+<h4>Example: Philemon 3-6 vs Genesis 3-6<a class="headerlink" href="#example-philemon-3-6-vs-genesis-3-6" title="Permalink to this headline">#</a></h4>
+<div class="code-cell docutils container">
+<div class="prompt code-cell-prompt notranslate">In [1]:</div>
+<div class="code-cell-code highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pythonbible</span> <span class="k">as</span> <span class="nn">bible</span>
+
+<span class="n">references</span> <span class="o">=</span> <span class="n">bible</span><span class="o">.</span><span class="n">get_references</span><span class="p">(</span><span class="s2">"Philemon 3-6"</span><span class="p">)</span>
+<span class="n">references</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="output-cell docutils container">
+<div class="prompt output-cell-prompt notranslate">[1]:</div>
+<div class="output-cell-code highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">NormalizedReference</span><span class="p">(</span>
+    <span class="n">book</span><span class="o">=&lt;</span><span class="n">Book</span><span class="o">.</span><span class="n">PHILEMON</span><span class="p">:</span> <span class="mi">57</span><span class="o">&gt;</span><span class="p">,</span>
+    <span class="n">start_chapter</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">start_verse</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+    <span class="n">end_chapter</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">end_verse</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span>
+    <span class="n">end_book</span><span class="o">=</span><span class="kc">None</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>This is interpreted as Philemon 1:3-6. If a similar reference were encountered for a non single chapter book, both numbers would be assumed to be chapter numbers rather than verse numbers.</p>
+<div class="code-cell docutils container">
+<div class="prompt code-cell-prompt notranslate">In [2]:</div>
+<div class="code-cell-code highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pythonbible</span> <span class="k">as</span> <span class="nn">bible</span>
+
+<span class="n">references</span> <span class="o">=</span> <span class="n">bible</span><span class="o">.</span><span class="n">get_references</span><span class="p">(</span><span class="s2">"Genesis 3-6"</span><span class="p">)</span>
+<span class="n">references</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="output-cell docutils container">
+<div class="prompt output-cell-prompt notranslate">[2]:</div>
+<div class="output-cell-code highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">NormalizedReference</span><span class="p">(</span>
+    <span class="n">book</span><span class="o">=&lt;</span><span class="n">Book</span><span class="o">.</span><span class="n">GENESIS</span><span class="p">:</span> <span class="mi">1</span><span class="o">&gt;</span><span class="p">,</span>
+    <span class="n">start_chapter</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+    <span class="n">start_verse</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">end_chapter</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span>
+    <span class="n">end_verse</span><span class="o">=</span><span class="mi">22</span><span class="p">,</span>
+    <span class="n">end_book</span><span class="o">=</span><span class="kc">None</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>Rather than being interpreted as Genesis 1:3-6, this would be interpreted as Genesis 3:1-6:22.</p>
+</div>
+</div>
+<div class="section" id="converting-references-to-verse-ids">
+<h3>Converting References to Verse IDs<a class="headerlink" href="#converting-references-to-verse-ids" title="Permalink to this headline">#</a></h3>
+<p>Because normalized references in pythonbible always explicitly include chapter and verse numbers, there is no difference in how references are converted to verse ids for single chapter books.</p>
+</div>
+<div class="section" id="converting-verse-ids-to-references">
+<h3>Converting Verse IDs to References<a class="headerlink" href="#converting-verse-ids-to-references" title="Permalink to this headline">#</a></h3>
+<p>Because verse ids in pythonbible always explicitly include chapter and verse numbers, there is no difference in how verse ids are converted to references for single chapter books.</p>
+</div>
+<div class="section" id="formatting-references-for-print-display">
+<h3>Formatting References for Print/Display<a class="headerlink" href="#formatting-references-for-print-display" title="Permalink to this headline">#</a></h3>
+<p>By default, when formatting references for print/display for references of a single chapter book, the chapter number will not be included.</p>
+<p>For example:</p>
+<div class="code-cell docutils container">
+<div class="prompt code-cell-prompt notranslate">In [1]:</div>
+<div class="code-cell-code highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pythonbible</span> <span class="k">as</span> <span class="nn">bible</span>
+
+<span class="n">references</span> <span class="o">=</span> <span class="n">bible</span><span class="o">.</span><span class="n">get_references</span><span class="p">(</span><span class="s2">"Jude 2-8"</span><span class="p">)</span>
+<span class="n">bible</span><span class="o">.</span><span class="n">format_references</span><span class="p">(</span><span class="n">references</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="output-cell docutils container">
+<div class="prompt output-cell-prompt notranslate">[1]:</div>
+<div class="output-cell-code highlight-python notranslate"><div class="highlight"><pre><span></span><span class="s1">'Jude 2-8'</span>
+</pre></div>
+</div>
+</div>
+<p>The result should be the same even if the the chapter number is included in the original reference string.</p>
+<div class="code-cell docutils container">
+<div class="prompt code-cell-prompt notranslate">In [2]:</div>
+<div class="code-cell-code highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">references</span> <span class="o">=</span> <span class="n">bible</span><span class="o">.</span><span class="n">get_references</span><span class="p">(</span><span class="s2">"Jude 1:2-8"</span><span class="p">)</span>
+<span class="n">bible</span><span class="o">.</span><span class="n">format_references</span><span class="p">(</span><span class="n">references</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="output-cell docutils container">
+<div class="prompt output-cell-prompt notranslate">[2]:</div>
+<div class="output-cell-code highlight-python notranslate"><div class="highlight"><pre><span></span><span class="s1">'Jude 2-8'</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="always-include-chapter-numbers">
+<h4>Always Include Chapter Numbers<a class="headerlink" href="#always-include-chapter-numbers" title="Permalink to this headline">#</a></h4>
+<p>If you want to force <strong>pythonbible</strong> to include the chapter numbers even for single chapter books, you can use the <code class="docutils literal notranslate"><span class="pre">always_include_chapter_numbers</span></code> optional parameter of the <code class="docutils literal notranslate"><span class="pre">format_scripture_references</span></code> or <code class="docutils literal notranslate"><span class="pre">format_single_reference</span></code> functions, setting that optional parameter to be <code class="docutils literal notranslate"><span class="pre">True</span></code>.</p>
+<p>For example:</p>
+<div class="code-cell docutils container">
+<div class="prompt code-cell-prompt notranslate">In [1]:</div>
+<div class="code-cell-code highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pythonbible</span> <span class="k">as</span> <span class="nn">bible</span>
+
+<span class="n">references</span> <span class="o">=</span> <span class="n">bible</span><span class="o">.</span><span class="n">get_references</span><span class="p">(</span><span class="s2">"Jude 2-8"</span><span class="p">)</span>
+<span class="n">bible</span><span class="o">.</span><span class="n">format_references</span><span class="p">(</span><span class="n">references</span><span class="p">,</span> <span class="n">always_include_chapter_numbers</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="output-cell docutils container">
+<div class="prompt output-cell-prompt notranslate">[1]:</div>
+<div class="output-cell-code highlight-python notranslate"><div class="highlight"><pre><span></span><span class="s1">'Jude 1:2-8'</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
 </div>
 <div class="section" id="multi-book-references">
 <h2>Multi Book References<a class="headerlink" href="#multi-book-references" title="Permalink to this headline">#</a></h2>
-<p>…</p>
+<p>It is possible for a single reference to be a range that spans more than one book of the Bible.</p>
+<p>For example, the following references are all equally referencing the entire first five books of the Bible:</p>
+<ul class="simple">
+<li><p>Genesis - Deuteronomy</p></li>
+<li><p>Genesis 1 - Deuteronomy 34</p></li>
+<li><p>Genesis 1:1 - Deuteronomy 34:12</p></li>
+</ul>
+<div class="section" id="id1">
+<h3>Finding References<a class="headerlink" href="#id1" title="Permalink to this headline">#</a></h3>
+<p>When parsing a given text to find all the references contained within, if we find a ranged reference like those above that span multiple books of the Bible, we should parse that into a single normalized reference that includes the optional end_book attribute.</p>
+<p>For example, “Genesis - Deuteronomy” vs “Genesis;Exodus;Numbers;Leviticus;Deuteronomy”:</p>
+<div class="code-cell docutils container">
+<div class="prompt code-cell-prompt notranslate">In [1]:</div>
+<div class="code-cell-code highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pythonbible</span> <span class="k">as</span> <span class="nn">bible</span>
+
+<span class="n">bible</span><span class="o">.</span><span class="n">get_references</span><span class="p">(</span><span class="s2">"Genesis - Deuteronomy"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="output-cell docutils container">
+<div class="prompt output-cell-prompt notranslate">[1]:</div>
+<div class="output-cell-code highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
+    <span class="n">NormalizedReference</span><span class="p">(</span><span class="n">book</span><span class="o">=&lt;</span><span class="n">Book</span><span class="o">.</span><span class="n">GENESIS</span><span class="p">:</span> <span class="mi">1</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">start_chapter</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">start_verse</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">end_chapter</span><span class="o">=</span><span class="mi">34</span><span class="p">,</span> <span class="n">end_verse</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">end_book</span><span class="o">=&lt;</span><span class="n">Book</span><span class="o">.</span><span class="n">DEUTERONOMY</span><span class="p">:</span> <span class="mi">5</span><span class="o">&gt;</span><span class="p">),</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<p>If rather than using the range, the text specified each book of the Bible separated by a comma or semi-colon (or just about anything), then the result would be a list of five normalized references, one for each of the five books referenced.</p>
+<div class="code-cell docutils container">
+<div class="prompt code-cell-prompt notranslate">In [2]:</div>
+<div class="code-cell-code highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">bible</span><span class="o">.</span><span class="n">get_references</span><span class="p">(</span><span class="s2">"Genesis;Exodus;Leviticus;Numbers;Deuteronomy"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="output-cell docutils container">
+<div class="prompt output-cell-prompt notranslate">[2]:</div>
+<div class="output-cell-code highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
+    <span class="n">NormalizedReference</span><span class="p">(</span><span class="n">book</span><span class="o">=&lt;</span><span class="n">Book</span><span class="o">.</span><span class="n">GENESIS</span><span class="p">:</span> <span class="mi">1</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">start_chapter</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">start_verse</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">end_chapter</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">end_verse</span><span class="o">=</span><span class="mi">26</span><span class="p">,</span> <span class="n">end_book</span><span class="o">=</span><span class="kc">None</span><span class="p">),</span>
+    <span class="n">NormalizedReference</span><span class="p">(</span><span class="n">book</span><span class="o">=&lt;</span><span class="n">Book</span><span class="o">.</span><span class="n">EXODUS</span><span class="p">:</span> <span class="mi">2</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">start_chapter</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">start_verse</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">end_chapter</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> <span class="n">end_verse</span><span class="o">=</span><span class="mi">38</span><span class="p">,</span> <span class="n">end_book</span><span class="o">=</span><span class="kc">None</span><span class="p">),</span>
+    <span class="n">NormalizedReference</span><span class="p">(</span><span class="n">book</span><span class="o">=&lt;</span><span class="n">Book</span><span class="o">.</span><span class="n">LEVITICUS</span><span class="p">:</span> <span class="mi">3</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">start_chapter</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">start_verse</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">end_chapter</span><span class="o">=</span><span class="mi">27</span><span class="p">,</span> <span class="n">end_verse</span><span class="o">=</span><span class="mi">34</span><span class="p">,</span> <span class="n">end_book</span><span class="o">=</span><span class="kc">None</span><span class="p">),</span>
+    <span class="n">NormalizedReference</span><span class="p">(</span><span class="n">book</span><span class="o">=&lt;</span><span class="n">Book</span><span class="o">.</span><span class="n">NUMBERS</span><span class="p">:</span> <span class="mi">4</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">start_chapter</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">start_verse</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">end_chapter</span><span class="o">=</span><span class="mi">36</span><span class="p">,</span> <span class="n">end_verse</span><span class="o">=</span><span class="mi">13</span><span class="p">,</span> <span class="n">end_book</span><span class="o">=</span><span class="kc">None</span><span class="p">),</span>
+    <span class="n">NormalizedReference</span><span class="p">(</span><span class="n">book</span><span class="o">=&lt;</span><span class="n">Book</span><span class="o">.</span><span class="n">DEUTERONOMY</span><span class="p">:</span> <span class="mi">5</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">start_chapter</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">start_verse</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">end_chapter</span><span class="o">=</span><span class="mi">34</span><span class="p">,</span> <span class="n">end_verse</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">end_book</span><span class="o">=</span><span class="kc">None</span><span class="p">),</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<p>That list can optionally be optimized by converting it to verse ids and then back into references if so desired.</p>
+<div class="code-cell docutils container">
+<div class="prompt code-cell-prompt notranslate">In [3]:</div>
+<div class="code-cell-code highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">references</span> <span class="o">=</span> <span class="n">bible</span><span class="o">.</span><span class="n">get_references</span><span class="p">(</span><span class="s2">"Genesis;Exodus;Leviticus;Numbers;Deuteronomy"</span><span class="p">)</span>
+<span class="n">verse_ids</span> <span class="o">=</span> <span class="n">bible</span><span class="o">.</span><span class="n">convert_references_to_verse_ids</span><span class="p">(</span><span class="n">references</span><span class="p">)</span>
+<span class="n">bible</span><span class="o">.</span><span class="n">convert_verse_ids_to_references</span><span class="p">(</span><span class="n">verse_ids</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="output-cell docutils container">
+<div class="prompt output-cell-prompt notranslate">[3]:</div>
+<div class="output-cell-code highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
+    <span class="n">NormalizedReference</span><span class="p">(</span><span class="n">book</span><span class="o">=&lt;</span><span class="n">Book</span><span class="o">.</span><span class="n">GENESIS</span><span class="p">:</span> <span class="mi">1</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">start_chapter</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">start_verse</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">end_chapter</span><span class="o">=</span><span class="mi">34</span><span class="p">,</span> <span class="n">end_verse</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">end_book</span><span class="o">=&lt;</span><span class="n">Book</span><span class="o">.</span><span class="n">DEUTERONOMY</span><span class="p">:</span> <span class="mi">5</span><span class="o">&gt;</span><span class="p">),</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<p>That optimization is optional as it can degrade performance for processing large ranges if that particular optimization is not necessary. This optimization will be run automatically when the list of references is formatted into a Scripture reference string.</p>
+</div>
+<div class="section" id="id2">
+<h3>Converting References to Verse IDs<a class="headerlink" href="#id2" title="Permalink to this headline">#</a></h3>
+<p>Whether a multi book range reference is in a single normalized reference or a list of one normalized reference for each book does not affect the results of converting that reference into a list of verse ids.</p>
+</div>
+<div class="section" id="id3">
+<h3>Converting Verse Ids to References<a class="headerlink" href="#id3" title="Permalink to this headline">#</a></h3>
+<p>When converting a list of verse ids into a list of references, multi book range references will always be optimized into a single normalized reference when possible.</p>
+</div>
+<div class="section" id="id4">
+<h3>Formatting References for Print/Display<a class="headerlink" href="#id4" title="Permalink to this headline">#</a></h3>
+<p>As mentioned earlier, when formatting references for print/display, pythonbible always optimizes the list of references into as few references as possible by using multi book range references.</p>
+<p>By default, chapter numbers will not be included when the entire book is included in the reference.</p>
+<div class="code-cell docutils container">
+<div class="prompt code-cell-prompt notranslate">In [1]:</div>
+<div class="code-cell-code highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pythonbible</span> <span class="k">as</span> <span class="nn">bible</span>
+
+<span class="n">references</span> <span class="o">=</span> <span class="n">bible</span><span class="o">.</span><span class="n">get_references</span><span class="p">(</span><span class="s2">"Genesis - Deuteronomy"</span><span class="p">)</span>
+<span class="n">bible</span><span class="o">.</span><span class="n">format_scripture_references</span><span class="p">(</span><span class="n">references</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="output-cell docutils container">
+<div class="prompt output-cell-prompt notranslate">[1]:</div>
+<div class="output-cell-code highlight-python notranslate"><div class="highlight"><pre><span></span><span class="s1">'Genesis - Deuteronomy'</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id5">
+<h4>Always Include Chapter Numbers<a class="headerlink" href="#id5" title="Permalink to this headline">#</a></h4>
+<p>If you want to force <strong>pythonbible</strong> to include the chapter numbers even when the entire book is covered by the reference, you can use the <code class="docutils literal notranslate"><span class="pre">always_include_chapter_numbers</span></code> optional parameter of the <code class="docutils literal notranslate"><span class="pre">format_scripture_references</span></code> or <code class="docutils literal notranslate"><span class="pre">format_single_reference</span></code> functions, setting that optional parameter to be <code class="docutils literal notranslate"><span class="pre">True</span></code>.</p>
+<p>For example:</p>
+<div class="code-cell docutils container">
+<div class="prompt code-cell-prompt notranslate">In [1]:</div>
+<div class="code-cell-code highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pythonbible</span> <span class="k">as</span> <span class="nn">bible</span>
+
+<span class="n">references</span> <span class="o">=</span> <span class="n">bible</span><span class="o">.</span><span class="n">get_references</span><span class="p">(</span><span class="s2">"Genesis - Deuteronomy"</span><span class="p">)</span>
+<span class="n">bible</span><span class="o">.</span><span class="n">format_scripture_references</span><span class="p">(</span><span class="n">references</span><span class="p">,</span> <span class="n">always_include_chapter_numbers</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="output-cell docutils container">
+<div class="prompt output-cell-prompt notranslate">[1]:</div>
+<div class="output-cell-code highlight-python notranslate"><div class="highlight"><pre><span></span><span class="s1">'Genesis 1:1 - Deuteronomy 34:12'</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
 </div>
 <div class="section" id="book-groups">
 <h2>Book Groups<a class="headerlink" href="#book-groups" title="Permalink to this headline">#</a></h2>
-<p>…</p>
+<p>The books of the Bible can be categorized into different groups.</p>
+<p>The first and biggest categorization is dividing the books into the Old Testament (Genesis - Malachi) and the New Testament (Matthew - Revelation).</p>
+<p>Within the Old Testament, the books can be further divided as follows:</p>
+<ul class="simple">
+<li><p>Law (Genesis - Deuteronomy)</p></li>
+<li><p>History (Joshua - Esther)</p></li>
+<li><p>Poetry/Wisdom (Job - Song of Solomon)</p></li>
+<li><p>Prophecy (Isaiah - Malachi)</p></li>
+</ul>
+<p>The Prophecy books can be further divided into:</p>
+<ul class="simple">
+<li><p>Major Prophets (Isaiah - Daniel)</p></li>
+<li><p>Minor Prophets (Hosea - Malachi)</p></li>
+</ul>
+<p>Within the New Testament, the books can be divided as follows:</p>
+<ul class="simple">
+<li><p>Gospel (Matthew - John)</p></li>
+<li><p>History (Acts)</p></li>
+<li><p>Epistles (Romans - Jude)</p></li>
+<li><p>Apocalyptic (Revelation)</p></li>
+</ul>
+<p>The Epistles can be further divided into:</p>
+<ul class="simple">
+<li><p>Pauline Epistles (Romans - Philemon)</p></li>
+<li><p>General Epistles (Hebrews - Jude)</p></li>
+</ul>
+<div class="section" id="finding-references-by-book-groups">
+<h3>Finding References by Book Groups<a class="headerlink" href="#finding-references-by-book-groups" title="Permalink to this headline">#</a></h3>
+<p>By default, when pythonbible parses text to find all references contained within, it does not take book groups into consideration.</p>
+<p>For example:</p>
+<div class="code-cell docutils container">
+<div class="prompt code-cell-prompt notranslate">In [1]:</div>
+<div class="code-cell-code highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pythonbible</span> <span class="k">as</span> <span class="nn">bible</span>
+
+<span class="n">bible</span><span class="o">.</span><span class="n">get_references</span><span class="p">(</span><span class="s2">"What are all of the books of the Old Testament?"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="output-cell docutils container">
+<div class="prompt output-cell-prompt notranslate">[1]:</div>
+<div class="output-cell-code highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">[]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="finding-references-by-default-book-groups">
+<h4>Finding References by Default Book Groups<a class="headerlink" href="#finding-references-by-default-book-groups" title="Permalink to this headline">#</a></h4>
+<p>When parsing text to find all references contained within, you can pass in an optional <code class="docutils literal notranslate"><span class="pre">book_groups</span></code> parameter telling <strong>pythonbible</strong> what book groups to take into consideration.</p>
+<p>The <strong>pythonbible</strong> library includes a <code class="docutils literal notranslate"><span class="pre">book_groups</span></code> value for you to use that includes all the book groups described above. To use that, pass <code class="docutils literal notranslate"><span class="pre">pythonbible.BOOK_GROUPS</span></code> as the value for the optional <code class="docutils literal notranslate"><span class="pre">book_groups</span></code> argument.</p>
+<p>For example:</p>
+<div class="code-cell docutils container">
+<div class="prompt code-cell-prompt notranslate">In [1]:</div>
+<div class="code-cell-code highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pythonbible</span> <span class="k">as</span> <span class="nn">bible</span>
+
+<span class="n">bible</span><span class="o">.</span><span class="n">get_references</span><span class="p">(</span>
+    <span class="s2">"What are all of the books of the Old Testament?"</span><span class="p">,</span>
+    <span class="n">book_groups</span><span class="o">=</span><span class="n">bible</span><span class="o">.</span><span class="n">BOOK_GROUPS</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="output-cell docutils container">
+<div class="prompt output-cell-prompt notranslate">[1]:</div>
+<div class="output-cell-code highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
+    <span class="n">NormalizedReference</span><span class="p">(</span><span class="n">book</span><span class="o">=&lt;</span><span class="n">Book</span><span class="o">.</span><span class="n">GENESIS</span><span class="p">:</span> <span class="mi">1</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">start_chapter</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">start_verse</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">end_chapter</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">end_verse</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">end_book</span><span class="o">=&lt;</span><span class="n">Book</span><span class="o">.</span><span class="n">MALACHI</span><span class="p">:</span> <span class="mi">39</span><span class="o">&gt;</span><span class="p">)</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<p>When formatting the resulting reference for print/display, the reference text will use the books (and chapters and verses, if needed) rather than the book group.</p>
+<p>For example:</p>
+<div class="code-cell docutils container">
+<div class="prompt code-cell-prompt notranslate">In [2]:</div>
+<div class="code-cell-code highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">references</span> <span class="o">=</span> <span class="n">bible</span><span class="o">.</span><span class="n">get_references</span><span class="p">(</span>
+    <span class="s2">"What are all of the books of the Old Testament?"</span><span class="p">,</span>
+    <span class="n">book_groups</span><span class="o">=</span><span class="n">bible</span><span class="o">.</span><span class="n">BOOK_GROUPS</span>
+<span class="p">)</span>
+<span class="n">bible</span><span class="o">.</span><span class="n">format_scripture_references</span><span class="p">(</span><span class="n">references</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="output-cell docutils container">
+<div class="prompt output-cell-prompt notranslate">[2]:</div>
+<div class="output-cell-code highlight-python notranslate"><div class="highlight"><pre><span></span><span class="s1">'Genesis - Malachi'</span>
+</pre></div>
+</div>
+</div>
+<p>If you want to include the chapter and verse numbers, set the optional <code class="docutils literal notranslate"><span class="pre">always_include_chapter_numbers</span></code> argument to <code class="docutils literal notranslate"><span class="pre">True</span></code> for the <code class="docutils literal notranslate"><span class="pre">format_scripture_references</span></code> (or <code class="docutils literal notranslate"><span class="pre">format_single_reference</span></code>) function.</p>
+<div class="code-cell docutils container">
+<div class="prompt code-cell-prompt notranslate">In [3]:</div>
+<div class="code-cell-code highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">bible</span><span class="o">.</span><span class="n">format_scripture_references</span><span class="p">(</span>
+    <span class="n">references</span><span class="p">,</span>
+    <span class="n">always_include_chapter_numbers</span><span class="o">=</span><span class="kc">True</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="output-cell docutils container">
+<div class="prompt output-cell-prompt notranslate">[3]:</div>
+<div class="output-cell-code highlight-python notranslate"><div class="highlight"><pre><span></span><span class="s1">'Genesis 1:1 - Malachi 4:6'</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="finding-references-by-custom-book-groups">
+<h4>Finding References by Custom Book Groups<a class="headerlink" href="#finding-references-by-custom-book-groups" title="Permalink to this headline">#</a></h4>
+<p>If you don’t want to use the book groups as defined above but rather a subset of them or additional categorizations or completely custom categorizations, you can do that by passing in a custom value for the <code class="docutils literal notranslate"><span class="pre">book_groups</span></code> optional argument of the <code class="docutils literal notranslate"><span class="pre">get_references</span></code> function.</p>
+<p>The expected type of the <code class="docutils literal notranslate"><span class="pre">book_groups</span></code> argument is a <code class="docutils literal notranslate"><span class="pre">Dict[str,</span> <span class="pre">List[Book]]</span></code> where the string key is a regular expression to be used to match to that particular book group, and the list of Book objects are the books of the Bible associated with that book group.</p>
+<p>There is a <code class="docutils literal notranslate"><span class="pre">BookGroup</span></code> <code class="docutils literal notranslate"><span class="pre">Enum</span></code> included to help with this.</p>
+<p>For example, if you wanted to only use the Old Testament and New Testament book groups, the following example using the default book groups would return too many references.</p>
+<div class="code-cell docutils container">
+<div class="prompt code-cell-prompt notranslate">In [1]:</div>
+<div class="code-cell-code highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pythonbible</span> <span class="k">as</span> <span class="nn">bible</span>
+
+<span class="n">bible</span><span class="o">.</span><span class="n">get_references</span><span class="p">(</span>
+    <span class="s2">"I want to find the Old Testament books, not the Gospels."</span><span class="p">,</span>
+    <span class="n">book_groups</span><span class="o">=</span><span class="n">bible</span><span class="o">.</span><span class="n">BOOK_GROUPS</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="output-cell docutils container">
+<div class="prompt output-cell-prompt notranslate">[1]:</div>
+<div class="output-cell-code highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
+    <span class="n">NormalizedReference</span><span class="p">(</span><span class="n">book</span><span class="o">=&lt;</span><span class="n">Book</span><span class="o">.</span><span class="n">GENESIS</span><span class="p">:</span> <span class="mi">1</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">start_chapter</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">start_verse</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">end_chapter</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">end_verse</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">end_book</span><span class="o">=&lt;</span><span class="n">Book</span><span class="o">.</span><span class="n">MALACHI</span><span class="p">:</span> <span class="mi">39</span><span class="o">&gt;</span><span class="p">),</span>
+    <span class="n">NormalizedReference</span><span class="p">(</span><span class="n">book</span><span class="o">=&lt;</span><span class="n">Book</span><span class="o">.</span><span class="n">MATTHEW</span><span class="p">:</span> <span class="mi">40</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">start_chapter</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">start_verse</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">end_chapter</span><span class="o">=</span><span class="mi">21</span><span class="p">,</span> <span class="n">end_verse</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span> <span class="n">end_book</span><span class="o">=&lt;</span><span class="n">Book</span><span class="o">.</span><span class="n">JOHN</span><span class="p">:</span> <span class="mi">43</span><span class="p">),</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<p>Instead, you will need to define a custom <code class="docutils literal notranslate"><span class="pre">book_groups</span></code> value containing only the Old and New Testament information.</p>
+<div class="code-cell docutils container">
+<div class="prompt code-cell-prompt notranslate">In [2]:</div>
+<div class="code-cell-code highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">book_groups_subset</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="n">bible</span><span class="o">.</span><span class="n">BookGroup</span><span class="o">.</span><span class="n">OLD_TESTAMENT</span><span class="o">.</span><span class="n">regular_expression</span><span class="p">:</span> <span class="n">bible</span><span class="o">.</span><span class="n">BookGroup</span><span class="o">.</span><span class="n">OLD_TESTAMENT</span><span class="o">.</span><span class="n">books</span><span class="p">,</span>
+    <span class="n">bible</span><span class="o">.</span><span class="n">BookGroup</span><span class="o">.</span><span class="n">NEW_TESTAMENT</span><span class="o">.</span><span class="n">regular_expression</span><span class="p">:</span> <span class="n">bible</span><span class="o">.</span><span class="n">BookGroup</span><span class="o">.</span><span class="n">NEW_TESTAMENT</span><span class="o">.</span><span class="n">books</span><span class="p">,</span>
+<span class="p">}</span>
+<span class="n">bible</span><span class="o">.</span><span class="n">get_references</span><span class="p">(</span>
+    <span class="s2">"I want to find the Old Testament books, not the Gospels."</span><span class="p">,</span>
+    <span class="n">book_groups</span><span class="o">=</span><span class="n">book_groups_subset</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="output-cell docutils container">
+<div class="prompt output-cell-prompt notranslate">[2]:</div>
+<div class="output-cell-code highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
+    <span class="n">NormalizedReference</span><span class="p">(</span><span class="n">book</span><span class="o">=&lt;</span><span class="n">Book</span><span class="o">.</span><span class="n">GENESIS</span><span class="p">:</span> <span class="mi">1</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">start_chapter</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">start_verse</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">end_chapter</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">end_verse</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">end_book</span><span class="o">=&lt;</span><span class="n">Book</span><span class="o">.</span><span class="n">MALACHI</span><span class="p">:</span> <span class="mi">39</span><span class="o">&gt;</span><span class="p">),</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<p>With the custom subset book groups definition, only the Old Testament reference is included in the results and not the Gospels reference.</p>
+<p>You can also define your own completely custom book groups definition. For example:</p>
+<div class="code-cell docutils container">
+<div class="prompt code-cell-prompt notranslate">In [3]:</div>
+<div class="code-cell-code highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">custom_book_groups</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">"my favorite books"</span><span class="p">:</span> <span class="p">[</span><span class="n">bible</span><span class="o">.</span><span class="n">Book</span><span class="o">.</span><span class="n">PSALMS</span><span class="p">,</span> <span class="n">bible</span><span class="o">.</span><span class="n">Book</span><span class="o">.</span><span class="n">PROVERBS</span><span class="p">,</span> <span class="n">bible</span><span class="o">.</span><span class="n">Book</span><span class="o">.</span><span class="n">JOHN</span><span class="p">,</span> <span class="n">bible</span><span class="o">.</span><span class="n">Book</span><span class="o">.</span><span class="n">PHILIPPIANS</span><span class="p">,</span> <span class="n">bible</span><span class="o">.</span><span class="n">Book</span><span class="o">.</span><span class="n">JAMES</span><span class="p">],</span>
+<span class="p">}</span>
+<span class="n">references</span> <span class="o">=</span> <span class="n">bible</span><span class="o">.</span><span class="n">get_references</span><span class="p">(</span>
+    <span class="s2">"What are my favorite books of the Bible?"</span><span class="p">,</span>
+    <span class="n">book_groups</span><span class="o">=</span><span class="n">custom_book_groups</span>
+<span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"My favorite books of the Bible are </span><span class="si">{</span><span class="n">bible</span><span class="o">.</span><span class="n">format_scripture_references</span><span class="p">(</span><span class="n">references</span><span class="p">)</span><span class="si">}</span><span class="s2">!"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="output-cell docutils container">
+<div class="prompt output-cell-prompt notranslate">[3]:</div>
+<div class="output-cell-code highlight-python notranslate"><div class="highlight"><pre><span></span><span class="s1">'My favorite books of the Bible are Psalms - Proverbs;John;Philippians;James!'</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
 </div>
 </div>
 
@@ -264,9 +712,38 @@
           <div class="toc-tree">
             <ul>
 <li><a class="reference internal" href="#">Advanced Usage</a><ul>
-<li><a class="reference internal" href="#single-chapter-books">Single Chapter Books</a></li>
-<li><a class="reference internal" href="#multi-book-references">Multi Book References</a></li>
-<li><a class="reference internal" href="#book-groups">Book Groups</a></li>
+<li><a class="reference internal" href="#single-chapter-books">Single Chapter Books</a><ul>
+<li><a class="reference internal" href="#finding-references">Finding References</a><ul>
+<li><a class="reference internal" href="#example-obadiah-1-vs-genesis-1">Example: Obadiah 1 vs Genesis 1</a></li>
+<li><a class="reference internal" href="#example-philemon-3-6-vs-genesis-3-6">Example: Philemon 3-6 vs Genesis 3-6</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#converting-references-to-verse-ids">Converting References to Verse IDs</a></li>
+<li><a class="reference internal" href="#converting-verse-ids-to-references">Converting Verse IDs to References</a></li>
+<li><a class="reference internal" href="#formatting-references-for-print-display">Formatting References for Print/Display</a><ul>
+<li><a class="reference internal" href="#always-include-chapter-numbers">Always Include Chapter Numbers</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#multi-book-references">Multi Book References</a><ul>
+<li><a class="reference internal" href="#id1">Finding References</a></li>
+<li><a class="reference internal" href="#id2">Converting References to Verse IDs</a></li>
+<li><a class="reference internal" href="#id3">Converting Verse Ids to References</a></li>
+<li><a class="reference internal" href="#id4">Formatting References for Print/Display</a><ul>
+<li><a class="reference internal" href="#id5">Always Include Chapter Numbers</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#book-groups">Book Groups</a><ul>
+<li><a class="reference internal" href="#finding-references-by-book-groups">Finding References by Book Groups</a><ul>
+<li><a class="reference internal" href="#finding-references-by-default-book-groups">Finding References by Default Book Groups</a></li>
+<li><a class="reference internal" href="#finding-references-by-custom-book-groups">Finding References by Custom Book Groups</a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
