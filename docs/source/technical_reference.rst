@@ -1,6 +1,8 @@
 Technical Reference
 ===================
 
+.. _Book:
+
 Book
 ----
 
@@ -171,171 +173,324 @@ This list is subject to change (especially in pre 1.0 releases). If you see anyt
     Jude, "Jud"
     Revelation, "Revelation of Jesus Christ, Revelation of John, Revelation of St. John the Divine, Rev, Rev of Jesus Christ, Rev of John, Rev of St. John the Divine"
 
-BOOK_GROUPS
------------
-
-``BOOK_GROUPS`` is a provided "constant" containing the default dictionary of book groups to be used when allowing book groups to be considered when getting all of the references contained within a text.
-
-For each entry in this dictionary, the key is the regular expression string associated with the given book group, and the value is the list of ``Book`` objects associated with the given book group.
-
-The following book groups are included:
-
-...
+.. _BookGroup:
 
 BookGroup
 ---------
 
-...
+``BookGroup`` is an ``Enum`` containing the default Bible book groupings
+
+
+.. py:class:: BookGroup
+
+    :name: The string identifier of the book group
+    :value: The integer value of the book group
+    :regular_expression: The regular expression used to find mentions of the book group when searching for references
+    :books: The list of books included in the book group
+
+.. csv-table:: Book Group Members
+    :header: "Name", "Value", "Regular Expression", "Books"
+    :widths: 3, 1, 2, 3
+
+    OLD_TESTAMENT, 1, "Old Testament", "Genesis, Exodus, Leviticus, Numbers, Deuteronomy, Joshua, Judges, Ruth, 1 Samuel, 2 Samuel, 1 Kings, 2 Kings, 1 Chronicles, 2 Chronicles, Ezra, Nehemiah, Esther, Job, Psalms, Proverbs, Ecclesiastes, Song of Songs, Isaiah, Jeremiah, Lamentations, Ezekiel, Daniel, Hosea, Joel, Amos, Obadiah, Jonah, Micah, Nahum, Habakkuk, Zephaniah, Haggai, Zechariah, Malachi"
+    OLD_TESTAMENT_LAW, 2, "Law", "Genesis, Exodus, Leviticus, Numbers, Deuteronomy"
+    OLD_TESTAMENT_HISTORY, 3, "History", "Joshua, Judges, Ruth, 1 Samuel, 2 Samuel, 1 Kings, 2 Kings, 1 Chronicles, 2 Chronicles, Ezra, Nehemiah, Esther"
+    OLD_TESTAMENT_POETRY_WISDOM, 4, "Poetry|Wisdom", "Job, Psalms, Proverbs, Ecclesiastes, Song of Songs"
+    OLD_TESTAMENT_PROPHECY, 5, "Prophecy", "Isaiah, Jeremiah, Lamentations, Ezekiel, Daniel, Hosea, Joel, Amos, Obadiah, Jonah, Micah, Nahum, Habakkuk, Zephaniah, Haggai, Zechariah, Malachi"
+    OLD_TESTAMENT_MAJOR_PROPHETS, 6, "Major Prophets", "Isaiah, Jeremiah, Lamentations, Ezekiel, Daniel"
+    OLD_TESTAMENT_MINOR_PROPHETS, 7, "Minor Prophets", "Hosea, Joel, Amos, Obadiah, Jonah, Micah, Nahum, Habakkuk, Zephaniah, Haggai, Zechariah, Malachi"
+    NEW_TESTAMENT, 8, "New Testament", "Matthew, Mark, Luke, John, Acts, Romans, 1 Corinthians, 2 Corinthians, Galatians, Ephesians, Philippians, Colossians, 1 Thessalonians, 2 Thessalonians, 1 Timothy, 2 Timothy, Titus, Philemon, Hebrews, James, 1 Peter, 2 Peter, 1 John, 2 John, 3 John, Jude, Revelation"
+    NEW_TESTAMENT_GOSPELS, 9, "Gospels", "Matthew, Mark, Luke, John"
+    NEW_TESTAMENT_HISTORY, 10, "History", "Acts"
+    NEW_TESTAMENT_EPISTLES, 11, "Epistles", "Romans, 1 Corinthians, 2 Corinthians, Galatians, Ephesians, Philippians, Colossians, 1 Thessalonians, 2 Thessalonians, 1 Timothy, 2 Timothy, Titus, Philemon, Hebrews, James, 1 Peter, 2 Peter, 1 John, 2 John, 3 John, Jude"
+    NEW_TESTAMENT_PAUL_EPISTLES, 12, "Pauline Epistles|Paul's Epistles|Epistles of Paul", "Romans, 1 Corinthians, 2 Corinthians, Galatians, Ephesians, Philippians, Colossians, 1 Thessalonians, 2 Thessalonians, 1 Timothy, 2 Timothy, Titus, Philemon"
+    NEW_TESTAMENT_GENERAL_EPISTLES, 13, "General Epistles", "Hebrews, James, 1 Peter, 2 Peter, 1 John, 2 John, 3 John, Jude"
+    NEW_TESTAMENT_APOCALYPTIC, 14, "Apocalyptic", "Revelation"
+
+.. _BOOK_GROUPS:
+
+BOOK_GROUPS
+^^^^^^^^^^^
+
+``BOOK_GROUPS`` is a provided "constant" containing the default dictionary of book groups to be used when allowing book groups to be considered when getting all of the references contained within a text.
+
+For each entry in this dictionary, the key is the regular expression string associated with the given book group, and the value is the list of :ref:`Book` objects associated with the given book group.
+
+``BOOK_GROUPS`` contains all of the :ref:`BookGroup` values listed in the table above.
+
+.. _convert_reference_to_verse_ids:
 
 convert_reference_to_verse_ids
 ------------------------------
 
-...
+.. py:function:: pythonbible.convert_reference_to_verse_ids(reference)
+
+    Converts the given ``NormalizedReference`` object into a list of verse id integers.
+
+    :param reference: A normalized reference
+    :type reference: NormalizedReference
+    :return: The list of verse ids associated with the reference
+    :rtype: List[int]
+
+.. _convert_references_to_verse_ids:
 
 convert_references_to_verse_ids
 -------------------------------
 
-...
+.. py:function:: pythonbible.convert_references_to_verse_ids(references)
+
+    Converts the given list of ``NormalizedReference`` objects into a list of verse id integers.
+
+    :param references: A list of normalized references
+    :type references: List[NormalizedReference]
+    :return: The list of verse ids associated with the references
+    :rtype: List[int]
+
+.. _convert_verse_ids_to_references:
 
 convert_verse_ids_to_references
 -------------------------------
 
-...
+.. py:function:: pythonbible.convert_verse_ids_to_references(verse_ids)
+
+    Converts the given list of verse id integers into a list of ``NormalizedReference`` objects.
+
+    :param verse_ids: A list of verse ids
+    :type verse_ids: List[int]
+    :return: The list of normalized references associated with the verse ids
+    :rtype: List[NormalizedReference]
+
+.. _count_books:
 
 count_books
 -----------
 
 ...
 
+.. _count_chapters:
+
 count_chapters
 --------------
 
 ...
+
+.. _count_verses:
 
 count_verses
 ------------
 
 ...
 
+.. _format_scripture_references:
+
 format_scripture_references
 ---------------------------
 
-...
+.. py:function:: pythonbible.format_scripture_references(references, **kwargs)
+
+    Returns a human-readable string of the given normalized scripture references
+
+    :param references: A list of normalized scripture references
+    :type references: List[NormalizedReference]
+    :return: A human-readable string of the given normalized scripture references
+    :rtype: str
+
+.. _format_scripture_text:
 
 format_scripture_text
 ---------------------
 
-...
+.. py:function:: pythonbible.format_scripture_text(verse_ids, **kwargs)
+
+    ...
+
+    :param verse_ids: ...
+    :type verse_ids: List[int]
+    :return: ...
+    :rtype: str
+
+.. _format_single_reference:
 
 format_single_reference
 -----------------------
 
 ...
 
+.. _get_book_chapter_verse:
+
 get_book_chapter_verse
 ----------------------
 
 ...
+
+.. _get_book_number:
 
 get_book_number
 ---------------
 
 ...
 
+.. _get_book_titles:
+
 get_book_titles
 ---------------
 
-...
+.. py:function:: pythonbible.get_book_titles(book, version)
+
+    Given a book of the Bible and optionally a version return the book title.
+
+    :param book:
+    :type book: Book
+    :param version:
+    :type version: Version
+    :return: the book title
+    :rtype: Optional[BookTitles]
+
+.. _get_chapter_number:
 
 get_chapter_number
 ------------------
 
 ...
 
+.. _get_max_number_of_verses:
+
 get_max_number_of_verses
 ------------------------
 
 ...
+
+.. _get_number_of_chapters:
 
 get_number_of_chapters
 ----------------------
 
 ...
 
+.. _get_references:
+
 get_references
 --------------
 
-...
+.. py:function:: pythonbible.get_references(text, book_groups=None)
+
+    Searches the text for scripture references and returns any that are found in a list of normalized tuple references.
+
+    :param text: String that may contain zero or more scripture references
+    :type text: str
+    :param book_groups: Optional dictionary of :ref:`BookGroup` (e.g. Old Testament) to its related regular expression
+    :type book_groups: Dict[str, List[Book]] or None
+    :return: The list of found scripture references
+    :rtype: List[:ref:`NormalizedReference`]
+
+.. _get_verse_id:
 
 get_verse_id
 ------------
 
 ...
 
+.. _get_verse_number:
+
 get_verse_number
 ----------------
 
 ...
 
+.. _get_verse_text:
+
 get_verse_text
 --------------
 
-...
+.. py:function:: pythonbible.get_verse_text(verse_id, version)
+
+    Returns the scripture text of the given verse id and version of the Bible.
+
+    :param verse_id: An integer verse id
+    :type verse_id: int
+    :param version: The optional version of the Bible, defaults to American Standard Version
+    :type version: Version
+    :return: The scripture text of the given verse id and version
+    :rtype: str
+
+.. _InvalidBookError:
 
 InvalidBookError
 ----------------
 
 ...
 
+.. _InvalidChapterError:
+
 InvalidChapterError
 -------------------
 
 ...
+
+.. _InvalidVerseError:
 
 InvalidVerseError
 -----------------
 
 ...
 
+.. _is_valid_book:
+
 is_valid_book
 -------------
 
 ...
+
+.. _is_valid_chapter:
 
 is_valid_chapter
 ----------------
 
 ...
 
+.. _is_valid_reference:
+
 is_valid_reference
 ------------------
 
 ...
+
+.. _is_valid_verse:
 
 is_valid_verse
 --------------
 
 ...
 
+.. _is_valid_verse_id:
+
 is_valid_verse_id
 -----------------
 
 ...
+
+.. _MissingBookFileError:
 
 MissingBookFileError
 --------------------
 
 ...
 
+.. _MissingVerseFileError:
+
 MissingVerseFileError
 ---------------------
 
 ...
 
+.. _NormalizedReference:
+
 NormalizedReference
 -------------------
 
 ...
+
+.. _Version:
 
 Version
 -------

@@ -149,7 +149,7 @@ The result should be the same even if the the chapter number is included in the 
 Always Include Chapter Numbers
 """"""""""""""""""""""""""""""
 
-If you want to force **pythonbible** to include the chapter numbers even for single chapter books, you can use the ``always_include_chapter_numbers`` optional parameter of the ``format_scripture_references`` or ``format_single_reference`` functions, setting that optional parameter to be ``True``.
+If you want to force **pythonbible** to include the chapter numbers even for single chapter books, you can use the ``always_include_chapter_numbers`` optional parameter of the :ref:`format_scripture_references` or :ref:`format_single_reference` functions, setting that optional parameter to be ``True``.
 
 For example:
 
@@ -267,7 +267,7 @@ By default, chapter numbers will not be included when the entire book is include
 Always Include Chapter Numbers
 """"""""""""""""""""""""""""""
 
-If you want to force **pythonbible** to include the chapter numbers even when the entire book is covered by the reference, you can use the ``always_include_chapter_numbers`` optional parameter of the ``format_scripture_references`` or ``format_single_reference`` functions, setting that optional parameter to be ``True``.
+If you want to force **pythonbible** to include the chapter numbers even when the entire book is covered by the reference, you can use the ``always_include_chapter_numbers`` optional parameter of the :ref:`format_scripture_references` or :ref:`format_single_reference` functions, setting that optional parameter to be ``True``.
 
 For example:
 
@@ -339,7 +339,7 @@ Finding References by Default Book Groups
 
 When parsing text to find all references contained within, you can pass in an optional ``book_groups`` parameter telling **pythonbible** what book groups to take into consideration.
 
-The **pythonbible** library includes a ``book_groups`` value for you to use that includes all the book groups described above. To use that, pass ``pythonbible.BOOK_GROUPS`` as the value for the optional ``book_groups`` argument.
+The **pythonbible** library includes a ``book_groups`` value for you to use that includes all the book groups described above. To use that, pass :ref:`BOOK_GROUPS` as the value for the optional ``book_groups`` argument.
 
 For example:
 
@@ -378,7 +378,7 @@ For example:
 
     'Genesis - Malachi'
 
-If you want to include the chapter and verse numbers, set the optional ``always_include_chapter_numbers`` argument to ``True`` for the ``format_scripture_references`` (or ``format_single_reference``) function.
+If you want to include the chapter and verse numbers, set the optional ``always_include_chapter_numbers`` argument to ``True`` for the :ref:`format_scripture_references` (or :ref:`format_single_reference`) function.
 
 .. code-cell:: python
     :execution-count: 3
@@ -398,9 +398,9 @@ Finding References by Custom Book Groups
 
 If you don't want to use the book groups as defined above but rather a subset of them or additional categorizations or completely custom categorizations, you can do that by passing in a custom value for the ``book_groups`` optional argument of the ``get_references`` function.
 
-The expected type of the ``book_groups`` argument is a ``Dict[str, List[Book]]`` where the string key is a regular expression to be used to match to that particular book group, and the list of Book objects are the books of the Bible associated with that book group.
+The expected type of the ``book_groups`` argument is a ``Dict[str, List[Book]]`` where the string key is a regular expression to be used to match to that particular book group, and the list of :ref:`Book` objects are the books of the Bible associated with that book group.
 
-There is a ``BookGroup`` ``Enum`` included to help with this.
+There is a :ref:`BookGroup` ``Enum`` included to help with this.
 
 For example, if you wanted to only use the Old Testament and New Testament book groups, the following example using the default book groups would return too many references.
 

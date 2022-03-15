@@ -193,7 +193,7 @@
           <div class="section" id="technical-reference">
 <h1>Technical Reference<a class="headerlink" href="#technical-reference" title="Permalink to this headline">#</a></h1>
 <div class="section" id="book">
-<h2>Book<a class="headerlink" href="#book" title="Permalink to this headline">#</a></h2>
+<span id="id1"></span><h2>Book<a class="headerlink" href="#book" title="Permalink to this headline">#</a></h2>
 <p><code class="docutils literal notranslate"><span class="pre">Book</span></code> is an <code class="docutils literal notranslate"><span class="pre">Enum</span></code> containing all of the books of the Bible as members.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="Book">
@@ -210,8 +210,8 @@
 </dd>
 </dl>
 </dd></dl>
-<div class="table-wrapper"><table class="colwidths-given docutils align-default" id="id1">
-<caption><span class="caption-text">Book Members</span><a class="headerlink" href="#id1" title="Permalink to this table">#</a></caption>
+<div class="table-wrapper"><table class="colwidths-given docutils align-default" id="id35">
+<caption><span class="caption-text">Book Members</span><a class="headerlink" href="#id35" title="Permalink to this table">#</a></caption>
 <colgroup>
 <col style="width: 43%"/>
 <col style="width: 14%"/>
@@ -520,8 +520,8 @@
 <p>The following abbreviations and alternate titles are currently supported when searching a given text for scripture references.</p>
 <p>The search for references is case-insensitive; and, generally, a period trailing the abbreviation is optional (e.g. “Gen”, “Gen.”, “gen”, and “gen.” should all evaluate to “Genesis”).</p>
 <p>This list is subject to change (especially in pre 1.0 releases). If you see anything that needs to be changed, removed, and/or added, please submit an issue in GitHub (or submit a pull request - contributions are welcome).</p>
-<div class="table-wrapper"><table class="colwidths-given docutils align-default" id="id2">
-<caption><span class="caption-text">Book Abbreviations</span><a class="headerlink" href="#id2" title="Permalink to this table">#</a></caption>
+<div class="table-wrapper"><table class="colwidths-given docutils align-default" id="id36">
+<caption><span class="caption-text">Book Abbreviations</span><a class="headerlink" href="#id36" title="Permalink to this table">#</a></caption>
 <colgroup>
 <col style="width: 25%"/>
 <col style="width: 75%"/>
@@ -733,139 +733,375 @@
 </tbody>
 </table></div>
 </div>
-<div class="section" id="book-groups">
-<h2>BOOK_GROUPS<a class="headerlink" href="#book-groups" title="Permalink to this headline">#</a></h2>
-<p><code class="docutils literal notranslate"><span class="pre">BOOK_GROUPS</span></code> is a provided “constant” containing the default dictionary of book groups to be used when allowing book groups to be considered when getting all of the references contained within a text.</p>
-<p>For each entry in this dictionary, the key is the regular expression string associated with the given book group, and the value is the list of <code class="docutils literal notranslate"><span class="pre">Book</span></code> objects associated with the given book group.</p>
-<p>The following book groups are included:</p>
-<p>…</p>
-</div>
 <div class="section" id="bookgroup">
-<h2>BookGroup<a class="headerlink" href="#bookgroup" title="Permalink to this headline">#</a></h2>
-<p>…</p>
+<span id="id2"></span><h2>BookGroup<a class="headerlink" href="#bookgroup" title="Permalink to this headline">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">BookGroup</span></code> is an <code class="docutils literal notranslate"><span class="pre">Enum</span></code> containing the default Bible book groupings</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="BookGroup">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">BookGroup</span></span><a class="headerlink" href="#BookGroup" title="Permalink to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Name</dt>
+<dd class="field-odd"><p>The string identifier of the book group</p>
+</dd>
+<dt class="field-even">Value</dt>
+<dd class="field-even"><p>The integer value of the book group</p>
+</dd>
+<dt class="field-odd">Regular_expression</dt>
+<dd class="field-odd"><p>The regular expression used to find mentions of the book group when searching for references</p>
+</dd>
+<dt class="field-even">Books</dt>
+<dd class="field-even"><p>The list of books included in the book group</p>
+</dd>
+</dl>
+</dd></dl>
+<div class="table-wrapper"><table class="colwidths-given docutils align-default" id="id37">
+<caption><span class="caption-text">Book Group Members</span><a class="headerlink" href="#id37" title="Permalink to this table">#</a></caption>
+<colgroup>
+<col style="width: 33%"/>
+<col style="width: 11%"/>
+<col style="width: 22%"/>
+<col style="width: 33%"/>
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Value</p></th>
+<th class="head"><p>Regular Expression</p></th>
+<th class="head"><p>Books</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>OLD_TESTAMENT</p></td>
+<td><p>1</p></td>
+<td><p>Old Testament</p></td>
+<td><p>Genesis, Exodus, Leviticus, Numbers, Deuteronomy, Joshua, Judges, Ruth, 1 Samuel, 2 Samuel, 1 Kings, 2 Kings, 1 Chronicles, 2 Chronicles, Ezra, Nehemiah, Esther, Job, Psalms, Proverbs, Ecclesiastes, Song of Songs, Isaiah, Jeremiah, Lamentations, Ezekiel, Daniel, Hosea, Joel, Amos, Obadiah, Jonah, Micah, Nahum, Habakkuk, Zephaniah, Haggai, Zechariah, Malachi</p></td>
+</tr>
+<tr class="row-odd"><td><p>OLD_TESTAMENT_LAW</p></td>
+<td><p>2</p></td>
+<td><p>Law</p></td>
+<td><p>Genesis, Exodus, Leviticus, Numbers, Deuteronomy</p></td>
+</tr>
+<tr class="row-even"><td><p>OLD_TESTAMENT_HISTORY</p></td>
+<td><p>3</p></td>
+<td><p>History</p></td>
+<td><p>Joshua, Judges, Ruth, 1 Samuel, 2 Samuel, 1 Kings, 2 Kings, 1 Chronicles, 2 Chronicles, Ezra, Nehemiah, Esther</p></td>
+</tr>
+<tr class="row-odd"><td><p>OLD_TESTAMENT_POETRY_WISDOM</p></td>
+<td><p>4</p></td>
+<td><p>Poetry|Wisdom</p></td>
+<td><p>Job, Psalms, Proverbs, Ecclesiastes, Song of Songs</p></td>
+</tr>
+<tr class="row-even"><td><p>OLD_TESTAMENT_PROPHECY</p></td>
+<td><p>5</p></td>
+<td><p>Prophecy</p></td>
+<td><p>Isaiah, Jeremiah, Lamentations, Ezekiel, Daniel, Hosea, Joel, Amos, Obadiah, Jonah, Micah, Nahum, Habakkuk, Zephaniah, Haggai, Zechariah, Malachi</p></td>
+</tr>
+<tr class="row-odd"><td><p>OLD_TESTAMENT_MAJOR_PROPHETS</p></td>
+<td><p>6</p></td>
+<td><p>Major Prophets</p></td>
+<td><p>Isaiah, Jeremiah, Lamentations, Ezekiel, Daniel</p></td>
+</tr>
+<tr class="row-even"><td><p>OLD_TESTAMENT_MINOR_PROPHETS</p></td>
+<td><p>7</p></td>
+<td><p>Minor Prophets</p></td>
+<td><p>Hosea, Joel, Amos, Obadiah, Jonah, Micah, Nahum, Habakkuk, Zephaniah, Haggai, Zechariah, Malachi</p></td>
+</tr>
+<tr class="row-odd"><td><p>NEW_TESTAMENT</p></td>
+<td><p>8</p></td>
+<td><p>New Testament</p></td>
+<td><p>Matthew, Mark, Luke, John, Acts, Romans, 1 Corinthians, 2 Corinthians, Galatians, Ephesians, Philippians, Colossians, 1 Thessalonians, 2 Thessalonians, 1 Timothy, 2 Timothy, Titus, Philemon, Hebrews, James, 1 Peter, 2 Peter, 1 John, 2 John, 3 John, Jude, Revelation</p></td>
+</tr>
+<tr class="row-even"><td><p>NEW_TESTAMENT_GOSPELS</p></td>
+<td><p>9</p></td>
+<td><p>Gospels</p></td>
+<td><p>Matthew, Mark, Luke, John</p></td>
+</tr>
+<tr class="row-odd"><td><p>NEW_TESTAMENT_HISTORY</p></td>
+<td><p>10</p></td>
+<td><p>History</p></td>
+<td><p>Acts</p></td>
+</tr>
+<tr class="row-even"><td><p>NEW_TESTAMENT_EPISTLES</p></td>
+<td><p>11</p></td>
+<td><p>Epistles</p></td>
+<td><p>Romans, 1 Corinthians, 2 Corinthians, Galatians, Ephesians, Philippians, Colossians, 1 Thessalonians, 2 Thessalonians, 1 Timothy, 2 Timothy, Titus, Philemon, Hebrews, James, 1 Peter, 2 Peter, 1 John, 2 John, 3 John, Jude</p></td>
+</tr>
+<tr class="row-odd"><td><p>NEW_TESTAMENT_PAUL_EPISTLES</p></td>
+<td><p>12</p></td>
+<td><p>Pauline Epistles|Paul’s Epistles|Epistles of Paul</p></td>
+<td><p>Romans, 1 Corinthians, 2 Corinthians, Galatians, Ephesians, Philippians, Colossians, 1 Thessalonians, 2 Thessalonians, 1 Timothy, 2 Timothy, Titus, Philemon</p></td>
+</tr>
+<tr class="row-even"><td><p>NEW_TESTAMENT_GENERAL_EPISTLES</p></td>
+<td><p>13</p></td>
+<td><p>General Epistles</p></td>
+<td><p>Hebrews, James, 1 Peter, 2 Peter, 1 John, 2 John, 3 John, Jude</p></td>
+</tr>
+<tr class="row-odd"><td><p>NEW_TESTAMENT_APOCALYPTIC</p></td>
+<td><p>14</p></td>
+<td><p>Apocalyptic</p></td>
+<td><p>Revelation</p></td>
+</tr>
+</tbody>
+</table></div>
+<div class="section" id="book-groups">
+<span id="id3"></span><h3>BOOK_GROUPS<a class="headerlink" href="#book-groups" title="Permalink to this headline">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">BOOK_GROUPS</span></code> is a provided “constant” containing the default dictionary of book groups to be used when allowing book groups to be considered when getting all of the references contained within a text.</p>
+<p>For each entry in this dictionary, the key is the regular expression string associated with the given book group, and the value is the list of <a class="reference internal" href="#book"><span class="std std-ref">Book</span></a> objects associated with the given book group.</p>
+<p><code class="docutils literal notranslate"><span class="pre">BOOK_GROUPS</span></code> contains all of the <a class="reference internal" href="#bookgroup"><span class="std std-ref">BookGroup</span></a> values listed in the table above.</p>
+</div>
 </div>
 <div class="section" id="convert-reference-to-verse-ids">
-<h2>convert_reference_to_verse_ids<a class="headerlink" href="#convert-reference-to-verse-ids" title="Permalink to this headline">#</a></h2>
-<p>…</p>
+<span id="id4"></span><h2>convert_reference_to_verse_ids<a class="headerlink" href="#convert-reference-to-verse-ids" title="Permalink to this headline">#</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="pythonbible.convert_reference_to_verse_ids">
+<span class="sig-prename descclassname"><span class="pre">pythonbible.</span></span><span class="sig-name descname"><span class="pre">convert_reference_to_verse_ids</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">reference</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pythonbible.convert_reference_to_verse_ids" title="Permalink to this definition">#</a></dt>
+<dd><p>Converts the given <code class="docutils literal notranslate"><span class="pre">NormalizedReference</span></code> object into a list of verse id integers.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>reference</strong> (<em>NormalizedReference</em>) – A normalized reference</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The list of verse ids associated with the reference</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>List[int]</p>
+</dd>
+</dl>
+</dd></dl>
 </div>
 <div class="section" id="convert-references-to-verse-ids">
-<h2>convert_references_to_verse_ids<a class="headerlink" href="#convert-references-to-verse-ids" title="Permalink to this headline">#</a></h2>
-<p>…</p>
+<span id="id5"></span><h2>convert_references_to_verse_ids<a class="headerlink" href="#convert-references-to-verse-ids" title="Permalink to this headline">#</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="pythonbible.convert_references_to_verse_ids">
+<span class="sig-prename descclassname"><span class="pre">pythonbible.</span></span><span class="sig-name descname"><span class="pre">convert_references_to_verse_ids</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">references</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pythonbible.convert_references_to_verse_ids" title="Permalink to this definition">#</a></dt>
+<dd><p>Converts the given list of <code class="docutils literal notranslate"><span class="pre">NormalizedReference</span></code> objects into a list of verse id integers.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>references</strong> (<em>List</em><em>[</em><em>NormalizedReference</em><em>]</em>) – A list of normalized references</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The list of verse ids associated with the references</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>List[int]</p>
+</dd>
+</dl>
+</dd></dl>
 </div>
 <div class="section" id="convert-verse-ids-to-references">
-<h2>convert_verse_ids_to_references<a class="headerlink" href="#convert-verse-ids-to-references" title="Permalink to this headline">#</a></h2>
-<p>…</p>
+<span id="id6"></span><h2>convert_verse_ids_to_references<a class="headerlink" href="#convert-verse-ids-to-references" title="Permalink to this headline">#</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="pythonbible.convert_verse_ids_to_references">
+<span class="sig-prename descclassname"><span class="pre">pythonbible.</span></span><span class="sig-name descname"><span class="pre">convert_verse_ids_to_references</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">verse_ids</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pythonbible.convert_verse_ids_to_references" title="Permalink to this definition">#</a></dt>
+<dd><p>Converts the given list of verse id integers into a list of <code class="docutils literal notranslate"><span class="pre">NormalizedReference</span></code> objects.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>verse_ids</strong> (<em>List</em><em>[</em><em>int</em><em>]</em>) – A list of verse ids</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The list of normalized references associated with the verse ids</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>List[NormalizedReference]</p>
+</dd>
+</dl>
+</dd></dl>
 </div>
 <div class="section" id="count-books">
-<h2>count_books<a class="headerlink" href="#count-books" title="Permalink to this headline">#</a></h2>
+<span id="id7"></span><h2>count_books<a class="headerlink" href="#count-books" title="Permalink to this headline">#</a></h2>
 <p>…</p>
 </div>
 <div class="section" id="count-chapters">
-<h2>count_chapters<a class="headerlink" href="#count-chapters" title="Permalink to this headline">#</a></h2>
+<span id="id8"></span><h2>count_chapters<a class="headerlink" href="#count-chapters" title="Permalink to this headline">#</a></h2>
 <p>…</p>
 </div>
 <div class="section" id="count-verses">
-<h2>count_verses<a class="headerlink" href="#count-verses" title="Permalink to this headline">#</a></h2>
+<span id="id9"></span><h2>count_verses<a class="headerlink" href="#count-verses" title="Permalink to this headline">#</a></h2>
 <p>…</p>
 </div>
 <div class="section" id="format-scripture-references">
-<h2>format_scripture_references<a class="headerlink" href="#format-scripture-references" title="Permalink to this headline">#</a></h2>
-<p>…</p>
+<span id="id10"></span><h2>format_scripture_references<a class="headerlink" href="#format-scripture-references" title="Permalink to this headline">#</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="pythonbible.format_scripture_references">
+<span class="sig-prename descclassname"><span class="pre">pythonbible.</span></span><span class="sig-name descname"><span class="pre">format_scripture_references</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">references</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pythonbible.format_scripture_references" title="Permalink to this definition">#</a></dt>
+<dd><p>Returns a human-readable string of the given normalized scripture references</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>references</strong> (<em>List</em><em>[</em><em>NormalizedReference</em><em>]</em>) – A list of normalized scripture references</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A human-readable string of the given normalized scripture references</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
 </div>
 <div class="section" id="format-scripture-text">
-<h2>format_scripture_text<a class="headerlink" href="#format-scripture-text" title="Permalink to this headline">#</a></h2>
-<p>…</p>
+<span id="id11"></span><h2>format_scripture_text<a class="headerlink" href="#format-scripture-text" title="Permalink to this headline">#</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="pythonbible.format_scripture_text">
+<span class="sig-prename descclassname"><span class="pre">pythonbible.</span></span><span class="sig-name descname"><span class="pre">format_scripture_text</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">verse_ids</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pythonbible.format_scripture_text" title="Permalink to this definition">#</a></dt>
+<dd><p>…</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>verse_ids</strong> (<em>List</em><em>[</em><em>int</em><em>]</em>) – <p>…</p>
+</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><p>…</p>
+</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
 </div>
 <div class="section" id="format-single-reference">
-<h2>format_single_reference<a class="headerlink" href="#format-single-reference" title="Permalink to this headline">#</a></h2>
+<span id="id12"></span><h2>format_single_reference<a class="headerlink" href="#format-single-reference" title="Permalink to this headline">#</a></h2>
 <p>…</p>
 </div>
 <div class="section" id="get-book-chapter-verse">
-<h2>get_book_chapter_verse<a class="headerlink" href="#get-book-chapter-verse" title="Permalink to this headline">#</a></h2>
+<span id="id13"></span><h2>get_book_chapter_verse<a class="headerlink" href="#get-book-chapter-verse" title="Permalink to this headline">#</a></h2>
 <p>…</p>
 </div>
 <div class="section" id="get-book-number">
-<h2>get_book_number<a class="headerlink" href="#get-book-number" title="Permalink to this headline">#</a></h2>
+<span id="id14"></span><h2>get_book_number<a class="headerlink" href="#get-book-number" title="Permalink to this headline">#</a></h2>
 <p>…</p>
 </div>
 <div class="section" id="get-book-titles">
-<h2>get_book_titles<a class="headerlink" href="#get-book-titles" title="Permalink to this headline">#</a></h2>
-<p>…</p>
+<span id="id15"></span><h2>get_book_titles<a class="headerlink" href="#get-book-titles" title="Permalink to this headline">#</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="pythonbible.get_book_titles">
+<span class="sig-prename descclassname"><span class="pre">pythonbible.</span></span><span class="sig-name descname"><span class="pre">get_book_titles</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">book</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">version</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pythonbible.get_book_titles" title="Permalink to this definition">#</a></dt>
+<dd><p>Given a book of the Bible and optionally a version return the book title.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>book</strong> (<a class="reference internal" href="#Book" title="Book"><em>Book</em></a>) – </p></li>
+<li><p><strong>version</strong> (<em>Version</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the book title</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Optional[BookTitles]</p>
+</dd>
+</dl>
+</dd></dl>
 </div>
 <div class="section" id="get-chapter-number">
-<h2>get_chapter_number<a class="headerlink" href="#get-chapter-number" title="Permalink to this headline">#</a></h2>
+<span id="id16"></span><h2>get_chapter_number<a class="headerlink" href="#get-chapter-number" title="Permalink to this headline">#</a></h2>
 <p>…</p>
 </div>
 <div class="section" id="get-max-number-of-verses">
-<h2>get_max_number_of_verses<a class="headerlink" href="#get-max-number-of-verses" title="Permalink to this headline">#</a></h2>
+<span id="id17"></span><h2>get_max_number_of_verses<a class="headerlink" href="#get-max-number-of-verses" title="Permalink to this headline">#</a></h2>
 <p>…</p>
 </div>
 <div class="section" id="get-number-of-chapters">
-<h2>get_number_of_chapters<a class="headerlink" href="#get-number-of-chapters" title="Permalink to this headline">#</a></h2>
+<span id="id18"></span><h2>get_number_of_chapters<a class="headerlink" href="#get-number-of-chapters" title="Permalink to this headline">#</a></h2>
 <p>…</p>
 </div>
 <div class="section" id="get-references">
-<h2>get_references<a class="headerlink" href="#get-references" title="Permalink to this headline">#</a></h2>
-<p>…</p>
+<span id="id19"></span><h2>get_references<a class="headerlink" href="#get-references" title="Permalink to this headline">#</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="pythonbible.get_references">
+<span class="sig-prename descclassname"><span class="pre">pythonbible.</span></span><span class="sig-name descname"><span class="pre">get_references</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">book_groups</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pythonbible.get_references" title="Permalink to this definition">#</a></dt>
+<dd><p>Searches the text for scripture references and returns any that are found in a list of normalized tuple references.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>text</strong> (<em>str</em>) – String that may contain zero or more scripture references</p></li>
+<li><p><strong>book_groups</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>List</em><em>[</em><a class="reference internal" href="#Book" title="Book"><em>Book</em></a><em>]</em><em>] or </em><em>None</em>) – Optional dictionary of <a class="reference internal" href="#bookgroup"><span class="std std-ref">BookGroup</span></a> (e.g. Old Testament) to its related regular expression</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The list of found scripture references</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>List[<a class="reference internal" href="#normalizedreference"><span class="std std-ref">NormalizedReference</span></a>]</p>
+</dd>
+</dl>
+</dd></dl>
 </div>
 <div class="section" id="get-verse-id">
-<h2>get_verse_id<a class="headerlink" href="#get-verse-id" title="Permalink to this headline">#</a></h2>
+<span id="id20"></span><h2>get_verse_id<a class="headerlink" href="#get-verse-id" title="Permalink to this headline">#</a></h2>
 <p>…</p>
 </div>
 <div class="section" id="get-verse-number">
-<h2>get_verse_number<a class="headerlink" href="#get-verse-number" title="Permalink to this headline">#</a></h2>
+<span id="id21"></span><h2>get_verse_number<a class="headerlink" href="#get-verse-number" title="Permalink to this headline">#</a></h2>
 <p>…</p>
 </div>
 <div class="section" id="get-verse-text">
-<h2>get_verse_text<a class="headerlink" href="#get-verse-text" title="Permalink to this headline">#</a></h2>
-<p>…</p>
+<span id="id22"></span><h2>get_verse_text<a class="headerlink" href="#get-verse-text" title="Permalink to this headline">#</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="pythonbible.get_verse_text">
+<span class="sig-prename descclassname"><span class="pre">pythonbible.</span></span><span class="sig-name descname"><span class="pre">get_verse_text</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">verse_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">version</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pythonbible.get_verse_text" title="Permalink to this definition">#</a></dt>
+<dd><p>Returns the scripture text of the given verse id and version of the Bible.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>verse_id</strong> (<em>int</em>) – An integer verse id</p></li>
+<li><p><strong>version</strong> (<em>Version</em>) – The optional version of the Bible, defaults to American Standard Version</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The scripture text of the given verse id and version</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
 </div>
 <div class="section" id="invalidbookerror">
-<h2>InvalidBookError<a class="headerlink" href="#invalidbookerror" title="Permalink to this headline">#</a></h2>
+<span id="id23"></span><h2>InvalidBookError<a class="headerlink" href="#invalidbookerror" title="Permalink to this headline">#</a></h2>
 <p>…</p>
 </div>
 <div class="section" id="invalidchaptererror">
-<h2>InvalidChapterError<a class="headerlink" href="#invalidchaptererror" title="Permalink to this headline">#</a></h2>
+<span id="id24"></span><h2>InvalidChapterError<a class="headerlink" href="#invalidchaptererror" title="Permalink to this headline">#</a></h2>
 <p>…</p>
 </div>
 <div class="section" id="invalidverseerror">
-<h2>InvalidVerseError<a class="headerlink" href="#invalidverseerror" title="Permalink to this headline">#</a></h2>
+<span id="id25"></span><h2>InvalidVerseError<a class="headerlink" href="#invalidverseerror" title="Permalink to this headline">#</a></h2>
 <p>…</p>
 </div>
 <div class="section" id="is-valid-book">
-<h2>is_valid_book<a class="headerlink" href="#is-valid-book" title="Permalink to this headline">#</a></h2>
+<span id="id26"></span><h2>is_valid_book<a class="headerlink" href="#is-valid-book" title="Permalink to this headline">#</a></h2>
 <p>…</p>
 </div>
 <div class="section" id="is-valid-chapter">
-<h2>is_valid_chapter<a class="headerlink" href="#is-valid-chapter" title="Permalink to this headline">#</a></h2>
+<span id="id27"></span><h2>is_valid_chapter<a class="headerlink" href="#is-valid-chapter" title="Permalink to this headline">#</a></h2>
 <p>…</p>
 </div>
 <div class="section" id="is-valid-reference">
-<h2>is_valid_reference<a class="headerlink" href="#is-valid-reference" title="Permalink to this headline">#</a></h2>
+<span id="id28"></span><h2>is_valid_reference<a class="headerlink" href="#is-valid-reference" title="Permalink to this headline">#</a></h2>
 <p>…</p>
 </div>
 <div class="section" id="is-valid-verse">
-<h2>is_valid_verse<a class="headerlink" href="#is-valid-verse" title="Permalink to this headline">#</a></h2>
+<span id="id29"></span><h2>is_valid_verse<a class="headerlink" href="#is-valid-verse" title="Permalink to this headline">#</a></h2>
 <p>…</p>
 </div>
 <div class="section" id="is-valid-verse-id">
-<h2>is_valid_verse_id<a class="headerlink" href="#is-valid-verse-id" title="Permalink to this headline">#</a></h2>
+<span id="id30"></span><h2>is_valid_verse_id<a class="headerlink" href="#is-valid-verse-id" title="Permalink to this headline">#</a></h2>
 <p>…</p>
 </div>
 <div class="section" id="missingbookfileerror">
-<h2>MissingBookFileError<a class="headerlink" href="#missingbookfileerror" title="Permalink to this headline">#</a></h2>
+<span id="id31"></span><h2>MissingBookFileError<a class="headerlink" href="#missingbookfileerror" title="Permalink to this headline">#</a></h2>
 <p>…</p>
 </div>
 <div class="section" id="missingversefileerror">
-<h2>MissingVerseFileError<a class="headerlink" href="#missingversefileerror" title="Permalink to this headline">#</a></h2>
+<span id="id32"></span><h2>MissingVerseFileError<a class="headerlink" href="#missingversefileerror" title="Permalink to this headline">#</a></h2>
 <p>…</p>
 </div>
 <div class="section" id="normalizedreference">
-<h2>NormalizedReference<a class="headerlink" href="#normalizedreference" title="Permalink to this headline">#</a></h2>
+<span id="id33"></span><h2>NormalizedReference<a class="headerlink" href="#normalizedreference" title="Permalink to this headline">#</a></h2>
 <p>…</p>
 </div>
 <div class="section" id="version">
-<h2>Version<a class="headerlink" href="#version" title="Permalink to this headline">#</a></h2>
+<span id="id34"></span><h2>Version<a class="headerlink" href="#version" title="Permalink to this headline">#</a></h2>
 <p>…</p>
 </div>
 </div>
@@ -922,8 +1158,10 @@
 <li><a class="reference internal" href="#">Technical Reference</a><ul>
 <li><a class="reference internal" href="#book">Book</a></li>
 <li><a class="reference internal" href="#book-abbreviations">Book Abbreviations</a></li>
+<li><a class="reference internal" href="#bookgroup">BookGroup</a><ul>
 <li><a class="reference internal" href="#book-groups">BOOK_GROUPS</a></li>
-<li><a class="reference internal" href="#bookgroup">BookGroup</a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#convert-reference-to-verse-ids">convert_reference_to_verse_ids</a></li>
 <li><a class="reference internal" href="#convert-references-to-verse-ids">convert_references_to_verse_ids</a></li>
 <li><a class="reference internal" href="#convert-verse-ids-to-references">convert_verse_ids_to_references</a></li>

@@ -338,7 +338,7 @@
 </div>
 <div class="section" id="always-include-chapter-numbers">
 <h4>Always Include Chapter Numbers<a class="headerlink" href="#always-include-chapter-numbers" title="Permalink to this headline">#</a></h4>
-<p>If you want to force <strong>pythonbible</strong> to include the chapter numbers even for single chapter books, you can use the <code class="docutils literal notranslate"><span class="pre">always_include_chapter_numbers</span></code> optional parameter of the <code class="docutils literal notranslate"><span class="pre">format_scripture_references</span></code> or <code class="docutils literal notranslate"><span class="pre">format_single_reference</span></code> functions, setting that optional parameter to be <code class="docutils literal notranslate"><span class="pre">True</span></code>.</p>
+<p>If you want to force <strong>pythonbible</strong> to include the chapter numbers even for single chapter books, you can use the <code class="docutils literal notranslate"><span class="pre">always_include_chapter_numbers</span></code> optional parameter of the <a class="reference internal" href="technical_reference.html#format-scripture-references"><span class="std std-ref">format_scripture_references</span></a> or <a class="reference internal" href="technical_reference.html#format-single-reference"><span class="std std-ref">format_single_reference</span></a> functions, setting that optional parameter to be <code class="docutils literal notranslate"><span class="pre">True</span></code>.</p>
 <p>For example:</p>
 <div class="code-cell docutils container">
 <div class="prompt code-cell-prompt notranslate">In [1]:</div>
@@ -454,7 +454,7 @@
 </div>
 <div class="section" id="id5">
 <h4>Always Include Chapter Numbers<a class="headerlink" href="#id5" title="Permalink to this headline">#</a></h4>
-<p>If you want to force <strong>pythonbible</strong> to include the chapter numbers even when the entire book is covered by the reference, you can use the <code class="docutils literal notranslate"><span class="pre">always_include_chapter_numbers</span></code> optional parameter of the <code class="docutils literal notranslate"><span class="pre">format_scripture_references</span></code> or <code class="docutils literal notranslate"><span class="pre">format_single_reference</span></code> functions, setting that optional parameter to be <code class="docutils literal notranslate"><span class="pre">True</span></code>.</p>
+<p>If you want to force <strong>pythonbible</strong> to include the chapter numbers even when the entire book is covered by the reference, you can use the <code class="docutils literal notranslate"><span class="pre">always_include_chapter_numbers</span></code> optional parameter of the <a class="reference internal" href="technical_reference.html#format-scripture-references"><span class="std std-ref">format_scripture_references</span></a> or <a class="reference internal" href="technical_reference.html#format-single-reference"><span class="std std-ref">format_single_reference</span></a> functions, setting that optional parameter to be <code class="docutils literal notranslate"><span class="pre">True</span></code>.</p>
 <p>For example:</p>
 <div class="code-cell docutils container">
 <div class="prompt code-cell-prompt notranslate">In [1]:</div>
@@ -523,7 +523,7 @@
 <div class="section" id="finding-references-by-default-book-groups">
 <h4>Finding References by Default Book Groups<a class="headerlink" href="#finding-references-by-default-book-groups" title="Permalink to this headline">#</a></h4>
 <p>When parsing text to find all references contained within, you can pass in an optional <code class="docutils literal notranslate"><span class="pre">book_groups</span></code> parameter telling <strong>pythonbible</strong> what book groups to take into consideration.</p>
-<p>The <strong>pythonbible</strong> library includes a <code class="docutils literal notranslate"><span class="pre">book_groups</span></code> value for you to use that includes all the book groups described above. To use that, pass <code class="docutils literal notranslate"><span class="pre">pythonbible.BOOK_GROUPS</span></code> as the value for the optional <code class="docutils literal notranslate"><span class="pre">book_groups</span></code> argument.</p>
+<p>The <strong>pythonbible</strong> library includes a <code class="docutils literal notranslate"><span class="pre">book_groups</span></code> value for you to use that includes all the book groups described above. To use that, pass <a class="reference internal" href="technical_reference.html#book-groups"><span class="std std-ref">BOOK_GROUPS</span></a> as the value for the optional <code class="docutils literal notranslate"><span class="pre">book_groups</span></code> argument.</p>
 <p>For example:</p>
 <div class="code-cell docutils container">
 <div class="prompt code-cell-prompt notranslate">In [1]:</div>
@@ -562,7 +562,7 @@
 </pre></div>
 </div>
 </div>
-<p>If you want to include the chapter and verse numbers, set the optional <code class="docutils literal notranslate"><span class="pre">always_include_chapter_numbers</span></code> argument to <code class="docutils literal notranslate"><span class="pre">True</span></code> for the <code class="docutils literal notranslate"><span class="pre">format_scripture_references</span></code> (or <code class="docutils literal notranslate"><span class="pre">format_single_reference</span></code>) function.</p>
+<p>If you want to include the chapter and verse numbers, set the optional <code class="docutils literal notranslate"><span class="pre">always_include_chapter_numbers</span></code> argument to <code class="docutils literal notranslate"><span class="pre">True</span></code> for the <a class="reference internal" href="technical_reference.html#format-scripture-references"><span class="std std-ref">format_scripture_references</span></a> (or <a class="reference internal" href="technical_reference.html#format-single-reference"><span class="std std-ref">format_single_reference</span></a>) function.</p>
 <div class="code-cell docutils container">
 <div class="prompt code-cell-prompt notranslate">In [3]:</div>
 <div class="code-cell-code highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">bible</span><span class="o">.</span><span class="n">format_scripture_references</span><span class="p">(</span>
@@ -582,8 +582,8 @@
 <div class="section" id="finding-references-by-custom-book-groups">
 <h4>Finding References by Custom Book Groups<a class="headerlink" href="#finding-references-by-custom-book-groups" title="Permalink to this headline">#</a></h4>
 <p>If you don’t want to use the book groups as defined above but rather a subset of them or additional categorizations or completely custom categorizations, you can do that by passing in a custom value for the <code class="docutils literal notranslate"><span class="pre">book_groups</span></code> optional argument of the <code class="docutils literal notranslate"><span class="pre">get_references</span></code> function.</p>
-<p>The expected type of the <code class="docutils literal notranslate"><span class="pre">book_groups</span></code> argument is a <code class="docutils literal notranslate"><span class="pre">Dict[str,</span> <span class="pre">List[Book]]</span></code> where the string key is a regular expression to be used to match to that particular book group, and the list of Book objects are the books of the Bible associated with that book group.</p>
-<p>There is a <code class="docutils literal notranslate"><span class="pre">BookGroup</span></code> <code class="docutils literal notranslate"><span class="pre">Enum</span></code> included to help with this.</p>
+<p>The expected type of the <code class="docutils literal notranslate"><span class="pre">book_groups</span></code> argument is a <code class="docutils literal notranslate"><span class="pre">Dict[str,</span> <span class="pre">List[Book]]</span></code> where the string key is a regular expression to be used to match to that particular book group, and the list of <a class="reference internal" href="technical_reference.html#book"><span class="std std-ref">Book</span></a> objects are the books of the Bible associated with that book group.</p>
+<p>There is a <a class="reference internal" href="technical_reference.html#bookgroup"><span class="std std-ref">BookGroup</span></a> <code class="docutils literal notranslate"><span class="pre">Enum</span></code> included to help with this.</p>
 <p>For example, if you wanted to only use the Old Testament and New Testament book groups, the following example using the default book groups would return too many references.</p>
 <div class="code-cell docutils container">
 <div class="prompt code-cell-prompt notranslate">In [1]:</div>

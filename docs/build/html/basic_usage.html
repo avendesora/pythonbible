@@ -157,6 +157,7 @@
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Basic Usage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="advanced_usage.html">Advanced Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="technical_reference.html">Technical Reference</a></li>
 </ul>
 
 </div>
@@ -193,27 +194,8 @@
 <h1>Basic Usage<a class="headerlink" href="#basic-usage" title="Permalink to this headline">#</a></h1>
 <div class="section" id="finding-scripture-references-in-text">
 <h2>Finding Scripture References in Text<a class="headerlink" href="#finding-scripture-references-in-text" title="Permalink to this headline">#</a></h2>
-<p>Given a text, you can search for scripture references and return any that are found in a list of <code class="docutils literal notranslate"><span class="pre">NormalizedReferences</span></code> using the <code class="docutils literal notranslate"><span class="pre">pythonbible.get_references()</span></code> function.</p>
-<dl class="py function">
-<dt class="sig sig-object py" id="pythonbible.get_references">
-<span class="sig-prename descclassname"><span class="pre">pythonbible.</span></span><span class="sig-name descname"><span class="pre">get_references</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">book_groups</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pythonbible.get_references" title="Permalink to this definition">#</a></dt>
-<dd><p>Searches the text for scripture references and returns any that are found in a list of normalized tuple references.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>text</strong> (<em>str</em>) – String that may contain zero or more scripture references</p></li>
-<li><p><strong>book_groups</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>List</em><em>[</em><em>Book</em><em>]</em><em>] or </em><em>None</em>) – Optional dictionary of BookGroup (e.g. Old Testament) to its related regular expression</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>The list of found scripture references</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>List[NormalizedReference]</p>
-</dd>
-</dl>
-</dd></dl>
-<p>For example, given the text “The parable of the lost sheep is told in Matthew 18:12-14 and Luke 15:3-7.” the <code class="docutils literal notranslate"><span class="pre">get_references()</span></code> function should return a list of two <code class="docutils literal notranslate"><span class="pre">NormalizedReferences</span></code>: one for Matthew 18:12-14 and another for Luke 15:3-7.</p>
+<p>Given a text, you can search for scripture references and return any that are found in a list of <a class="reference internal" href="technical_reference.html#normalizedreference"><span class="std std-ref">NormalizedReferences</span></a> using the <a class="reference internal" href="technical_reference.html#get-references"><span class="std std-ref">get_references</span></a> function.</p>
+<p>For example, given the text “The parable of the lost sheep is told in Matthew 18:12-14 and Luke 15:3-7.” the <a class="reference internal" href="technical_reference.html#get-references"><span class="std std-ref">get_references</span></a> function should return a list of two <a class="reference internal" href="technical_reference.html#normalizedreference"><span class="std std-ref">NormalizedReferences</span></a>: one for Matthew 18:12-14 and another for Luke 15:3-7.</p>
 <div class="code-cell docutils container">
 <div class="prompt code-cell-prompt notranslate">In [1]:</div>
 <div class="code-cell-code highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pythonbible</span> <span class="k">as</span> <span class="nn">bible</span>
@@ -242,23 +224,7 @@
 <p>Since the book, chapter, and verses are standardized and unlikely to change, this allows us to reference verses in a very efficient way.</p>
 <div class="section" id="converting-a-single-reference-to-a-list-of-verse-ids">
 <h3>Converting a Single Reference to a List of Verse IDs<a class="headerlink" href="#converting-a-single-reference-to-a-list-of-verse-ids" title="Permalink to this headline">#</a></h3>
-<p>Given a normalized scripture reference, which can contain one or more verses, the <code class="docutils literal notranslate"><span class="pre">pythonbible.convert_reference_to_verse_ids()</span></code> function will convert that normalized scripture reference into a list of verse id integers.</p>
-<dl class="py function">
-<dt class="sig sig-object py" id="pythonbible.convert_reference_to_verse_ids">
-<span class="sig-prename descclassname"><span class="pre">pythonbible.</span></span><span class="sig-name descname"><span class="pre">convert_reference_to_verse_ids</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">reference</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pythonbible.convert_reference_to_verse_ids" title="Permalink to this definition">#</a></dt>
-<dd><p>Converts the given <code class="docutils literal notranslate"><span class="pre">NormalizedReference</span></code> object into a list of verse id integers.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>reference</strong> (<em>NormalizedReference</em>) – A normalized reference</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>The list of verse ids associated with the reference</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>List[int]</p>
-</dd>
-</dl>
-</dd></dl>
+<p>Given a normalized scripture reference, which can contain one or more verses, the <a class="reference internal" href="technical_reference.html#convert-reference-to-verse-ids"><span class="std std-ref">convert_reference_to_verse_ids</span></a> function will convert that normalized scripture reference into a list of verse id integers.</p>
 <p>For example, given the following normalized scripture reference for Genesis 1:1-4:</p>
 <div class="code-cell docutils container">
 <div class="prompt code-cell-prompt notranslate">In [1]:</div>
@@ -280,23 +246,7 @@
 </div>
 <div class="section" id="converting-a-list-of-references-to-a-list-of-verse-ids">
 <h3>Converting a List of References to a List of Verse IDs<a class="headerlink" href="#converting-a-list-of-references-to-a-list-of-verse-ids" title="Permalink to this headline">#</a></h3>
-<p>If you need to convert a list of references (rather than a single reference) to a list of verse ids, use the <code class="docutils literal notranslate"><span class="pre">pythonbible.convert_references_to_verse_ids()</span></code> function rather than the <code class="docutils literal notranslate"><span class="pre">pythonbible.convert_reference_to_verse_ids()</span></code> function.</p>
-<dl class="py function">
-<dt class="sig sig-object py" id="pythonbible.convert_references_to_verse_ids">
-<span class="sig-prename descclassname"><span class="pre">pythonbible.</span></span><span class="sig-name descname"><span class="pre">convert_references_to_verse_ids</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">references</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pythonbible.convert_references_to_verse_ids" title="Permalink to this definition">#</a></dt>
-<dd><p>Converts the given list of <code class="docutils literal notranslate"><span class="pre">NormalizedReference</span></code> objects into a list of verse id integers.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>references</strong> (<em>List</em><em>[</em><em>NormalizedReference</em><em>]</em>) – A list of normalized references</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>The list of verse ids associated with the references</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>List[int]</p>
-</dd>
-</dl>
-</dd></dl>
+<p>If you need to convert a list of references (rather than a single reference) to a list of verse ids, use the <a class="reference internal" href="technical_reference.html#convert-references-to-verse-ids"><span class="std std-ref">convert_references_to_verse_ids</span></a> function rather than the <a class="reference internal" href="technical_reference.html#convert-reference-to-verse-ids"><span class="std std-ref">convert_reference_to_verse_ids</span></a> function.</p>
 <div class="code-cell docutils container">
 <div class="prompt code-cell-prompt notranslate">In [1]:</div>
 <div class="code-cell-code highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pythonbible</span> <span class="k">as</span> <span class="nn">bible</span>
@@ -318,23 +268,7 @@
 </div>
 <div class="section" id="converting-verse-ids-to-references">
 <h2>Converting Verse IDs to References<a class="headerlink" href="#converting-verse-ids-to-references" title="Permalink to this headline">#</a></h2>
-<p>We can also take a list of integer verse ids and convert it back into a list of normalized references using the <code class="docutils literal notranslate"><span class="pre">pythonbible.convert_verse_ids_to_references()</span></code> function.</p>
-<dl class="py function">
-<dt class="sig sig-object py" id="pythonbible.convert_verse_ids_to_references">
-<span class="sig-prename descclassname"><span class="pre">pythonbible.</span></span><span class="sig-name descname"><span class="pre">convert_verse_ids_to_references</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">verse_ids</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pythonbible.convert_verse_ids_to_references" title="Permalink to this definition">#</a></dt>
-<dd><p>Converts the given list of verse id integers into a list of <code class="docutils literal notranslate"><span class="pre">NormalizedReference</span></code> objects.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>verse_ids</strong> (<em>List</em><em>[</em><em>int</em><em>]</em>) – A list of verse ids</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>The list of normalized references associated with the verse ids</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>List[NormalizedReference]</p>
-</dd>
-</dl>
-</dd></dl>
+<p>We can also take a list of integer verse ids and convert it back into a list of normalized references using the <a class="reference internal" href="technical_reference.html#convert-verse-ids-to-references"><span class="std std-ref">convert_verse_ids_to_references</span></a> function.</p>
 <p>For example, the following list of verse ids represents the references Matthew 18:12-14 and Luke 15:3-7.</p>
 <div class="code-cell docutils container">
 <div class="prompt code-cell-prompt notranslate">In [1]:</div>
@@ -359,23 +293,7 @@
 </div>
 <div class="section" id="formatting-scripture-references">
 <h2>Formatting Scripture References<a class="headerlink" href="#formatting-scripture-references" title="Permalink to this headline">#</a></h2>
-<p>The <strong>pythonbible</strong> library includes functionality to format normalized scripture references into a human-readable string for display/print through the <code class="docutils literal notranslate"><span class="pre">pythonbible.format_scripture_references()</span></code> function.</p>
-<dl class="py function">
-<dt class="sig sig-object py" id="pythonbible.format_scripture_references">
-<span class="sig-prename descclassname"><span class="pre">pythonbible.</span></span><span class="sig-name descname"><span class="pre">format_scripture_references</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">references</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pythonbible.format_scripture_references" title="Permalink to this definition">#</a></dt>
-<dd><p>Returns a human-readable string of the given normalized scripture references</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>references</strong> (<em>List</em><em>[</em><em>NormalizedReference</em><em>]</em>) – A list of normalized scripture references</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>A human-readable string of the given normalized scripture references</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>str</p>
-</dd>
-</dl>
-</dd></dl>
+<p>The <strong>pythonbible</strong> library includes functionality to format normalized scripture references into a human-readable string for display/print through the <a class="reference internal" href="technical_reference.html#format-scripture-references"><span class="std std-ref">format_scripture_references</span></a> function.</p>
 <p>This functionality sorts the list of references so that they appear in the same order they would in the Bible and also combines verses into ranges when possible.</p>
 <p>For example:</p>
 <div class="code-cell docutils container">
@@ -401,26 +319,7 @@
 <h2>Formatting Scripture Text - BETA<a class="headerlink" href="#formatting-scripture-text-beta" title="Permalink to this headline">#</a></h2>
 <p>This is still a work in progress, but there is some exising functionality related to this.</p>
 <p>There is a separate Python library <strong>pythonbible-parser</strong> that parses OSIS formatted XML files (and potentially other formats in the future) and generates python objects that contain the text of the Scripture. In the future it should also contain additional formatting and notes. That output for certain versions (namely American Standard Version) have been added to the <strong>pythonbible</strong> library in order to format scripture text for display and print.</p>
-<p>To format a single version, use the <code class="docutils literal notranslate"><span class="pre">pythonbible.get_verse_text()</span></code> function.</p>
-<dl class="py function">
-<dt class="sig sig-object py" id="pythonbible.get_verse_text">
-<span class="sig-prename descclassname"><span class="pre">pythonbible.</span></span><span class="sig-name descname"><span class="pre">get_verse_text</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">verse_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">version</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pythonbible.get_verse_text" title="Permalink to this definition">#</a></dt>
-<dd><p>Returns the scripture text of the given verse id and version of the Bible.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>verse_id</strong> (<em>int</em>) – An integer verse id</p></li>
-<li><p><strong>version</strong> (<em>pythonbible.Version</em>) – The optional version of the Bible, defaults to American Standard Version</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>The scripture text of the given verse id and version</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>str</p>
-</dd>
-</dl>
-</dd></dl>
+<p>To format a single version, use the <a class="reference internal" href="technical_reference.html#get-verse-text"><span class="std std-ref">get_verse_text</span></a> function.</p>
 <p>For example:</p>
 <div class="code-cell docutils container">
 <div class="prompt code-cell-prompt notranslate">In [1]:</div>

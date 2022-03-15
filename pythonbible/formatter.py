@@ -61,9 +61,12 @@ def format_scripture_references(
     references: Optional[List[NormalizedReference]], **kwargs
 ) -> str:
     """
+    Returns a human-readable string of the given normalized scripture references
 
-    :param references: a list of normalized scripture references
-    :return: a string version of the references formatted to be human-readable
+    :param references: A list of normalized scripture references
+    :type references: List[NormalizedReference]
+    :return: A human-readable string of the given normalized scripture references
+    :rtype: str
     """
     if references is None:
         return ""
@@ -315,7 +318,16 @@ def _does_reference_include_all_verses_in_end_book(reference: NormalizedReferenc
     )
 
 
+# TODO - rewrite this to not need a parser
 def format_scripture_text(verse_ids: List[int], **kwargs) -> str:
+    """
+    Returns the formatted scripture text for the given list of verse IDs.
+
+    :param verse_ids: A list of integer verse ids
+    :type verse_ids: List[int]
+    :return: The formatted scripture text for the verse ids
+    :rtype: str
+    """
     one_verse_per_paragraph: bool = kwargs.get("one_verse_per_paragraph", False)
     full_title: bool = kwargs.get("full_title", False)
     format_type: str = kwargs.get("format_type", "html")
@@ -323,16 +335,16 @@ def format_scripture_text(verse_ids: List[int], **kwargs) -> str:
     parser: BibleParser = kwargs.get("parser", DEFAULT_PARSER)
 
     if one_verse_per_paragraph or len(verse_ids) == 1:
-        return format_scripture_text_verse_by_verse(
+        return _format_scripture_text_verse_by_verse(
             verse_ids, parser.version, full_title, format_type, include_verse_numbers
         )
 
-    return format_scripture_text_with_parser(
+    return _format_scripture_text_with_parser(
         verse_ids, parser, full_title, format_type, include_verse_numbers
     )
 
 
-def format_scripture_text_verse_by_verse(
+def _format_scripture_text_verse_by_verse(
     verse_ids: List[int],
     version: Version,
     full_title: bool,
@@ -374,7 +386,7 @@ def format_scripture_text_verse_by_verse(
     return text
 
 
-def format_scripture_text_with_parser(
+def _format_scripture_text_with_parser(
     verse_ids: List[int],
     parser: BibleParser,
     full_title: bool,
@@ -474,8 +486,11 @@ def get_book_titles(
     Given a book of the Bible and optionally a version return the book title.
 
     :param book:
+    :type book: Book
     :param version:
+    :type version: Version
     :return: the book title
+    :rtype: Optional[BookTitles]
     """
     try:
         version_book_tiles: Dict[Book, BookTitles] = _get_version_book_titles(version)

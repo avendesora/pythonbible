@@ -4,20 +4,9 @@ Basic Usage
 Finding Scripture References in Text
 ------------------------------------
 
-Given a text, you can search for scripture references and return any that are found in a list of ``NormalizedReferences`` using the ``pythonbible.get_references()`` function.
+Given a text, you can search for scripture references and return any that are found in a list of :ref:`NormalizedReferences <NormalizedReference>` using the :ref:`get_references` function.
 
-.. py:function:: pythonbible.get_references(text, book_groups=None)
-
-    Searches the text for scripture references and returns any that are found in a list of normalized tuple references.
-
-    :param text: String that may contain zero or more scripture references
-    :type text: str
-    :param book_groups: Optional dictionary of BookGroup (e.g. Old Testament) to its related regular expression
-    :type book_groups: Dict[str, List[Book]] or None
-    :return: The list of found scripture references
-    :rtype: List[NormalizedReference]
-
-For example, given the text "The parable of the lost sheep is told in Matthew 18:12-14 and Luke 15:3-7." the ``get_references()`` function should return a list of two ``NormalizedReferences``: one for Matthew 18:12-14 and another for Luke 15:3-7.
+For example, given the text "The parable of the lost sheep is told in Matthew 18:12-14 and Luke 15:3-7." the :ref:`get_references` function should return a list of two :ref:`NormalizedReferences <NormalizedReference>`: one for Matthew 18:12-14 and another for Luke 15:3-7.
 
 .. code-cell:: python
     :execution-count: 1
@@ -50,16 +39,7 @@ Since the book, chapter, and verses are standardized and unlikely to change, thi
 Converting a Single Reference to a List of Verse IDs
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Given a normalized scripture reference, which can contain one or more verses, the ``pythonbible.convert_reference_to_verse_ids()`` function will convert that normalized scripture reference into a list of verse id integers.
-
-.. py:function:: pythonbible.convert_reference_to_verse_ids(reference)
-
-    Converts the given ``NormalizedReference`` object into a list of verse id integers.
-
-    :param reference: A normalized reference
-    :type reference: NormalizedReference
-    :return: The list of verse ids associated with the reference
-    :rtype: List[int]
+Given a normalized scripture reference, which can contain one or more verses, the :ref:`convert_reference_to_verse_ids` function will convert that normalized scripture reference into a list of verse id integers.
 
 For example, given the following normalized scripture reference for Genesis 1:1-4:
 
@@ -82,16 +62,7 @@ The conversion functionality would return the following list of verse id integer
 Converting a List of References to a List of Verse IDs
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-If you need to convert a list of references (rather than a single reference) to a list of verse ids, use the ``pythonbible.convert_references_to_verse_ids()`` function rather than the ``pythonbible.convert_reference_to_verse_ids()`` function.
-
-.. py:function:: pythonbible.convert_references_to_verse_ids(references)
-
-    Converts the given list of ``NormalizedReference`` objects into a list of verse id integers.
-
-    :param references: A list of normalized references
-    :type references: List[NormalizedReference]
-    :return: The list of verse ids associated with the references
-    :rtype: List[int]
+If you need to convert a list of references (rather than a single reference) to a list of verse ids, use the :ref:`convert_references_to_verse_ids` function rather than the :ref:`convert_reference_to_verse_ids` function.
 
 .. code-cell:: python
     :execution-count: 1
@@ -111,16 +82,7 @@ If you need to convert a list of references (rather than a single reference) to 
 Converting Verse IDs to References
 ----------------------------------
 
-We can also take a list of integer verse ids and convert it back into a list of normalized references using the ``pythonbible.convert_verse_ids_to_references()`` function.
-
-.. py:function:: pythonbible.convert_verse_ids_to_references(verse_ids)
-
-    Converts the given list of verse id integers into a list of ``NormalizedReference`` objects.
-
-    :param verse_ids: A list of verse ids
-    :type verse_ids: List[int]
-    :return: The list of normalized references associated with the verse ids
-    :rtype: List[NormalizedReference]
+We can also take a list of integer verse ids and convert it back into a list of normalized references using the :ref:`convert_verse_ids_to_references` function.
 
 For example, the following list of verse ids represents the references Matthew 18:12-14 and Luke 15:3-7.
 
@@ -146,16 +108,7 @@ The conversion functionality would return the following list of normalized scrip
 Formatting Scripture References
 -------------------------------
 
-The **pythonbible** library includes functionality to format normalized scripture references into a human-readable string for display/print through the ``pythonbible.format_scripture_references()`` function.
-
-.. py:function:: pythonbible.format_scripture_references(references, **kwargs)
-
-    Returns a human-readable string of the given normalized scripture references
-
-    :param references: A list of normalized scripture references
-    :type references: List[NormalizedReference]
-    :return: A human-readable string of the given normalized scripture references
-    :rtype: str
+The **pythonbible** library includes functionality to format normalized scripture references into a human-readable string for display/print through the :ref:`format_scripture_references` function.
 
 This functionality sorts the list of references so that they appear in the same order they would in the Bible and also combines verses into ranges when possible.
 
@@ -184,18 +137,7 @@ This is still a work in progress, but there is some exising functionality relate
 
 There is a separate Python library **pythonbible-parser** that parses OSIS formatted XML files (and potentially other formats in the future) and generates python objects that contain the text of the Scripture. In the future it should also contain additional formatting and notes. That output for certain versions (namely American Standard Version) have been added to the **pythonbible** library in order to format scripture text for display and print.
 
-To format a single version, use the ``pythonbible.get_verse_text()`` function.
-
-.. py:function:: pythonbible.get_verse_text(verse_id, version)
-
-    Returns the scripture text of the given verse id and version of the Bible.
-
-    :param verse_id: An integer verse id
-    :type verse_id: int
-    :param version: The optional version of the Bible, defaults to American Standard Version
-    :type version: pythonbible.Version
-    :return: The scripture text of the given verse id and version
-    :rtype: str
+To format a single version, use the :ref:`get_verse_text` function.
 
 For example:
 
