@@ -1440,7 +1440,7 @@ def get_book_number(verse_id: int) -> int:
     :return: The book number for the given verse id
     :rtype: int
     """
-    return int(verse_id / 1000000)
+    return verse_id // 1000000
 
 
 @lru_cache()
