@@ -39,8 +39,8 @@ def get_references(
     # First replace all roman numerals in the text with integers.
     clean_text: str = convert_all_roman_numerals_to_integers(text)
 
-    for match in re.finditer(SCRIPTURE_REFERENCE_REGULAR_EXPRESSION, clean_text):
-        references.extend(normalize_reference(match[0]))
+    for reference_match in re.finditer(SCRIPTURE_REFERENCE_REGULAR_EXPRESSION, clean_text):
+        references.extend(normalize_reference(reference_match[0]))
 
     if book_groups:
         references.extend(_get_book_group_references(clean_text, book_groups))
@@ -67,12 +67,12 @@ def normalize_reference(reference: str) -> List[NormalizedReference]:
         book_found = False
 
         for book, regular_expression in BOOK_REGULAR_EXPRESSIONS.items():
-            match: Optional[Match[str]] = re.search(
+            reference_match: Optional[Match[str]] = re.search(
                 regular_expression, reference_without_books, re.IGNORECASE
             )
 
-            if match:
-                start, end = match.regs[0]
+            if reference_match:
+                start, end = reference_match.regs[0]
 
                 if start != 0 and not books:
                     continue
@@ -226,9 +226,9 @@ def _process_book_group_match(
     books: List[Book] = []
 
     for regular_expression, books in book_groups.items():
-        match: Optional[Match[str]] = re.match(regular_expression, text, re.IGNORECASE)
+        reference_match: Optional[Match[str]] = re.match(regular_expression, text, re.IGNORECASE)
 
-        if match:
+        if reference_match:
             break
 
     start_book: Book = books[0]
