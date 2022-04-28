@@ -325,9 +325,7 @@ def _does_reference_include_all_verses_in_end_book(reference: NormalizedReferenc
     if reference.end_chapter != max_chapters:
         return False
 
-    return reference.end_verse == get_number_of_verses(
-        reference.end_book, max_chapters
-    )
+    return reference.end_verse == get_number_of_verses(reference.end_book, max_chapters)
 
 
 # TODO - rewrite this to not need a parser

@@ -130,9 +130,7 @@ def _process_sub_references(book: Book, reference: str) -> List[NormalizedRefere
     start_chapter: int = 0
 
     for sub_reference in reference.split(","):
-        if (len(sub_reference) == 0 or sub_reference in ["-", "."]) and len(
-            references
-        ) == 0:
+        if (len(sub_reference) == 0 or sub_reference in ["-", "."]) and not references:
             max_chapter: int = get_number_of_chapters(book)
             max_verse: int = get_number_of_verses(book, max_chapter)
             references.append(NormalizedReference(book, 1, 1, max_chapter, max_verse))
@@ -151,9 +149,6 @@ def _process_sub_references(book: Book, reference: str) -> List[NormalizedRefere
 
         if is_valid_reference(new_reference):
             references.append(new_reference)
-        else:
-            # TODO - ignore? raise error?
-            pass
 
         start_chapter = end_chapter
 

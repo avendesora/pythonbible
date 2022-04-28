@@ -70,6 +70,4 @@ def _get_number_of_verses_in_reference(reference: NormalizedReference) -> int:
 def _get_number_of_verses_in_chapter(
     book: Book, chapter: int, start_verse: Optional[int], end_verse: Optional[int]
 ) -> int:
-    return (
-            (end_verse or get_number_of_verses(book, chapter)) - (start_verse or 1) + 1
-    )
+    return (end_verse or get_number_of_verses(book, chapter)) - (start_verse or 1) + 1
