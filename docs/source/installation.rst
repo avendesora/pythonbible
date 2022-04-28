@@ -12,8 +12,8 @@ Requirements
 
 **pythonbible** has no other dependencies.
 
-Installation
-------------
+How to Install
+--------------
 
 To use **pythonbible**, first install it using pip:
 

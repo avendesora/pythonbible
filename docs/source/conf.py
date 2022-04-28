@@ -18,7 +18,7 @@
 # -- Project information -----------------------------------------------------
 
 project = "pythonbible"
-copyright = "2022, Nathan Patton"
+copyright = "2020 Nathan Patton"
 author = "Nathan Patton"
 
 # The full version, including alpha/beta/rc tags

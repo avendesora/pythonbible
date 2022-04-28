@@ -4,11 +4,19 @@ from typing import List, Optional
 from pythonbible.books import Book
 from pythonbible.normalized_reference import NormalizedReference
 from pythonbible.parser import get_references
-from pythonbible.verses import get_max_number_of_verses, get_number_of_chapters
+from pythonbible.verses import get_number_of_verses, get_number_of_chapters
 
 
 @singledispatch
 def count_verses(references: List[NormalizedReference]) -> int:
+    """
+    Returns the count of verses included in the given list of references.
+
+    :param references: A list of normalized references
+    :type references: List[NormalizedReference]
+    :return: The count of verses included in the given list of references
+    :rtype: int
+    """
     return _get_number_verses_in_references(references)
 
 
@@ -63,5 +71,5 @@ def _get_number_of_verses_in_chapter(
     book: Book, chapter: int, start_verse: Optional[int], end_verse: Optional[int]
 ) -> int:
     return (
-        (end_verse or get_max_number_of_verses(book, chapter)) - (start_verse or 1) + 1
+            (end_verse or get_number_of_verses(book, chapter)) - (start_verse or 1) + 1
     )

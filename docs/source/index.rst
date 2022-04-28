@@ -24,5 +24,6 @@ pythonbible Documentation
 
    installation
    basic_usage
+   book_abbreviations
    advanced_usage
    technical_reference

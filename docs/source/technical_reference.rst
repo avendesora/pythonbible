@@ -93,86 +93,6 @@ Book
     MACCABEES_1, 71, 1 Maccabees
     MACCABEES_2, 72, 2 Maccabees
 
-Book Abbreviations
-------------------
-
-The following abbreviations and alternate titles are currently supported when searching a given text for scripture references.
-
-The search for references is case-insensitive; and, generally, a period trailing the abbreviation is optional (e.g. "Gen", "Gen.", "gen", and "gen." should all evaluate to "Genesis").
-
-This list is subject to change (especially in pre 1.0 releases). If you see anything that needs to be changed, removed, and/or added, please submit an issue in GitHub (or submit a pull request - contributions are welcome).
-
-.. csv-table:: Book Abbreviations
-    :header: "Book", "Abbreviations and Alternate Titles"
-    :widths: 1, 3
-
-    Genesis, "Gen"
-    Exodus, "Exod, Exo"
-    Leviticus, "Lev"
-    Numbers, "Num"
-    Deuteronomy, "Deut, Deu"
-    Joshua, "Josh, Jos, Jsh"
-    Judges, "Judg, Jdgs, Jdg"
-    Ruth, "Rut, Rth"
-    1 Samuel, "1Samuel, I Samuel, 1st Samuel, First Samuel, 1 Sam, 1Sam, I Sam, 1st Sam, First Sam, 1 Sa, 1Sa, I Sa, 1st Sa, First Sa, 1 Sm, 1Sm, I Sm, 1st Sm, First Sm"
-    2 Samuel, "2Samuel, II Samuel, 2nd Samuel, Second Samuel, 2 Sam, 2Sam, II Sam, 2nd Sam, Second Sam, 2 Sa, 2Sa, II Sa, 2nd Sa, Second Sa, 2 Sm, 2Sm, II Sm, 2nd Sm, Second Sm"
-    1 Kings, "1Kings, I Kings, 1st Kings, First Kings, 1 Kgs, 1Kgs, I Kgs, 1st Kgs, First Kgs, 1 Kin, 1Kin, I Kin, 1st Kin, First Kin, 1 Ki, 1Ki, I Ki, 1st Ki, First Ki"
-    2 Kings, "2Kings, II Kings, 2nd Kings, Second Kings, 2 Kgs, 2Kgs, II Kgs, 2nd Kgs, Second Kgs, 2 Kin, 2Kin, II Kin, 2nd Kin, Second Kin, 2 Ki, 2KI, I Ki, 2nd Ki, Second Ki"
-    1 Chronicles, "1Chronicles, I Chronicles, 1st Chronicles, First Chronicles, 1 Chron, 1Chron, I Chron, 1st Chron, First Chron, 1 Chro, 1Chro, I Chro, 1st Chro, First Chro, 1 Chr, 1Chr, I Chr, 1st Chr, First Chr, 1 Ch, 1Ch, I Ch, 1st Ch, First Ch"
-    2 Chronicles, "2Chronicles, II Chronicles, 2nd Chronicles, Second Chronicles, 2 Chron, 2Chron, II Chron, 2nd Chron, Second Chron, 2 Chro, 2Chro, II Chro, 2nd Chro, Second Chro, 2 Chr, 2Chr, II Chr, 2nd Chr, Second Chr, 2 Ch, 2Ch, II Ch, 2nd Ch, Second Ch"
-    Ezra, "Ezr"
-    Nehemiah, "Neh"
-    Esther, "Esth, Est"
-    Job, ""
-    Psalms, "Psalm, Pslm, Psa, Psm, Pss, Ps"
-    Proverbs, "Prov, Pro, Prv"
-    Ecclesiastes, "Eccles, Eccle, Eccl, Ecc, Ec, Qoh"
-    Song of Songs, "Song of Solomon, Song of Sol, Canticle of Canticles, Canticles, Cant, SOS"
-    Isaiah, "Isa"
-    Jeremiah, "Jer"
-    Lamentations, "Lamentations of Jeremiah, Lam"
-    Ezekiel, "Ezek, Eze, Ezk"
-    Daniel, "Dan"
-    Hosea, "Hos"
-    Joel, "Joe"
-    Amos, "Amo"
-    Obadiah, "Obad, Oba"
-    Jonah, "Jon, Jnh"
-    Micah, "Mic"
-    Nahum, "Nah"
-    Habakkuk, "Hab"
-    Zephaniah, "Zeph, Zep"
-    Haggai, "Hag"
-    Zechariah, "Zech, Zec"
-    Malachi, "Mal"
-    Matthew, "Matt, Mat"
-    Mark, "Mar, Mrk"
-    Luke, "Luk"
-    John, "Joh, Jhn, Jo, Jn"
-    Acts, "Acts of the Apostles, Act"
-    Romans, "Rom"
-    1 Corinthians, "1Corinthians, I Corinthians, 1st Corinthians, First Corinthians, 1 Cor, 1Cor, I Cor, 1st Cor, First Cor, 1 Co, 1Co, I Co, 1st Co, First Co"
-    2 Corinthians, "2Corinthians, II Corinthians, 2nd Corinthians, Second Corinthians, 2 Cor, 2Cor, II Cor, 2nd Cor, Second Cor, 2 Co, 2Co, II Co, 2nd Co, Second Co"
-    Galatians, "Gal"
-    Ephesians, "Ephes, Eph"
-    Philippians, "Phil, Php"
-    Colossians, "Col"
-    1 Thessalonians, "1Thessalonians, I Thessalonians, 1st Thessalonians, First Thessalonians, 1 Thess, 1Thess, I Thess, 1st Thess, First Thess, 1 Thes, 1Thes, I Thes, 1st Thes, First Thes, 1 Ths, 1Ths, I Ths, 1st Ths, First Ths"
-    2 Thessalonians, "2Thessalonians, II Thessalonians, 2nd Thessalonians, Second Thessalonians, 2 Thess, 2Thess, II Thess, 2nd Thess, Second Thess, 2 Thes, 2Thes, II Thes, 2nd Thes, Second Thes, 2 Ths, 2Ths, II Ths, 2nd Ths, Second Ths"
-    1 Timothy, "1Timothy, I Timothy, 1st Timothy, First Timothy, 1 Tim, 1Tim, I Tim, 1st Tim, First Tim, 1 Ti, 1Ti, I Ti, 1st Ti, First Ti"
-    2 Timothy, "2Timothy, II Timothy, 2nd Timothy, Second Timothy, 2 Tim, 2Tim, II Tim, 2nd Tim, Second Tim, 2 Ti, 2Ti, II Ti, 2nd Ti, Second Ti"
-    Titus, "Tit"
-    Philemon, "Philem, Phile, Phlm, Phi, Phm"
-    Hebrews, "Heb"
-    James, "Jas"
-    1 Peter, "1Peter, I Peter, 1st Peter, First Peter, 1 Pet, 1Pet, I Pet, 1st Pet, First Pet, 1 Pe, 1Pe, I Pe, 1st Pe, First Pe, 1 Pt, 1Pt, I Pt, 1st Pt, First Pt"
-    2 Peter, "2Peter, II Peter, 2nd Peter, Second Peter, 2 Pet, 2Pet, II Pet, 2nd Pet, Second Pet, 2 Pe, 2Pe, II Pe, 2nd Pe, Second Pe, 2 Pt, 2Pt, II Pt, 2nd Pt, Second Pt"
-    1 John, "1John, I John, 1st John, First John, 1 Joh, 1Joh, I Joh, 1st Joh, First Joh, 1 Jhn, 1Jhn, I Jhn, 1st Jhn, First Jhn, 1 Jo, 1Jo, I Jo, 1st Jo, First Jo, 1 Jn, 1Jn, I Jn, 1st Jn, First Jn"
-    2 John, "2John, II John, 2nd John, Second John, 2 Joh, 2Joh, II Joh, 2nd Joh, Second Joh, 2 Jhn, 2Jhn, II Jhn, 2nd Jhn, Second Jhn, 2 Jo, 2Jo, II Jo, 2nd Jo, Second Jo, 2 Jn, 2Jn, II Jn, 2nd Jn, Second Jn"
-    3 John, "3John, III John, 3rd John, Third John, 3 Joh, 3Joh, III Joh, 3rd Joh, Third Joh, 3 Jhn, 3Jhn, III Jhn, 3rd Jhn, Third Jhn, 3 Jo, 3Jo, III Jo, 3rd Jo, Third Jo, 3 Jn, 3Jn, III Jn, 3rd Jn, Third Jn"
-    Jude, "Jud"
-    Revelation, "Revelation of Jesus Christ, Revelation of John, Revelation of St. John the Divine, Rev, Rev of Jesus Christ, Rev of John, Rev of St. John the Divine"
-
 .. _BookGroup:
 
 BookGroup
@@ -210,7 +130,7 @@ BookGroup
 .. _BOOK_GROUPS:
 
 BOOK_GROUPS
-^^^^^^^^^^^
+-----------
 
 ``BOOK_GROUPS`` is a provided "constant" containing the default dictionary of book groups to be used when allowing book groups to be considered when getting all of the references contained within a text.
 
@@ -225,10 +145,10 @@ convert_reference_to_verse_ids
 
 .. py:function:: pythonbible.convert_reference_to_verse_ids(reference)
 
-    Converts the given ``NormalizedReference`` object into a list of verse id integers.
+    Converts the given :ref:`NormalizedReference` object into a list of verse id integers.
 
     :param reference: A normalized reference
-    :type reference: NormalizedReference
+    :type reference: :ref:`NormalizedReference`
     :return: The list of verse ids associated with the reference
     :rtype: List[int]
 
@@ -239,10 +159,10 @@ convert_references_to_verse_ids
 
 .. py:function:: pythonbible.convert_references_to_verse_ids(references)
 
-    Converts the given list of ``NormalizedReference`` objects into a list of verse id integers.
+    Converts the given list of :ref:`NormalizedReference` objects into a list of verse id integers.
 
     :param references: A list of normalized references
-    :type references: List[NormalizedReference]
+    :type references: List[:ref:`NormalizedReference`]
     :return: The list of verse ids associated with the references
     :rtype: List[int]
 
@@ -253,33 +173,55 @@ convert_verse_ids_to_references
 
 .. py:function:: pythonbible.convert_verse_ids_to_references(verse_ids)
 
-    Converts the given list of verse id integers into a list of ``NormalizedReference`` objects.
+    Converts the given list of verse id integers into a list of :ref:`NormalizedReference` objects.
 
     :param verse_ids: A list of verse ids
     :type verse_ids: List[int]
     :return: The list of normalized references associated with the verse ids
-    :rtype: List[NormalizedReference]
+    :rtype: List[:ref:`NormalizedReference`]
+    :raises InvalidVerseError: if one or more of the verse_ids does not correspond to a valid verse
 
 .. _count_books:
 
 count_books
 -----------
 
-...
+.. py:function:: pythonbible.count_books(references)
+
+    Returns the count of books of the Bible included in the given list of references.
+
+    :param references: A list of normalized references
+    :type references: List[:ref:`NormalizedReference`]
+    :return: The count of books of the Bible included in the given list of references
+    :rtype: int
 
 .. _count_chapters:
 
 count_chapters
 --------------
 
-...
+.. py:function:: pythonbible.count_chapters(references)
+
+    Returns the count of chapters of books the Bible included in the given list of references.
+
+    :param references: A list of normalized references
+    :type references: List[:ref:`NormalizedReference`]
+    :return: The count of chapters of books of the Bible included in the given list of references
+    :rtype: int
 
 .. _count_verses:
 
 count_verses
 ------------
 
-...
+.. py:function:: pythonbible.count_verses(references)
+
+    Returns the count of verses included in the given list of references.
+
+    :param references: A list of normalized references
+    :type references: List[:ref:`NormalizedReference`]
+    :return: The count of verses included in the given list of references
+    :rtype: int
 
 .. _format_scripture_references:
 
@@ -291,7 +233,7 @@ format_scripture_references
     Returns a human-readable string of the given normalized scripture references
 
     :param references: A list of normalized scripture references
-    :type references: List[NormalizedReference]
+    :type references: List[:ref:`NormalizedReference`]
     :return: A human-readable string of the given normalized scripture references
     :rtype: str
 
@@ -302,11 +244,11 @@ format_scripture_text
 
 .. py:function:: pythonbible.format_scripture_text(verse_ids, **kwargs)
 
-    ...
+    Returns the formatted scripture text for the given list of verse IDs.
 
-    :param verse_ids: ...
+    :param verse_ids: A list of integer verse ids
     :type verse_ids: List[int]
-    :return: ...
+    :return: The formatted scripture text for the verse ids
     :rtype: str
 
 .. _format_single_reference:
@@ -314,21 +256,47 @@ format_scripture_text
 format_single_reference
 -----------------------
 
-...
+.. py:function:: pythonbible.format_single_reference(reference, include_books, include_chapters)
+
+    Returns a human-readable string of the given normalized scripture reference
+
+    :param reference: A normalized scripture reference
+    :type reference: :ref:`NormalizedReference`
+    :param include_books: If True includes the book title(s) in the returned reference string, defaults to True
+    :type include_books: bool
+    :param include_chapters: If True includes the chapter number(s) in the returned reference string, defaults to True
+    :type include_chapters: bool
+    :return: A human-readable string of the given normalized scripture reference
+    :rtype: str
 
 .. _get_book_chapter_verse:
 
 get_book_chapter_verse
 ----------------------
 
-...
+.. py:function:: pythonbible.get_book_chapter_verse(verse_id)
+
+    Returns the :ref:`Book`, chapter number, and verse number for the given verse id
+
+    :param verse_id: a verse id
+    :type verse_id: int
+    :return: A tuple containing the :ref:`Book`, chapter number, and verse number for the given verse id
+    :rtype: Tuple[:ref:`Book`, int, int]
+    :raises InvalidVerseError: if the verse id does not correspond to a valid verse
 
 .. _get_book_number:
 
 get_book_number
 ---------------
 
-...
+.. py:function:: pythonbible.get_book_number(verse_id)
+
+    Returns the book number for the given verse id
+
+    :param verse_id: a verse id
+    :type verse_id: int
+    :return: The book number for the given verse id
+    :rtype: int
 
 .. _get_book_titles:
 
@@ -337,35 +305,60 @@ get_book_titles
 
 .. py:function:: pythonbible.get_book_titles(book, version)
 
-    Given a book of the Bible and optionally a version return the book title.
+    Returns the book titles for the given :ref:`Book` and optional :ref:`Version`
 
-    :param book:
-    :type book: Book
-    :param version:
-    :type version: Version
-    :return: the book title
+    :param book: a book of the Bible
+    :type book: :ref:`Book`
+    :param version: a version of the Bible, defaults to American Standard
+    :type version: :ref:`Version`
+    :return: the long and short titles of the given book and version
     :rtype: Optional[BookTitles]
+    :raises MissingBookFileError: if the book file for the given book and version does not exist
 
 .. _get_chapter_number:
 
 get_chapter_number
 ------------------
 
-...
+.. py:function:: pythonbible.get_chapter_number(verse_id)
 
-.. _get_max_number_of_verses:
+    Returns the chapter number for the given verse id
 
-get_max_number_of_verses
-------------------------
-
-...
+    :param verse_id: a verse id
+    :type verse_id: int
+    :return: The chapter number for the given verse id
+    :rtype: int
 
 .. _get_number_of_chapters:
 
 get_number_of_chapters
 ----------------------
 
-...
+.. py:function:: pythonbible.get_number_of_chapters(book)
+
+    Return the number of chapters in a :ref:`Book` of the Bible
+
+    :param book: a book of the Bible
+    :type book: :ref:`Book`
+    :return: the number of chapters in the given book of the Bible
+    :rtype: int
+
+.. _get_number_of_verses:
+
+get_number_of_verses
+------------------------
+
+.. py:function:: pythonbible.get_number_of_verses(book, chapter)
+
+    Return the number of verses in a :ref:`Book` and chapter
+
+    :param book: a book of the Bible
+    :type book: :ref:`Book`
+    :param chapter: a chapter of the given book of the Bible
+    :type chapter: int
+    :return: the number of verses in the given book and chapter
+    :rtype: int
+    :raises InvalidChapterError: if the given chapter isn't a valid chapter for the given book
 
 .. _get_references:
 
@@ -379,7 +372,7 @@ get_references
     :param text: String that may contain zero or more scripture references
     :type text: str
     :param book_groups: Optional dictionary of :ref:`BookGroup` (e.g. Old Testament) to its related regular expression
-    :type book_groups: Dict[str, List[Book]] or None
+    :type book_groups: Dict[str, List[:ref:`Book`]] or None
     :return: The list of found scripture references
     :rtype: List[:ref:`NormalizedReference`]
 
@@ -388,14 +381,33 @@ get_references
 get_verse_id
 ------------
 
-...
+.. py:function:: pythonbible.get_verse_id(book, chapter, verse)
+
+    Return the verse id for the given :ref:`Book`, chapter number, and verse number
+
+    :param book: a book of the Bible
+    :type book: :ref:`Book`
+    :param chapter: a chapter number for the given book of the Bible
+    :type chapter: int
+    :param verse: a verse number for the given book and chapter
+    :type verse: int
+    :return: the verse id for the given book, chapter, and verse
+    :rtype: int
+    :raises InvalidVerseError: if the verse doesn't exist for the given book, chapter, and verse
 
 .. _get_verse_number:
 
 get_verse_number
 ----------------
 
-...
+.. py:function:: pythonbible.get_verse_number(verse_id)
+
+    Returns the verse number for the given verse id
+
+    :param verse_id: a verse id
+    :type verse_id: int
+    :return: The verse number for the given verse id
+    :rtype: int
 
 .. _get_verse_text:
 
@@ -406,12 +418,14 @@ get_verse_text
 
     Returns the scripture text of the given verse id and version of the Bible.
 
-    :param verse_id: An integer verse id
+    :param verse_id: a verse id
     :type verse_id: int
-    :param version: The optional version of the Bible, defaults to American Standard Version
-    :type version: Version
+    :param version: a version of the Bible, defaults to American Standard
+    :type version: :ref:`Version`
     :return: The scripture text of the given verse id and version
     :rtype: str
+    :raises InvalidVerseError: if the given verse id does not correspond to a valid verse
+    :raises MissingVerseFileError: if the verse file for the given verse_id and version does not exist
 
 .. _InvalidBookError:
 
