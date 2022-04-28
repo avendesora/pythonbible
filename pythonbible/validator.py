@@ -5,7 +5,7 @@ from pythonbible.normalized_reference import NormalizedReference
 from pythonbible.verses import (
     MAX_VERSE_NUMBER_BY_BOOK_AND_CHAPTER,
     VERSE_IDS,
-    get_max_number_of_verses,
+    get_number_of_verses,
     get_verse_id,
 )
 
@@ -92,6 +92,6 @@ def is_valid_verse(book: Book, chapter: int, verse: int) -> bool:
     if verse is None or not isinstance(verse, int):
         return False
 
-    max_verse: int = get_max_number_of_verses(book, chapter)
+    max_verse: int = get_number_of_verses(book, chapter)
 
     return 1 <= verse <= max_verse

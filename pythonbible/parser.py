@@ -15,7 +15,7 @@ from .regular_expressions import (
 from .roman_numeral_util import convert_all_roman_numerals_to_integers
 from .validator import is_valid_reference
 from .verses import (
-    get_max_number_of_verses,
+    get_number_of_verses,
     get_number_of_chapters,
     is_single_chapter_book,
 )
@@ -27,9 +27,12 @@ def get_references(
     """
     Searches the text for scripture references and returns any that are found in a list of normalized tuple references.
 
-    :param text: a string that may contain zero or more scripture references
-    :param book_groups: an optional dictionary of BookGroup (e.g. Old Testament) to its related regular expression
-    :return: a list of tuples. each tuple is in the format (book, start_chapter, start_verse, end_chapter, end_verse)
+    :param text: String that may contain zero or more scripture references
+    :type text: str
+    :param book_groups: Optional dictionary of BookGroup (e.g. Old Testament) to its related regular expression
+    :type book_groups: Dict[str, List[Book]] or None
+    :return: The list of found scripture references
+    :rtype: List[NormalizedReference]
     """
     references: List[NormalizedReference] = []
 
@@ -131,7 +134,7 @@ def _process_sub_references(book: Book, reference: str) -> List[NormalizedRefere
             references
         ) == 0:
             max_chapter: int = get_number_of_chapters(book)
-            max_verse: int = get_max_number_of_verses(book, max_chapter)
+            max_verse: int = get_number_of_verses(book, max_chapter)
             references.append(NormalizedReference(book, 1, 1, max_chapter, max_verse))
             continue
 
@@ -183,7 +186,7 @@ def _process_sub_reference(
             start_chapter = int(min_chapter_and_verse[0].strip())
             start_verse = 1
             end_chapter = start_chapter
-            end_verse = get_max_number_of_verses(book, end_chapter)
+            end_verse = get_number_of_verses(book, end_chapter)
             no_verses = True
     elif len(min_chapter_and_verse) == 2:
         start_chapter = int(min_chapter_and_verse[0].strip())
@@ -197,7 +200,7 @@ def _process_sub_reference(
         if len(max_chapter_and_verse) == 1:
             if no_verses:
                 end_chapter = int(max_chapter_and_verse[0].strip())
-                end_verse = get_max_number_of_verses(book, end_chapter)
+                end_verse = get_number_of_verses(book, end_chapter)
             else:
                 end_verse = int(max_chapter_and_verse[0].strip())
         elif len(max_chapter_and_verse) == 2:
@@ -254,5 +257,5 @@ def _build_book_group_reference(
     start_book: Book, end_book: Book
 ) -> NormalizedReference:
     max_chapter: int = get_number_of_chapters(end_book)
-    max_verse: int = get_max_number_of_verses(end_book, max_chapter)
+    max_verse: int = get_number_of_verses(end_book, max_chapter)
     return NormalizedReference(start_book, 1, 1, max_chapter, max_verse, end_book)

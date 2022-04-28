@@ -130,7 +130,7 @@ def test_cross_book_reference_just_books() -> None:
     # Then the parser does not raise an error and returns the appropriate reference
     deuteronomy: bible.Book = bible.Book.DEUTERONOMY
     max_chapter: int = bible.get_number_of_chapters(deuteronomy)
-    max_verse: int = bible.get_max_number_of_verses(deuteronomy, max_chapter)
+    max_verse: int = bible.get_number_of_verses(deuteronomy, max_chapter)
     assert references == [
         bible.NormalizedReference(
             bible.Book.GENESIS, 1, 1, max_chapter, max_verse, deuteronomy
@@ -165,7 +165,7 @@ def test_book_group_reference() -> None:
     # Then the parser returns the appropriate book group reference
     malachi: bible.Book = bible.Book.MALACHI
     max_chapter: int = bible.get_number_of_chapters(malachi)
-    max_verse: int = bible.get_max_number_of_verses(malachi, max_chapter)
+    max_verse: int = bible.get_number_of_verses(malachi, max_chapter)
     assert references == [
         bible.NormalizedReference(
             bible.Book.GENESIS, 1, 1, max_chapter, max_verse, malachi
