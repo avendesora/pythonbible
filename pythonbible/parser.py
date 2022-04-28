@@ -39,7 +39,9 @@ def get_references(
     # First replace all roman numerals in the text with integers.
     clean_text: str = convert_all_roman_numerals_to_integers(text)
 
-    for reference_match in re.finditer(SCRIPTURE_REFERENCE_REGULAR_EXPRESSION, clean_text):
+    for reference_match in re.finditer(
+        SCRIPTURE_REFERENCE_REGULAR_EXPRESSION, clean_text
+    ):
         references.extend(normalize_reference(reference_match[0]))
 
     if book_groups:
@@ -226,7 +228,9 @@ def _process_book_group_match(
     books: List[Book] = []
 
     for regular_expression, books in book_groups.items():
-        reference_match: Optional[Match[str]] = re.match(regular_expression, text, re.IGNORECASE)
+        reference_match: Optional[Match[str]] = re.match(
+            regular_expression, text, re.IGNORECASE
+        )
 
         if reference_match:
             break
