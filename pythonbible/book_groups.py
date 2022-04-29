@@ -5,6 +5,18 @@ from .books import Book
 
 
 class BookGroup(Enum):
+    """BookGroup is an ``Enum`` containing the default Bible book groupings
+
+    :param name: the unique text identifier of the book group
+    :type name: str
+    :param value: the unique numerical identifier of the book group
+    :type value: int
+    :param regular_expression: the regular expression used to find mentions of the book group when searching for references
+    :type regular_expression: str
+    :param books: the list of books included in the book group
+    :type books: List[str]
+    """
+
     OLD_TESTAMENT = auto()
     OLD_TESTAMENT_LAW = auto()
     OLD_TESTAMENT_HISTORY = auto()

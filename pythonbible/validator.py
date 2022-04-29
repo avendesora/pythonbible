@@ -5,27 +5,32 @@ from pythonbible.normalized_reference import NormalizedReference
 from pythonbible.verses import (
     MAX_VERSE_NUMBER_BY_BOOK_AND_CHAPTER,
     VERSE_IDS,
-    get_max_number_of_verses,
+    get_number_of_verses,
     get_verse_id,
 )
 
 
 def is_valid_verse_id(verse_id: int) -> bool:
     """
-    Checks to see if the given verse_id is in the list of valid verse ids.
+    Checks to see if the given verse_id corresponds to a valid verse in the Bible
 
-    :param verse_id:
+    :param verse_id: a verse id
+    :type verse_id: int
     :return: True if the verse_id is in the list of valid verse ids; otherwise, False
+    :rtype: bool
     """
     return verse_id in VERSE_IDS
 
 
 def is_valid_reference(reference: NormalizedReference) -> bool:
     """
-    Checks to see if the given reference is a valid normalized scripture reference.
+    Checks to see if the given NormalizedReference is a valid scripture reference
+    (i.e. all of the verses in the reference are valid verses)
 
-    :param reference:
+    :param reference: a normalized reference
+    :type reference: NormalizedReference
     :return: True if the reference is valid; otherwise, False
+    :rtype: bool
     """
     if reference is None or not isinstance(reference, NormalizedReference):
         return False
@@ -50,21 +55,27 @@ def is_valid_reference(reference: NormalizedReference) -> bool:
 
 def is_valid_book(book: Book) -> bool:
     """
-    Checks to see if the given book is a valid book of the Bible.
+    Checks to see if the given book is a valid book of the Bible
 
-    :param book:
-    :return: True if the book is valid; otherwise, False
+    :param book: a book of the Bible
+    :type book: Book
+    :return: True if the given book is valid; otherwise, False
+    :rtype: bool
     """
     return book is not None and isinstance(book, Book)
 
 
 def is_valid_chapter(book: Book, chapter: int) -> bool:
     """
-    Checks to see if the given chapter number is a valid chapter number for the given book.
+    Checks to see if the given Book is a valid book of the Bible; and, if so, checks
+    to see if the given chapter number is a valid chapter number for the given book
 
-    :param book:
-    :param chapter:
-    :return: True, if the chapter is valid for the book; otherwise, False
+    :param book: a book of the Bible
+    :type book: Book
+    :param chapter: a chapter number for the given book of the Bible
+    :type chapter: int
+    :return: True if the given book and chapter are valid; otherwise, False
+    :rtype: bool
     """
     if not is_valid_book(book):
         return False
@@ -79,12 +90,18 @@ def is_valid_chapter(book: Book, chapter: int) -> bool:
 
 def is_valid_verse(book: Book, chapter: int, verse: int) -> bool:
     """
-    Checks to see if the given verse is a valid verse number for the given book and chapter.
+    Checks to see if the given :ref:`Book` is a valid book of the Bible,
+    then checks to see if the given chapter number is a valid chapter number for the given book,
+    then checks to see if the given verse number is a valid verse number for the given book and chapter
 
-    :param book:
-    :param chapter:
-    :param verse:
-    :return: True if the verse is valid for the book and chapter; otherwise, False
+    :param book: a book of the Bible
+    :type book: :ref:`Book`
+    :param chapter: a chapter number for the given book of the Bible
+    :type chapter: int
+    :param verse: a verse number for the given book and chapter
+    :type verse: int
+    :return: True if the given book, chapter, and verse are valid; otherwise, False
+    :rtype: bool
     """
     if not is_valid_chapter(book, chapter):
         return False
@@ -92,6 +109,6 @@ def is_valid_verse(book: Book, chapter: int, verse: int) -> bool:
     if verse is None or not isinstance(verse, int):
         return False
 
-    max_verse: int = get_max_number_of_verses(book, chapter)
+    max_verse: int = get_number_of_verses(book, chapter)
 
     return 1 <= verse <= max_verse

@@ -1,0 +1,4 @@
+bandit
+black
+mypy
+prospector

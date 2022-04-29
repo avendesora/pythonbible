@@ -7,7 +7,14 @@ from pythonbible.parser import get_references
 
 @singledispatch
 def count_books(references: List[NormalizedReference]) -> int:
-    """Return the count of books of the Bible included in the given reference(s)."""
+    """
+    Returns the count of books of the Bible included in the given list of references.
+
+    :param references: A list of normalized references
+    :type references: List[NormalizedReference]
+    :return: The count of books of the Bible included in the given list of references
+    :rtype: int
+    """
     return _get_number_of_books_in_references(references)
 
 

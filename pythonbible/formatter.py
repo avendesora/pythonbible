@@ -20,7 +20,7 @@ from pythonbible.normalized_reference import NormalizedReference
 from pythonbible.verses import (
     VERSE_IDS,
     get_book_chapter_verse,
-    get_max_number_of_verses,
+    get_number_of_verses,
     get_number_of_chapters,
     is_single_chapter_book,
 )
@@ -61,9 +61,12 @@ def format_scripture_references(
     references: Optional[List[NormalizedReference]], **kwargs
 ) -> str:
     """
+    Returns a human-readable string of the given normalized scripture references
 
-    :param references: a list of normalized scripture references
-    :return: a string version of the references formatted to be human-readable
+    :param references: A list of normalized scripture references
+    :type references: List[NormalizedReference]
+    :return: A human-readable string of the given normalized scripture references
+    :rtype: str
     """
     if references is None:
         return ""
@@ -135,6 +138,18 @@ def format_single_reference(
     include_chapters: bool = True,
     **kwargs,
 ) -> str:
+    """
+    Returns a human-readable string of the given normalized scripture reference
+
+    :param reference: A normalized scripture reference
+    :type reference: NormalizedReference
+    :param include_books: If True includes the book title(s) in the returned reference string, defaults to True
+    :type include_books: bool
+    :param include_chapters: If True includes the chapter number(s) in the returned reference string, defaults to True
+    :type include_chapters: bool
+    :return: A human-readable string of the given normalized scripture reference
+    :rtype: str
+    """
     start_book: str = _get_start_book(reference, include_books, **kwargs)
     start_chapter: str = _get_start_chapter(reference, include_chapters, **kwargs)
     start_verse: str = _get_start_verse(reference, **kwargs)
@@ -301,7 +316,7 @@ def _does_reference_include_all_verses_in_start_book(reference: NormalizedRefere
     if reference.end_chapter != max_chapters:
         return False
 
-    return reference.end_verse == get_max_number_of_verses(reference.book, max_chapters)
+    return reference.end_verse == get_number_of_verses(reference.book, max_chapters)
 
 
 def _does_reference_include_all_verses_in_end_book(reference: NormalizedReference):
@@ -310,12 +325,19 @@ def _does_reference_include_all_verses_in_end_book(reference: NormalizedReferenc
     if reference.end_chapter != max_chapters:
         return False
 
-    return reference.end_verse == get_max_number_of_verses(
-        reference.end_book, max_chapters
-    )
+    return reference.end_verse == get_number_of_verses(reference.end_book, max_chapters)
 
 
+# TODO - rewrite this to not need a parser
 def format_scripture_text(verse_ids: List[int], **kwargs) -> str:
+    """
+    Returns the formatted scripture text for the given list of verse IDs.
+
+    :param verse_ids: A list of integer verse ids
+    :type verse_ids: List[int]
+    :return: The formatted scripture text for the verse ids
+    :rtype: str
+    """
     one_verse_per_paragraph: bool = kwargs.get("one_verse_per_paragraph", False)
     full_title: bool = kwargs.get("full_title", False)
     format_type: str = kwargs.get("format_type", "html")
@@ -323,16 +345,16 @@ def format_scripture_text(verse_ids: List[int], **kwargs) -> str:
     parser: BibleParser = kwargs.get("parser", DEFAULT_PARSER)
 
     if one_verse_per_paragraph or len(verse_ids) == 1:
-        return format_scripture_text_verse_by_verse(
+        return _format_scripture_text_verse_by_verse(
             verse_ids, parser.version, full_title, format_type, include_verse_numbers
         )
 
-    return format_scripture_text_with_parser(
+    return _format_scripture_text_with_parser(
         verse_ids, parser, full_title, format_type, include_verse_numbers
     )
 
 
-def format_scripture_text_verse_by_verse(
+def _format_scripture_text_verse_by_verse(
     verse_ids: List[int],
     version: Version,
     full_title: bool,
@@ -374,7 +396,7 @@ def format_scripture_text_verse_by_verse(
     return text
 
 
-def format_scripture_text_with_parser(
+def _format_scripture_text_with_parser(
     verse_ids: List[int],
     parser: BibleParser,
     full_title: bool,
@@ -430,11 +452,16 @@ def _format_paragraph(paragraph: Optional[str], format_type: str) -> str:
 @lru_cache()
 def get_verse_text(verse_id: int, version: Version = DEFAULT_VERSION) -> Optional[str]:
     """
-    Given a verse id and, optionally, a Bible version, return the text for that verse.
+    Returns the scripture text of the given verse id and version of the Bible.
 
-    :param verse_id:
-    :param version:
-    :return: the verse text
+    :param verse_id: a verse id
+    :type verse_id: int
+    :param version: a version of the Bible, defaults to American Standard
+    :type version: :ref:`Version`
+    :return: The scripture text of the given verse id and version
+    :rtype: str
+    :raises InvalidVerseError: if the given verse id does not correspond to a valid verse
+    :raises MissingVerseFileError: if the verse file for the given verse_id and version does not exist
     """
     if verse_id not in VERSE_IDS:
         raise InvalidVerseError(verse_id=verse_id)
@@ -471,11 +498,15 @@ def get_book_titles(
     book: Book, version: Version = DEFAULT_VERSION
 ) -> Optional[BookTitles]:
     """
-    Given a book of the Bible and optionally a version return the book title.
+    Returns the book titles for the given :ref:`Book` and optional :ref:`Version`
 
-    :param book:
-    :param version:
-    :return: the book title
+    :param book: a book of the Bible
+    :type book: :ref:`Book`
+    :param version: a version of the Bible, defaults to American Standard
+    :type version: :ref:`Version`
+    :return: the long and short titles of the given book and version
+    :rtype: Optional[BookTitles]
+    :raises MissingBookFileError: if the book file for the given book and version does not exist
     """
     try:
         version_book_tiles: Dict[Book, BookTitles] = _get_version_book_titles(version)

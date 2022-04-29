@@ -9,9 +9,12 @@ from pythonbible.verses import VERSE_IDS, get_book_chapter_verse, get_verse_id
 
 def convert_references_to_verse_ids(references: List[NormalizedReference]) -> List[int]:
     """
+    Converts the given list of NormalizedReference objects into a list of verse id integers.
 
-    :param references: a list of normalized references
-    :return: the list of verse ids associated with each of the references in the reference list
+    :param references: A list of normalized references
+    :type references: List[NormalizedReference]
+    :return: The list of verse ids associated with the references
+    :rtype: List[int]
     """
     verse_ids: List[int] = []
 
@@ -24,9 +27,12 @@ def convert_references_to_verse_ids(references: List[NormalizedReference]) -> Li
 
 def convert_reference_to_verse_ids(reference: NormalizedReference) -> List[int]:
     """
+    Converts the given NormalizedReference object into a list of verse id integers.
 
-    :param reference: a normalized reference
-    :return: the list of verse ids associated with the reference
+    :param reference: A normalized reference
+    :type reference: NormalizedReference
+    :return: The list of verse ids associated with the reference
+    :rtype: List[int]
     """
     if reference is None:
         return []
@@ -46,9 +52,13 @@ def convert_reference_to_verse_ids(reference: NormalizedReference) -> List[int]:
 
 def convert_verse_ids_to_references(verse_ids: List[int]) -> List[NormalizedReference]:
     """
+    Converts the given list of verse id integers into a list of NormalizedReference objects.
 
-    :param verse_ids:
-    :return: a list of normalized references
+    :param verse_ids: A list of verse ids
+    :type verse_ids: List[int]
+    :return: The list of normalized references associated with the verse ids
+    :rtype: List[NormalizedReference]
+    :raises InvalidVerseError: if one or more of the verse_ids does not correspond to a valid verse
     """
     references: List[NormalizedReference] = []
 
