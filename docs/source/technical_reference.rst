@@ -6,14 +6,16 @@ Technical Reference
 Book
 ----
 
-``Book`` is an ``Enum`` containing all of the books of the Bible as members.
-
-
 .. py:class:: Book
 
-    :name: The string identifier of the book
-    :value: The integer value of the book
-    :title: The common English name of the book
+    Book is an ``IntEnum`` that contains all of the books of the Bible
+
+    :param name: the unique text identifier of the book
+    :type name: str
+    :param value: the unique numerical identifier of the book
+    :type value: int
+    :param title: the common English name of the book
+    :type title: str
 
 
 .. csv-table:: Book Members
@@ -98,15 +100,18 @@ Book
 BookGroup
 ---------
 
-``BookGroup`` is an ``Enum`` containing the default Bible book groupings
-
-
 .. py:class:: BookGroup
 
-    :name: The string identifier of the book group
-    :value: The integer value of the book group
-    :regular_expression: The regular expression used to find mentions of the book group when searching for references
-    :books: The list of books included in the book group
+    BookGroup is an ``Enum`` containing the default Bible book groupings
+
+    :param name: the unique text identifier of the book group
+    :type name: str
+    :param value: the unique numerical identifier of the book group
+    :type value: int
+    :param regular_expression: the regular expression used to find mentions of the book group when searching for references
+    :type regular_expression: str
+    :param books: the list of books included in the book group
+    :type books: List[str]
 
 .. csv-table:: Book Group Members
     :header: "Name", "Value", "Regular Expression", "Books"
@@ -432,81 +437,157 @@ get_verse_text
 InvalidBookError
 ----------------
 
-...
+.. py:exception:: pythonbible.InvalidBookError
+
+    Raised when the book id is not valid
 
 .. _InvalidChapterError:
 
 InvalidChapterError
 -------------------
 
-...
+.. py:exception:: pythonbible.InvalidChapterError
+
+    Raised when the chapter number is not a valid chapter number for the given book of the Bible
 
 .. _InvalidVerseError:
 
 InvalidVerseError
 -----------------
 
-...
+.. py:exception:: pythonbible.InvalidVerseError
+
+    Raised when the verse id or book, chapter, and verse number being processed is not a valid Bible verse
 
 .. _is_valid_book:
 
 is_valid_book
 -------------
 
-...
+.. py:function:: pythonbible.is_valid_book(book)
+
+    Checks to see if the given :ref:`Book` is a valid book of the Bible
+
+    :param book: a book of the Bible
+    :type book: :ref:`Book`
+    :return: True if the given book is valid; otherwise, False
+    :rtype: bool
 
 .. _is_valid_chapter:
 
 is_valid_chapter
 ----------------
 
-...
+.. py:function:: pythonbible.is_valid_chapter(book, chapter)
+
+    Checks to see if the given :ref:`Book` is a valid book of the Bible; and, if so, checks to see if the given chapter number is a valid chapter number for the given book
+
+    :param book: a book of the Bible
+    :type book: :ref:`Book`
+    :param chapter: a chapter number for the given book of the Bible
+    :type chapter: int
+    :return: True if the given book and chapter are valid; otherwise, False
+    :rtype: bool
 
 .. _is_valid_reference:
 
 is_valid_reference
 ------------------
 
-...
+.. py:function:: pythonbible.is_valid_reference(reference)
+
+    Checks to see if the given :ref:`NormalizedReference` is a valid scripture reference (i.e. all of the verses in the reference are valid verses)
+
+    :param reference: a normalized reference
+    :type reference: :ref:`NormalizedReference`
+    :return: True if the reference is valid; otherwise, False
+    :rtype: bool
 
 .. _is_valid_verse:
 
 is_valid_verse
 --------------
 
-...
+.. py:function:: pythonbible.is_valid_verse(book, chapter, verse)
+
+    Checks to see if the given :ref:`Book` is a valid book of the Bible, then checks to see if the given chapter number is a valid chapter number for the given book, then checks to see if the given verse number is a valid verse number for the given book and chapter
+
+    :param book: a book of the Bible
+    :type book: :ref:`Book`
+    :param chapter: a chapter number for the given book of the Bible
+    :type chapter: int
+    :param verse: a verse number for the given book and chapter
+    :type verse: int
+    :return: True if the given book, chapter, and verse are valid; otherwise, False
+    :rtype: bool
 
 .. _is_valid_verse_id:
 
 is_valid_verse_id
 -----------------
 
-...
+.. py:function:: pythonbible.is_valid_verse_id(verse_id)
+
+    Checks to see if the given verse_id corresponds to a valid verse in the Bible
+
+    :param verse_id: a verse id
+    :type verse_id: int
+    :return: True if the verse_id is in the list of valid verse ids; otherwise, False
+    :rtype: bool
 
 .. _MissingBookFileError:
 
 MissingBookFileError
 --------------------
 
-...
+.. py:exception:: pythonbible.MissingBookFileError
+
+    Raised when the book file for a given version is not found
 
 .. _MissingVerseFileError:
 
 MissingVerseFileError
 ---------------------
 
-...
+.. py:exception:: pythonbible.MissingVerseFileError
+
+    Raised when the verse file for a given version is not found
 
 .. _NormalizedReference:
 
 NormalizedReference
 -------------------
 
-...
+.. py:class:: pythonbible.NormalizedReference
+
+    NormalizedReference is a dataclass that represents a single scripture reference that contains one or more consecutive verses
+
+    :param book: the first book of the Bible in the reference
+    :type book: :ref:`Book`
+    :param start_chapter: the number of the first chapter in the reference
+    :type start_chapter: int
+    :param start_verse: the number of the first verse in the reference
+    :type start_verse: int
+    :param end_chapter: the number of the last chapter in the reference
+    :type end_chapter: int
+    :param end_verse: the number of the last verse in the reference
+    :type end_verse: int
+    :param end_book: the last book of the Bible in the reference if the reference contains more than one book, defaults to None
+    :type end_book: :ref:`Book`
+
 
 .. _Version:
 
 Version
 -------
 
-...
+.. py:class:: pythonbible.Version
+
+    Version is an ``Enum`` containing all of the currently known Ancient Language and English versions of the Bible
+
+    :param name: the unique text identifier of the version
+    :type name: str
+    :param value: the unique numerical identifier of the version
+    :type value: int
+    :param title: the English title of the version
+    :type title: str
