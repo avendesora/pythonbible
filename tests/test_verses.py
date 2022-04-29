@@ -41,7 +41,7 @@ def test_get_verse_id_invalid_verse(
 def test_get_max_verse_number(book: bible.Book, chapter: int) -> None:
     # Given a book of the Bible and a chapter number
     # When we get the maximum verse number for that book and chapter
-    max_verse_number: int = bible.get_max_number_of_verses(book, chapter)
+    max_verse_number: int = bible.get_number_of_verses(book, chapter)
 
     # Then the maximum verse number is the expected value
     assert max_verse_number == 31
@@ -54,7 +54,7 @@ def test_get_max_verse_number_invalid_chapter(
     # When we attempt to get the maximum verse number for that book and chapter
     # Then an exception is raise.
     with pytest.raises(bible.InvalidChapterError):
-        bible.get_max_number_of_verses(book, invalid_chapter)
+        bible.get_number_of_verses(book, invalid_chapter)
 
 
 def test_get_book_chapter_verse(

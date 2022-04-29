@@ -3,6 +3,16 @@ from typing import Dict
 
 
 class Book(IntEnum):
+    """Book is an IntEnum that contains all of the books of the Bible
+
+    :param name: the unique text identifier of the book
+    :type name: str
+    :param value: the unique number identifier of the book
+    :type value: int
+    :param title: the common English name of the book
+    :type title: str
+    """
+
     GENESIS = 1
     EXODUS = 2
     LEVITICUS = 3

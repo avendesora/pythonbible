@@ -1342,10 +1342,12 @@ MAX_VERSE_NUMBER_BY_BOOK_AND_CHAPTER: Dict[Book, List[int]] = {
 @lru_cache()
 def get_number_of_chapters(book: Book) -> int:
     """
-    Given a book of the Bible, return the int number of chapters in that book.
+    Return the number of chapters in a Book of the Bible
 
-    :param book:
-    :return: the int number of chapters in the given book of the Bible.
+    :param book: a book of the Bible
+    :type book: Book
+    :return: the number of chapters in the given book of the Bible
+    :rtype: int
     """
     return len(MAX_VERSE_NUMBER_BY_BOOK_AND_CHAPTER[book])
 
@@ -1356,13 +1358,17 @@ def is_single_chapter_book(book: Book) -> bool:
 
 
 @lru_cache()
-def get_max_number_of_verses(book: Book, chapter: int) -> int:
+def get_number_of_verses(book: Book, chapter: int) -> int:
     """
-    Given a Book enum and chapter number int, if valid, return the int number of verses in that Book and chapter.
+    Return the number of verses in a Book and chapter
 
-    :param book:
-    :param chapter:
-    :return: the maximum integer verse number for the given book and chapter
+    :param book: a book of the Bible
+    :type book: Book
+    :param chapter: a chapter of the given book of the Bible
+    :type chapter: int
+    :return: the number of verses in the given book and chapter
+    :rtype: int
+    :raises InvalidChapterError: if the given chapter isn't a valid chapter for the given book
     """
     chapter_list: List[int] = MAX_VERSE_NUMBER_BY_BOOK_AND_CHAPTER[book]
 
@@ -1378,16 +1384,21 @@ def get_max_number_of_verses(book: Book, chapter: int) -> int:
 @lru_cache()
 def get_verse_id(book: Book, chapter: int, verse: int) -> int:
     """
-    Given the Book enum, chapter number int, and verse number int return the verse id if it exists.
+    Return the verse id for the given Book, chapter number, and verse number
 
-    :param book:
-    :param chapter:
-    :param verse:
-    :return: the integer verse id for the given book, chapter, and verse
+    :param book: a book of the Bible
+    :type book: Book
+    :param chapter: a chapter number for the given book of the Bible
+    :type chapter: int
+    :param verse: a verse number for the given book and chapter
+    :type verse: int
+    :return: the verse id for the given book, chapter, and verse
+    :rtype: int
+    :raises InvalidVerseError: if the verse doesn't exist for the given book, chapter, and verse
     """
 
     # Not only will this get the max verse number, it will validate the chapter.
-    max_verse_number: Optional[int] = get_max_number_of_verses(book, chapter)
+    max_verse_number: Optional[int] = get_number_of_verses(book, chapter)
 
     if max_verse_number and not 1 <= verse <= max_verse_number:
         raise InvalidVerseError(
@@ -1401,10 +1412,13 @@ def get_verse_id(book: Book, chapter: int, verse: int) -> int:
 @lru_cache()
 def get_book_chapter_verse(verse_id: int) -> Tuple[Book, int, int]:
     """
-    Given a verse id return the tuple containing the Book enum, the chapter number int, and the verse number int.
+    Returns the Book, chapter number, and verse number for the given verse id
 
-    :param verse_id:
-    :return: (Book, chapter number, verse number)
+    :param verse_id: a verse id
+    :type verse_id: int
+    :return: A tuple containing the Book, chapter number, and verse number for the given verse id
+    :rtype: Tuple[Book, int, int]
+    :raises InvalidVerseError: if the verse id does not correspond to a valid verse
     """
     if verse_id not in VERSE_IDS:
         raise InvalidVerseError(verse_id=verse_id)
@@ -1419,31 +1433,37 @@ def get_book_chapter_verse(verse_id: int) -> Tuple[Book, int, int]:
 @lru_cache()
 def get_book_number(verse_id: int) -> int:
     """
-    Given a verse id return the int book number.
+    Returns the book number for the given verse id
 
-    :param verse_id:
-    :return: int book number
+    :param verse_id: a verse id
+    :type verse_id: int
+    :return: The book number for the given verse id
+    :rtype: int
     """
-    return int(verse_id / 1000000)
+    return verse_id // 1000000
 
 
 @lru_cache()
 def get_chapter_number(verse_id: int) -> int:
     """
-    Given a verse id return the int chapter number.
+    Returns the chapter number for the given verse id
 
-    :param verse_id:
-    :return: int chapter number
+    :param verse_id: a verse id
+    :type verse_id: int
+    :return: The chapter number for the given verse id
+    :rtype: int
     """
-    return int(verse_id % 1000000 / 1000)
+    return verse_id % 1000000 // 1000
 
 
 @lru_cache()
 def get_verse_number(verse_id: int) -> int:
     """
-    Given a verse id return the int verse number.
+    Returns the verse number for the given verse id
 
-    :param verse_id:
-    :return: int verse number
+    :param verse_id: a verse id
+    :type verse_id: int
+    :return: The verse number for the given verse id
+    :rtype: int
     """
-    return int(verse_id % 1000)
+    return verse_id % 1000

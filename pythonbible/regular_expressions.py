@@ -16,11 +16,11 @@ def build_book_regular_expression(
 
 
 def _add_prefix(regex: str, prefix: str = None) -> str:
-    return regex if prefix is None else fr"(?:{prefix})(?:\s)?{regex}"
+    return regex if prefix is None else rf"(?:{prefix})(?:\s)?{regex}"
 
 
 def _add_suffix(regex: str, suffix: str = None) -> str:
-    return regex if suffix is None else fr"{regex}(?:\s*{suffix})?"
+    return regex if suffix is None else rf"{regex}(?:\s*{suffix})?"
 
 
 SAMUEL_REGULAR_EXPRESSION = r"(Samuel|Sam\.*|Sa\.*|Sm\.*)"
@@ -36,18 +36,18 @@ FIRST = r"1|I\s+|1st\s+|First\s+"
 SECOND = r"2|II|2nd\s+|Second\s+"
 THIRD = r"3|III|3rd\s+|Third\s+"
 
-FIRST_BOOK = fr"{FIRST}|(First\s+Book\s+of(?:\s+the)?)"
-SECOND_BOOK = fr"{SECOND}|(Second\s+Book\s+of(?:\s+the)?)"
+FIRST_BOOK = rf"{FIRST}|(First\s+Book\s+of(?:\s+the)?)"
+SECOND_BOOK = rf"{SECOND}|(Second\s+Book\s+of(?:\s+the)?)"
 
 EPISTLE_OF_PAUL_TO = r"Epistle\s+of\s+Paul\s+(?:the\s+Apostle\s+)?to(?:\s+the)?"
 GENERAL_EPISTLE_OF = r"(?:General\s+)?Epistle\s+(?:General\s+)?of"
 
-FIRST_PAUL_EPISTLE = fr"{FIRST}|(First\s+{EPISTLE_OF_PAUL_TO})"
-SECOND_PAUL_EPISTLE = fr"{SECOND}|(Second\s+{EPISTLE_OF_PAUL_TO})"
+FIRST_PAUL_EPISTLE = rf"{FIRST}|(First\s+{EPISTLE_OF_PAUL_TO})"
+SECOND_PAUL_EPISTLE = rf"{SECOND}|(Second\s+{EPISTLE_OF_PAUL_TO})"
 
-FIRST_GENERAL_EPISTLE = fr"{FIRST}|(First\s+{GENERAL_EPISTLE_OF})"
-SECOND_GENERAL_EPISTLE = fr"{SECOND}|(Second\s+{GENERAL_EPISTLE_OF})"
-THIRD_GENERAL_EPISTLE = fr"{THIRD}|(Third\s+{GENERAL_EPISTLE_OF})"
+FIRST_GENERAL_EPISTLE = rf"{FIRST}|(First\s+{GENERAL_EPISTLE_OF})"
+SECOND_GENERAL_EPISTLE = rf"{SECOND}|(Second\s+{GENERAL_EPISTLE_OF})"
+THIRD_GENERAL_EPISTLE = rf"{THIRD}|(Third\s+{GENERAL_EPISTLE_OF})"
 
 # noinspection SpellCheckingInspection
 BOOK_REGULAR_EXPRESSIONS: Dict[Book, str] = {
@@ -175,21 +175,21 @@ BOOK_REGULAR_EXPRESSIONS: Dict[Book, str] = {
 }
 
 BOOK_REGEX: str = "|".join(
-    fr"\b{value}\b\.?" for value in BOOK_REGULAR_EXPRESSIONS.values()
+    rf"\b{value}\b\.?" for value in BOOK_REGULAR_EXPRESSIONS.values()
 )
 
 CHAPTER_REGEX: str = r"(\d{1,3})"
 CHAPTER_VERSE_SEPARATOR: str = r"([:.])"
 VERSE_REGEX: str = r"(\d{1,3})"
 CHAPTER_AND_VERSE_REGEX: str = (
-    fr"({CHAPTER_REGEX}(\s*{CHAPTER_VERSE_SEPARATOR}\s*{VERSE_REGEX})?)"
+    rf"({CHAPTER_REGEX}(\s*{CHAPTER_VERSE_SEPARATOR}\s*{VERSE_REGEX})?)"
 )
-RANGE_REGEX: str = fr"({CHAPTER_AND_VERSE_REGEX}(\s*-\s*({CHAPTER_REGEX}\s*{CHAPTER_VERSE_SEPARATOR}\s*)?{VERSE_REGEX})?)"
-ADDITIONAL_REFERENCE_REGEX: str = fr"(\s*,\s*({RANGE_REGEX}|{VERSE_REGEX}))"
+RANGE_REGEX: str = rf"({CHAPTER_AND_VERSE_REGEX}(\s*-\s*({CHAPTER_REGEX}\s*{CHAPTER_VERSE_SEPARATOR}\s*)?{VERSE_REGEX})?)"
+ADDITIONAL_REFERENCE_REGEX: str = rf"(\s*,\s*({RANGE_REGEX}|{VERSE_REGEX}))"
 FULL_CHAPTER_AND_VERSE_REGEX: str = f"({RANGE_REGEX}({ADDITIONAL_REFERENCE_REGEX})*)"
 
-FULL_BOOK_REGEX = fr"({BOOK_REGEX})\s*({FULL_CHAPTER_AND_VERSE_REGEX})?"
-CROSS_BOOK_REGEX = fr"({FULL_BOOK_REGEX}(\s*-\s*({FULL_BOOK_REGEX}))?)"
+FULL_BOOK_REGEX = rf"({BOOK_REGEX})\s*({FULL_CHAPTER_AND_VERSE_REGEX})?"
+CROSS_BOOK_REGEX = rf"({FULL_BOOK_REGEX}(\s*-\s*({FULL_BOOK_REGEX}))?)"
 
 SCRIPTURE_REFERENCE_REGULAR_EXPRESSION: Pattern[str] = re.compile(
     CROSS_BOOK_REGEX, re.IGNORECASE | re.UNICODE

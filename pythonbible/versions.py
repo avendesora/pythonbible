@@ -6,6 +6,17 @@ from typing import Dict
 
 
 class Version(Enum):
+    """Version is an Enum containing all of the currently known Ancient Language
+    and English versions of the Bible
+
+    :param name: the unique text identifier of the version
+    :type name: str
+    :param value: the unique numerical identifier of the version
+    :type value: int
+    :param title: the English title of the version
+    :type title: str
+    """
+
     # Ancient Language Editions
     STEPHANUS_GNT = "Steph"
     LATIN_VULGATE = "Vul"
