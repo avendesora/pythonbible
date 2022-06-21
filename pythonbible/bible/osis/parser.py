@@ -316,6 +316,7 @@ def _handle_child_element(
 
     return "", skip_till_next_verse, current_verse_id
 
+
 @lru_cache()
 def _handle_verse_tag(
     child_element: Element,
