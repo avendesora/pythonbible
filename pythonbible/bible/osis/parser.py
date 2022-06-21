@@ -271,24 +271,27 @@ def _handle_child_element(
             include_verse_number,
         )
 
-    if tag in ["w", "transChange"] and not skip_till_next_verse:
+    if skip_till_next_verse:
+        return "", skip_till_next_verse, current_verse_id
+
+    if tag in ["w", "transChange"]:
         return (
             _get_element_text_and_tail(child_element),
             skip_till_next_verse,
             current_verse_id,
         )
 
-    if tag in ["rdg"] and not skip_till_next_verse:
+    if tag in ["rdg"]:
         return (
             _get_element_text(child_element),
             skip_till_next_verse,
             current_verse_id,
         )
 
-    if tag in ["q", "note"] and not skip_till_next_verse:
+    if tag in ["q", "note", "seg", "divineName"]:
         paragraph: str = ""
 
-        if tag == "q":
+        if tag in ["q"]:
             paragraph += _get_element_text_and_tail(child_element)
 
         new_current_verse_id: int = current_verse_id
@@ -308,10 +311,12 @@ def _handle_child_element(
 
             paragraph += grandchild_paragraph
 
+        if tag in ["seg"]:
+            paragraph += _get_element_tail(child_element)
+
         return clean_paragraph(paragraph), skip_till_next_verse, new_current_verse_id
 
     return "", skip_till_next_verse, current_verse_id
-
 
 @lru_cache()
 def _handle_verse_tag(
