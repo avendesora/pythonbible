@@ -257,6 +257,7 @@ def _handle_child_element(
     skip_till_next_verse: bool,
     current_verse_id: int,
     include_verse_number: bool,
+    inside_note: bool = False,
 ) -> Tuple[str, bool, int]:
     tag: str = _strip_namespace_from_tag(child_element.tag)
 
@@ -272,16 +273,20 @@ def _handle_child_element(
     if skip_till_next_verse:
         return "", skip_till_next_verse, current_verse_id
 
-    if tag in {"w", "transChange"}:
+    if tag in {"rdg"}:
         return (
-            _get_element_text_and_tail(child_element),
+            _get_element_text(child_element),
             skip_till_next_verse,
             current_verse_id,
         )
 
-    if tag in {"rdg"}:
+    # If we are inside a note tag, only allow the "rdg" text to be included
+    if inside_note:
+        return "", skip_till_next_verse, current_verse_id
+
+    if tag in {"w", "transChange"}:
         return (
-            _get_element_text(child_element),
+            _get_element_text_and_tail(child_element),
             skip_till_next_verse,
             current_verse_id,
         )
@@ -305,6 +310,7 @@ def _handle_child_element(
                 skip_till_next_verse,
                 current_verse_id,
                 include_verse_number,
+                tag == "note",
             )
 
             paragraph += grandchild_paragraph
