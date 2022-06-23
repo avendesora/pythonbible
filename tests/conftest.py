@@ -210,21 +210,21 @@ def kjv_passage() -> Dict[bible.Book, Dict[int, List[str]]]:
                         (
                             29,
                             [
-                                "32. Therefore thus saith the Behold, I will punish Shemaiah the Nehelamite, and his seed: he shall not have a man to dwell among this people; neither shall he behold the good that I will do for my people, saith the because he hath taught rebellion against the"
+                                "32. Therefore thus saith the LORD; Behold, I will punish Shemaiah the Nehelamite, and his seed: he shall not have a man to dwell among this people; neither shall he behold the good that I will do for my people, saith the LORD; because he hath taught rebellion against the LORD."
                             ],
                         ),
                         (
                             30,
                             [
-                                "1. The word that came to Jeremiah from the saying, 2. Thus speaketh the God of Israel, saying, Write thee all the words that I have spoken unto thee in a book. 3. For, lo, the days come, saith the that I will bring again the captivity of my people Israel and Judah, saith the and I will cause them to return to the land that I gave to their fathers, and they shall possess it.",
-                                "4. And these are the words that the spake concerning Israel and concerning Judah. 5. For thus saith the We have heard a voice of trembling, of fear, and not of peace. 6. Ask ye now, and see whether a man doth travail with child? wherefore do I see every man with his hands on his loins, as a woman in travail, and all faces are turned into paleness? 7. Alas! for that day is great, so that none is like it: it is even the time of Jacob’s trouble; but he shall be saved out of it. 8. For it shall come to pass in that day, saith the of hosts, that I will break his yoke from off thy neck, and will burst thy bonds, and strangers shall no more serve themselves of him: 9. But they shall serve the their God, and David their king, whom I will raise up unto them.",
-                                "10. Therefore fear thou not, O my servant Jacob, saith the neither be dismayed, O Israel: for, lo, I will save thee from afar, and thy seed from the land of their captivity; and Jacob shall return, and shall be in rest, and be quiet, and none shall make him afraid.",
+                                "1. The word that came to Jeremiah from the LORD, saying, 2. Thus speaketh the LORD God of Israel, saying, Write thee all the words that I have spoken unto thee in a book. 3. For, lo, the days come, saith the LORD, that I will bring again the captivity of my people Israel and Judah, saith the LORD: and I will cause them to return to the land that I gave to their fathers, and they shall possess it.",
+                                "4. And these are the words that the LORD spake concerning Israel and concerning Judah. 5. For thus saith the LORD; We have heard a voice of trembling, of fear, and not of peace. 6. Ask ye now, and see whether a man doth travail with child? wherefore do I see every man with his hands on his loins, as a woman in travail, and all faces are turned into paleness? 7. Alas! for that day is great, so that none is like it: it is even the time of Jacob’s trouble; but he shall be saved out of it. 8. For it shall come to pass in that day, saith the LORD of hosts, that I will break his yoke from off thy neck, and will burst thy bonds, and strangers shall no more serve themselves of him: 9. But they shall serve the LORD their God, and David their king, whom I will raise up unto them.",
+                                "10. Therefore fear thou not, O my servant Jacob, saith the LORD; neither be dismayed, O Israel: for, lo, I will save thee from afar, and thy seed from the land of their captivity; and Jacob shall return, and shall be in rest, and be quiet, and none shall make him afraid.",
                             ],
                         ),
                         (
                             31,
                             [
-                                "12. Therefore they shall come and sing in the height of Zion, and shall flow together to the goodness of the for wheat, and for wine, and for oil, and for the young of the flock and of the herd: and their soul shall be as a watered garden; and they shall not sorrow any more at all."
+                                "12. Therefore they shall come and sing in the height of Zion, and shall flow together to the goodness of the LORD, for wheat, and for wine, and for oil, and for the young of the flock and of the herd: and their soul shall be as a watered garden; and they shall not sorrow any more at all."
                             ],
                         ),
                     ]
@@ -293,21 +293,21 @@ def kjv_passage_no_verse_numbers() -> Dict[bible.Book, Dict[int, List[str]]]:
                         (
                             29,
                             [
-                                "Therefore thus saith the Behold, I will punish Shemaiah the Nehelamite, and his seed: he shall not have a man to dwell among this people; neither shall he behold the good that I will do for my people, saith the because he hath taught rebellion against the"
+                                "Therefore thus saith the LORD; Behold, I will punish Shemaiah the Nehelamite, and his seed: he shall not have a man to dwell among this people; neither shall he behold the good that I will do for my people, saith the LORD; because he hath taught rebellion against the LORD."
                             ],
                         ),
                         (
                             30,
                             [
-                                "The word that came to Jeremiah from the saying, Thus speaketh the God of Israel, saying, Write thee all the words that I have spoken unto thee in a book. For, lo, the days come, saith the that I will bring again the captivity of my people Israel and Judah, saith the and I will cause them to return to the land that I gave to their fathers, and they shall possess it.",
-                                "And these are the words that the spake concerning Israel and concerning Judah. For thus saith the We have heard a voice of trembling, of fear, and not of peace. Ask ye now, and see whether a man doth travail with child? wherefore do I see every man with his hands on his loins, as a woman in travail, and all faces are turned into paleness? Alas! for that day is great, so that none is like it: it is even the time of Jacob’s trouble; but he shall be saved out of it. For it shall come to pass in that day, saith the of hosts, that I will break his yoke from off thy neck, and will burst thy bonds, and strangers shall no more serve themselves of him: But they shall serve the their God, and David their king, whom I will raise up unto them.",
-                                "Therefore fear thou not, O my servant Jacob, saith the neither be dismayed, O Israel: for, lo, I will save thee from afar, and thy seed from the land of their captivity; and Jacob shall return, and shall be in rest, and be quiet, and none shall make him afraid.",
+                                "The word that came to Jeremiah from the LORD, saying, Thus speaketh the LORD God of Israel, saying, Write thee all the words that I have spoken unto thee in a book. For, lo, the days come, saith the LORD, that I will bring again the captivity of my people Israel and Judah, saith the LORD: and I will cause them to return to the land that I gave to their fathers, and they shall possess it.",
+                                "And these are the words that the LORD spake concerning Israel and concerning Judah. For thus saith the LORD; We have heard a voice of trembling, of fear, and not of peace. Ask ye now, and see whether a man doth travail with child? wherefore do I see every man with his hands on his loins, as a woman in travail, and all faces are turned into paleness? Alas! for that day is great, so that none is like it: it is even the time of Jacob’s trouble; but he shall be saved out of it. For it shall come to pass in that day, saith the LORD of hosts, that I will break his yoke from off thy neck, and will burst thy bonds, and strangers shall no more serve themselves of him: But they shall serve the LORD their God, and David their king, whom I will raise up unto them.",
+                                "Therefore fear thou not, O my servant Jacob, saith the LORD; neither be dismayed, O Israel: for, lo, I will save thee from afar, and thy seed from the land of their captivity; and Jacob shall return, and shall be in rest, and be quiet, and none shall make him afraid.",
                             ],
                         ),
                         (
                             31,
                             [
-                                "Therefore they shall come and sing in the height of Zion, and shall flow together to the goodness of the for wheat, and for wine, and for oil, and for the young of the flock and of the herd: and their soul shall be as a watered garden; and they shall not sorrow any more at all."
+                                "Therefore they shall come and sing in the height of Zion, and shall flow together to the goodness of the LORD, for wheat, and for wine, and for oil, and for the young of the flock and of the herd: and their soul shall be as a watered garden; and they shall not sorrow any more at all."
                             ],
                         ),
                     ]

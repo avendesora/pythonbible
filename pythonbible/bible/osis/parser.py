@@ -148,11 +148,9 @@ class OSISParser(BibleParser):
         self, verse_id: int, include_verse_number: bool
     ) -> str:
         paragraphs: Dict[Book, Dict[int, List[str]]] = _get_paragraphs(
-            self.tree,
-            self.namespaces,
-            tuple([verse_id]),
-            include_verse_number,
+            self.tree, self.namespaces, (verse_id,), include_verse_number
         )
+
         verse_text: str = ""
 
         for chapters in paragraphs.values():
@@ -259,6 +257,7 @@ def _handle_child_element(
     skip_till_next_verse: bool,
     current_verse_id: int,
     include_verse_number: bool,
+    inside_note: bool = False,
 ) -> Tuple[str, bool, int]:
     tag: str = _strip_namespace_from_tag(child_element.tag)
 
@@ -271,24 +270,31 @@ def _handle_child_element(
             include_verse_number,
         )
 
-    if tag in ["w", "transChange"] and not skip_till_next_verse:
-        return (
-            _get_element_text_and_tail(child_element),
-            skip_till_next_verse,
-            current_verse_id,
-        )
+    if skip_till_next_verse:
+        return "", skip_till_next_verse, current_verse_id
 
-    if tag in ["rdg"] and not skip_till_next_verse:
+    if tag in {"rdg"}:
         return (
             _get_element_text(child_element),
             skip_till_next_verse,
             current_verse_id,
         )
 
-    if tag in ["q", "note"] and not skip_till_next_verse:
+    # If we are inside a note tag, only allow the "rdg" text to be included
+    if inside_note:
+        return "", skip_till_next_verse, current_verse_id
+
+    if tag in {"w", "transChange"}:
+        return (
+            _get_element_text_and_tail(child_element),
+            skip_till_next_verse,
+            current_verse_id,
+        )
+
+    if tag in {"q", "note", "seg", "divineName"}:
         paragraph: str = ""
 
-        if tag == "q":
+        if tag in {"q"}:
             paragraph += _get_element_text_and_tail(child_element)
 
         new_current_verse_id: int = current_verse_id
@@ -304,9 +310,13 @@ def _handle_child_element(
                 skip_till_next_verse,
                 current_verse_id,
                 include_verse_number,
+                tag == "note",
             )
 
             paragraph += grandchild_paragraph
+
+        if tag in {"seg"}:
+            paragraph += _get_element_tail(child_element)
 
         return clean_paragraph(paragraph), skip_till_next_verse, new_current_verse_id
 

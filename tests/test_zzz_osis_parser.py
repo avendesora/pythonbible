@@ -173,6 +173,22 @@ def test_matthew_17_21_asv() -> None:
     assert verse_text == "21. But this kind goeth not out save by prayer and fasting."
 
 
+def test_1_chronicles_16_8_kjv() -> None:
+    """Test for https://github.com/avendesora/pythonbible/issues/50!"""
+    # Given the verse id for 1 Chronicles 16:8
+    verse_id: int = 13016008
+
+    # When we get the verse text using the KJV parser
+    parser: BibleParser = bible.get_parser(version=bible.Version.KING_JAMES)
+    verse_text: str = parser.get_verse_text(verse_id)
+
+    # Then there are no errors and the verse text is as expected
+    assert (
+        verse_text == "8. Give thanks unto the LORD, call upon his name, make known "
+        "his deeds among the people."
+    )
+
+
 def test_scripture_text_caching() -> None:
     # Given a lengthy reference
     references: List[bible.NormalizedReference] = bible.get_references("James")
