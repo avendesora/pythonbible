@@ -273,7 +273,7 @@ def _handle_child_element(
     if skip_till_next_verse:
         return "", skip_till_next_verse, current_verse_id
 
-    if tag in {"rdg"}:
+    if tag == "rdg":
         return (
             _get_element_text(child_element),
             skip_till_next_verse,
@@ -291,36 +291,33 @@ def _handle_child_element(
             current_verse_id,
         )
 
-    if tag in {"q", "note", "seg", "divineName"}:
-        paragraph: str = ""
+    paragraph: str = ""
 
-        if tag in {"q"}:
-            paragraph += _get_element_text_and_tail(child_element)
+    if tag == "q":
+        paragraph += _get_element_text_and_tail(child_element)
 
-        new_current_verse_id: int = current_verse_id
+    new_current_verse_id: int = current_verse_id
 
-        for grandchild_element in list(child_element):
-            (
-                grandchild_paragraph,
-                skip_till_next_verse,
-                new_current_verse_id,
-            ) = _handle_child_element(
-                grandchild_element,
-                verse_ids,
-                skip_till_next_verse,
-                current_verse_id,
-                include_verse_number,
-                tag == "note",
-            )
+    for grandchild_element in list(child_element):
+        (
+            grandchild_paragraph,
+            skip_till_next_verse,
+            new_current_verse_id,
+        ) = _handle_child_element(
+            grandchild_element,
+            verse_ids,
+            skip_till_next_verse,
+            current_verse_id,
+            include_verse_number,
+            tag == "note",
+        )
 
-            paragraph += grandchild_paragraph
+        paragraph += grandchild_paragraph
 
-        if tag in {"seg"}:
-            paragraph += _get_element_tail(child_element)
+    if tag == "seg":
+        paragraph += _get_element_tail(child_element)
 
-        return clean_paragraph(paragraph), skip_till_next_verse, new_current_verse_id
-
-    return "", skip_till_next_verse, current_verse_id
+    return clean_paragraph(paragraph), skip_till_next_verse, new_current_verse_id
 
 
 @lru_cache()
