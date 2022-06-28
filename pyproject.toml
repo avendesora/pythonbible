@@ -33,19 +33,19 @@ Source = "https://github.com/avendesora/pythonbible"
 
 [tool.flit.metadata.requires-extra]
 test = [
-    "pytest >=7.0.1",
+    "pytest >=7.1.2",
     "pytest-cov >=3.0.0",
 ]
 doc = [
-    "furo >=2022.3.4",
-    "Sphinx >=4.4.0",
-    "sphinx-toolbox >=2.18.0",
+    "furo >=2022.6.21",
+    "Sphinx >=4.5.0",
+    "sphinx-toolbox >=3.1.1",
 ]
 dev = [
     "bandit >=1.7.4",
-    "black >=22.1.0",
-    "mypy >=0.931",
-    "prospector >=1.7.6",
+    "black >=22.6.0",
+    "mypy >=0.961",
+    "prospector >=1.7.7",
 ]
 all = [
     "defusedxml >=0.7.1",
