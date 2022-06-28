@@ -34,6 +34,7 @@ def get_references(
 
     # First replace all roman numerals in the text with integers.
     clean_text: str = convert_all_roman_numerals_to_integers(text)
+    clean_text = clean_text.replace("&ndash;", "-").replace("&mdash;", "-")
 
     for reference_match in re.finditer(
         SCRIPTURE_REFERENCE_REGULAR_EXPRESSION, clean_text

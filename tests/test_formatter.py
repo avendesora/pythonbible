@@ -25,7 +25,7 @@ def test_format_scripture_references_null() -> None:
     formatted_reference: str = bible.format_scripture_references(None)
 
     # Then the result is null
-    assert formatted_reference == ""
+    assert not formatted_reference
 
 
 def test_format_scripture_references_sorting(

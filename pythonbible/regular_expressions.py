@@ -34,6 +34,8 @@ THESSALONIANS_REGULAR_EXPRESSION = r"Th\.*(?:(s|(es(?:s)?))\.*(?:alonians)?)?"
 TIMOTHY_REGULAR_EXPRESSION = r"Ti\.*(?:m\.*(?:othy)?)?"
 PETER_REGULAR_EXPRESSION = r"(Pe\.*(?:t\.*(?:er)?)?|Pt\.*)"
 
+MACCABEES_REGULAR_EXPRESSION = r"(Maccabees" r"|Macc\.*" r"|Mac\.*" r"|Ma\.*" r"|M\.*)"
+
 FIRST = r"1" r"|I\s+" r"|1st\s+" r"|First\s+"
 SECOND = r"2" r"|II" r"|2nd\s+" r"|Second\s+"
 THIRD = r"3" r"|III" r"|3rd\s+" r"|Third\s+"
@@ -104,9 +106,9 @@ BOOK_REGULAR_EXPRESSIONS: Dict[Book, str] = {
     Book.ECCLESIASTES: r"(Ecclesiastes(?:\s+or\,\s+the\s+Preacher)?"
     r"|Eccles\.*(?!iasticus?)"
     r"|Eccle\.*(?!siasticus?)"
-    r"|Eccl\.*(?!esiasticus?)"
-    r"|Ecc\.*(?!lesiasticus?)"
-    r"|Ec\.*(?!clesiasticus?)"
+    r"|Eccl\.*(?!esiasticus?)(?!us?)"
+    r"|Ecc\.*(?!lesiasticus?)(?!lus?)"
+    r"|Ec\.*(?!clesiasticus?)(?!clus?)"
     r"|Qoh\.*)",
     Book.SONG_OF_SONGS: r"(Song(?: of (Solomon|Songs|Sol\.*))?)"
     r"|Canticles"
@@ -189,12 +191,22 @@ BOOK_REGULAR_EXPRESSIONS: Dict[Book, str] = {
     Book.REVELATION: build_book_regular_expression(
         r"Rev\.*(?:elation)?", suffix="of ((Jesus Christ)|John|(St. John the Divine))"
     ),
-    Book.ESDRAS_1: Book.ESDRAS_1.title,
-    Book.TOBIT: Book.TOBIT.title,
-    Book.WISDOM_OF_SOLOMON: Book.WISDOM_OF_SOLOMON.title,
-    Book.ECCLESIASTICUS: Book.ECCLESIASTICUS.title,
-    Book.MACCABEES_1: Book.MACCABEES_1.title,
-    Book.MACCABEES_2: Book.MACCABEES_2.title,
+    Book.ESDRAS_1: build_book_regular_expression(
+        r"(Esdras" r"|Esdr\.*" r"|Esd\.*" r"|Es\.*)", FIRST
+    ),
+    Book.TOBIT: r"(Tobit" r"|Tob\.*" r"|Tb\.*)",
+    Book.WISDOM_OF_SOLOMON: r"(Wisdom of Solomon"
+    r"|Wisdom"
+    r"|Wisd\.* of Sol\.*"
+    r"|Wis\.*"
+    r"|Ws\.*)",
+    Book.ECCLESIASTICUS: r"(Sirach" r"|Sir\.*" r"|Ecclesiasticus" r"|Ecclus\.*)",
+    Book.MACCABEES_1: build_book_regular_expression(
+        MACCABEES_REGULAR_EXPRESSION, FIRST
+    ),
+    Book.MACCABEES_2: build_book_regular_expression(
+        MACCABEES_REGULAR_EXPRESSION, SECOND
+    ),
 }
 
 BOOK_REGEX: str = "|".join(
