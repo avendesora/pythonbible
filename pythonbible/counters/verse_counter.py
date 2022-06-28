@@ -4,7 +4,7 @@ from typing import List, Optional
 from pythonbible.books import Book
 from pythonbible.normalized_reference import NormalizedReference
 from pythonbible.parser import get_references
-from pythonbible.verses import get_number_of_verses, get_number_of_chapters
+from pythonbible.verses import get_number_of_chapters, get_number_of_verses
 
 
 @singledispatch

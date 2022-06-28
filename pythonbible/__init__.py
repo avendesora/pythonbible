@@ -47,8 +47,8 @@ from .verses import (
     get_book_chapter_verse,
     get_book_number,
     get_chapter_number,
-    get_number_of_verses,
     get_number_of_chapters,
+    get_number_of_verses,
     get_verse_id,
     get_verse_number,
 )

@@ -1,12 +1,8 @@
 from functools import lru_cache
-from pathlib import Path
 from typing import Dict, List, Optional, Tuple
 
 from pythonbible.books import Book
 from pythonbible.errors import InvalidChapterError, InvalidVerseError
-
-with open(Path(__file__).resolve().parent / "data" / "verse_ids.txt") as verse_ids_file:
-    VERSE_IDS: List[int] = [int(verse_id) for verse_id in verse_ids_file.readlines()]
 
 MAX_VERSE_NUMBER_BY_BOOK_AND_CHAPTER: Dict[Book, List[int]] = {
     Book.GENESIS: [
@@ -1330,13 +1326,160 @@ MAX_VERSE_NUMBER_BY_BOOK_AND_CHAPTER: Dict[Book, List[int]] = {
         27,
         21,
     ],
-    # Book.ESDRAS_1: [],
-    # Book.TOBIT: [],
-    # Book.WISDOM_OF_SOLOMON: [],
-    # Book.ECCLESIASTICUS: [],
-    # Book.MACCABEES_1: [],
-    # Book.MACCABEES_2: [],
+    Book.ESDRAS_1: [
+        55,
+        25,
+        23,
+        63,
+        70,
+        33,
+        15,
+        92,
+        55,
+    ],
+    Book.TOBIT: [
+        22,
+        14,
+        17,
+        21,
+        22,
+        18,
+        16,
+        21,
+        6,
+        13,
+        18,
+        22,
+        18,
+        15,
+    ],
+    Book.WISDOM_OF_SOLOMON: [
+        16,
+        24,
+        19,
+        20,
+        23,
+        25,
+        30,
+        21,
+        18,
+        21,
+        26,
+        27,
+        19,
+        31,
+        19,
+        29,
+        21,
+        25,
+        22,
+    ],
+    Book.ECCLESIASTICUS: [
+        30,
+        18,
+        31,
+        31,
+        15,
+        37,
+        36,
+        19,
+        18,
+        31,
+        34,
+        18,
+        26,
+        27,
+        20,
+        30,
+        32,
+        33,
+        30,
+        31,
+        28,
+        27,
+        27,
+        34,
+        26,
+        29,
+        30,
+        26,
+        28,
+        25,
+        31,
+        24,
+        33,
+        31,
+        26,
+        31,
+        31,
+        34,
+        35,
+        30,
+        22,
+        25,
+        33,
+        23,
+        26,
+        20,
+        25,
+        25,
+        16,
+        29,
+        30,
+    ],
+    Book.MACCABEES_1: [
+        64,
+        70,
+        60,
+        61,
+        68,
+        63,
+        50,
+        32,
+        73,
+        89,
+        74,
+        53,
+        53,
+        49,
+        41,
+        24,
+    ],
+    Book.MACCABEES_2: [
+        36,
+        32,
+        40,
+        50,
+        27,
+        31,
+        42,
+        36,
+        29,
+        38,
+        38,
+        45,
+        26,
+        46,
+        39,
+    ],
 }
+
+
+@lru_cache()
+def __generate_verse_ids() -> List[int]:
+    return [
+        int(
+            f"{str(book.value).zfill(2)}"
+            f"{str(chapter + 1).zfill(3)}"
+            f"{str(verse + 1).zfill(3)}"
+        )
+        for book, chapters in MAX_VERSE_NUMBER_BY_BOOK_AND_CHAPTER.items()
+        for chapter, max_verse in enumerate(chapters)
+        for verse in range(max_verse)
+    ]
+
+
+VERSE_IDS: List[int] = __generate_verse_ids()
 
 
 @lru_cache()

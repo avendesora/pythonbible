@@ -14,11 +14,7 @@ from .regular_expressions import (
 )
 from .roman_numeral_util import convert_all_roman_numerals_to_integers
 from .validator import is_valid_reference
-from .verses import (
-    get_number_of_verses,
-    get_number_of_chapters,
-    is_single_chapter_book,
-)
+from .verses import get_number_of_chapters, get_number_of_verses, is_single_chapter_book
 
 
 def get_references(
