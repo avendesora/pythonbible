@@ -14,11 +14,7 @@ from .regular_expressions import (
 )
 from .roman_numeral_util import convert_all_roman_numerals_to_integers
 from .validator import is_valid_reference
-from .verses import (
-    get_number_of_verses,
-    get_number_of_chapters,
-    is_single_chapter_book,
-)
+from .verses import get_number_of_chapters, get_number_of_verses, is_single_chapter_book
 
 
 def get_references(
@@ -38,6 +34,7 @@ def get_references(
 
     # First replace all roman numerals in the text with integers.
     clean_text: str = convert_all_roman_numerals_to_integers(text)
+    clean_text = clean_text.replace("&ndash;", "-").replace("&mdash;", "-")
 
     for reference_match in re.finditer(
         SCRIPTURE_REFERENCE_REGULAR_EXPRESSION, clean_text

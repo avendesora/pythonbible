@@ -20,8 +20,8 @@ from pythonbible.normalized_reference import NormalizedReference
 from pythonbible.verses import (
     VERSE_IDS,
     get_book_chapter_verse,
-    get_number_of_verses,
     get_number_of_chapters,
+    get_number_of_verses,
     is_single_chapter_book,
 )
 from pythonbible.versions import DEFAULT_VERSION, Version

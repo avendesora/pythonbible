@@ -177,7 +177,7 @@ def test_philemon_not_philippians() -> None:
     )
 
     # then the matches are not found
-    assert len(matches) == 0
+    assert not matches
 
     # when evaluating the string to see if it matches the Philemon regular expression
     matches = re.findall(
