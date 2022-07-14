@@ -89,7 +89,7 @@ class JSONConverter:
                 include_verse_number=False,
             )
 
-            if verse_text is None or len(verse_text.strip()) == 0:
+            if verse_text is None or not verse_text.strip():
                 warning(f"Verse {verse_id} is empty.")
 
             self.verses[verse_id] = verse_text

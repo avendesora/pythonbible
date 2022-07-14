@@ -233,7 +233,7 @@ def _process_book_group_match(
     references: List[NormalizedReference] = []
     books: List[Book] = []
 
-    for regular_expression in book_groups.keys():
+    for regular_expression in book_groups:
         reference_match: Optional[Match[str]] = re.match(
             regular_expression, text, re.IGNORECASE
         )

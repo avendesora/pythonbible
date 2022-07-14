@@ -447,10 +447,7 @@ def _format_title(title: str, format_type: str, is_first_book: bool) -> str:
     if format_type == "html":
         return f"<h1>{title}</h1>\n"
 
-    if not is_first_book:
-        return f"\n\n{title}\n\n"
-
-    return f"{title}\n\n"
+    return f"{title}\n\n" if is_first_book else f"\n\n{title}\n\n"
 
 
 def _format_chapter(chapter: int, format_type: str) -> str:
