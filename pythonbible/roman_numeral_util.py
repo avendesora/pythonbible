@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 try:
     import regex as re
 except ModuleNotFoundError:
@@ -44,11 +46,11 @@ def convert_all_roman_numerals_to_integers(text: str) -> str:
     return ROMAN_NUMERAL_REGEX.sub(_convert_roman_numeral_match_to_integer, text)
 
 
-def _convert_roman_numeral_match_to_integer(match: Match[str]):
+def _convert_roman_numeral_match_to_integer(match: Match[str]) -> str:
     return str(_convert_roman_numeral_to_integer(match.group(0)))
 
 
-def _convert_roman_numeral_to_integer(roman_numeral_string):
+def _convert_roman_numeral_to_integer(roman_numeral_string: str) -> str:
     roman_numeral_string = roman_numeral_string.upper()
     i = result = 0
 

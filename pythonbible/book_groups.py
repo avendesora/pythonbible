@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from enum import Enum, auto
 from typing import Dict, List
 
@@ -11,7 +13,8 @@ class BookGroup(Enum):
     :type name: str
     :param value: the unique numerical identifier of the book group
     :type value: int
-    :param regular_expression: the regular expression used to find mentions of the book group when searching for references
+    :param regular_expression: the regular expression used to find mentions of the
+                               book group when searching for references
     :type regular_expression: str
     :param books: the list of books included in the book group
     :type books: List[str]
@@ -33,11 +36,11 @@ class BookGroup(Enum):
     NEW_TESTAMENT_APOCALYPTIC = auto()
 
     @property
-    def books(self) -> List[Book]:
+    def books(self: BookGroup) -> List[Book]:
         return _BOOK_GROUP_BOOKS.get(self, [])
 
     @property
-    def regular_expression(self) -> str:
+    def regular_expression(self: BookGroup) -> str:
         return _BOOK_GROUP_REGULAR_EXPRESSIONS.get(self, "")
 
 
@@ -187,7 +190,8 @@ _BOOK_GROUP_REGULAR_EXPRESSIONS: Dict[BookGroup, str] = {
     BookGroup.NEW_TESTAMENT: "New Testament",
     BookGroup.NEW_TESTAMENT_GOSPELS: "Gospels",
     BookGroup.NEW_TESTAMENT_HISTORY: "History",
-    BookGroup.NEW_TESTAMENT_PAUL_EPISTLES: "Pauline Epistles|Paul's Epistles|Epistles of Paul",
+    BookGroup.NEW_TESTAMENT_PAUL_EPISTLES: "Pauline Epistles|Paul's Epistles|Epistles "
+    "of Paul",
     BookGroup.NEW_TESTAMENT_GENERAL_EPISTLES: "General Epistles",
     BookGroup.NEW_TESTAMENT_EPISTLES: "Epistles",
     BookGroup.NEW_TESTAMENT_APOCALYPTIC: "Apocalyptic",

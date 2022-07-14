@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from enum import Enum
 
 # This comes from crosswire.org "Standard OSIS Codes for Bible Editions"
@@ -116,7 +118,7 @@ class Version(Enum):
     YOUNGS_LITERAL = "YLT"
 
     @property
-    def title(self) -> str:
+    def title(self: Version) -> str:
         return _VERSION_TITLES.get(self, "")
 
 
@@ -125,13 +127,15 @@ _VERSION_TITLES: Dict[Version, str] = {
     # Ancient Language Editions
     Version.STEPHANUS_GNT: "Stephanus GNT",
     Version.LATIN_VULGATE: "Latin Vulgate",
-    Version.LATIN_ERASMUS: "Erasmus Latin translation by Desiderius Erasmus Roterodamus",
+    Version.LATIN_ERASMUS: "Erasmus Latin translation by Desiderius Erasmus "
+    "Roterodamus",
     Version.MASORETIC_TEXT: "Masoretic text",
     Version.BIBLIA_HEBRAICA_STUTTGARTENSIA: "Biblia Hebraica Stuttgartensia",
     Version.NESTLE_ALAND: "Nestle-Aland Greek New Testament",
     Version.GREEK_SEPTUAGINT: "Greek Septuagint",
     # English Editions
-    Version.COMPLETE: "The Complete Bible: An American Translation, by Edgar Goodspeed and J. M. Powis Smith",
+    Version.COMPLETE: "The Complete Bible: An American Translation, by Edgar Goodspeed "
+    "and J. M. Powis Smith",
     Version.AFRO: "The Afro Bible Translation",
     Version.ALTERNATE_TRANSLATION: "The Alternate Translation Bible",
     Version.AMERICAN_STANDARD: "American Standard Version",
@@ -158,7 +162,8 @@ _VERSION_TITLES: Dict[Version, str] = {
     Version.ENGLISH_STANDARD: "English Standard Version",
     Version.FERRAR_FENTON: "Ferrar Fenton Bible",
     Version.GODS_LIVING_WORD: "God's Living Word",
-    Version.GODS_NEW_COVENANT: "God's New Covenant: A New Testament Translation, by Heinz W. Cassirer",
+    Version.GODS_NEW_COVENANT: "God's New Covenant: A New Testament Translation, by "
+    "Heinz W. Cassirer",
     Version.GODS_WORD: "God's Word",
     Version.GOOD_NEWS: "Good News Bible",
     Version.HOLMAN_CHRISTIAN_STANDARD: "Holman Christian Standard Bible",
@@ -166,7 +171,8 @@ _VERSION_TITLES: Dict[Version, str] = {
     Version.INTERNATIONAL_STANDARD_BIBLE: "International Standard Bible",
     Version.INTERNATIONAL_STANDARD_VERSION: "The International Standard Version",
     Version.J_B_PHILLIPS: "New Testament in Modern English, by J. B. Phillips",
-    Version.JEWISH_NEW_TESTAMENT: "Jewish New Testament: A Translation of the New Testament That Expresses Its Jewishness",
+    Version.JEWISH_NEW_TESTAMENT: "Jewish New Testament: A Translation of the New "
+    "Testament That Expresses Its Jewishness",
     Version.KING_JAMES: "King James Version",
     Version.KING_JAMES_DEFINED: "Defined King James Version",
     Version.KING_JAMES_II: "King James Version II",
@@ -197,7 +203,9 @@ _VERSION_TITLES: Dict[Version, str] = {
     Version.NEW_WORLD: "New World Translation",
     Version.ORIGINAL_BIBLE_PROJECT: "The Original Bible Project",
     Version.ORTHODOX_STUDY: "Orthodox Study Bible",
-    Version.ORIGINAL_NEW_TESTAMENT: "The Original New Testament: The First Definitive Translation of the New Testament in 2000 Years, by Hugh Schonfield",
+    Version.ORIGINAL_NEW_TESTAMENT: "The Original New Testament: The First Definitive "
+    "Translation of the New Testament in 2000 Years, "
+    "by Hugh Schonfield",
     Version.POSTMODERN: "Postmodern Bible - Amos",
     Version.RECOVERY: "Recovery Version",
     Version.REVISED_ENGLISH: "The Revised English Bible",

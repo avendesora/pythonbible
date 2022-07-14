@@ -1,8 +1,9 @@
+from __future__ import annotations
+
 try:
     import regex as re
 except ModuleNotFoundError:
     import re
-
 
 from typing import Dict, List, Match, Optional, Pattern, Tuple
 
@@ -18,14 +19,17 @@ from .verses import get_number_of_chapters, get_number_of_verses, is_single_chap
 
 
 def get_references(
-    text: str, book_groups: Dict[str, List[Book]] = None
+    text: str,
+    book_groups: Dict[str, List[Book]] = None,
 ) -> List[NormalizedReference]:
     """
-    Searches the text for scripture references and returns any that are found in a list of normalized tuple references.
+    Searches the text for scripture references and returns any that are found in a list
+    of normalized tuple references.
 
     :param text: String that may contain zero or more scripture references
     :type text: str
-    :param book_groups: Optional dictionary of BookGroup (e.g. Old Testament) to its related regular expression
+    :param book_groups: Optional dictionary of BookGroup (e.g. Old Testament) to its
+                        related regular expression
     :type book_groups: Dict[str, List[Book]] or None
     :return: The list of found scripture references
     :rtype: List[NormalizedReference]
@@ -52,7 +56,8 @@ def normalize_reference(reference: str) -> List[NormalizedReference]:
     Converts a scripture reference string into a list of normalized tuple references.
 
     :param reference: a string that is a scripture reference
-    :return: a list of tuples. each tuple is in the format (book, start_chapter, start_verse, end_chapter, end_verse)
+    :return: a list of tuples. each tuple is in the format (book, start_chapter,
+             start_verse, end_chapter, end_verse)
     """
     references: List[NormalizedReference] = []
     books: List[Book] = []
@@ -155,7 +160,9 @@ def _process_sub_references(book: Book, reference: str) -> List[NormalizedRefere
 
 
 def _process_sub_reference(
-    sub_reference: str, book: Book, start_chapter: int
+    sub_reference: str,
+    book: Book,
+    start_chapter: int,
 ) -> Tuple[int, int, int, int]:
     start_verse: int = 0
     end_chapter: int = start_chapter
@@ -205,7 +212,8 @@ def _process_sub_reference(
 
 
 def _get_book_group_references(
-    text: str, book_groups: Dict[str, List[Book]]
+    text: str,
+    book_groups: Dict[str, List[Book]],
 ) -> List[NormalizedReference]:
     references: List[NormalizedReference] = []
     book_group_regex: Pattern[str] = re.compile(
@@ -219,17 +227,19 @@ def _get_book_group_references(
 
 
 def _process_book_group_match(
-    text: str, book_groups: Dict[str, List[Book]]
+    text: str,
+    book_groups: Dict[str, List[Book]],
 ) -> List[NormalizedReference]:
     references: List[NormalizedReference] = []
     books: List[Book] = []
 
-    for regular_expression, books in book_groups.items():
+    for regular_expression in book_groups.keys():
         reference_match: Optional[Match[str]] = re.match(
             regular_expression, text, re.IGNORECASE
         )
 
         if reference_match:
+            books = book_groups.get(regular_expression)
             break
 
     start_book: Book = books[0]
@@ -250,7 +260,8 @@ def _process_book_group_match(
 
 
 def _build_book_group_reference(
-    start_book: Book, end_book: Book
+    start_book: Book,
+    end_book: Book,
 ) -> NormalizedReference:
     max_chapter: int = get_number_of_chapters(end_book)
     max_verse: int = get_number_of_verses(end_book, max_chapter)

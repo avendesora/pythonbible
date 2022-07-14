@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from functools import lru_cache
 from typing import Dict, List, Optional, Tuple
 
@@ -1511,7 +1513,8 @@ def get_number_of_verses(book: Book, chapter: int) -> int:
     :type chapter: int
     :return: the number of verses in the given book and chapter
     :rtype: int
-    :raises InvalidChapterError: if the given chapter isn't a valid chapter for the given book
+    :raises InvalidChapterError: if the given chapter isn't a valid chapter for the
+                                 given book
     """
     chapter_list: List[int] = MAX_VERSE_NUMBER_BY_BOOK_AND_CHAPTER[book]
 
@@ -1537,7 +1540,8 @@ def get_verse_id(book: Book, chapter: int, verse: int) -> int:
     :type verse: int
     :return: the verse id for the given book, chapter, and verse
     :rtype: int
-    :raises InvalidVerseError: if the verse doesn't exist for the given book, chapter, and verse
+    :raises InvalidVerseError: if the verse doesn't exist for the given book, chapter,
+                               and verse
     """
 
     # Not only will this get the max verse number, it will validate the chapter.
@@ -1559,7 +1563,8 @@ def get_book_chapter_verse(verse_id: int) -> Tuple[Book, int, int]:
 
     :param verse_id: a verse id
     :type verse_id: int
-    :return: A tuple containing the Book, chapter number, and verse number for the given verse id
+    :return: A tuple containing the Book, chapter number, and verse number for the
+             given verse id
     :rtype: Tuple[Book, int, int]
     :raises InvalidVerseError: if the verse id does not correspond to a valid verse
     """

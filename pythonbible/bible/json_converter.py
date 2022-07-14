@@ -1,6 +1,10 @@
+from __future__ import annotations
+
 import json
 import os
-from typing import Dict, List, Tuple
+from contextlib import suppress
+from logging import warning
+from typing import Any, Dict, List, Tuple
 
 from pythonbible.bible.bible_parser import BibleParser
 from pythonbible.bible.osis.parser import OSISParser
@@ -14,7 +18,7 @@ from pythonbible.versions import Version
 class JSONConverter:
     """Convert XML scripture files into faster verse and book title JSON files."""
 
-    def __init__(self, parser: BibleParser, **kwargs) -> None:
+    def __init__(self: JSONConverter, parser: BibleParser, **kwargs: Any) -> None:
         """
         Initialize with a BibleParser and optional data folder and list of verse ids.
 
@@ -31,7 +35,7 @@ class JSONConverter:
         self.books: Dict[int, Tuple[str, str]] = {}
         self.verses: Dict[int, str] = {}
 
-    def generate_book_file(self) -> None:
+    def generate_book_file(self: JSONConverter) -> None:
         """
         Generate the book title JSON file for the given version.
 
@@ -41,7 +45,7 @@ class JSONConverter:
         self._get_books()
         self._print_books_file()
 
-    def generate_verse_file(self) -> None:
+    def generate_verse_file(self: JSONConverter) -> None:
         """
         Generate the verse text JSON file for the given version.
 
@@ -51,7 +55,7 @@ class JSONConverter:
         self._get_verses()
         self._print_verses_file()
 
-    def _validate_parser(self) -> None:
+    def _validate_parser(self: JSONConverter) -> None:
         if self.parser is None:
             raise InvalidBibleParserError("Parser instance is None.")
 
@@ -63,11 +67,11 @@ class JSONConverter:
         if not instance_identified:
             raise InvalidBibleParserError("Parser instance is not a valid type.")
 
-    def _get_books(self) -> None:
+    def _get_books(self: JSONConverter) -> None:
         for verse_id in self.verse_ids:
             book_id: int = get_book_number(verse_id)
 
-            if book_id in self.books.keys():
+            if book_id in self.books:
                 continue
 
             book: Book
@@ -78,21 +82,22 @@ class JSONConverter:
                 short_book_title: str = self.parser.get_short_book_title(book)
                 self.books[book_id] = (long_book_title, short_book_title)
 
-    def _get_verses(self) -> None:
+    def _get_verses(self: JSONConverter) -> None:
         for verse_id in self.verse_ids:
             verse_text: str = self.parser.get_verse_text(
-                verse_id, include_verse_number=False
+                verse_id,
+                include_verse_number=False,
             )
 
             if verse_text is None or len(verse_text.strip()) == 0:
-                print(f"Verse {verse_id} is empty.")
+                warning(f"Verse {verse_id} is empty.")
 
             self.verses[verse_id] = verse_text
 
-    def _print_books_file(self) -> None:
+    def _print_books_file(self: JSONConverter) -> None:
         _print_file(self.data_folder, self.parser.version, "books.json", self.books)
 
-    def _print_verses_file(self) -> None:
+    def _print_verses_file(self: JSONConverter) -> None:
         _print_file(self.data_folder, self.parser.version, "verses.json", self.verses)
 
 
@@ -102,12 +107,14 @@ def _print_file(data_folder: str, version: Version, filename: str, data: dict) -
     _make_sure_directory_exists(data_folder)
     _make_sure_directory_exists(version_folder)
 
-    with open(os.path.join(version_folder, filename), "w") as json_file:
+    with open(
+        os.path.join(version_folder, filename),
+        "w",
+        encoding="utf-8",
+    ) as json_file:
         json.dump(data, json_file)
 
 
-def _make_sure_directory_exists(directory) -> None:
-    try:
+def _make_sure_directory_exists(directory: str) -> None:
+    with suppress(FileExistsError):
         os.makedirs(directory)
-    except FileExistsError:
-        pass

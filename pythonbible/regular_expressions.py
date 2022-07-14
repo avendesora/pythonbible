@@ -1,8 +1,9 @@
+from __future__ import annotations
+
 try:
     import regex as re
 except ModuleNotFoundError:
     import re
-
 
 from typing import Dict, Pattern
 
@@ -219,7 +220,10 @@ VERSE_REGEX: str = r"(\d{1,3})"
 CHAPTER_AND_VERSE_REGEX: str = (
     rf"({CHAPTER_REGEX}(\s*{CHAPTER_VERSE_SEPARATOR}\s*{VERSE_REGEX})?)"
 )
-RANGE_REGEX: str = rf"({CHAPTER_AND_VERSE_REGEX}(\s*-\s*({CHAPTER_REGEX}\s*{CHAPTER_VERSE_SEPARATOR}\s*)?{VERSE_REGEX})?)"
+RANGE_REGEX: str = (
+    rf"({CHAPTER_AND_VERSE_REGEX}(\s*-\s*({CHAPTER_REGEX}\s*"
+    rf"{CHAPTER_VERSE_SEPARATOR}\s*)?{VERSE_REGEX})?)"
+)
 ADDITIONAL_REFERENCE_REGEX: str = rf"(\s*,\s*({RANGE_REGEX}|{VERSE_REGEX}))"
 FULL_CHAPTER_AND_VERSE_REGEX: str = f"({RANGE_REGEX}({ADDITIONAL_REFERENCE_REGEX})*)"
 

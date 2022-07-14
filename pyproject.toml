@@ -50,3 +50,7 @@ dev = [
 all = [
     "defusedxml >=0.7.1",
 ]
+
+[tool.isort]
+profile = "black"
+add_imports = "from __future__ import annotations"

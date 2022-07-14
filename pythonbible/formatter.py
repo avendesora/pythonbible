@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import json
 import os
 from dataclasses import dataclass
@@ -39,7 +41,7 @@ VERSION_MAP: Dict[Version, Type[BibleParser]] = {
 }
 
 
-def get_parser(**kwargs) -> BibleParser:
+def get_parser(**kwargs: Any) -> BibleParser:
     version: Version = kwargs.get("version", DEFAULT_VERSION)
     version_map: Dict[Version, Type[BibleParser]] = kwargs.get(
         "version_map", VERSION_MAP
@@ -50,15 +52,17 @@ def get_parser(**kwargs) -> BibleParser:
 DEFAULT_PARSER: BibleParser = get_parser()
 
 CURRENT_FOLDER: str = os.path.dirname(os.path.realpath(__file__))
-DATA_FOLDER: str = os.path.join(os.path.join(CURRENT_FOLDER, "bible"), "data")
+DATA_FOLDER: str = os.path.join(CURRENT_FOLDER, "bible", "data")
 VERSE_TEXTS: Dict[Version, Dict[int, str]] = {}
 BOOK_TITLES: Dict[Version, Dict[Book, BookTitles]] = {}
 
 
 # TODO - handle Psalms vs Psalm appropriately
-# TODO - handle single chapter books appropriately (e.g. Obadiah 1-4 rather than Obadiah 1:1-4)
+# TODO - handle single chapter books appropriately (e.g. Obadiah 1-4 rather than
+#        Obadiah 1:1-4)
 def format_scripture_references(
-    references: Optional[List[NormalizedReference]], **kwargs
+    references: Optional[List[NormalizedReference]],
+    **kwargs: Any,
 ) -> str:
     """
     Returns a human-readable string of the given normalized scripture references
@@ -136,16 +140,18 @@ def format_single_reference(
     reference: NormalizedReference,
     include_books: bool = True,
     include_chapters: bool = True,
-    **kwargs,
+    **kwargs: Any,
 ) -> str:
     """
     Returns a human-readable string of the given normalized scripture reference
 
     :param reference: A normalized scripture reference
     :type reference: NormalizedReference
-    :param include_books: If True includes the book title(s) in the returned reference string, defaults to True
+    :param include_books: If True includes the book title(s) in the returned reference
+                          string, defaults to True
     :type include_books: bool
-    :param include_chapters: If True includes the chapter number(s) in the returned reference string, defaults to True
+    :param include_chapters: If True includes the chapter number(s) in the returned
+                             reference string, defaults to True
     :type include_chapters: bool
     :return: A human-readable string of the given normalized scripture reference
     :rtype: str
@@ -179,13 +185,17 @@ def format_single_reference(
 
 
 def _get_start_book(
-    reference: NormalizedReference, include_books: bool = True, **kwargs
+    reference: NormalizedReference,
+    include_books: bool = True,
+    **kwargs: Any,
 ) -> str:
     return _get_book_title(reference.book, include_books, **kwargs)
 
 
 def _get_end_book(
-    reference: NormalizedReference, include_books: bool = True, **kwargs
+    reference: NormalizedReference,
+    include_books: bool = True,
+    **kwargs: Any,
 ) -> str:
     if reference.end_book and reference.end_book != reference.book:
         return _get_book_title(reference.end_book, include_books, **kwargs)
@@ -193,7 +203,7 @@ def _get_end_book(
     return ""
 
 
-def _get_book_title(book: Book, include_books: bool = True, **kwargs) -> str:
+def _get_book_title(book: Book, include_books: bool = True, **kwargs: Any) -> str:
     if not include_books:
         return ""
 
@@ -209,7 +219,9 @@ def _get_book_title(book: Book, include_books: bool = True, **kwargs) -> str:
 
 
 def _get_start_chapter(
-    reference: NormalizedReference, include_chapters: bool = True, **kwargs
+    reference: NormalizedReference,
+    include_chapters: bool = True,
+    **kwargs: Any,
 ) -> str:
     if not include_chapters:
         return ""
@@ -228,7 +240,7 @@ def _get_start_chapter(
     return f"{reference.start_chapter}:"
 
 
-def _get_start_verse(reference: NormalizedReference, **kwargs) -> str:
+def _get_start_verse(reference: NormalizedReference, **kwargs: Any) -> str:
     force_include_chapters: bool = kwargs.get("always_include_chapter_numbers", False)
 
     if (
@@ -241,7 +253,9 @@ def _get_start_verse(reference: NormalizedReference, **kwargs) -> str:
 
 
 def _get_end_chapter(
-    reference: NormalizedReference, include_chapters: bool = True, **kwargs
+    reference: NormalizedReference,
+    include_chapters: bool = True,
+    **kwargs: Any,
 ) -> str:
     if not include_chapters:
         return ""
@@ -275,7 +289,7 @@ def _get_end_chapter(
     return f"{reference.end_chapter}:"
 
 
-def _get_end_verse(reference: NormalizedReference, **kwargs) -> str:
+def _get_end_verse(reference: NormalizedReference, **kwargs: Any) -> str:
     force_include_chapters: bool = kwargs.get("always_include_chapter_numbers", False)
 
     if reference.end_book and reference.book != reference.end_book:
@@ -301,7 +315,9 @@ def _get_end_verse(reference: NormalizedReference, **kwargs) -> str:
     )
 
 
-def _does_reference_include_all_verses_in_start_book(reference: NormalizedReference):
+def _does_reference_include_all_verses_in_start_book(
+    reference: NormalizedReference,
+) -> bool:
     if reference.start_chapter != 1:
         return False
 
@@ -319,7 +335,9 @@ def _does_reference_include_all_verses_in_start_book(reference: NormalizedRefere
     return reference.end_verse == get_number_of_verses(reference.book, max_chapters)
 
 
-def _does_reference_include_all_verses_in_end_book(reference: NormalizedReference):
+def _does_reference_include_all_verses_in_end_book(
+    reference: NormalizedReference,
+) -> bool:
     max_chapters = get_number_of_chapters(reference.end_book)
 
     if reference.end_chapter != max_chapters:
@@ -329,7 +347,7 @@ def _does_reference_include_all_verses_in_end_book(reference: NormalizedReferenc
 
 
 # TODO - rewrite this to not need a parser
-def format_scripture_text(verse_ids: List[int], **kwargs) -> str:
+def format_scripture_text(verse_ids: List[int], **kwargs: Any) -> str:
     """
     Returns the formatted scripture text for the given list of verse IDs.
 
@@ -460,8 +478,10 @@ def get_verse_text(verse_id: int, version: Version = DEFAULT_VERSION) -> Optiona
     :type version: :ref:`Version`
     :return: The scripture text of the given verse id and version
     :rtype: str
-    :raises InvalidVerseError: if the given verse id does not correspond to a valid verse
-    :raises MissingVerseFileError: if the verse file for the given verse_id and version does not exist
+    :raises InvalidVerseError: if the given verse id does not correspond to a valid
+                               verse
+    :raises MissingVerseFileError: if the verse file for the given verse_id and version
+                                   does not exist
     """
     if verse_id not in VERSE_IDS:
         raise InvalidVerseError(verse_id=verse_id)
@@ -480,11 +500,13 @@ def _get_version_verse_texts(version: Version) -> Dict[int, str]:
 
     if verse_texts is None:
         json_filename: str = os.path.join(
-            os.path.join(DATA_FOLDER, version.value.lower()), "verses.json"
+            DATA_FOLDER,
+            version.value.lower(),
+            "verses.json",
         )
         verse_texts = {}
 
-        with open(json_filename, "r") as json_file:
+        with open(json_filename, "r", encoding="utf-8") as json_file:
             for verse_id, verse_text in json.load(json_file).items():
                 verse_texts[int(verse_id)] = verse_text
 
@@ -495,7 +517,8 @@ def _get_version_verse_texts(version: Version) -> Dict[int, str]:
 
 @lru_cache()
 def get_book_titles(
-    book: Book, version: Version = DEFAULT_VERSION
+    book: Book,
+    version: Version = DEFAULT_VERSION,
 ) -> Optional[BookTitles]:
     """
     Returns the book titles for the given :ref:`Book` and optional :ref:`Version`
@@ -506,7 +529,8 @@ def get_book_titles(
     :type version: :ref:`Version`
     :return: the long and short titles of the given book and version
     :rtype: Optional[BookTitles]
-    :raises MissingBookFileError: if the book file for the given book and version does not exist
+    :raises MissingBookFileError: if the book file for the given book and version does
+                                  not exist
     """
     try:
         version_book_tiles: Dict[Book, BookTitles] = _get_version_book_titles(version)
@@ -522,11 +546,13 @@ def _get_version_book_titles(version: Version) -> Dict[Book, BookTitles]:
 
     if book_titles is None:
         json_filename: str = os.path.join(
-            os.path.join(DATA_FOLDER, version.value.lower()), "books.json"
+            DATA_FOLDER,
+            version.value.lower(),
+            "books.json",
         )
         book_titles = {}
 
-        with open(json_filename, "r") as json_file:
+        with open(json_filename, "r", encoding="utf-8") as json_file:
             for book_id, titles in json.load(json_file).items():
                 book: Book = Book(int(book_id))
                 book_titles[book] = BookTitles(titles[0], titles[1])

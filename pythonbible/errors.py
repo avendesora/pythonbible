@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from typing import Any, Optional
 
 
@@ -6,17 +8,26 @@ class InvalidBookError(Exception):
 
 
 class InvalidChapterError(Exception):
-    """Raised when the chapter number is not a valid chapter number for the given book of the Bible."""
+    """
+    Raised when the chapter number is not a valid chapter number for the given book of
+    the Bible.
+    """
 
 
 class InvalidVerseError(Exception):
-    """Raised when the verse id or book, chapter, and verse number being processed is not a valid Bible verse."""
+    """
+    Raised when the verse id or book, chapter, and verse number being processed is not
+    a valid Bible verse.
+    """
 
-    def __init__(self, message: Optional[str] = None, **kwargs) -> None:
+    def __init__(
+        self: InvalidVerseError, message: Optional[str] = None, **kwargs: Any
+    ) -> None:
         """
 
         :param message: optional message string
-        :param kwargs: optional keyword arguments (verse_id, book, chapter, verse) for more specific messaging
+        :param kwargs: optional keyword arguments (verse_id, book, chapter, verse) for
+                       more specific messaging
         """
         self.message: Optional[str] = message
         self.verse_id: Optional[Any] = kwargs.get("verse_id")
@@ -26,7 +37,10 @@ class InvalidVerseError(Exception):
 
         if not self.message:
             if self.book and self.chapter and self.verse:
-                self.message = f"{self.book.title} {self.chapter}:{self.verse} is not a valid verse."
+                self.message = (
+                    f"{self.book.title} {self.chapter}:{self.verse} "
+                    f"is not a valid verse."
+                )
             elif self.verse_id:
                 self.message = f"{self.verse_id} is not a valid verse."
 

@@ -1,7 +1,9 @@
 """Contains the BibleParser generic parser class."""
+from __future__ import annotations
+
 from abc import abstractmethod
 from collections import OrderedDict
-from typing import Dict, List
+from typing import Any, Dict, List
 
 from pythonbible.books import Book
 from pythonbible.versions import Version
@@ -15,7 +17,7 @@ class BibleParser:
     parsers (e.g. OSIS, USFM, USFX, etc.) for parsing scripture text.
     """
 
-    def __init__(self, version: Version) -> None:
+    def __init__(self: BibleParser, version: Version) -> None:
         """
         Initialize the Bible parser with the version.
 
@@ -24,7 +26,7 @@ class BibleParser:
         self.version: Version = version
 
     @abstractmethod
-    def get_book_title(self, book: Book) -> str:
+    def get_book_title(self: BibleParser, book: Book) -> str:
         """
         Given a book, return the full title for that book from the XML file.
 
@@ -33,7 +35,7 @@ class BibleParser:
         """
 
     @abstractmethod
-    def get_short_book_title(self, book: Book) -> str:
+    def get_short_book_title(self: BibleParser, book: Book) -> str:
         """
         Given a book, return the short title for that book from the XML file.
 
@@ -43,7 +45,9 @@ class BibleParser:
 
     @abstractmethod
     def get_scripture_passage_text(
-        self, verse_ids: List[int], **kwargs
+        self: BibleParser,
+        verse_ids: List[int],
+        **kwargs: Any,
     ) -> Dict[Book, Dict[int, List[str]]]:
         """
         Get the scripture passage for the given verse ids.
@@ -60,7 +64,7 @@ class BibleParser:
         """
 
     @abstractmethod
-    def get_verse_text(self, verse_id: int, **kwargs) -> str:
+    def get_verse_text(self: BibleParser, verse_id: int, **kwargs: Any) -> str:
         """
         Get the scripture text for the given verse id.
 
@@ -75,7 +79,9 @@ class BibleParser:
         """
 
 
-def sort_paragraphs(paragraphs: Dict[Book, Dict[int, List[str]]]):
+def sort_paragraphs(
+    paragraphs: Dict[Book, Dict[int, List[str]]]
+) -> Dict[Book, Dict[int, List[str]]]:
     """
     Sort paragraphs of scripture text.
 

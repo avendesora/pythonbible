@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from typing import List
 
 from pythonbible.books import Book
@@ -9,7 +11,8 @@ from pythonbible.verses import VERSE_IDS, get_book_chapter_verse, get_verse_id
 
 def convert_references_to_verse_ids(references: List[NormalizedReference]) -> List[int]:
     """
-    Converts the given list of NormalizedReference objects into a list of verse id integers.
+    Converts the given list of NormalizedReference objects into a list of verse id
+    integers.
 
     :param references: A list of normalized references
     :type references: List[NormalizedReference]
@@ -52,13 +55,15 @@ def convert_reference_to_verse_ids(reference: NormalizedReference) -> List[int]:
 
 def convert_verse_ids_to_references(verse_ids: List[int]) -> List[NormalizedReference]:
     """
-    Converts the given list of verse id integers into a list of NormalizedReference objects.
+    Converts the given list of verse id integers into a list of NormalizedReference
+    objects.
 
     :param verse_ids: A list of verse ids
     :type verse_ids: List[int]
     :return: The list of normalized references associated with the verse ids
     :rtype: List[NormalizedReference]
-    :raises InvalidVerseError: if one or more of the verse_ids does not correspond to a valid verse
+    :raises InvalidVerseError: if one or more of the verse_ids does not correspond to
+                               a valid verse
     """
     references: List[NormalizedReference] = []
 
@@ -94,7 +99,8 @@ def convert_verse_ids_to_references(verse_ids: List[int]) -> List[NormalizedRefe
 
         book, chapter, verse = get_book_chapter_verse(verse_id)
 
-        # If it's just the next verse in the range, updated the previous fields and continue.
+        # If it's just the next verse in the range, updated the previous fields and
+        # continue.
         if VERSE_IDS.index(verse_id) - VERSE_IDS.index(previous_verse_id) == 1:
             previous_book = book
             previous_chapter = chapter
@@ -102,7 +108,8 @@ def convert_verse_ids_to_references(verse_ids: List[int]) -> List[NormalizedRefe
             previous_verse_id = verse_id
             continue
 
-        # At the beginning of a new range, so create the reference and reset all of the fields.
+        # At the beginning of a new range, so create the reference and reset all of the
+        # fields.
         references.append(
             NormalizedReference(
                 start_book,

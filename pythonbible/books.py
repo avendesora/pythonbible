@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from enum import IntEnum
 from typing import Dict
 
@@ -87,7 +89,7 @@ class Book(IntEnum):
     MACCABEES_2 = 72
 
     @property
-    def title(self) -> str:
+    def title(self: Book) -> str:
         return _BOOK_TITLES.get(self, "")
 
 

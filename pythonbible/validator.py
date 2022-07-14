@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from typing import List, Optional
 
 from pythonbible.books import Book
@@ -91,8 +93,9 @@ def is_valid_chapter(book: Book, chapter: int) -> bool:
 def is_valid_verse(book: Book, chapter: int, verse: int) -> bool:
     """
     Checks to see if the given :ref:`Book` is a valid book of the Bible,
-    then checks to see if the given chapter number is a valid chapter number for the given book,
-    then checks to see if the given verse number is a valid verse number for the given book and chapter
+    then checks to see if the given chapter number is a valid chapter number for the
+    given book, then checks to see if the given verse number is a valid verse number
+    for the given book and chapter
 
     :param book: a book of the Bible
     :type book: :ref:`Book`
