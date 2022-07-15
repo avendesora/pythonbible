@@ -177,11 +177,7 @@ def format_single_reference(
     range_separator: str = ""
 
     if end_book:
-        range_separator = " - "
-
-        if end_chapter:
-            range_separator = "-"
-
+        range_separator = "-" if end_chapter else " - "
     return "".join(
         [
             start_book,
