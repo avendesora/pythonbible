@@ -234,7 +234,6 @@ def _get_paragraph_from_element(
     include_verse_number: bool,
 ) -> tuple[list[str], int]:
     new_current_verse_id: int = current_verse_id
-    paragraphs: list[str] = []
     paragraph: str = ""
     skip_till_next_verse: bool = False
     child_paragraph: str
@@ -260,7 +259,7 @@ def _get_paragraph_from_element(
 
         paragraph += child_paragraph
 
-    paragraphs.append(clean_paragraph(paragraph))
+    paragraphs: list[str] = [clean_paragraph(paragraph)]
     return paragraphs, new_current_verse_id
 
 
