@@ -38,7 +38,7 @@ class BookGroup(Enum):
 
     @property
     def books(self: BookGroup) -> tuple[Book, ...]:
-        return _BOOK_GROUP_BOOKS.get(self, [])
+        return _BOOK_GROUP_BOOKS.get(self, ())
 
     @property
     def regular_expression(self: BookGroup) -> str:

@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Optional
 
 from pythonbible.books import Book
 
@@ -31,4 +30,4 @@ class NormalizedReference:
     start_verse: int
     end_chapter: int
     end_verse: int
-    end_book: Optional[Book] = None
+    end_book: Book | None = None

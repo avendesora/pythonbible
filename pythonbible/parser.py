@@ -251,9 +251,10 @@ def _process_book_group_match(
     book_groups: dict[str, tuple[Book, ...]],
 ) -> list[NormalizedReference]:
     references: list[NormalizedReference] = []
-    books: list[Book] = []
+    regular_expression: str
+    books: tuple[Book, ...]
 
-    for regular_expression in book_groups:
+    for regular_expression, book_group_books in book_groups.items():
         reference_match: Match[str] | None = re.match(
             regular_expression,
             text,
@@ -261,7 +262,7 @@ def _process_book_group_match(
         )
 
         if reference_match:
-            books = book_groups.get(regular_expression)
+            books = book_group_books
             break
 
     start_book: Book = books[0]

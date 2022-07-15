@@ -1473,7 +1473,7 @@ CHAPTER_PLACE = 1000
 
 
 @lru_cache()
-def __generate_verse_ids() -> tuple[int]:
+def __generate_verse_ids() -> tuple[int, ...]:
     return tuple(
         int(
             f"{str(book.value).zfill(2)}"
@@ -1486,7 +1486,7 @@ def __generate_verse_ids() -> tuple[int]:
     )
 
 
-VERSE_IDS: tuple[int] = __generate_verse_ids()
+VERSE_IDS: tuple[int, ...] = __generate_verse_ids()
 
 
 @lru_cache()

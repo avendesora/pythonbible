@@ -1,13 +1,11 @@
 from __future__ import annotations
 
-from typing import List
-
 import pythonbible as bible
 
 
 def test_count_books_single_book() -> None:
     # Given a list of references
-    references: List[bible.NormalizedReference] = bible.get_references("James 1:4-6")
+    references: list[bible.NormalizedReference] = bible.get_references("James 1:4-6")
 
     # When we get the count of books in the references
     number_of_books: int = bible.count_books(references[0])
@@ -18,7 +16,7 @@ def test_count_books_single_book() -> None:
 
 def test_count_books_two_books() -> None:
     # Given a list of references
-    references: List[bible.NormalizedReference] = bible.get_references(
+    references: list[bible.NormalizedReference] = bible.get_references(
         "Matthew 19:3 - Mark 6:9",
     )
 
@@ -31,7 +29,7 @@ def test_count_books_two_books() -> None:
 
 def test_count_books_multiple_books() -> None:
     # Given a list of references
-    references: List[bible.NormalizedReference] = bible.get_references(
+    references: list[bible.NormalizedReference] = bible.get_references(
         "Genesis - Deuteronomy",
     )
 
@@ -44,7 +42,7 @@ def test_count_books_multiple_books() -> None:
 
 def test_count_books_multiple_references() -> None:
     # Given a list of references
-    references: List[bible.NormalizedReference] = bible.get_references(
+    references: list[bible.NormalizedReference] = bible.get_references(
         "Genesis - Deuteronomy, Matthew 19:3 - Mark 6:9, James 1:4-6",
     )
 
@@ -68,7 +66,7 @@ def test_count_books_string() -> None:
 
 def test_count_chapters_single_chapter() -> None:
     # Given a list of references
-    references: List[bible.NormalizedReference] = bible.get_references("James 1:4-6")
+    references: list[bible.NormalizedReference] = bible.get_references("James 1:4-6")
 
     # When we get the count of chapters in the references
     number_of_chapters: int = bible.count_chapters(references[0])
@@ -79,7 +77,7 @@ def test_count_chapters_single_chapter() -> None:
 
 def test_count_chapters_two_chapters() -> None:
     # Given a list of references
-    references: List[bible.NormalizedReference] = bible.get_references("James 1-2")
+    references: list[bible.NormalizedReference] = bible.get_references("James 1-2")
 
     # When we get the count of chapters in the references
     number_of_chapters: int = bible.count_chapters(references[0])
@@ -90,7 +88,7 @@ def test_count_chapters_two_chapters() -> None:
 
 def test_count_chapters_multiple_chapters() -> None:
     # Given a list of references
-    references: List[bible.NormalizedReference] = bible.get_references("James")
+    references: list[bible.NormalizedReference] = bible.get_references("James")
 
     # When we get the count of chapters in the references
     number_of_chapters: int = bible.count_chapters(references[0])
@@ -101,7 +99,7 @@ def test_count_chapters_multiple_chapters() -> None:
 
 def test_count_chapters_multiple_books() -> None:
     # Given a list of references
-    references: List[bible.NormalizedReference] = bible.get_references(
+    references: list[bible.NormalizedReference] = bible.get_references(
         "Matthew 28:1 - Luke 1:10",
     )
 
@@ -114,7 +112,7 @@ def test_count_chapters_multiple_books() -> None:
 
 def test_count_chapters_multiple_references() -> None:
     # Given a list of references
-    references: List[bible.NormalizedReference] = bible.get_references(
+    references: list[bible.NormalizedReference] = bible.get_references(
         "Genesis, Matthew - Acts",
     )
 
@@ -138,7 +136,7 @@ def test_count_chapters_string() -> None:
 
 def test_count_verses_single_verse() -> None:
     # Given a list of references
-    references: List[bible.NormalizedReference] = bible.get_references("Genesis 1:1")
+    references: list[bible.NormalizedReference] = bible.get_references("Genesis 1:1")
 
     # When we get the count of verses in the references
     number_of_verses: int = bible.count_verses(references[0])
@@ -149,7 +147,7 @@ def test_count_verses_single_verse() -> None:
 
 def test_count_verses_multiple_verses() -> None:
     # Given a list of references
-    references: List[bible.NormalizedReference] = bible.get_references("Genesis 1:6-10")
+    references: list[bible.NormalizedReference] = bible.get_references("Genesis 1:6-10")
 
     # When we get the count of verses in the references
     number_of_verses: int = bible.count_verses(references[0])
@@ -160,7 +158,7 @@ def test_count_verses_multiple_verses() -> None:
 
 def test_count_verses_multiple_chapters() -> None:
     # Given a list of references
-    references: List[bible.NormalizedReference] = bible.get_references(
+    references: list[bible.NormalizedReference] = bible.get_references(
         "Matthew 5:3-7:27",
     )
 
@@ -173,7 +171,7 @@ def test_count_verses_multiple_chapters() -> None:
 
 def test_count_verses_multiple_books() -> None:
     # Given a list of references
-    references: List[bible.NormalizedReference] = bible.get_references("1 John - Jude")
+    references: list[bible.NormalizedReference] = bible.get_references("1 John - Jude")
 
     # When we get the count of verses in the references
     number_of_verses: int = bible.count_verses(references[0])
@@ -184,7 +182,7 @@ def test_count_verses_multiple_books() -> None:
 
 def test_count_verses_multiple_references() -> None:
     # Given a list of references
-    references: List[bible.NormalizedReference] = bible.get_references(
+    references: list[bible.NormalizedReference] = bible.get_references(
         "Genesis 1:1; John 3:16; Romans 15:5-7,13",
     )
 

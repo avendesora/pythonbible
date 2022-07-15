@@ -39,13 +39,10 @@ test = [
 doc = [
     "furo >=2022.6.21",
     "Sphinx >=4.5.0",
-    "sphinx-toolbox >=3.1.1",
+    "sphinx-toolbox >=3.1.2",
 ]
 dev = [
-    "bandit >=1.7.4",
-    "black >=22.6.0",
-    "mypy >=0.961",
-    "prospector >=1.7.7",
+    "pre-commit >=2.20.0",
 ]
 all = [
     "defusedxml >=0.7.1",

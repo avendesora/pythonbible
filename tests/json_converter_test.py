@@ -3,7 +3,6 @@ from __future__ import annotations
 import json
 import os
 from contextlib import suppress
-from typing import Dict, List
 
 import pytest
 
@@ -16,9 +15,9 @@ TEST_DATA_FOLDER = os.path.join(os.path.dirname(os.path.realpath(__file__)), "da
 
 def test_json_converter(
     kjv_parser: BibleParser,
-    short_verse_id_list: List[int],
-    short_verse_data_json: Dict[str, str],
-    short_book_title_data_json: Dict[str, str],
+    short_verse_id_list: list[int],
+    short_verse_data_json: dict[str, str],
+    short_book_title_data_json: dict[str, str],
 ) -> None:
     _run_json_converter_test_for_version(
         kjv_parser,
@@ -30,9 +29,9 @@ def test_json_converter(
 
 def test_json_converter_blank_verse(
     asv_parser: BibleParser,
-    short_verse_id_list: List[int],
-    short_verse_data_json_asv: Dict[str, str],
-    short_book_title_data_json_asv: Dict[str, str],
+    short_verse_id_list: list[int],
+    short_verse_data_json_asv: dict[str, str],
+    short_book_title_data_json_asv: dict[str, str],
 ) -> None:
     _run_json_converter_test_for_version(
         asv_parser,
@@ -44,9 +43,9 @@ def test_json_converter_blank_verse(
 
 def _run_json_converter_test_for_version(
     parser: BibleParser,
-    short_verse_id_list: List[int],
-    short_verse_data_json: Dict[str, str],
-    short_book_title_data_json: Dict[str, str],
+    short_verse_id_list: list[int],
+    short_verse_data_json: dict[str, str],
+    short_book_title_data_json: dict[str, str],
 ) -> None:
     # Given a parser, a data folder, a list of verse ids, and no existing json file.
     version_folder: str = os.path.join(TEST_DATA_FOLDER, parser.version.value.lower())
@@ -70,13 +69,13 @@ def _run_json_converter_test_for_version(
 
     # And the data in the file correctly contains the verse data.
     with open(verses_filename, "r", encoding="utf-8") as verse_file:
-        verse_data: Dict[str, str] = json.load(verse_file)
+        verse_data: dict[str, str] = json.load(verse_file)
 
     assert verse_data == short_verse_data_json
 
     # And the data in the books file correctly contains the book title data.
     with open(books_filename, "r", encoding="utf-8") as book_file:
-        book_title_data: Dict[str, str] = json.load(book_file)
+        book_title_data: dict[str, str] = json.load(book_file)
 
     assert book_title_data == short_book_title_data_json
 

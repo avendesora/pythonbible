@@ -1,4 +1,1 @@
-bandit
-black
-mypy
-prospector
+pre-commit

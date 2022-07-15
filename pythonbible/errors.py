@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import Any, Optional
+from typing import Any
 
 
 class InvalidBookError(Exception):
@@ -21,7 +21,7 @@ class InvalidVerseError(Exception):
 
     def __init__(
         self: InvalidVerseError,
-        message: Optional[str] = None,
+        message: str | None = None,
         **kwargs: Any,
     ) -> None:
         """
@@ -31,11 +31,11 @@ class InvalidVerseError(Exception):
         :param kwargs: optional keyword arguments (verse_id, book, chapter, verse) for
                        more specific messaging
         """
-        self.message: Optional[str] = message
-        self.verse_id: Optional[Any] = kwargs.get("verse_id")
-        self.book: Optional[Any] = kwargs.get("book")
-        self.chapter: Optional[Any] = kwargs.get("chapter")
-        self.verse: Optional[Any] = kwargs.get("verse")
+        self.message: str | None = message
+        self.verse_id: Any | None = kwargs.get("verse_id")
+        self.book: Any | None = kwargs.get("book")
+        self.chapter: Any | None = kwargs.get("chapter")
+        self.verse: Any | None = kwargs.get("verse")
 
         if not self.message:
             if self.book and self.chapter and self.verse:

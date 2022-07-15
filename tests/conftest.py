@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 from collections import OrderedDict
-from typing import Dict, List
 
 import pytest
 
@@ -55,7 +54,7 @@ def text_with_reference_complex() -> str:
 
 
 @pytest.fixture()
-def normalized_references_complex() -> List[bible.NormalizedReference]:
+def normalized_references_complex() -> list[bible.NormalizedReference]:
     return [
         bible.NormalizedReference(bible.Book.PSALMS, 130, 4, 130, 4),
         bible.NormalizedReference(bible.Book.PSALMS, 130, 8, 130, 8),
@@ -97,7 +96,7 @@ def reference_string() -> str:
 
 
 @pytest.fixture()
-def references() -> List[bible.NormalizedReference]:
+def references() -> list[bible.NormalizedReference]:
     return [
         bible.NormalizedReference(bible.Book.MATTHEW, 18, 12, 18, 14),
         bible.NormalizedReference(bible.Book.LUKE, 15, 3, 15, 7),
@@ -105,7 +104,7 @@ def references() -> List[bible.NormalizedReference]:
 
 
 @pytest.fixture()
-def verse_ids() -> List[int]:
+def verse_ids() -> list[int]:
     return [
         40018012,
         40018013,
@@ -119,7 +118,7 @@ def verse_ids() -> List[int]:
 
 
 @pytest.fixture()
-def verse_ids_multiple_chapters() -> List[int]:
+def verse_ids_multiple_chapters() -> list[int]:
     return [
         40018012,
         40018013,
@@ -129,7 +128,7 @@ def verse_ids_multiple_chapters() -> List[int]:
 
 
 @pytest.fixture()
-def verse_ids_complex() -> List[int]:
+def verse_ids_complex() -> list[int]:
     return [
         19130004,
         19130008,
@@ -188,7 +187,7 @@ def roman_numeral_references() -> str:
 
 
 @pytest.fixture()
-def kjv_passage() -> Dict[bible.Book, Dict[int, List[str]]]:
+def kjv_passage() -> dict[bible.Book, dict[int, list[str]]]:
     return OrderedDict(
         [
             (
@@ -271,7 +270,7 @@ def kjv_passage() -> Dict[bible.Book, Dict[int, List[str]]]:
 
 
 @pytest.fixture()
-def kjv_passage_no_verse_numbers() -> Dict[bible.Book, Dict[int, List[str]]]:
+def kjv_passage_no_verse_numbers() -> dict[bible.Book, dict[int, list[str]]]:
     return OrderedDict(
         [
             (
@@ -354,7 +353,7 @@ def kjv_passage_no_verse_numbers() -> Dict[bible.Book, Dict[int, List[str]]]:
 
 
 @pytest.fixture()
-def asv_passage() -> Dict[bible.Book, Dict[int, List[str]]]:
+def asv_passage() -> dict[bible.Book, dict[int, list[str]]]:
     return OrderedDict(
         [
             (
@@ -534,7 +533,7 @@ def asv_parser() -> BibleParser:
 
 
 @pytest.fixture()
-def short_verse_id_list() -> List[int]:
+def short_verse_id_list() -> list[int]:
     return [
         1001001,
         2020003,
@@ -544,7 +543,7 @@ def short_verse_id_list() -> List[int]:
 
 
 @pytest.fixture()
-def short_verse_data_json() -> Dict[str, str]:
+def short_verse_data_json() -> dict[str, str]:
     return {
         "1001001": "In the beginning God created the heaven and the earth.",
         "2020003": "Thou shalt have no other gods before me.",
@@ -556,7 +555,7 @@ def short_verse_data_json() -> Dict[str, str]:
 
 
 @pytest.fixture()
-def short_verse_data_json_asv() -> Dict[str, str]:
+def short_verse_data_json_asv() -> dict[str, str]:
     return {
         "1001001": "In the beginning God created the heavens and the earth.",
         "2020003": "Thou shalt have no other gods before me.",
@@ -567,7 +566,7 @@ def short_verse_data_json_asv() -> Dict[str, str]:
 
 
 @pytest.fixture()
-def short_book_title_data_json() -> Dict[str, List[str]]:
+def short_book_title_data_json() -> dict[str, list[str]]:
     return {
         "1": ["The First Book of Moses, called Genesis", "Genesis"],
         "2": ["The Second Book of Moses, called Exodus", "Exodus"],
@@ -576,7 +575,7 @@ def short_book_title_data_json() -> Dict[str, List[str]]:
 
 
 @pytest.fixture()
-def short_book_title_data_json_asv() -> Dict[str, List[str]]:
+def short_book_title_data_json_asv() -> dict[str, list[str]]:
     return {
         "1": ["The First Book of Moses, Commonly Called Genesis", "Genesis"],
         "2": ["The Second Book of Moses, Commonly Called Exodus", "Exodus"],
@@ -596,7 +595,7 @@ def short_book_title() -> str:
 
 # noinspection SpellCheckingInspection
 @pytest.fixture()
-def book_alternative_names() -> Dict[bible.Book, List[str]]:
+def book_alternative_names() -> dict[bible.Book, list[str]]:
     return {
         bible.Book.GENESIS: [
             "Gen",
@@ -1094,7 +1093,7 @@ def book_alternative_names() -> Dict[bible.Book, List[str]]:
 
 
 @pytest.fixture()
-def book_alternative_names_verbum() -> Dict[bible.Book, List[str]]:
+def book_alternative_names_verbum() -> dict[bible.Book, list[str]]:
     """
     Return the abbreviations supported by verbum.
 
