@@ -1475,16 +1475,14 @@ CHAPTER_PLACE = 1000
 @lru_cache()
 def __generate_verse_ids() -> tuple[int]:
     return tuple(
-        [
-            int(
-                f"{str(book.value).zfill(2)}"
-                f"{str(chapter + 1).zfill(3)}"
-                f"{str(verse + 1).zfill(3)}",
-            )
-            for book, chapters in MAX_VERSE_NUMBER_BY_BOOK_AND_CHAPTER.items()
-            for chapter, max_verse in enumerate(chapters)
-            for verse in range(max_verse)
-        ],
+        int(
+            f"{str(book.value).zfill(2)}"
+            f"{str(chapter + 1).zfill(3)}"
+            f"{str(verse + 1).zfill(3)}",
+        )
+        for book, chapters in MAX_VERSE_NUMBER_BY_BOOK_AND_CHAPTER.items()
+        for chapter, max_verse in enumerate(chapters)
+        for verse in range(max_verse)
     )
 
 
