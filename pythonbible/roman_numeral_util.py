@@ -25,7 +25,7 @@ ROMAN_NUMERAL_REGEX: Pattern[str] = re.compile(
     re.IGNORECASE | re.UNICODE,
 )
 
-ROMAN_NUMERALS_BIG_TO_SMALL: tuple[RomanNumeral] = (
+ROMAN_NUMERALS_BIG_TO_SMALL: tuple[RomanNumeral, ...] = (
     RomanNumeral.C,
     RomanNumeral.XC,
     RomanNumeral.L,
@@ -46,13 +46,13 @@ def _convert_roman_numeral_match_to_integer(match: Match[str]) -> str:
     return str(_convert_roman_numeral_to_integer(match.group(0)))
 
 
-def _convert_roman_numeral_to_integer(roman_numeral_string: str) -> str:
-    roman_numeral_string: str = roman_numeral_string.upper()
+def _convert_roman_numeral_to_integer(roman_numeral_string: str) -> int:
+    numeral_string: str = roman_numeral_string.upper()
     index: int = 0
     integer_result: int = 0
 
     for numeral in ROMAN_NUMERALS_BIG_TO_SMALL:
-        while roman_numeral_string[index : index + len(numeral.name)] == numeral.name:
+        while numeral_string[index : index + len(numeral.name)] == numeral.name:
             integer_result += numeral.value
             index += len(numeral.name)
 

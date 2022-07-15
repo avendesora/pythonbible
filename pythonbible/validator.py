@@ -1,7 +1,5 @@
 from __future__ import annotations
 
-from typing import List, Optional
-
 from pythonbible.books import Book
 from pythonbible.normalized_reference import NormalizedReference
 from pythonbible.verses import (
@@ -94,7 +92,7 @@ def is_valid_chapter(book: Book, chapter: int) -> bool:
     if chapter is None or not isinstance(chapter, int):
         return False
 
-    chapter_list: Optional[List[int]] = MAX_VERSE_NUMBER_BY_BOOK_AND_CHAPTER.get(book)
+    chapter_list: list[int] | None = MAX_VERSE_NUMBER_BY_BOOK_AND_CHAPTER.get(book)
 
     return chapter_list is not None and 1 <= chapter <= len(chapter_list)
 

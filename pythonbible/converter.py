@@ -25,17 +25,17 @@ def convert_references_to_verse_ids(references: list[NormalizedReference]) -> li
     return verse_ids
 
 
-def convert_reference_to_verse_ids(reference: NormalizedReference) -> list[int]:
+def convert_reference_to_verse_ids(reference: NormalizedReference) -> tuple[int, ...]:
     """
-    Convert the given NormalizedReference object into a list of verse id integers.
+    Convert the given NormalizedReference object into a tuple of verse id integers.
 
     :param reference: A normalized reference
     :type reference: NormalizedReference
-    :return: The list of verse ids associated with the reference
-    :rtype: list[int]
+    :return: The tuple of verse ids associated with the reference
+    :rtype: tuple[int, ...]
     """
     if reference is None:
-        return []
+        return ()
 
     end_book = reference.book if reference.end_book is None else reference.end_book
 
