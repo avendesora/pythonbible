@@ -1,7 +1,9 @@
 """Contains the BibleParser generic parser class."""
+from __future__ import annotations
+
 from abc import abstractmethod
 from collections import OrderedDict
-from typing import Dict, List
+from typing import Any
 
 from pythonbible.books import Book
 from pythonbible.versions import Version
@@ -15,7 +17,7 @@ class BibleParser:
     parsers (e.g. OSIS, USFM, USFX, etc.) for parsing scripture text.
     """
 
-    def __init__(self, version: Version) -> None:
+    def __init__(self: BibleParser, version: Version) -> None:
         """
         Initialize the Bible parser with the version.
 
@@ -24,7 +26,7 @@ class BibleParser:
         self.version: Version = version
 
     @abstractmethod
-    def get_book_title(self, book: Book) -> str:
+    def get_book_title(self: BibleParser, book: Book) -> str:
         """
         Given a book, return the full title for that book from the XML file.
 
@@ -33,7 +35,7 @@ class BibleParser:
         """
 
     @abstractmethod
-    def get_short_book_title(self, book: Book) -> str:
+    def get_short_book_title(self: BibleParser, book: Book) -> str:
         """
         Given a book, return the short title for that book from the XML file.
 
@@ -43,8 +45,10 @@ class BibleParser:
 
     @abstractmethod
     def get_scripture_passage_text(
-        self, verse_ids: List[int], **kwargs
-    ) -> Dict[Book, Dict[int, List[str]]]:
+        self: BibleParser,
+        verse_ids: list[int],
+        **kwargs: Any,
+    ) -> dict[Book, dict[int, list[str]]]:
         """
         Get the scripture passage for the given verse ids.
 
@@ -60,7 +64,7 @@ class BibleParser:
         """
 
     @abstractmethod
-    def get_verse_text(self, verse_id: int, **kwargs) -> str:
+    def verse_text(self: BibleParser, verse_id: int, **kwargs: Any) -> str:
         """
         Get the scripture text for the given verse id.
 
@@ -75,7 +79,9 @@ class BibleParser:
         """
 
 
-def sort_paragraphs(paragraphs: Dict[Book, Dict[int, List[str]]]):
+def sort_paragraphs(
+    paragraphs: dict[Book, dict[int, list[str]]],
+) -> dict[Book, dict[int, list[str]]]:
     """
     Sort paragraphs of scripture text.
 
@@ -87,16 +93,16 @@ def sort_paragraphs(paragraphs: Dict[Book, Dict[int, List[str]]]):
     :param paragraphs:
     :return: an OrderedDict(Book, OrderedDict(int, list(string)))
     """
-    ordered_paragraphs: Dict[Book, Dict[int, List[str]]] = OrderedDict()
+    ordered_paragraphs: dict[Book, dict[int, list[str]]] = OrderedDict()
 
-    book_keys: List[Book] = list(paragraphs.keys())
+    book_keys: list[Book] = list(paragraphs.keys())
     book_keys.sort()
 
     for book in book_keys:
-        chapters: Dict[int, List[str]] = paragraphs.get(book, OrderedDict())
-        ordered_chapters: Dict[int, List[str]] = OrderedDict()
+        chapters: dict[int, list[str]] = paragraphs.get(book, OrderedDict())
+        ordered_chapters: dict[int, list[str]] = OrderedDict()
 
-        chapter_keys: List[int] = list(chapters.keys())
+        chapter_keys: list[int] = list(chapters.keys())
         chapter_keys.sort()
 
         for chapter in chapter_keys:

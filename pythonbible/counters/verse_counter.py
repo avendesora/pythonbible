@@ -1,5 +1,6 @@
+from __future__ import annotations
+
 from functools import singledispatch
-from typing import List, Optional
 
 from pythonbible.books import Book
 from pythonbible.normalized_reference import NormalizedReference
@@ -8,12 +9,12 @@ from pythonbible.verses import get_number_of_chapters, get_number_of_verses
 
 
 @singledispatch
-def count_verses(references: List[NormalizedReference]) -> int:
+def count_verses(references: list[NormalizedReference]) -> int:
     """
-    Returns the count of verses included in the given list of references.
+    Return the count of verses included in the given list of references.
 
     :param references: A list of normalized references
-    :type references: List[NormalizedReference]
+    :type references: list[NormalizedReference]
     :return: The count of verses included in the given list of references
     :rtype: int
     """
@@ -30,7 +31,7 @@ def _count_verses_string(reference: str) -> int:
     return _get_number_verses_in_references(get_references(reference))
 
 
-def _get_number_verses_in_references(references: List[NormalizedReference]) -> int:
+def _get_number_verses_in_references(references: list[NormalizedReference]) -> int:
     return sum(
         _get_number_of_verses_in_reference(reference) for reference in references
     )
@@ -49,25 +50,31 @@ def _get_number_of_verses_in_reference(reference: NormalizedReference) -> int:
         )
 
         for chapter in range(start_chapter, end_chapter + 1):
-            start_verse: Optional[int] = (
+            start_verse: int | None = (
                 reference.start_verse
                 if book == start_book and chapter == reference.start_chapter
                 else None
             )
-            end_verse: Optional[int] = (
+            end_verse: int | None = (
                 reference.end_verse
                 if book == end_book and chapter == reference.end_chapter
                 else None
             )
 
             number_of_verses += _get_number_of_verses_in_chapter(
-                book, chapter, start_verse, end_verse
+                book,
+                chapter,
+                start_verse,
+                end_verse,
             )
 
     return number_of_verses
 
 
 def _get_number_of_verses_in_chapter(
-    book: Book, chapter: int, start_verse: Optional[int], end_verse: Optional[int]
+    book: Book,
+    chapter: int,
+    start_verse: int | None,
+    end_verse: int | None,
 ) -> int:
     return (end_verse or get_number_of_verses(book, chapter)) - (start_verse or 1) + 1

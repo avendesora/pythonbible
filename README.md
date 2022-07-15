@@ -62,18 +62,18 @@ The search functionality should return the following list of scripture reference
 ```python
 [
     NormalizedReference(
-        book=<Book.MATTHEW: 40>, 
-        start_chapter=18, 
-        start_verse=12, 
-        end_chapter=18, 
+        book=<Book.MATTHEW: 40>,
+        start_chapter=18,
+        start_verse=12,
+        end_chapter=18,
         end_verse=14,
         end_book=None
     ),
     NormalizedReference(
-        book=<Book.LUKE: 42>, 
-        start_chapter=15, 
-        start_verse=3, 
-        end_chapter=15, 
+        book=<Book.LUKE: 42>,
+        start_chapter=15,
+        start_verse=3,
+        end_chapter=15,
         end_verse=7,
         end_book=None
     )
@@ -134,18 +134,18 @@ The conversion functionality would return the following list of normalized scrip
 ```python
 [
     NormalizedReference(
-        book=<Book.MATTHEW: 40>, 
-        start_chapter=18, 
-        start_verse=12, 
-        end_chapter=18, 
+        book=<Book.MATTHEW: 40>,
+        start_chapter=18,
+        start_verse=12,
+        end_chapter=18,
         end_verse=14,
         end_book=None
     ),
     NormalizedReference(
-        book=<Book.LUKE: 42>, 
-        start_chapter=15, 
-        start_verse=3, 
-        end_chapter=15, 
+        book=<Book.LUKE: 42>,
+        start_chapter=15,
+        start_verse=3,
+        end_chapter=15,
         end_verse=7,
         end_book=None
     )
@@ -155,7 +155,7 @@ The conversion functionality would return the following list of normalized scrip
 ### Converting a list of normalized scripture references into a formatted string scripture reference
 Given a list of normalized references, this feature formats them into a human-readable scripture reference string.
 
-It sorts the list so that the references appear in the order they would in the Bible. 
+It sorts the list so that the references appear in the order they would in the Bible.
 It also combines verses into ranges when possible.
 
 For example:

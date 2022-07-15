@@ -1,8 +1,10 @@
 """Contains the parser for OSIS format files."""
 
+from __future__ import annotations
+
 import os
 from functools import lru_cache
-from typing import Dict, List, Tuple
+from typing import Any, Dict, List, Tuple
 from xml.etree.ElementTree import Element
 
 from pythonbible.bible.bible_parser import BibleParser, sort_paragraphs
@@ -33,7 +35,7 @@ class OSISParser(BibleParser):
     to parse XML files that are in the OSIS format.
     """
 
-    def __init__(self, version: Version) -> None:
+    def __init__(self: OSISParser, version: Version) -> None:
         """
         Initialize the OSIS parser.
 
@@ -42,17 +44,17 @@ class OSISParser(BibleParser):
 
         :param version:
         """
-        super(OSISParser, self).__init__(version)
+        super().__init__(version)
 
         self.tree: ElementTree = ElementTree.parse(
-            os.path.join(XML_FOLDER, f"{self.version.value.lower()}.xml")
+            os.path.join(XML_FOLDER, f"{self.version.value.lower()}.xml"),
         )
         self.namespaces: Dict[str, str] = {
-            "xmlns": _get_namespace(self.tree.getroot().tag)
+            "xmlns": _get_namespace(self.tree.getroot().tag),
         }
 
     @lru_cache()
-    def get_book_title(self, book: Book) -> str:
+    def get_book_title(self: OSISParser, book: Book) -> str:
         """
         Given a book, return the full title for that book from the XML file.
 
@@ -63,7 +65,7 @@ class OSISParser(BibleParser):
         return book_title_element.text or ""
 
     @lru_cache()
-    def get_short_book_title(self, book: Book) -> str:
+    def get_short_book_title(self: OSISParser, book: Book) -> str:
         """
         Given a book, return the short title for that book from the XML file.
 
@@ -71,15 +73,12 @@ class OSISParser(BibleParser):
         :return: the short title string
         """
         book_title_element: Element = self._get_book_title_element(book)
-        return book_title_element.get("short", "")
-
-    @lru_cache()
-    def _get_book_title_element(self, book: Book) -> Element:
-        xpath: str = XPATH_BOOK_TITLE.format(BOOK_IDS.get(book))
-        return self.tree.find(xpath, namespaces=self.namespaces)
+        return book_title_element.get("short") or ""
 
     def get_scripture_passage_text(
-        self, verse_ids: List[int], **kwargs
+        self: OSISParser,
+        verse_ids: List[int],
+        **kwargs: Any,
     ) -> Dict[Book, Dict[int, List[str]]]:
         """
         Get the scripture passage for the given verse ids.
@@ -106,23 +105,11 @@ class OSISParser(BibleParser):
         include_verse_number: bool = kwargs.get("include_verse_number", True)
 
         return self._get_scripture_passage_text_memoized(
-            verse_ids_tuple, include_verse_number
-        )
-
-    @lru_cache()
-    def _get_scripture_passage_text_memoized(
-        self, verse_ids, include_verse_number
-    ) -> Dict[Book, Dict[int, List[str]]]:
-        paragraphs: Dict[Book, Dict[int, List[str]]] = _get_paragraphs(
-            self.tree,
-            self.namespaces,
-            verse_ids,
+            verse_ids_tuple,
             include_verse_number,
         )
 
-        return sort_paragraphs(paragraphs)
-
-    def get_verse_text(self, verse_id: int, **kwargs) -> str:
+    def verse_text(self: OSISParser, verse_id: int, **kwargs: Any) -> str:
         """
         Get the scripture text for the given verse id.
 
@@ -144,11 +131,37 @@ class OSISParser(BibleParser):
         return self._get_verse_text_memoized(verse_id, include_verse_number)
 
     @lru_cache()
-    def _get_verse_text_memoized(
-        self, verse_id: int, include_verse_number: bool
-    ) -> str:
+    def _get_book_title_element(self: OSISParser, book: Book) -> Element:
+        xpath: str = XPATH_BOOK_TITLE.format(BOOK_IDS.get(book))
+        return self.tree.find(xpath, namespaces=self.namespaces)
+
+    @lru_cache()
+    def _get_scripture_passage_text_memoized(
+        self: OSISParser,
+        verse_ids: tuple[int],
+        include_verse_number: bool,
+    ) -> Dict[Book, Dict[int, List[str]]]:
         paragraphs: Dict[Book, Dict[int, List[str]]] = _get_paragraphs(
-            self.tree, self.namespaces, (verse_id,), include_verse_number
+            self.tree,
+            self.namespaces,
+            verse_ids,
+            include_verse_number,
+        )
+
+        return sort_paragraphs(paragraphs)
+
+    @lru_cache()
+    def _get_verse_text_memoized(
+        self: OSISParser,
+        verse_id: int,
+        include_verse_number: bool,
+    ) -> str:
+        verse_ids = (verse_id,)
+        paragraphs: Dict[Book, Dict[int, List[str]]] = _get_paragraphs(
+            self.tree,
+            self.namespaces,
+            verse_ids,
+            include_verse_number,
         )
 
         verse_text: str = ""
@@ -183,7 +196,8 @@ def _get_paragraphs(
     verse: int
     book, chapter, verse = get_book_chapter_verse(current_verse_id)
     paragraph_element: Element = tree.find(
-        XPATH_VERSE_PARENT.format(BOOK_IDS.get(book), chapter, verse), namespaces
+        XPATH_VERSE_PARENT.format(BOOK_IDS.get(book), chapter, verse),
+        namespaces,
     )
     paragraphs: List[str]
     paragraphs, current_verse_id = _get_paragraph_from_element(
@@ -238,10 +252,10 @@ def _get_paragraph_from_element(
             include_verse_number,
         )
 
-        if len(child_paragraph) == 0:
+        if not child_paragraph:
             continue
 
-        if len(paragraph) > 0 and not paragraph.endswith(" "):
+        if paragraph and not paragraph.endswith(" "):
             paragraph += " "
 
         paragraph += child_paragraph
@@ -329,7 +343,7 @@ def _handle_verse_tag(
     include_verse_number: bool,
 ) -> Tuple[str, bool, int]:
     paragraph: str = ""
-    osis_id: str = child_element.get("osisID", "..")
+    osis_id: str = child_element.get("osisID") or ".."
 
     if osis_id == "..":
         return paragraph, skip_till_next_verse, current_verse_id

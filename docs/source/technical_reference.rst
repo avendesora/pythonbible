@@ -21,7 +21,7 @@ Book
 .. csv-table:: Book Members
     :header: "Name", "Value", "Title"
     :widths: 3, 1, 3
-    
+
     GENESIS, 1, Genesis
     EXODUS, 2, Exodus
     LEVITICUS, 3, Leviticus

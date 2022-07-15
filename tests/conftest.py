@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from collections import OrderedDict
 from typing import Dict, List
 
@@ -7,52 +9,52 @@ import pythonbible as bible
 from pythonbible.bible.bible_parser import BibleParser
 
 
-@pytest.fixture
+@pytest.fixture()
 def verse_id() -> int:
     return 1001001
 
 
-@pytest.fixture
+@pytest.fixture()
 def invalid_verse_id() -> int:
     return 1100100
 
 
-@pytest.fixture
+@pytest.fixture()
 def book() -> bible.Book:
     return bible.Book.GENESIS
 
 
-@pytest.fixture
+@pytest.fixture()
 def chapter() -> int:
     return 1
 
 
-@pytest.fixture
+@pytest.fixture()
 def verse() -> int:
     return 1
 
 
-@pytest.fixture
+@pytest.fixture()
 def invalid_chapter() -> int:
     return 100
 
 
-@pytest.fixture
+@pytest.fixture()
 def invalid_verse() -> int:
     return 100
 
 
-@pytest.fixture
+@pytest.fixture()
 def text_with_reference() -> str:
     return "The parable of the lost sheep is told in Matthew 18:12-14 and Luke 15:3-7."
 
 
-@pytest.fixture
+@pytest.fixture()
 def text_with_reference_complex() -> str:
     return "You should read Psalm 130:4,8, Jeremiah 29:32-30:10,31:12, Matthew 1:18 - 2:18, and Luke 3: 5-7."
 
 
-@pytest.fixture
+@pytest.fixture()
 def normalized_references_complex() -> List[bible.NormalizedReference]:
     return [
         bible.NormalizedReference(bible.Book.PSALMS, 130, 4, 130, 4),
@@ -64,37 +66,37 @@ def normalized_references_complex() -> List[bible.NormalizedReference]:
     ]
 
 
-@pytest.fixture
+@pytest.fixture()
 def non_normalized_reference() -> str:
     return "Matthew 18:12-14"
 
 
-@pytest.fixture
+@pytest.fixture()
 def reference_without_verse_numbers() -> str:
     return "Exodus 20"
 
 
-@pytest.fixture
+@pytest.fixture()
 def reference_range_without_verse_numbers() -> str:
     return "Genesis 1-4"
 
 
-@pytest.fixture
+@pytest.fixture()
 def reference() -> bible.NormalizedReference:
     return bible.NormalizedReference(bible.Book.GENESIS, 1, 1, 3, 4)
 
 
-@pytest.fixture
+@pytest.fixture()
 def invalid_reference() -> bible.NormalizedReference:
     return bible.NormalizedReference(bible.Book.GENESIS, 1, 1, 100, 100)
 
 
-@pytest.fixture
+@pytest.fixture()
 def reference_string() -> str:
     return "Genesis 1:1-3:4"
 
 
-@pytest.fixture
+@pytest.fixture()
 def references() -> List[bible.NormalizedReference]:
     return [
         bible.NormalizedReference(bible.Book.MATTHEW, 18, 12, 18, 14),
@@ -102,7 +104,7 @@ def references() -> List[bible.NormalizedReference]:
     ]
 
 
-@pytest.fixture
+@pytest.fixture()
 def verse_ids() -> List[int]:
     return [
         40018012,
@@ -116,7 +118,7 @@ def verse_ids() -> List[int]:
     ]
 
 
-@pytest.fixture
+@pytest.fixture()
 def verse_ids_multiple_chapters() -> List[int]:
     return [
         40018012,
@@ -126,7 +128,7 @@ def verse_ids_multiple_chapters() -> List[int]:
     ]
 
 
-@pytest.fixture
+@pytest.fixture()
 def verse_ids_complex() -> List[int]:
     return [
         19130004,
@@ -175,17 +177,17 @@ def verse_ids_complex() -> List[int]:
     ]
 
 
-@pytest.fixture
+@pytest.fixture()
 def formatted_reference() -> str:
     return "Psalms 130:4,8;Jeremiah 29:32-30:10,31:12;Matthew 1:18-2:18;Luke 3:5-7"
 
 
-@pytest.fixture
+@pytest.fixture()
 def roman_numeral_references() -> str:
     return "Psalm cxxx.4,8, Jeremiah xxix. 32 - xxx. 10, xxxi. 12, Matthew i. 18 - ii. 18, and Luke iii. 5-7."
 
 
-@pytest.fixture
+@pytest.fixture()
 def kjv_passage() -> Dict[bible.Book, Dict[int, List[str]]]:
     return OrderedDict(
         [
@@ -199,8 +201,8 @@ def kjv_passage() -> Dict[bible.Book, Dict[int, List[str]]]:
                                 "4. But there is forgiveness with thee, that thou mayest be feared.",
                                 "8. And he shall redeem Israel from all his iniquities.",
                             ],
-                        )
-                    ]
+                        ),
+                    ],
                 ),
             ),
             (
@@ -210,7 +212,7 @@ def kjv_passage() -> Dict[bible.Book, Dict[int, List[str]]]:
                         (
                             29,
                             [
-                                "32. Therefore thus saith the LORD; Behold, I will punish Shemaiah the Nehelamite, and his seed: he shall not have a man to dwell among this people; neither shall he behold the good that I will do for my people, saith the LORD; because he hath taught rebellion against the LORD."
+                                "32. Therefore thus saith the LORD; Behold, I will punish Shemaiah the Nehelamite, and his seed: he shall not have a man to dwell among this people; neither shall he behold the good that I will do for my people, saith the LORD; because he hath taught rebellion against the LORD.",
                             ],
                         ),
                         (
@@ -224,10 +226,10 @@ def kjv_passage() -> Dict[bible.Book, Dict[int, List[str]]]:
                         (
                             31,
                             [
-                                "12. Therefore they shall come and sing in the height of Zion, and shall flow together to the goodness of the LORD, for wheat, and for wine, and for oil, and for the young of the flock and of the herd: and their soul shall be as a watered garden; and they shall not sorrow any more at all."
+                                "12. Therefore they shall come and sing in the height of Zion, and shall flow together to the goodness of the LORD, for wheat, and for wine, and for oil, and for the young of the flock and of the herd: and their soul shall be as a watered garden; and they shall not sorrow any more at all.",
                             ],
                         ),
-                    ]
+                    ],
                 ),
             ),
             (
@@ -237,7 +239,7 @@ def kjv_passage() -> Dict[bible.Book, Dict[int, List[str]]]:
                         (
                             1,
                             [
-                                "18. Now the birth of Jesus Christ was on this wise: When as his mother Mary was espoused to Joseph, before they came together, she was found with child of the Holy Ghost. 19. Then Joseph her husband, being a just man, and not willing to make her a publick example, was minded to put her away privily. 20. But while he thought on these things, behold, the angel of the Lord appeared unto him in a dream, saying, Joseph, thou son of David, fear not to take unto thee Mary thy wife: for that which is conceived in her is of the Holy Ghost. 21. And she shall bring forth a son, and thou shalt call his name JESUS: for he shall save his people from their sins. 22. Now all this was done, that it might be fulfilled which was spoken of the Lord by the prophet, saying, 23. Behold, a virgin shall be with child, and shall bring forth a son, and they shall call his name Emmanuel, which being interpreted is, God with us. 24. Then Joseph being raised from sleep did as the angel of the Lord had bidden him, and took unto him his wife: 25. And knew her not till she had brought forth her firstborn son: and he called his name JESUS."
+                                "18. Now the birth of Jesus Christ was on this wise: When as his mother Mary was espoused to Joseph, before they came together, she was found with child of the Holy Ghost. 19. Then Joseph her husband, being a just man, and not willing to make her a publick example, was minded to put her away privily. 20. But while he thought on these things, behold, the angel of the Lord appeared unto him in a dream, saying, Joseph, thou son of David, fear not to take unto thee Mary thy wife: for that which is conceived in her is of the Holy Ghost. 21. And she shall bring forth a son, and thou shalt call his name JESUS: for he shall save his people from their sins. 22. Now all this was done, that it might be fulfilled which was spoken of the Lord by the prophet, saying, 23. Behold, a virgin shall be with child, and shall bring forth a son, and they shall call his name Emmanuel, which being interpreted is, God with us. 24. Then Joseph being raised from sleep did as the angel of the Lord had bidden him, and took unto him his wife: 25. And knew her not till she had brought forth her firstborn son: and he called his name JESUS.",
                             ],
                         ),
                         (
@@ -248,7 +250,7 @@ def kjv_passage() -> Dict[bible.Book, Dict[int, List[str]]]:
                                 "16. Then Herod, when he saw that he was mocked of the wise men, was exceeding wroth, and sent forth, and slew all the children that were in Bethlehem, and in all the coasts thereof, from two years old and under, according to the time which he had diligently enquired of the wise men. 17. Then was fulfilled that which was spoken by Jeremy the prophet, saying, 18. In Rama was there a voice heard, lamentation, and weeping, and great mourning, Rachel weeping for her children, and would not be comforted, because they are not.",
                             ],
                         ),
-                    ]
+                    ],
                 ),
             ),
             (
@@ -258,17 +260,17 @@ def kjv_passage() -> Dict[bible.Book, Dict[int, List[str]]]:
                         (
                             3,
                             [
-                                "5. Every valley shall be filled, and every mountain and hill shall be brought low; and the crooked shall be made straight, and the rough ways shall be made smooth; 6. And all flesh shall see the salvation of God. 7. Then said he to the multitude that came forth to be baptized of him, O generation of vipers, who hath warned you to flee from the wrath to come?"
+                                "5. Every valley shall be filled, and every mountain and hill shall be brought low; and the crooked shall be made straight, and the rough ways shall be made smooth; 6. And all flesh shall see the salvation of God. 7. Then said he to the multitude that came forth to be baptized of him, O generation of vipers, who hath warned you to flee from the wrath to come?",
                             ],
-                        )
-                    ]
+                        ),
+                    ],
                 ),
             ),
-        ]
+        ],
     )
 
 
-@pytest.fixture
+@pytest.fixture()
 def kjv_passage_no_verse_numbers() -> Dict[bible.Book, Dict[int, List[str]]]:
     return OrderedDict(
         [
@@ -282,8 +284,8 @@ def kjv_passage_no_verse_numbers() -> Dict[bible.Book, Dict[int, List[str]]]:
                                 "But there is forgiveness with thee, that thou mayest be feared.",
                                 "And he shall redeem Israel from all his iniquities.",
                             ],
-                        )
-                    ]
+                        ),
+                    ],
                 ),
             ),
             (
@@ -293,7 +295,7 @@ def kjv_passage_no_verse_numbers() -> Dict[bible.Book, Dict[int, List[str]]]:
                         (
                             29,
                             [
-                                "Therefore thus saith the LORD; Behold, I will punish Shemaiah the Nehelamite, and his seed: he shall not have a man to dwell among this people; neither shall he behold the good that I will do for my people, saith the LORD; because he hath taught rebellion against the LORD."
+                                "Therefore thus saith the LORD; Behold, I will punish Shemaiah the Nehelamite, and his seed: he shall not have a man to dwell among this people; neither shall he behold the good that I will do for my people, saith the LORD; because he hath taught rebellion against the LORD.",
                             ],
                         ),
                         (
@@ -307,10 +309,10 @@ def kjv_passage_no_verse_numbers() -> Dict[bible.Book, Dict[int, List[str]]]:
                         (
                             31,
                             [
-                                "Therefore they shall come and sing in the height of Zion, and shall flow together to the goodness of the LORD, for wheat, and for wine, and for oil, and for the young of the flock and of the herd: and their soul shall be as a watered garden; and they shall not sorrow any more at all."
+                                "Therefore they shall come and sing in the height of Zion, and shall flow together to the goodness of the LORD, for wheat, and for wine, and for oil, and for the young of the flock and of the herd: and their soul shall be as a watered garden; and they shall not sorrow any more at all.",
                             ],
                         ),
-                    ]
+                    ],
                 ),
             ),
             (
@@ -320,7 +322,7 @@ def kjv_passage_no_verse_numbers() -> Dict[bible.Book, Dict[int, List[str]]]:
                         (
                             1,
                             [
-                                "Now the birth of Jesus Christ was on this wise: When as his mother Mary was espoused to Joseph, before they came together, she was found with child of the Holy Ghost. Then Joseph her husband, being a just man, and not willing to make her a publick example, was minded to put her away privily. But while he thought on these things, behold, the angel of the Lord appeared unto him in a dream, saying, Joseph, thou son of David, fear not to take unto thee Mary thy wife: for that which is conceived in her is of the Holy Ghost. And she shall bring forth a son, and thou shalt call his name JESUS: for he shall save his people from their sins. Now all this was done, that it might be fulfilled which was spoken of the Lord by the prophet, saying, Behold, a virgin shall be with child, and shall bring forth a son, and they shall call his name Emmanuel, which being interpreted is, God with us. Then Joseph being raised from sleep did as the angel of the Lord had bidden him, and took unto him his wife: And knew her not till she had brought forth her firstborn son: and he called his name JESUS."
+                                "Now the birth of Jesus Christ was on this wise: When as his mother Mary was espoused to Joseph, before they came together, she was found with child of the Holy Ghost. Then Joseph her husband, being a just man, and not willing to make her a publick example, was minded to put her away privily. But while he thought on these things, behold, the angel of the Lord appeared unto him in a dream, saying, Joseph, thou son of David, fear not to take unto thee Mary thy wife: for that which is conceived in her is of the Holy Ghost. And she shall bring forth a son, and thou shalt call his name JESUS: for he shall save his people from their sins. Now all this was done, that it might be fulfilled which was spoken of the Lord by the prophet, saying, Behold, a virgin shall be with child, and shall bring forth a son, and they shall call his name Emmanuel, which being interpreted is, God with us. Then Joseph being raised from sleep did as the angel of the Lord had bidden him, and took unto him his wife: And knew her not till she had brought forth her firstborn son: and he called his name JESUS.",
                             ],
                         ),
                         (
@@ -331,7 +333,7 @@ def kjv_passage_no_verse_numbers() -> Dict[bible.Book, Dict[int, List[str]]]:
                                 "Then Herod, when he saw that he was mocked of the wise men, was exceeding wroth, and sent forth, and slew all the children that were in Bethlehem, and in all the coasts thereof, from two years old and under, according to the time which he had diligently enquired of the wise men. Then was fulfilled that which was spoken by Jeremy the prophet, saying, In Rama was there a voice heard, lamentation, and weeping, and great mourning, Rachel weeping for her children, and would not be comforted, because they are not.",
                             ],
                         ),
-                    ]
+                    ],
                 ),
             ),
             (
@@ -341,17 +343,17 @@ def kjv_passage_no_verse_numbers() -> Dict[bible.Book, Dict[int, List[str]]]:
                         (
                             3,
                             [
-                                "Every valley shall be filled, and every mountain and hill shall be brought low; and the crooked shall be made straight, and the rough ways shall be made smooth; And all flesh shall see the salvation of God. Then said he to the multitude that came forth to be baptized of him, O generation of vipers, who hath warned you to flee from the wrath to come?"
+                                "Every valley shall be filled, and every mountain and hill shall be brought low; and the crooked shall be made straight, and the rough ways shall be made smooth; And all flesh shall see the salvation of God. Then said he to the multitude that came forth to be baptized of him, O generation of vipers, who hath warned you to flee from the wrath to come?",
                             ],
-                        )
-                    ]
+                        ),
+                    ],
                 ),
             ),
-        ]
+        ],
     )
 
 
-@pytest.fixture
+@pytest.fixture()
 def asv_passage() -> Dict[bible.Book, Dict[int, List[str]]]:
     return OrderedDict(
         [
@@ -365,8 +367,8 @@ def asv_passage() -> Dict[bible.Book, Dict[int, List[str]]]:
                                 "4. But there is forgiveness with thee,",
                                 "8. And he will redeem Israel",
                             ],
-                        )
-                    ]
+                        ),
+                    ],
                 ),
             ),
             (
@@ -376,7 +378,7 @@ def asv_passage() -> Dict[bible.Book, Dict[int, List[str]]]:
                         (
                             29,
                             [
-                                "32. therefore thus saith Jehovah, Behold, I will punish Shemaiah the Nehelamite, and his seed; he shall not have a man to dwell among this people, neither shall he behold the good that I will do unto my people, saith Jehovah, because he hath spoken rebellion against Jehovah."
+                                "32. therefore thus saith Jehovah, Behold, I will punish Shemaiah the Nehelamite, and his seed; he shall not have a man to dwell among this people, neither shall he behold the good that I will do unto my people, saith Jehovah, because he hath spoken rebellion against Jehovah.",
                             ],
                         ),
                         (
@@ -389,10 +391,10 @@ def asv_passage() -> Dict[bible.Book, Dict[int, List[str]]]:
                         (
                             31,
                             [
-                                "12. And they shall come and sing in the height of Zion, and shall flow unto the goodness of Jehovah, to the grain, and to the new wine, and to the oil, and to the young of the flock and of the herd: and their soul shall be as a watered garden; and they shall not sorrow any more at all."
+                                "12. And they shall come and sing in the height of Zion, and shall flow unto the goodness of Jehovah, to the grain, and to the new wine, and to the oil, and to the young of the flock and of the herd: and their soul shall be as a watered garden; and they shall not sorrow any more at all.",
                             ],
                         ),
-                    ]
+                    ],
                 ),
             ),
             (
@@ -418,7 +420,7 @@ def asv_passage() -> Dict[bible.Book, Dict[int, List[str]]]:
                                 "18. A voice was heard in Ramah,",
                             ],
                         ),
-                    ]
+                    ],
                 ),
             ),
             (
@@ -432,15 +434,15 @@ def asv_passage() -> Dict[bible.Book, Dict[int, List[str]]]:
                                 "6. And all flesh shall see the salvation of God.",
                                 "7. He said therefore to the multitudes that went out to be baptized of him, Ye offspring of vipers, who warned you to flee from the wrath to come?",
                             ],
-                        )
-                    ]
+                        ),
+                    ],
                 ),
             ),
-        ]
+        ],
     )
 
 
-@pytest.fixture
+@pytest.fixture()
 def html_scripture_text() -> str:
     return (
         "<h1>Matthew</h1>\n"
@@ -466,7 +468,7 @@ def html_scripture_text() -> str:
     )
 
 
-@pytest.fixture
+@pytest.fixture()
 def non_html_scripture_text() -> str:
     return (
         "Matthew\n\n"
@@ -492,7 +494,7 @@ def non_html_scripture_text() -> str:
     )
 
 
-@pytest.fixture
+@pytest.fixture()
 def html_scripture_text_one_verse_per_paragraph() -> str:
     return (
         "<h1>Matthew</h1>\n"
@@ -511,27 +513,27 @@ def html_scripture_text_one_verse_per_paragraph() -> str:
     )
 
 
-@pytest.fixture
+@pytest.fixture()
 def verse_text() -> str:
     return "1. In the beginning God created the heaven and the earth."
 
 
-@pytest.fixture
+@pytest.fixture()
 def verse_text_no_verse_number() -> str:
     return "In the beginning God created the heaven and the earth."
 
 
-@pytest.fixture
+@pytest.fixture()
 def kjv_parser() -> BibleParser:
     return bible.get_parser(version=bible.Version.KING_JAMES)
 
 
-@pytest.fixture
+@pytest.fixture()
 def asv_parser() -> BibleParser:
     return bible.get_parser(version=bible.Version.AMERICAN_STANDARD)
 
 
-@pytest.fixture
+@pytest.fixture()
 def short_verse_id_list() -> List[int]:
     return [
         1001001,
@@ -541,7 +543,7 @@ def short_verse_id_list() -> List[int]:
     ]
 
 
-@pytest.fixture
+@pytest.fixture()
 def short_verse_data_json() -> Dict[str, str]:
     return {
         "1001001": "In the beginning God created the heaven and the earth.",
@@ -553,7 +555,7 @@ def short_verse_data_json() -> Dict[str, str]:
     }
 
 
-@pytest.fixture
+@pytest.fixture()
 def short_verse_data_json_asv() -> Dict[str, str]:
     return {
         "1001001": "In the beginning God created the heavens and the earth.",
@@ -564,7 +566,7 @@ def short_verse_data_json_asv() -> Dict[str, str]:
     }
 
 
-@pytest.fixture
+@pytest.fixture()
 def short_book_title_data_json() -> Dict[str, List[str]]:
     return {
         "1": ["The First Book of Moses, called Genesis", "Genesis"],
@@ -573,7 +575,7 @@ def short_book_title_data_json() -> Dict[str, List[str]]:
     }
 
 
-@pytest.fixture
+@pytest.fixture()
 def short_book_title_data_json_asv() -> Dict[str, List[str]]:
     return {
         "1": ["The First Book of Moses, Commonly Called Genesis", "Genesis"],
@@ -582,18 +584,18 @@ def short_book_title_data_json_asv() -> Dict[str, List[str]]:
     }
 
 
-@pytest.fixture
+@pytest.fixture()
 def long_book_title() -> str:
     return "The First Book of Moses, called Genesis"
 
 
-@pytest.fixture
+@pytest.fixture()
 def short_book_title() -> str:
     return "Genesis"
 
 
 # noinspection SpellCheckingInspection
-@pytest.fixture
+@pytest.fixture()
 def book_alternative_names() -> Dict[bible.Book, List[str]]:
     return {
         bible.Book.GENESIS: [
@@ -1091,10 +1093,10 @@ def book_alternative_names() -> Dict[bible.Book, List[str]]:
     }
 
 
-@pytest.fixture
+@pytest.fixture()
 def book_alternative_names_verbum() -> Dict[bible.Book, List[str]]:
     """
-    These are the abbreviations supported by verbum.
+    Return the abbreviations supported by verbum.
 
     https://support.verbum.com/hc/en-us/articles/360021231612-Bible-Book-Abbreviations
     """

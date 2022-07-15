@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from functools import singledispatch
 from typing import List
 
@@ -10,11 +12,12 @@ from pythonbible.verses import get_number_of_chapters
 @singledispatch
 def count_chapters(references: List[NormalizedReference]) -> int:
     """
-    Returns the count of chapters of books the Bible included in the given list of references.
+    Count the number of chapters in a list of references.
 
     :param references: A list of normalized references
     :type references: List[NormalizedReference]
-    :return: The count of chapters of books of the Bible included in the given list of references
+    :return: The count of chapters of books of the Bible included in the given list of
+    references
     :rtype: int
     """
     return _get_number_of_chapters_in_references(references)
@@ -46,8 +49,13 @@ def _get_number_of_chapters_in_reference(reference: NormalizedReference) -> int:
     )
 
     # Middle book(s) chapters
-    for book_id in range(reference.book.value + 1, reference.end_book.value):
-        number_of_chapters += get_number_of_chapters(Book(book_id))
+    number_of_chapters += sum(
+        get_number_of_chapters(Book(book_id))
+        for book_id in range(
+            reference.book.value + 1,
+            reference.end_book.value,
+        )
+    )
 
     # End book chapters
     number_of_chapters += reference.end_chapter
