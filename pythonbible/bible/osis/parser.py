@@ -199,8 +199,8 @@ def _get_paragraphs(
         XPATH_VERSE_PARENT.format(BOOK_IDS.get(book), chapter, verse),
         namespaces,
     )
-    paragraphs: list[str]
-    paragraphs, current_verse_id = _get_paragraph_from_element(
+    paragraph: str
+    paragraph, current_verse_id = _get_paragraph_from_element(
         paragraph_element,
         verse_ids,
         current_verse_id,
@@ -218,8 +218,8 @@ def _get_paragraphs(
         )
 
     book_dictionary: dict[int, list[str]] = paragraph_dictionary.get(book, {})
-    chapter_list: list[str] = book_dictionary.get(int(chapter), [])
-    paragraphs.extend(chapter_list)
+    paragraphs: list[str] = [paragraph]
+    paragraphs.extend(book_dictionary.get(int(chapter), []))
     book_dictionary[int(chapter)] = paragraphs
     paragraph_dictionary[book] = book_dictionary
 
@@ -232,7 +232,7 @@ def _get_paragraph_from_element(
     verse_ids: tuple[int, ...],
     current_verse_id: int,
     include_verse_number: bool,
-) -> tuple[list[str], int]:
+) -> tuple[str, int]:
     new_current_verse_id: int = current_verse_id
     paragraph: str = ""
     skip_till_next_verse: bool = False
@@ -259,8 +259,7 @@ def _get_paragraph_from_element(
 
         paragraph += child_paragraph
 
-    paragraphs: list[str] = [clean_paragraph(paragraph)]
-    return paragraphs, new_current_verse_id
+    return clean_paragraph(paragraph), new_current_verse_id
 
 
 @lru_cache()
