@@ -9,7 +9,7 @@ references as human-readable strings.
 
 from __future__ import annotations
 
-__version__ = "0.7.2"
+__version__ = "0.7.3"
 
 from .bible.osis.parser import OSISParser
 from .book_groups import BOOK_GROUPS, BookGroup
