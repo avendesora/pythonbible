@@ -6,7 +6,10 @@ import pythonbible as bible
 
 
 def test_get_verse_id(
-    book: bible.Book, chapter: int, verse: int, verse_id: int
+    book: bible.Book,
+    chapter: int,
+    verse: int,
+    verse_id: int,
 ) -> None:
     # Given a book of the Bible, a chapter number, and a verse number
 
@@ -18,7 +21,9 @@ def test_get_verse_id(
 
 
 def test_get_verse_id_invalid_chapter(
-    book: bible.Book, invalid_chapter: int, verse: int
+    book: bible.Book,
+    invalid_chapter: int,
+    verse: int,
 ) -> None:
     # Given a book of the Bible, a chapter number, and a verse number that is not valid
 
@@ -28,7 +33,9 @@ def test_get_verse_id_invalid_chapter(
 
 
 def test_get_verse_id_invalid_verse(
-    book: bible.Book, chapter: int, invalid_verse: int
+    book: bible.Book,
+    chapter: int,
+    invalid_verse: int,
 ) -> None:
     # Given a book of the Bible, a chapter number, and a verse number that is not valid
 
@@ -51,7 +58,8 @@ def test_get_max_verse_number(book: bible.Book, chapter: int) -> None:
 
 
 def test_get_max_verse_number_invalid_chapter(
-    book: bible.Book, invalid_chapter: int
+    book: bible.Book,
+    invalid_chapter: int,
 ) -> None:
     # Given a book of the Bible and an invalid chapter number
     # When we attempt to get the maximum verse number for that book and chapter
@@ -61,7 +69,10 @@ def test_get_max_verse_number_invalid_chapter(
 
 
 def test_get_book_chapter_verse(
-    verse_id: int, book: bible.Book, chapter: int, verse: int
+    verse_id: int,
+    book: bible.Book,
+    chapter: int,
+    verse: int,
 ) -> None:
     # Given a valid verse id
     # When using that verse id to get the book, chapter, and verse

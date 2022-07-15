@@ -4,26 +4,28 @@ from typing import Any, Optional
 
 
 class InvalidBookError(Exception):
-    """Raised when the book id is not valid."""
+    """Raise when the book id is not valid."""
 
 
 class InvalidChapterError(Exception):
-    """
-    Raised when the chapter number is not a valid chapter number for the given book of
-    the Bible.
-    """
+    """Raise when the chapter number is not valid for the given book of the Bible."""
 
 
 class InvalidVerseError(Exception):
     """
-    Raised when the verse id or book, chapter, and verse number being processed is not
-    a valid Bible verse.
+    Raise when the verse id is not a valid Bible verse.
+
+    Or raise when the book, chapter, and verse number being processed is not a valid
+    Bible verse.
     """
 
     def __init__(
-        self: InvalidVerseError, message: Optional[str] = None, **kwargs: Any
+        self: InvalidVerseError,
+        message: Optional[str] = None,
+        **kwargs: Any,
     ) -> None:
         """
+        Initialize InvalidVerseError.
 
         :param message: optional message string
         :param kwargs: optional keyword arguments (verse_id, book, chapter, verse) for
@@ -44,7 +46,7 @@ class InvalidVerseError(Exception):
             elif self.verse_id:
                 self.message = f"{self.verse_id} is not a valid verse."
 
-        super(InvalidVerseError, self).__init__(self.message)
+        super().__init__(self.message)
 
 
 class InvalidBibleParserError(Exception):

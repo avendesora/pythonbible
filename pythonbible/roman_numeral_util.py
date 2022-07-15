@@ -1,12 +1,8 @@
 from __future__ import annotations
 
-try:
-    import regex as re
-except ModuleNotFoundError:
-    import re
-
+import re
 from enum import IntEnum
-from typing import List, Match, Pattern
+from typing import Match, Pattern
 
 # We only need to support numbers 1-150 for our purposes. If we needed more it might
 # make sense to use an existing roman numeral library.
@@ -29,7 +25,7 @@ ROMAN_NUMERAL_REGEX: Pattern[str] = re.compile(
     re.IGNORECASE | re.UNICODE,
 )
 
-ROMAN_NUMERALS_BIG_TO_SMALL: List[RomanNumeral] = [
+ROMAN_NUMERALS_BIG_TO_SMALL: tuple[RomanNumeral] = (
     RomanNumeral.C,
     RomanNumeral.XC,
     RomanNumeral.L,
@@ -39,7 +35,7 @@ ROMAN_NUMERALS_BIG_TO_SMALL: List[RomanNumeral] = [
     RomanNumeral.V,
     RomanNumeral.IV,
     RomanNumeral.I,
-]
+)
 
 
 def convert_all_roman_numerals_to_integers(text: str) -> str:
@@ -51,14 +47,13 @@ def _convert_roman_numeral_match_to_integer(match: Match[str]) -> str:
 
 
 def _convert_roman_numeral_to_integer(roman_numeral_string: str) -> str:
-    roman_numeral_string = roman_numeral_string.upper()
-    i = result = 0
+    roman_numeral_string: str = roman_numeral_string.upper()
+    index: int = 0
+    integer_result: int = 0
 
-    for roman_numeral in ROMAN_NUMERALS_BIG_TO_SMALL:
-        while (
-            roman_numeral_string[i : i + len(roman_numeral.name)] == roman_numeral.name
-        ):
-            result += roman_numeral.value
-            i += len(roman_numeral.name)
+    for numeral in ROMAN_NUMERALS_BIG_TO_SMALL:
+        while roman_numeral_string[index : index + len(numeral.name)] == numeral.name:
+            integer_result += numeral.value
+            index += len(numeral.name)
 
-    return result
+    return integer_result

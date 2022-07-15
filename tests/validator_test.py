@@ -53,7 +53,9 @@ def test_is_valid_reference_string(reference_string: str) -> None:
 
 
 def test_is_valid_reference_wrong_size(
-    book: bible.Book, chapter: int, verse: int
+    book: bible.Book,
+    chapter: int,
+    verse: int,
 ) -> None:
     # Given a reference that is a tuple of the wrong size
     # When we test to see if it is valid
@@ -66,27 +68,36 @@ def test_is_valid_reference_invalid_book(chapter: int, verse: int) -> None:
     # When we test to see if it is valid
     # Then the result is False
     assert not bible.is_valid_reference(
-        bible.NormalizedReference("invalid book", chapter, verse, chapter, verse)
+        bible.NormalizedReference("invalid book", chapter, verse, chapter, verse),
     )
 
 
 def test_is_valid_reference_invalid_chapter(
-    book: bible.Book, invalid_chapter: int, verse: int
+    book: bible.Book,
+    invalid_chapter: int,
+    verse: int,
 ) -> None:
     # Given a normalized reference tuple with an invalid chapter
     # When we test to see if it is valid
     # Then the result is False
     assert not bible.is_valid_reference(
-        bible.NormalizedReference(book, invalid_chapter, verse, invalid_chapter, verse)
+        bible.NormalizedReference(book, invalid_chapter, verse, invalid_chapter, verse),
     )
 
 
 def test_is_valid_reference_invalid_start_verse(
-    book: bible.Book, chapter: int, verse: int, invalid_verse: int
+    book: bible.Book,
+    chapter: int,
+    verse: int,
+    invalid_verse: int,
 ) -> None:
     # Given a normalized reference tuple with an invalid start verse
     reference: bible.NormalizedReference = bible.NormalizedReference(
-        book, chapter, invalid_verse, chapter, verse
+        book,
+        chapter,
+        invalid_verse,
+        chapter,
+        verse,
     )
     # When we test to see if it is valid
     # Then the result is False
@@ -94,11 +105,18 @@ def test_is_valid_reference_invalid_start_verse(
 
 
 def test_is_valid_reference_invalid_end_verse(
-    book: bible.Book, chapter: int, verse: int, invalid_verse: int
+    book: bible.Book,
+    chapter: int,
+    verse: int,
+    invalid_verse: int,
 ) -> None:
     # Given a normalized reference tuple with an invalid end verse
     reference: bible.NormalizedReference = bible.NormalizedReference(
-        book, chapter, verse, chapter, invalid_verse
+        book,
+        chapter,
+        verse,
+        chapter,
+        invalid_verse,
     )
     # When we test to see if it is valid
     # Then the result is False
@@ -106,11 +124,17 @@ def test_is_valid_reference_invalid_end_verse(
 
 
 def test_is_valid_reference_smaller_end_verse(
-    book: bible.Book, chapter: int, verse: int
+    book: bible.Book,
+    chapter: int,
+    verse: int,
 ) -> None:
     # Given a reference where the end verse comes before the start verse
     reference: bible.NormalizedReference = bible.NormalizedReference(
-        book.title, chapter, verse + 1, chapter, verse
+        book.title,
+        chapter,
+        verse + 1,
+        chapter,
+        verse,
     )
 
     # When we test to see if it is valid
@@ -189,7 +213,9 @@ def test_is_valid_verse_string(book: bible.Book, chapter: int, verse: int) -> No
 
 
 def test_is_valid_verse_invalid(
-    book: bible.Book, chapter: int, invalid_verse: int
+    book: bible.Book,
+    chapter: int,
+    invalid_verse: int,
 ) -> None:
     # Given a valid book, chapter, and an invalid verse
     # When we test to see if the verse is valid

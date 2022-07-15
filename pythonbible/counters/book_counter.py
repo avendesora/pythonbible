@@ -1,19 +1,18 @@
 from __future__ import annotations
 
 from functools import singledispatch
-from typing import List
 
 from pythonbible.normalized_reference import NormalizedReference
 from pythonbible.parser import get_references
 
 
 @singledispatch
-def count_books(references: List[NormalizedReference]) -> int:
+def count_books(references: list[NormalizedReference]) -> int:
     """
-    Returns the count of books of the Bible included in the given list of references.
+    Return the count of books of the Bible included in the given list of references.
 
     :param references: A list of normalized references
-    :type references: List[NormalizedReference]
+    :type references: list[NormalizedReference]
     :return: The count of books of the Bible included in the given list of references
     :rtype: int
     """
@@ -30,7 +29,7 @@ def _count_books_string(reference: str) -> int:
     return _get_number_of_books_in_references(get_references(reference))
 
 
-def _get_number_of_books_in_references(references: List[NormalizedReference]) -> int:
+def _get_number_of_books_in_references(references: list[NormalizedReference]) -> int:
     return sum(_get_number_of_books_in_reference(reference) for reference in references)
 
 

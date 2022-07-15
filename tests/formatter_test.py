@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import time
-from typing import List, Optional
 
 import pytest
 
@@ -10,7 +9,7 @@ from pythonbible.formatter import BookTitles
 
 
 def test_format_scripture_references(
-    normalized_references_complex: List[bible.NormalizedReference],
+    normalized_references_complex: list[bible.NormalizedReference],
     formatted_reference: str,
 ) -> None:
     # Given a list of normalized references
@@ -31,7 +30,7 @@ def test_format_scripture_references_null() -> None:
 
 
 def test_format_scripture_references_sorting(
-    normalized_references_complex: List[bible.NormalizedReference],
+    normalized_references_complex: list[bible.NormalizedReference],
     formatted_reference: str,
 ) -> None:
     # Given a list of normalized references that are not in proper order
@@ -76,7 +75,7 @@ def test_format_scripture_reference_single_verse(verse_id: int) -> None:
     assert long_kjv_reference != long_asv_reference
 
 
-def test_format_scripture_text(verse_ids: List[int], html_scripture_text: str) -> None:
+def test_format_scripture_text(verse_ids: list[int], html_scripture_text: str) -> None:
     # Given a list of verse ids
     # When we get the scripture text for those verse ids
     scripture_text: str = bible.format_scripture_text(verse_ids)
@@ -86,7 +85,8 @@ def test_format_scripture_text(verse_ids: List[int], html_scripture_text: str) -
 
 
 def test_format_scripture_text_non_html(
-    verse_ids: List[int], non_html_scripture_text: str
+    verse_ids: list[int],
+    non_html_scripture_text: str,
 ) -> None:
     # Given a list of verse ids
     # When we get the non html scripture text for those verse ids
@@ -97,13 +97,14 @@ def test_format_scripture_text_non_html(
 
 
 def test_format_scripture_text_one_verse_per_paragraph(
-    verse_ids_multiple_chapters: List[int],
+    verse_ids_multiple_chapters: list[int],
     html_scripture_text_one_verse_per_paragraph: str,
 ) -> None:
     # Given a list of verse ids
     # When we get the scripture text for those verse ids
     scripture_text: str = bible.format_scripture_text(
-        verse_ids_multiple_chapters, one_verse_per_paragraph=True
+        verse_ids_multiple_chapters,
+        one_verse_per_paragraph=True,
     )
 
     # Then the scripture text is formatted correctly.
@@ -113,8 +114,9 @@ def test_format_scripture_text_one_verse_per_paragraph(
 def test_get_verse_text(verse_id: int, verse_text_no_verse_number: str) -> None:
     # Given a valid verse id
     # When using that verse to get the verse text
-    verse_text: Optional[str] = bible.get_verse_text(
-        verse_id, version=bible.Version.KING_JAMES
+    verse_text: str | None = bible.get_verse_text(
+        verse_id,
+        version=bible.Version.KING_JAMES,
     )
 
     # Then the verse text is the appropriate verse text.
@@ -141,16 +143,16 @@ def test_get_verse_text_no_version_file(verse_id: int) -> None:
 
 def test_verse_text_caching() -> None:
     # Given a lengthy reference
-    references: List[bible.NormalizedReference] = bible.get_references("Jeremiah 29")
-    verse_ids: List[int] = bible.convert_references_to_verse_ids(references)
+    references: list[bible.NormalizedReference] = bible.get_references("Jeremiah 29")
+    verse_ids: list[int] = bible.convert_references_to_verse_ids(references)
 
     # When getting the scripture text multiple times
     first_start_time: float = time.time()
-    first_verses: List[Optional[str]] = [
+    first_verses: list[str | None] = [
         bible.get_verse_text(verse_id) for verse_id in verse_ids
     ]
     second_start_time: float = time.time()
-    second_verses: List[Optional[str]] = [
+    second_verses: list[str | None] = [
         bible.get_verse_text(verse_id) for verse_id in verse_ids
     ]
     end_time: float = time.time()
@@ -165,12 +167,15 @@ def test_verse_text_caching() -> None:
 
 
 def test_get_book_titles(
-    book: bible.Book, long_book_title: str, short_book_title: str
+    book: bible.Book,
+    long_book_title: str,
+    short_book_title: str,
 ) -> None:
     # Given a book
     # When we get the book titles for that book
-    book_titles: Optional[BookTitles] = bible.get_book_titles(
-        book, version=bible.Version.KING_JAMES
+    book_titles: BookTitles | None = bible.get_book_titles(
+        book,
+        version=bible.Version.KING_JAMES,
     )
 
     # Then the long and short book titles match what is expected.
@@ -191,8 +196,9 @@ def test_get_book_titles_no_version_file(book: bible.Book) -> None:
 
 def test_format_scripture_references_multiple_book_range() -> None:
     # Given a reference that spans multiple books
-    references: List[bible.NormalizedReference] = bible.get_references(
-        "Old Testament", book_groups=bible.BOOK_GROUPS
+    references: list[bible.NormalizedReference] = bible.get_references(
+        "Old Testament",
+        book_groups=bible.BOOK_GROUPS,
     )
 
     # When formatting that reference into a reference string
@@ -204,7 +210,7 @@ def test_format_scripture_references_multiple_book_range() -> None:
 
 def test_single_chapter_books() -> None:
     # Given a reference for a book that has only one chapter
-    references: List[bible.NormalizedReference] = bible.get_references("Obadiah 1:2-4")
+    references: list[bible.NormalizedReference] = bible.get_references("Obadiah 1:2-4")
 
     # When formatting that reference into a reference string
     reference_string: str = bible.format_scripture_references(references)
@@ -217,8 +223,8 @@ def test_single_chapter_books() -> None:
 def test_single_chapter_book_in_multiple_book_reference() -> None:
     # Given a reference that includes a book with only one chapter but spans multiple
     # books
-    references: List[bible.NormalizedReference] = bible.get_references(
-        "Amos 1:3 - Obadiah 1:12"
+    references: list[bible.NormalizedReference] = bible.get_references(
+        "Amos 1:3 - Obadiah 1:12",
     )
 
     # When formatting that reference into a reference string
@@ -231,12 +237,13 @@ def test_single_chapter_book_in_multiple_book_reference() -> None:
 
 def test_single_chapter_books_force_chapter_numbers() -> None:
     # Given a reference for a book that has only one chapter
-    references: List[bible.NormalizedReference] = bible.get_references("Obadiah")
+    references: list[bible.NormalizedReference] = bible.get_references("Obadiah")
 
     # When formatting that reference into a reference string and including the keyword
     # argument to force include chapter numbers
     reference_string: str = bible.format_scripture_references(
-        references, always_include_chapter_numbers=True
+        references,
+        always_include_chapter_numbers=True,
     )
 
     # Then the resulting reference includes the book title and verse numbers but not
@@ -248,8 +255,8 @@ def test_cross_book_range_not_whole_books_or_chapters() -> None:
     # Given a reference that is a range that spans multiple books but not entire
     # books/chapters
     original_reference_string = "Genesis 50:3 - Exodus 1:10"
-    references: List[bible.NormalizedReference] = bible.get_references(
-        original_reference_string
+    references: list[bible.NormalizedReference] = bible.get_references(
+        original_reference_string,
     )
 
     # When formatting that reference into a reference string
@@ -262,8 +269,8 @@ def test_cross_book_range_not_whole_books_or_chapters() -> None:
 def test_multi_chapter_book_reference_contains_whole_book() -> None:
     # Given a reference that contains all the verses of a single book that has
     # multiple chapters
-    references: List[bible.NormalizedReference] = bible.get_references(
-        "Genesis 1:1-50:26"
+    references: list[bible.NormalizedReference] = bible.get_references(
+        "Genesis 1:1-50:26",
     )
 
     # When formatting that reference into a reference string

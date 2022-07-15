@@ -3,7 +3,7 @@ from __future__ import annotations
 
 from abc import abstractmethod
 from collections import OrderedDict
-from typing import Any, Dict, List
+from typing import Any
 
 from pythonbible.books import Book
 from pythonbible.versions import Version
@@ -46,9 +46,9 @@ class BibleParser:
     @abstractmethod
     def get_scripture_passage_text(
         self: BibleParser,
-        verse_ids: List[int],
+        verse_ids: list[int],
         **kwargs: Any,
-    ) -> Dict[Book, Dict[int, List[str]]]:
+    ) -> dict[Book, dict[int, list[str]]]:
         """
         Get the scripture passage for the given verse ids.
 
@@ -64,7 +64,7 @@ class BibleParser:
         """
 
     @abstractmethod
-    def get_verse_text(self: BibleParser, verse_id: int, **kwargs: Any) -> str:
+    def verse_text(self: BibleParser, verse_id: int, **kwargs: Any) -> str:
         """
         Get the scripture text for the given verse id.
 
@@ -80,8 +80,8 @@ class BibleParser:
 
 
 def sort_paragraphs(
-    paragraphs: Dict[Book, Dict[int, List[str]]]
-) -> Dict[Book, Dict[int, List[str]]]:
+    paragraphs: dict[Book, dict[int, list[str]]],
+) -> dict[Book, dict[int, list[str]]]:
     """
     Sort paragraphs of scripture text.
 
@@ -93,16 +93,16 @@ def sort_paragraphs(
     :param paragraphs:
     :return: an OrderedDict(Book, OrderedDict(int, list(string)))
     """
-    ordered_paragraphs: Dict[Book, Dict[int, List[str]]] = OrderedDict()
+    ordered_paragraphs: dict[Book, dict[int, list[str]]] = OrderedDict()
 
-    book_keys: List[Book] = list(paragraphs.keys())
+    book_keys: list[Book] = list(paragraphs.keys())
     book_keys.sort()
 
     for book in book_keys:
-        chapters: Dict[int, List[str]] = paragraphs.get(book, OrderedDict())
-        ordered_chapters: Dict[int, List[str]] = OrderedDict()
+        chapters: dict[int, list[str]] = paragraphs.get(book, OrderedDict())
+        ordered_chapters: dict[int, list[str]] = OrderedDict()
 
-        chapter_keys: List[int] = list(chapters.keys())
+        chapter_keys: list[int] = list(chapters.keys())
         chapter_keys.sort()
 
         for chapter in chapter_keys:

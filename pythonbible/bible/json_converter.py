@@ -4,7 +4,7 @@ import json
 import os
 from contextlib import suppress
 from logging import warning
-from typing import Any, Dict, List, Tuple
+from typing import Any
 
 from pythonbible.bible.bible_parser import BibleParser
 from pythonbible.bible.osis.parser import OSISParser
@@ -31,9 +31,9 @@ class JSONConverter:
         """
         self.parser: BibleParser = parser
         self.data_folder: str = kwargs.get("data_folder", DATA_FOLDER)
-        self.verse_ids: List[int] = kwargs.get("verse_ids", VERSE_IDS)
-        self.books: Dict[int, Tuple[str, str]] = {}
-        self.verses: Dict[int, str] = {}
+        self.verse_ids: list[int] = kwargs.get("verse_ids", VERSE_IDS)
+        self.books: dict[int, tuple[str, str]] = {}
+        self.verses: dict[int, str] = {}
 
     def generate_book_file(self: JSONConverter) -> None:
         """
@@ -84,7 +84,7 @@ class JSONConverter:
 
     def _get_verses(self: JSONConverter) -> None:
         for verse_id in self.verse_ids:
-            verse_text: str = self.parser.get_verse_text(
+            verse_text: str = self.parser.verse_text(
                 verse_id,
                 include_verse_number=False,
             )
@@ -101,7 +101,12 @@ class JSONConverter:
         _print_file(self.data_folder, self.parser.version, "verses.json", self.verses)
 
 
-def _print_file(data_folder: str, version: Version, filename: str, data: dict) -> None:
+def _print_file(
+    data_folder: str,
+    version: Version,
+    filename: str,
+    file_data: dict,
+) -> None:
     version_folder: str = os.path.join(data_folder, version.value.lower())
 
     _make_sure_directory_exists(data_folder)
@@ -112,7 +117,7 @@ def _print_file(data_folder: str, version: Version, filename: str, data: dict) -
         "w",
         encoding="utf-8",
     ) as json_file:
-        json.dump(data, json_file)
+        json.dump(file_data, json_file)
 
 
 def _make_sure_directory_exists(directory: str) -> None:

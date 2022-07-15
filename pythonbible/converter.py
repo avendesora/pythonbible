@@ -1,7 +1,5 @@
 from __future__ import annotations
 
-from typing import List
-
 from pythonbible.books import Book
 from pythonbible.errors import InvalidVerseError
 from pythonbible.normalized_reference import NormalizedReference
@@ -9,17 +7,16 @@ from pythonbible.validator import is_valid_verse_id
 from pythonbible.verses import VERSE_IDS, get_book_chapter_verse, get_verse_id
 
 
-def convert_references_to_verse_ids(references: List[NormalizedReference]) -> List[int]:
+def convert_references_to_verse_ids(references: list[NormalizedReference]) -> list[int]:
     """
-    Converts the given list of NormalizedReference objects into a list of verse id
-    integers.
+    Convert a list of NormalizedReference objects into a list of verse id integers.
 
     :param references: A list of normalized references
-    :type references: List[NormalizedReference]
+    :type references: list[NormalizedReference]
     :return: The list of verse ids associated with the references
-    :rtype: List[int]
+    :rtype: list[int]
     """
-    verse_ids: List[int] = []
+    verse_ids: list[int] = []
 
     if references is not None:
         for reference in references:
@@ -28,14 +25,14 @@ def convert_references_to_verse_ids(references: List[NormalizedReference]) -> Li
     return verse_ids
 
 
-def convert_reference_to_verse_ids(reference: NormalizedReference) -> List[int]:
+def convert_reference_to_verse_ids(reference: NormalizedReference) -> list[int]:
     """
-    Converts the given NormalizedReference object into a list of verse id integers.
+    Convert the given NormalizedReference object into a list of verse id integers.
 
     :param reference: A normalized reference
     :type reference: NormalizedReference
     :return: The list of verse ids associated with the reference
-    :rtype: List[int]
+    :rtype: list[int]
     """
     if reference is None:
         return []
@@ -43,29 +40,32 @@ def convert_reference_to_verse_ids(reference: NormalizedReference) -> List[int]:
     end_book = reference.book if reference.end_book is None else reference.end_book
 
     start_verse_id: int = get_verse_id(
-        reference.book, reference.start_chapter, reference.start_verse
+        reference.book,
+        reference.start_chapter,
+        reference.start_verse,
     )
     end_verse_id: int = get_verse_id(
-        end_book, reference.end_chapter, reference.end_verse
+        end_book,
+        reference.end_chapter,
+        reference.end_verse,
     )
     return VERSE_IDS[
         VERSE_IDS.index(start_verse_id) : VERSE_IDS.index(end_verse_id) + 1
     ]
 
 
-def convert_verse_ids_to_references(verse_ids: List[int]) -> List[NormalizedReference]:
+def convert_verse_ids_to_references(verse_ids: list[int]) -> list[NormalizedReference]:
     """
-    Converts the given list of verse id integers into a list of NormalizedReference
-    objects.
+    Convert a list of verse ids into a list of NormalizedReferences.
 
     :param verse_ids: A list of verse ids
-    :type verse_ids: List[int]
+    :type verse_ids: list[int]
     :return: The list of normalized references associated with the verse ids
-    :rtype: List[NormalizedReference]
+    :rtype: list[NormalizedReference]
     :raises InvalidVerseError: if one or more of the verse_ids does not correspond to
                                a valid verse
     """
-    references: List[NormalizedReference] = []
+    references: list[NormalizedReference] = []
 
     if verse_ids is None or not verse_ids:
         return references
@@ -117,8 +117,8 @@ def convert_verse_ids_to_references(verse_ids: List[int]) -> List[NormalizedRefe
                 start_verse,
                 previous_chapter,
                 previous_verse,
-                previous_book if start_book != previous_book else None,
-            )
+                None if start_book == previous_book else previous_book,
+            ),
         )
 
         start_book = book
@@ -137,8 +137,8 @@ def convert_verse_ids_to_references(verse_ids: List[int]) -> List[NormalizedRefe
             start_verse,
             previous_chapter,
             previous_verse,
-            previous_book if start_book != previous_book else None,
-        )
+            None if start_book == previous_book else previous_book,
+        ),
     )
 
     return references

@@ -19,7 +19,7 @@ def test_count_books_single_book() -> None:
 def test_count_books_two_books() -> None:
     # Given a list of references
     references: List[bible.NormalizedReference] = bible.get_references(
-        "Matthew 19:3 - Mark 6:9"
+        "Matthew 19:3 - Mark 6:9",
     )
 
     # When we get the count of books in the references
@@ -32,7 +32,7 @@ def test_count_books_two_books() -> None:
 def test_count_books_multiple_books() -> None:
     # Given a list of references
     references: List[bible.NormalizedReference] = bible.get_references(
-        "Genesis - Deuteronomy"
+        "Genesis - Deuteronomy",
     )
 
     # When we get the count of books in the references
@@ -45,7 +45,7 @@ def test_count_books_multiple_books() -> None:
 def test_count_books_multiple_references() -> None:
     # Given a list of references
     references: List[bible.NormalizedReference] = bible.get_references(
-        "Genesis - Deuteronomy, Matthew 19:3 - Mark 6:9, James 1:4-6"
+        "Genesis - Deuteronomy, Matthew 19:3 - Mark 6:9, James 1:4-6",
     )
 
     # When we get the count of books in the references
@@ -102,7 +102,7 @@ def test_count_chapters_multiple_chapters() -> None:
 def test_count_chapters_multiple_books() -> None:
     # Given a list of references
     references: List[bible.NormalizedReference] = bible.get_references(
-        "Matthew 28:1 - Luke 1:10"
+        "Matthew 28:1 - Luke 1:10",
     )
 
     # When we get the count of chapters in the references
@@ -115,7 +115,7 @@ def test_count_chapters_multiple_books() -> None:
 def test_count_chapters_multiple_references() -> None:
     # Given a list of references
     references: List[bible.NormalizedReference] = bible.get_references(
-        "Genesis, Matthew - Acts"
+        "Genesis, Matthew - Acts",
     )
 
     # When we get the count of chapters in the references
@@ -161,7 +161,7 @@ def test_count_verses_multiple_verses() -> None:
 def test_count_verses_multiple_chapters() -> None:
     # Given a list of references
     references: List[bible.NormalizedReference] = bible.get_references(
-        "Matthew 5:3-7:27"
+        "Matthew 5:3-7:27",
     )
 
     # When we get the count of verses in the references
@@ -185,7 +185,7 @@ def test_count_verses_multiple_books() -> None:
 def test_count_verses_multiple_references() -> None:
     # Given a list of references
     references: List[bible.NormalizedReference] = bible.get_references(
-        "Genesis 1:1; John 3:16; Romans 15:5-7,13"
+        "Genesis 1:1; John 3:16; Romans 15:5-7,13",
     )
 
     # When we get the count of verses in the references

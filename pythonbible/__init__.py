@@ -1,4 +1,6 @@
 """
+The pythonbible library.
+
 pythonbible includes features for parsing texts for scripture references,
 converting references into integer verse ids for efficient use/storage,
 converting verse ids back into normalized references, and formatting

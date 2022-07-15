@@ -14,7 +14,7 @@ from pythonbible.verses import (
 
 def is_valid_verse_id(verse_id: int) -> bool:
     """
-    Checks to see if the given verse_id corresponds to a valid verse in the Bible
+    Check to see if the given verse_id corresponds to a valid verse in the Bible.
 
     :param verse_id: a verse id
     :type verse_id: int
@@ -26,7 +26,8 @@ def is_valid_verse_id(verse_id: int) -> bool:
 
 def is_valid_reference(reference: NormalizedReference) -> bool:
     """
-    Checks to see if the given NormalizedReference is a valid scripture reference
+    Check to see if the given NormalizedReference is a valid scripture reference.
+
     (i.e. all of the verses in the reference are valid verses)
 
     :param reference: a normalized reference
@@ -38,7 +39,9 @@ def is_valid_reference(reference: NormalizedReference) -> bool:
         return False
 
     if not is_valid_verse(
-        reference.book, reference.start_chapter, reference.start_verse
+        reference.book,
+        reference.start_chapter,
+        reference.start_verse,
     ):
         return False
 
@@ -46,10 +49,14 @@ def is_valid_reference(reference: NormalizedReference) -> bool:
         return False
 
     start_verse_id: int = get_verse_id(
-        reference.book, reference.start_chapter, reference.start_verse
+        reference.book,
+        reference.start_chapter,
+        reference.start_verse,
     )
     end_verse_id: int = get_verse_id(
-        reference.book, reference.end_chapter, reference.end_verse
+        reference.book,
+        reference.end_chapter,
+        reference.end_verse,
     )
 
     return start_verse_id <= end_verse_id
@@ -57,7 +64,7 @@ def is_valid_reference(reference: NormalizedReference) -> bool:
 
 def is_valid_book(book: Book) -> bool:
     """
-    Checks to see if the given book is a valid book of the Bible
+    Check to see if the given book is a valid book of the Bible.
 
     :param book: a book of the Bible
     :type book: Book
@@ -69,8 +76,10 @@ def is_valid_book(book: Book) -> bool:
 
 def is_valid_chapter(book: Book, chapter: int) -> bool:
     """
-    Checks to see if the given Book is a valid book of the Bible; and, if so, checks
-    to see if the given chapter number is a valid chapter number for the given book
+    Check to see if the given Book is a valid book of the Bible.
+
+    If so, checks to see if the given chapter number is a valid chapter number for the
+    given book.
 
     :param book: a book of the Bible
     :type book: Book
@@ -92,13 +101,14 @@ def is_valid_chapter(book: Book, chapter: int) -> bool:
 
 def is_valid_verse(book: Book, chapter: int, verse: int) -> bool:
     """
-    Checks to see if the given :ref:`Book` is a valid book of the Bible,
-    then checks to see if the given chapter number is a valid chapter number for the
+    Check to see if the given Book is a valid book of the Bible.
+
+    Then checks to see if the given chapter number is a valid chapter number for the
     given book, then checks to see if the given verse number is a valid verse number
-    for the given book and chapter
+    for the given book and chapter.
 
     :param book: a book of the Bible
-    :type book: :ref:`Book`
+    :type book: Book
     :param chapter: a chapter number for the given book of the Bible
     :type chapter: int
     :param verse: a verse number for the given book and chapter

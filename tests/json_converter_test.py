@@ -57,7 +57,9 @@ def _run_json_converter_test_for_version(
 
     # When we use the json converter to generate the json file
     json_converter: JSONConverter = JSONConverter(
-        parser, data_folder=TEST_DATA_FOLDER, verse_ids=short_verse_id_list
+        parser,
+        data_folder=TEST_DATA_FOLDER,
+        verse_ids=short_verse_id_list,
     )
     json_converter.generate_verse_file()
     json_converter.generate_book_file()
@@ -67,14 +69,14 @@ def _run_json_converter_test_for_version(
     assert os.path.exists(books_filename)
 
     # And the data in the file correctly contains the verse data.
-    with open(verses_filename, "r", encoding="utf-8") as json_file:
-        verse_data: Dict[str, str] = json.load(json_file)
+    with open(verses_filename, "r", encoding="utf-8") as verse_file:
+        verse_data: Dict[str, str] = json.load(verse_file)
 
     assert verse_data == short_verse_data_json
 
     # And the data in the books file correctly contains the book title data.
-    with open(books_filename, "r", encoding="utf-8") as json_file:
-        book_title_data: Dict[str, str] = json.load(json_file)
+    with open(books_filename, "r", encoding="utf-8") as book_file:
+        book_title_data: Dict[str, str] = json.load(book_file)
 
     assert book_title_data == short_book_title_data_json
 
