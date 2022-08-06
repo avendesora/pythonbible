@@ -221,10 +221,7 @@ def _get_book_title(book: Book, include_books: bool = True, **kwargs: Any) -> st
 
     version: Version = kwargs.get("version", DEFAULT_VERSION)
     full_title: bool = kwargs.get("full_title", False)
-    version_book_titles: BookTitles | None = get_book_titles(book, version)
-
-    if not version_book_titles:
-        return ""
+    version_book_titles: BookTitles = get_book_titles(book, version)
 
     return (
         version_book_titles.long_title
@@ -413,18 +410,14 @@ def _format_scripture_text_verse_by_verse(
         if book != current_book:
             current_book = book
             current_chapter = chapter_number
-            version_book_titles: BookTitles | None = get_book_titles(book, version)
-
-            if version_book_titles:
-                title: str = (
-                    version_book_titles.long_title
-                    if full_title
-                    else version_book_titles.short_title
-                )
-                text += _format_title(title, format_type, not text)
-
+            version_book_titles: BookTitles = get_book_titles(book, version)
+            title: str = (
+                version_book_titles.long_title
+                if full_title
+                else version_book_titles.short_title
+            )
+            text += _format_title(title, format_type, not text)
             text += _format_chapter(chapter_number, format_type)
-
         elif chapter_number != current_chapter:
             current_chapter = chapter_number
             text += _format_chapter(chapter_number, format_type)
@@ -513,7 +506,7 @@ def get_verse_text(verse_id: int, version: Version = DEFAULT_VERSION) -> str | N
     try:
         version_verse_texts: dict[int, str] = _get_version_verse_texts(version)
     except FileNotFoundError as file_not_found_error:
-        raise MissingVerseFileError(file_not_found_error)
+        raise MissingVerseFileError(file_not_found_error) from file_not_found_error
 
     return version_verse_texts.get(verse_id)
 
@@ -540,10 +533,7 @@ def _get_version_verse_texts(version: Version) -> dict[int, str]:
 
 
 @lru_cache()
-def get_book_titles(
-    book: Book,
-    version: Version = DEFAULT_VERSION,
-) -> BookTitles | None:
+def get_book_titles(book: Book, version: Version = DEFAULT_VERSION) -> BookTitles:
     """
     Return the book titles for the given Book and optional Version.
 
@@ -552,16 +542,16 @@ def get_book_titles(
     :param version: a version of the Bible, defaults to American Standard
     :type version: Version
     :return: the long and short titles of the given book and version
-    :rtype: BookTitles | None
+    :rtype: BookTitles
     :raises MissingBookFileError: if the book file for the given book and version does
                                   not exist
     """
     try:
         version_book_titles: dict[Book, BookTitles] = _get_version_book_titles(version)
     except FileNotFoundError as file_not_found_error:
-        raise MissingBookFileError(file_not_found_error)
+        raise MissingBookFileError(file_not_found_error) from file_not_found_error
 
-    return version_book_titles.get(book)
+    return version_book_titles.get(book, BookTitles(book.title, book.title))
 
 
 @lru_cache()
