@@ -10,7 +10,7 @@ repos:
       - id: requirements-txt-fixer
       - id: check-added-large-files
   - repo: https://github.com/psf/black
-    rev: 22.6.0
+    rev: 22.8.0
     hooks:
       - id: black
         # It is recommended to specify the latest version of Python
