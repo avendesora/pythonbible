@@ -54,7 +54,7 @@ SECOND_GENERAL_EPISTLE = rf"{SECOND}|(Second\s+{GENERAL_EPISTLE_OF})"
 THIRD_GENERAL_EPISTLE = rf"{THIRD}|(Third\s+{GENERAL_EPISTLE_OF})"
 
 # noinspection SpellCheckingInspection
-BOOK_REGULAR_EXPRESSIONS: dict[Book, str] = MappingProxyType(
+BOOK_REGULAR_EXPRESSIONS: MappingProxyType[Book, str] = MappingProxyType(
     {
         Book.GENESIS: r"Gen\.*(?:esis)?",
         Book.EXODUS: r"Exo\.*(?:d\.*)?(?:us)?",
