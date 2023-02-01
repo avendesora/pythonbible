@@ -205,7 +205,7 @@ BOOK_REGULAR_EXPRESSIONS: MappingProxyType[Book, str] = MappingProxyType(
             JOHN_REGULAR_EXPRESSION,
             prefix=THIRD_GENERAL_EPISTLE,
         ),
-        Book.JUDE: r"Jud\.*(:?e)?",
+        Book.JUDE: r"Jud\.*(:?e)?(?!ges)",
         Book.REVELATION: build_book_regular_expression(
             r"Rev\.*(?:elation)?",
             suffix="of ((Jesus Christ)|John|(St. John the Divine))",
