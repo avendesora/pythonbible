@@ -247,3 +247,32 @@ def test_jo() -> None:
 
         # then the matches are not found
         assert not matches
+
+
+def test_jud() -> None:
+    # "Jud" should match to Jude, but make sure "Judges" does not match to Jude
+
+    # given a reference with the abbreviation "Jud"
+    text = "Jud 1:1"
+
+    # when evaluating the string to see if it matches the Philemon regular expression
+    matches = re.findall(
+        regular_expressions.BOOK_REGULAR_EXPRESSIONS.get(bible.Book.JUDE, ""),
+        text,
+    )
+
+    # then the match is found
+    assert len(matches) == 1
+
+    # given a reference that should not match
+    # given a reference with the abbreviation "Jud"
+    text = "Judges 1:1"
+
+    # when evaluating the string to see if it matches the Philemon regular expression
+    matches = re.findall(
+        regular_expressions.BOOK_REGULAR_EXPRESSIONS.get(bible.Book.JUDE, ""),
+        text,
+    )
+
+    # then the match is found
+    assert not matches
