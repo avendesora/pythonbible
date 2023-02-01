@@ -28,7 +28,9 @@ KINGS_REGULAR_EXPRESSION = "(Kings" r"|Kgs\.*" r"|Kin\.*" r"|Ki\.*)"
 CHRONICLES_REGULAR_EXPRESSION = (
     "(Chronicles" r"|Chron\.*" r"|Chro\.*" r"|Chr\.*" r"|Ch\.*)"
 )
-JOHN_REGULAR_EXPRESSION = "(John" r"|Joh\.*" r"|Jhn\.*" r"|Jo\.*" r"|Jn\.*)"
+JOHN_REGULAR_EXPRESSION = (
+    "(John" r"|Joh\.*" r"|Jhn\.*" r"|Jo\.*(?!shua|b|nah)" r"|Jn\.*)"
+)
 CORINTHIANS_REGULAR_EXPRESSION = r"Co\.*(?:r\.*(?:inthians)?)?"
 THESSALONIANS_REGULAR_EXPRESSION = r"Th\.*(?:(s|(es(?:s)?))\.*(?:alonians)?)?"
 TIMOTHY_REGULAR_EXPRESSION = r"Ti\.*(?:m\.*(?:othy)?)?"
