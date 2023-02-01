@@ -219,6 +219,18 @@ def test_jo() -> None:
     # "Jo" should match to John, but make sure "Joshua", "Job", and "Jonah" do not
     # match to John
 
+    # given a reference with the abbreviation "Jo"
+    text = "Jo 1:1"
+
+    # when evaluating the string to see if it matches the Philemon regular expression
+    matches = re.findall(
+        regular_expressions.BOOK_REGULAR_EXPRESSIONS.get(bible.Book.JOHN, ""),
+        text,
+    )
+
+    # then the match is found
+    assert len(matches) == 1
+
     # given strings that should not match
     test_strings = [
         "Joshua",
@@ -235,15 +247,3 @@ def test_jo() -> None:
 
         # then the matches are not found
         assert not matches
-
-    # given a reference with the abbreviation "Jo"
-    text = "Jo 1:1"
-
-    # when evaluating the string to see if it matches the Philemon regular expression
-    matches = re.findall(
-        regular_expressions.BOOK_REGULAR_EXPRESSIONS.get(bible.Book.PHILEMON, ""),
-        text,
-    )
-
-    # then the match is found
-    assert len(matches) == 1
