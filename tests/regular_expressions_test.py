@@ -13,7 +13,7 @@ def test_chapter_regular_expression() -> None:
 
     # when evaluating that string against the chapter regular expression
     matches: Match[str] | None = re.search(
-        regular_expressions.CHAPTER_REGEX,
+        regular_expressions.CHAPTER,
         chapter_string,
     )
 
@@ -27,7 +27,7 @@ def test_verse_regular_expression() -> None:
 
     # when evaluating that string against the verse regular expression
     matches: Match[str] | None = re.search(
-        regular_expressions.VERSE_REGEX,
+        regular_expressions.VERSE,
         verse_string,
     )
 
@@ -51,7 +51,7 @@ def test_chapter_and_verse_regular_expression() -> None:
 
         # when evaluating that string against the chapter and verse regular expression
         matches: Match[str] | None = re.search(
-            regular_expressions.CHAPTER_AND_VERSE_REGEX,
+            regular_expressions.CHAPTER_AND_VERSE,
             chapter_and_verse_string,
         )
 
@@ -59,26 +59,29 @@ def test_chapter_and_verse_regular_expression() -> None:
         assert matches and matches.group(0) == reference
 
 
-def test_chapter_range_regular_expression() -> None:
-    chapter_range_references: list[str] = [
-        "1:2-3",
-        "3-4",
-        "142 : 5 - 53 : 23",
-        "43:    324 - 325",
-    ]
+def test_range_regular_expression() -> None:
+    range_references: dict[str, str] = {
+        "1:2-3": "-3",
+        "3-4": "-4",
+        "142 : 5 - 53 : 23": " - 53 : 23",
+        "43:    324 - 325": " - 325",
+        "Genesis - Deuteronomy": " - Deuteronomy",
+        "Genesis 1 - Exodus 2": " - Exodus 2",
+        "Genesis 1:1 - Exodus 2:2": " - Exodus 2:2",
+    }
 
-    for reference in chapter_range_references:
+    for reference, expected_match in range_references.items():
         # given a string with a chapter range reference
-        chapter_range_string: str = f"The chapter range reference is {reference}."
+        chapter_range_string: str = f"The chapter range reference is {reference}"
 
         # when evaluating that string against the chapter range regular expression
         matches: Match[str] | None = re.search(
-            regular_expressions.RANGE_REGEX,
+            regular_expressions.RANGE,
             chapter_range_string,
         )
 
         # then the match is found
-        assert matches and matches.group(0) == reference
+        assert matches and matches.group(0) == expected_match
 
 
 def test_additional_reference_regular_expression() -> None:
@@ -96,7 +99,7 @@ def test_additional_reference_regular_expression() -> None:
         # when evaluating that string against the additional reference regular
         # expression
         matches: Match[str] | None = re.search(
-            regular_expressions.FULL_CHAPTER_AND_VERSE_REGEX,
+            regular_expressions.FULL_CHAPTER_AND_VERSE,
             additional_reference_string,
         )
 
@@ -113,7 +116,7 @@ def test_multiple_additional_references() -> None:
 
     # when evaluating that string against the full regular expression
     matches: list[Match[str]] = re.findall(
-        regular_expressions.FULL_CHAPTER_AND_VERSE_REGEX,
+        regular_expressions.FULL_CHAPTER_AND_VERSE,
         full_string,
     )
 
@@ -209,7 +212,7 @@ def test_cross_book_regex() -> None:
     # given a reference that ranges over multiple books
     text: str = "The books of the law are Genesis - Deuteronomy"
 
-    matches: list[Match[str]] = re.findall(regular_expressions.CROSS_BOOK_REGEX, text)
+    matches: list[Match[str]] = re.findall(regular_expressions.CROSS_BOOK, text)
 
     assert len(matches) == 1
     assert matches[0][0] == "Genesis - Deuteronomy"
