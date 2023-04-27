@@ -269,3 +269,25 @@ def test_book_alternative_names_verbum(
 
             # Then the alternative references match the baseline references
             assert alternative_references == references
+
+
+# https://github.com/avendesora/pythonbible/issues/77
+# https://github.com/avendesora/pythonbible/issues/78
+def test_compound_references() -> None:
+    for book in bible.Book:
+        title = book.title
+        end_chapter = bible.get_number_of_chapters(book)
+        end_verse = bible.get_number_of_verses(book, end_chapter)
+        reference_string = f"{title} 1:1-{title} {end_chapter}:{end_verse}"
+        compound_results = bible.get_references(reference_string)
+        expected_result = bible.NormalizedReference(
+            book=book,
+            start_chapter=1,
+            start_verse=1,
+            end_chapter=end_chapter,
+            end_verse=end_verse,
+            end_book=book,
+        )
+
+        assert len(compound_results) == 1
+        assert compound_results[0] == expected_result

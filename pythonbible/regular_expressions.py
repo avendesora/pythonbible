@@ -28,7 +28,9 @@ KINGS_REGULAR_EXPRESSION = "(Kings" r"|Kgs\.*" r"|Kin\.*" r"|Ki\.*)"
 CHRONICLES_REGULAR_EXPRESSION = (
     "(Chronicles" r"|Chron\.*" r"|Chro\.*" r"|Chr\.*" r"|Ch\.*)"
 )
-JOHN_REGULAR_EXPRESSION = "(John" r"|Joh\.*" r"|Jhn\.*" r"|Jo\.*" r"|Jn\.*)"
+JOHN_REGULAR_EXPRESSION = (
+    "(John" r"|Joh\.*" r"|Jhn\.*" r"|Jo\.*(?!shua|b|nah|el)" r"|Jn\.*)"
+)
 CORINTHIANS_REGULAR_EXPRESSION = r"Co\.*(?:r\.*(?:inthians)?)?"
 THESSALONIANS_REGULAR_EXPRESSION = r"Th\.*(?:(s|(es(?:s)?))\.*(?:alonians)?)?"
 TIMOTHY_REGULAR_EXPRESSION = r"Ti\.*(?:m\.*(?:othy)?)?"
@@ -54,7 +56,7 @@ SECOND_GENERAL_EPISTLE = rf"{SECOND}|(Second\s+{GENERAL_EPISTLE_OF})"
 THIRD_GENERAL_EPISTLE = rf"{THIRD}|(Third\s+{GENERAL_EPISTLE_OF})"
 
 # noinspection SpellCheckingInspection
-BOOK_REGULAR_EXPRESSIONS: dict[Book, str] = MappingProxyType(
+BOOK_REGULAR_EXPRESSIONS: MappingProxyType[Book, str] = MappingProxyType(
     {
         Book.GENESIS: r"Gen\.*(?:esis)?",
         Book.EXODUS: r"Exo\.*(?:d\.*)?(?:us)?",
@@ -109,7 +111,7 @@ BOOK_REGULAR_EXPRESSIONS: dict[Book, str] = MappingProxyType(
         r"|Eccle\.*(?!siasticus?)"
         r"|Eccl\.*(?!esiasticus?)(?!us?)"
         r"|Ecc\.*(?!lesiasticus?)(?!lus?)"
-        r"|Ec\.*(?!clesiasticus?)(?!clus?)"
+        r"|(?<!Z)Ec\.*(?!clesiasticus?)(?!clus?)"
         r"|Qoh\.*)",
         Book.SONG_OF_SONGS: r"(Song(?: of (Solomon|Songs|Sol\.*))?)"
         "|Canticles"
@@ -130,7 +132,7 @@ BOOK_REGULAR_EXPRESSIONS: dict[Book, str] = MappingProxyType(
         Book.OBADIAH: r"Oba\.*(?:d\.*(?:iah)?)?",
         Book.JONAH: "Jonah" r"|Jon\.*" r"|Jnh\.*",
         Book.MICAH: r"Mic\.*(?:ah)?",
-        Book.NAHUM: r"Nah\.*(?:um)?",
+        Book.NAHUM: r"(?<!Jo)Nah\.*(?:um)?",
         Book.HABAKKUK: r"Hab\.*(?:akkuk)?",
         Book.ZEPHANIAH: r"Zep\.*(?:h\.*(?:aniah)?)?",
         Book.HAGGAI: r"Hag\.*(?:gai)?",
@@ -154,7 +156,7 @@ BOOK_REGULAR_EXPRESSIONS: dict[Book, str] = MappingProxyType(
             prefix=SECOND_PAUL_EPISTLE,
         ),
         Book.GALATIANS: r"Gal\.*(?:atians)?",
-        Book.EPHESIANS: r"Eph\.*(?:es\.*(?:ians)?)?",
+        Book.EPHESIANS: r"(?<!Z)Eph\.*(?:es\.*(?:ians)?)?",
         Book.PHILIPPIANS: r"Ph(?:(p\.*)|(?:il\.*(?!e\.*(?:m\.*(?:on)?)?)(?:ippians)?))",
         Book.COLOSSIANS: r"Col\.*(?:ossians)?",
         Book.THESSALONIANS_1: build_book_regular_expression(
@@ -179,7 +181,7 @@ BOOK_REGULAR_EXPRESSIONS: dict[Book, str] = MappingProxyType(
         r"Philem\.*|"
         r"Phile\.*|"
         r"Phlm\.*|"
-        r"Phi\.*|"
+        r"Phi\.*(?!l)|"
         r"Phm\.*)",
         Book.HEBREWS: r"Heb\.*(?:rews)?",
         Book.JAMES: r"Ja(?:me)?s\.*",
@@ -203,7 +205,7 @@ BOOK_REGULAR_EXPRESSIONS: dict[Book, str] = MappingProxyType(
             JOHN_REGULAR_EXPRESSION,
             prefix=THIRD_GENERAL_EPISTLE,
         ),
-        Book.JUDE: r"Jud\.*(:?e)?",
+        Book.JUDE: r"Jud\.*(:?e)?(?!ges)",
         Book.REVELATION: build_book_regular_expression(
             r"Rev\.*(?:elation)?",
             suffix="of ((Jesus Christ)|John|(St. John the Divine))",
@@ -217,7 +219,7 @@ BOOK_REGULAR_EXPRESSIONS: dict[Book, str] = MappingProxyType(
         "|Wisdom"
         r"|Wisd\.* of Sol\.*"
         r"|Wis\.*"
-        r"|Ws\.*)",
+        r"|(?<!Hebre)Ws\.*)",
         Book.ECCLESIASTICUS: "(Sirach" r"|Sir\.*" "|Ecclesiasticus" r"|Ecclus\.*)",
         Book.MACCABEES_1: build_book_regular_expression(
             MACCABEES_REGULAR_EXPRESSION,
@@ -230,28 +232,39 @@ BOOK_REGULAR_EXPRESSIONS: dict[Book, str] = MappingProxyType(
     },
 )
 
-BOOK_REGEX: str = "|".join(
-    rf"\b{regular_expression_value}\b\.?"
-    for regular_expression_value in BOOK_REGULAR_EXPRESSIONS.values()
+DIGIT: str = r"(\d{1,3})"
+SPACE: str = r"\s*"
+COLON: str = rf"{SPACE}([:.]){SPACE}"
+DASH = rf"{SPACE}-{SPACE}"
+COMMA = rf"{SPACE},{SPACE}"
+
+BOOK: str = rf"\b({'|'.join(BOOK_REGULAR_EXPRESSIONS.values())})\b\.*"
+CHAPTER: str = DIGIT
+VERSE: str = DIGIT
+
+CHAPTER_AND_VERSE: str = rf"({CHAPTER}(?:{COLON}{VERSE})?)"
+
+# Possibly range regular expressions are:
+# 1. Book - Book (with optional chapter/verse)
+# 2. Chapter - Book (with optional chapter/verse)
+# 3. Chapter - Chapter (with optional verse)
+# 4. Verse - Book (with optional chapter/verse)
+# 5. Verse - Chapter:Verse (verse is required)
+# 6. Verse - Verse
+
+# TODO - this regex may have some false positives for ranges given the above rules.
+RANGE: str = (
+    rf"{DASH}(({BOOK}{SPACE}(?:{CHAPTER_AND_VERSE})?)|{CHAPTER_AND_VERSE}|{VERSE})"
 )
 
-CHAPTER_REGEX: str = r"(\d{1,3})"
-CHAPTER_VERSE_SEPARATOR: str = "([:.])"
-VERSE_REGEX: str = r"(\d{1,3})"
-CHAPTER_AND_VERSE_REGEX: str = (
-    rf"({CHAPTER_REGEX}(\s*{CHAPTER_VERSE_SEPARATOR}\s*{VERSE_REGEX})?)"
+ADDITIONAL_REFERENCE: str = rf"({COMMA}({CHAPTER_AND_VERSE}(?:{RANGE})?|{VERSE}))"
+FULL_CHAPTER_AND_VERSE: str = (
+    f"({CHAPTER_AND_VERSE}(?:{RANGE})?({ADDITIONAL_REFERENCE})*)"
 )
-RANGE_REGEX: str = (
-    rf"({CHAPTER_AND_VERSE_REGEX}(\s*-\s*({CHAPTER_REGEX}\s*"
-    rf"{CHAPTER_VERSE_SEPARATOR}\s*)?{VERSE_REGEX})?)"
-)
-ADDITIONAL_REFERENCE_REGEX: str = rf"(\s*,\s*({RANGE_REGEX}|{VERSE_REGEX}))"
-FULL_CHAPTER_AND_VERSE_REGEX: str = f"({RANGE_REGEX}({ADDITIONAL_REFERENCE_REGEX})*)"
-
-FULL_BOOK_REGEX = rf"({BOOK_REGEX})\s*({FULL_CHAPTER_AND_VERSE_REGEX})?"
-CROSS_BOOK_REGEX = rf"({FULL_BOOK_REGEX}(\s*-\s*({FULL_BOOK_REGEX}))?)"
+FULL_BOOK = rf"({BOOK}){SPACE}(?:{FULL_CHAPTER_AND_VERSE})?"
+CROSS_BOOK = rf"({FULL_BOOK}(?:{DASH}({FULL_BOOK}))?)"
 
 SCRIPTURE_REFERENCE_REGULAR_EXPRESSION: Pattern[str] = re.compile(
-    CROSS_BOOK_REGEX,
+    CROSS_BOOK,
     re.IGNORECASE | re.UNICODE,
 )
