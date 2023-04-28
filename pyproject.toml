@@ -44,9 +44,6 @@ doc = [
 dev = [
     "pre-commit >=2.20.0",
 ]
-all = [
-    "defusedxml >=0.7.1",
-]
 
 [tool.isort]
 profile = "black"
