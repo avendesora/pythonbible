@@ -11,7 +11,6 @@ from __future__ import annotations
 
 __version__ = "0.8"
 
-from .bible.osis.parser import OSISParser
 from .book_groups import BOOK_GROUPS, BookGroup
 from .books import Book
 from .converter import (
@@ -35,7 +34,6 @@ from .formatter import (
     format_scripture_text,
     format_single_reference,
     get_book_titles,
-    get_parser,
     get_verse_text,
 )
 from .normalized_reference import NormalizedReference

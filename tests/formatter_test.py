@@ -184,16 +184,6 @@ def test_get_book_titles(
     assert book_titles.short_title == short_book_title
 
 
-def test_get_book_titles_no_version_file(book: bible.Book) -> None:
-    # Given a valid book and a version that doesn't have a file
-    version: bible.Version = bible.Version.MESSAGE
-
-    # When using that book and version to the get the book titles
-    # Then a MissingBookFileError is raised.
-    with pytest.raises(bible.MissingBookFileError):
-        bible.get_book_titles(book, version)
-
-
 def test_format_scripture_references_multiple_book_range() -> None:
     # Given a reference that spans multiple books
     references: list[bible.NormalizedReference] = bible.get_references(

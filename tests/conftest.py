@@ -5,7 +5,6 @@ from collections import OrderedDict
 import pytest
 
 import pythonbible as bible
-from pythonbible.bible.bible_parser import BibleParser
 
 
 @pytest.fixture()
@@ -520,16 +519,6 @@ def verse_text() -> str:
 @pytest.fixture()
 def verse_text_no_verse_number() -> str:
     return "In the beginning God created the heaven and the earth."
-
-
-@pytest.fixture()
-def kjv_parser() -> BibleParser:
-    return bible.get_parser(version=bible.Version.KING_JAMES)
-
-
-@pytest.fixture()
-def asv_parser() -> BibleParser:
-    return bible.get_parser(version=bible.Version.AMERICAN_STANDARD)
 
 
 @pytest.fixture()
