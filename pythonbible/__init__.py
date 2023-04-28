@@ -11,6 +11,7 @@ from __future__ import annotations
 
 __version__ = "0.8"
 
+from .bible.bible import Bible
 from .book_groups import BOOK_GROUPS, BookGroup
 from .books import Book
 from .converter import (
