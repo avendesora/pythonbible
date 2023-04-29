@@ -1,0 +1,14 @@
+ignore:
+    - .git
+    - venv
+    - .venv
+    - env
+    - .env
+    - .tox
+    - node_modules
+    - vendor
+    - pythonbible/bible/asv/*.py
+    - pythonbible/bible/kjv/*.py
+
+rule_settings:
+  python_version: '3.7'
