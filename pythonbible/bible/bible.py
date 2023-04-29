@@ -66,7 +66,9 @@ def clean_html(scripture_content: str) -> str:
         return ""
 
     cleaned_content: str = scripture_content
-    cleaned_content = cleaned_content.removesuffix("<p>")
+
+    if cleaned_content.endswith("<p>"):
+        cleaned_content = cleaned_content[:-3]
 
     if not cleaned_content.startswith("<p>"):
         cleaned_content = f"<p>{cleaned_content}"
