@@ -5,6 +5,8 @@ from functools import lru_cache
 from typing import Any
 
 from pythonbible.bible.bibles import get_bible
+from pythonbible.bible.titles import LONG_TITLES
+from pythonbible.bible.titles import SHORT_TITLES
 from pythonbible.books import Book
 from pythonbible.converter import convert_references_to_verse_ids
 from pythonbible.converter import convert_verse_ids_to_references
@@ -473,14 +475,21 @@ def get_book_titles(book: Book, version: Version = DEFAULT_VERSION) -> BookTitle
                                   not exist
     """
     try:
-        version_book_titles: dict[Book, BookTitles] = _get_version_book_titles(version)
+        short_titles, long_titles = _get_version_book_titles(version)
     except FileNotFoundError as file_not_found_error:
         raise MissingBookFileError(file_not_found_error) from file_not_found_error
 
-    return version_book_titles.get(book, BookTitles(book.title, book.title))
+    short_title = short_titles.get(book, book.title)
+    long_title = long_titles.get(book, book.title)
+
+    return BookTitles(long_title, short_title)
 
 
 @lru_cache()
-def _get_version_book_titles(version: Version) -> dict[Book, BookTitles]:
-    # TODO
-    return {}
+def _get_version_book_titles(
+    version: Version,
+) -> tuple[dict[Book, str], dict[Book, str]]:
+    try:
+        return SHORT_TITLES[version], LONG_TITLES[version]
+    except KeyError as key_error:
+        raise MissingBookFileError(key_error) from key_error
