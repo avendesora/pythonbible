@@ -351,12 +351,30 @@ def format_scripture_text(verse_ids: list[int], **kwargs: Any) -> str:
     text: str = ""
     current_book: Book | None = None
     current_chapter: int | None = None
+    previous_verse_number: int | None = None
+    current_start_verse: int | None = None
+    current_end_verse: int | None = None
 
     for verse_id in verse_ids:
         book, chapter_number, verse_number = get_book_chapter_verse(verse_id)
 
+        if (
+            one_verse_per_paragraph
+            or book != current_book
+            or chapter_number != current_chapter
+            or previous_verse_number is None
+            or verse_number != previous_verse_number + 1
+        ):
+            if current_start_verse and current_end_verse:
+                verse_text = bible.get_scripture(current_start_verse, current_end_verse)
+                text += _format_paragraph(verse_text)
+
+            current_start_verse = verse_id
+
+        current_end_verse = verse_id
+        previous_verse_number = verse_number
+
         if book != current_book:
-            text = _clean_text_before_book_or_chapter(text, is_html)
             current_book = book
             current_chapter = chapter_number
             version_book_titles: BookTitles = get_book_titles(book, version)
@@ -365,78 +383,31 @@ def format_scripture_text(verse_ids: list[int], **kwargs: Any) -> str:
                 if full_title
                 else version_book_titles.short_title
             )
-            text += _format_title(title, format_type, not text)
-            text += _format_chapter(chapter_number, format_type)
+            text += _format_title(title, is_html, not text)
+            text += _format_chapter(chapter_number, is_html)
         elif chapter_number != current_chapter:
-            text = _clean_text_before_book_or_chapter(text, is_html)
             current_chapter = chapter_number
-            text += _format_chapter(chapter_number, format_type)
+            text += _format_chapter(chapter_number, is_html)
 
-        verse_text = bible.get_scripture(verse_id, verse_id)
+    if current_start_verse and current_end_verse:
+        verse_text = bible.get_scripture(current_start_verse, current_end_verse)
+        text += _format_paragraph(verse_text)
 
-        if one_verse_per_paragraph:
-            verse_text = _format_paragraph(verse_text, format_type)
-        elif (is_html and not text.endswith("<p>")) or (
-            not is_html and not text.endswith("\n")
-        ):
-            verse_text = f" {verse_text}"
-
-        if is_html and text.endswith("<p>") and verse_text.startswith("<p>"):
-            verse_text = verse_text[3:]
-
-        text += verse_text
-
-    return _clean_text_at_end(text, is_html)
+    return text
 
 
-def _clean_text_before_book_or_chapter(text: str, is_html: bool) -> str:
-    clean_text: str = text
-
-    if is_html and clean_text.endswith("<p>"):
-        clean_text = clean_text[:-3]
-
-    if clean_text and not clean_text.endswith("\n"):
-        clean_text += "\n"
-
-    return clean_text
-
-
-def _clean_text_at_end(text: str, is_html: bool) -> str:
-    clean_text: str = text
-
+def _format_title(title: str, is_html: bool, is_first_book: bool) -> str:
     if is_html:
-        if clean_text.endswith("<p>"):
-            clean_text = clean_text[:-3]
-        elif not (clean_text.endswith("</p>") or clean_text.endswith("</p>\n")):
-            clean_text += "</p>"
-
-    if clean_text and not clean_text.endswith("\n"):
-        clean_text += "\n"
-
-    return clean_text
-
-
-def _format_title(title: str, format_type: str, is_first_book: bool) -> str:
-    if format_type == "html":
         return f"<h1>{title}</h1>\n"
 
     return f"{title}\n\n" if is_first_book else f"\n\n{title}\n\n"
 
 
-def _format_chapter(chapter: int, format_type: str) -> str:
-    if format_type == "html":
-        return f"<h2>Chapter {chapter}</h2>\n<p>"
-
-    return f"Chapter {chapter}\n\n"
+def _format_chapter(chapter: int, is_html: bool) -> str:
+    return f"<h2>Chapter {chapter}</h2>\n" if is_html else f"Chapter {chapter}\n\n"
 
 
-def _format_paragraph(paragraph: str | None, format_type: str) -> str:
-    if format_type == "html":
-        if paragraph.endswith("</p><p>"):
-            paragraph = paragraph[:-7]
-
-        return f"<p>{paragraph}</p>\n"
-
+def _format_paragraph(paragraph: str) -> str:
     return f"{paragraph}\n"
 
 
@@ -474,11 +445,7 @@ def get_book_titles(book: Book, version: Version = DEFAULT_VERSION) -> BookTitle
     :raises MissingBookFileError: if the book file for the given book and version does
                                   not exist
     """
-    try:
-        short_titles, long_titles = _get_version_book_titles(version)
-    except FileNotFoundError as file_not_found_error:
-        raise MissingBookFileError(file_not_found_error) from file_not_found_error
-
+    short_titles, long_titles = _get_version_book_titles(version)
     short_title = short_titles.get(book, book.title)
     long_title = long_titles.get(book, book.title)
 
