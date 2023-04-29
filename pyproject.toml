@@ -48,3 +48,4 @@ dev = [
 [tool.isort]
 profile = "black"
 add_imports = "from __future__ import annotations"
+force_single_line = true

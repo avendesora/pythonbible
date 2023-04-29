@@ -3,6 +3,9 @@ from __future__ import annotations
 
 from functools import lru_cache
 
+from pythonbible.errors import InvalidVerseError
+from pythonbible.validator import is_valid_verse_id
+
 
 class Bible:
     """
@@ -31,8 +34,6 @@ class Bible:
         start_verse_id: int,
         end_verse_id: int | None = None,
     ) -> str:
-        from pythonbible import InvalidVerseError, is_valid_verse_id
-
         if not is_valid_verse_id(start_verse_id):
             raise InvalidVerseError(
                 f"start verse id ({start_verse_id}) is not a valid verse id.",

@@ -1,21 +1,18 @@
 from __future__ import annotations
 
 import re
-from typing import Match, Pattern
+from typing import Match
+from typing import Pattern
 
 from pythonbible.books import Book
 from pythonbible.normalized_reference import NormalizedReference
-from pythonbible.regular_expressions import (
-    BOOK_REGULAR_EXPRESSIONS,
-    SCRIPTURE_REFERENCE_REGULAR_EXPRESSION,
-)
+from pythonbible.regular_expressions import BOOK_REGULAR_EXPRESSIONS
+from pythonbible.regular_expressions import SCRIPTURE_REFERENCE_REGULAR_EXPRESSION
 from pythonbible.roman_numeral_util import convert_all_roman_numerals_to_integers
 from pythonbible.validator import is_valid_reference
-from pythonbible.verses import (
-    get_number_of_chapters,
-    get_number_of_verses,
-    is_single_chapter_book,
-)
+from pythonbible.verses import get_number_of_chapters
+from pythonbible.verses import get_number_of_verses
+from pythonbible.verses import is_single_chapter_book
 
 COLON = ":"
 COMMA = ","

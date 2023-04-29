@@ -4,55 +4,18 @@ from dataclasses import dataclass
 from functools import lru_cache
 from typing import Any
 
-from pythonbible import MissingVerseFileError
-from pythonbible.bible.asv.html import bible as asv_html_bible
-from pythonbible.bible.asv.html_notes import bible as asv_html_notes_bible
-from pythonbible.bible.asv.html_readers import bible as asv_html_readers_bible
-from pythonbible.bible.asv.plain_text import bible as asv_plain_text_bible
-from pythonbible.bible.asv.plain_text_notes import bible as asv_plain_text_notes_bible
-from pythonbible.bible.asv.plain_text_readers import (
-    bible as asv_plain_text_readers_bible,
-)
-from pythonbible.bible.kjv.html import bible as kjv_html_bible
-from pythonbible.bible.kjv.html_notes import bible as kjv_html_notes_bible
-from pythonbible.bible.kjv.html_readers import bible as kjv_html_readers_bible
-from pythonbible.bible.kjv.plain_text import bible as kjv_plain_text_bible
-from pythonbible.bible.kjv.plain_text_notes import bible as kjv_plain_text_notes_bible
-from pythonbible.bible.kjv.plain_text_readers import (
-    bible as kjv_plain_text_readers_bible,
-)
+from pythonbible.bible.bibles import get_bible
 from pythonbible.books import Book
-from pythonbible.converter import (
-    convert_references_to_verse_ids,
-    convert_verse_ids_to_references,
-)
+from pythonbible.converter import convert_references_to_verse_ids
+from pythonbible.converter import convert_verse_ids_to_references
 from pythonbible.errors import MissingBookFileError
 from pythonbible.normalized_reference import NormalizedReference
-from pythonbible.verses import (
-    get_number_of_chapters,
-    get_number_of_verses,
-    is_single_chapter_book,
-)
-from pythonbible.versions import DEFAULT_VERSION, Version
-
-BIBLES = {
-    Version.AMERICAN_STANDARD: {
-        "html": asv_html_bible,
-        "html_notes": asv_html_notes_bible,
-        "html_readers": asv_html_readers_bible,
-        "plain_text": asv_plain_text_bible,
-        "plain_text_notes": asv_plain_text_notes_bible,
-        "plain_text_readers": asv_plain_text_readers_bible,
-    },
-    Version.KING_JAMES: {
-        "html": kjv_html_bible,
-        "html_notes": kjv_html_notes_bible,
-        "html_readers": kjv_html_readers_bible,
-        "plain_text": kjv_plain_text_bible,
-        "plain_text_notes": kjv_plain_text_notes_bible,
-        "plain_text_readers": kjv_plain_text_readers_bible,
-    },
-}
+from pythonbible.verses import get_book_chapter_verse
+from pythonbible.verses import get_number_of_chapters
+from pythonbible.verses import get_number_of_verses
+from pythonbible.verses import is_single_chapter_book
+from pythonbible.versions import DEFAULT_VERSION
+from pythonbible.versions import Version
 
 
 @dataclass
@@ -375,29 +338,17 @@ def format_scripture_text(verse_ids: list[int], **kwargs: Any) -> str:
 
     is_html: bool = format_type == "html"
 
-    bibles = BIBLES.get(version)
+    bible_type = "html" if is_html else "plain_text"
 
-    if bibles is None:
-        raise MissingVerseFileError()
+    if not include_verse_numbers:
+        bible_type += "_readers"
 
-    bible_type = "plain_text"
-
-    if is_html:
-        bible_type = "html" if include_verse_numbers else "html_readers"
-    elif not include_verse_numbers:
-        bible_type = "plain_text_readers"
-
-    bible = bibles.get(bible_type)
-
-    if bible is None:
-        raise MissingVerseFileError()
+    bible = get_bible(version, bible_type)
 
     verse_ids.sort()
     text: str = ""
     current_book: Book | None = None
     current_chapter: int | None = None
-
-    from pythonbible import get_book_chapter_verse
 
     for verse_id in verse_ids:
         book, chapter_number, verse_number = get_book_chapter_verse(verse_id)
@@ -488,7 +439,7 @@ def _format_paragraph(paragraph: str | None, format_type: str) -> str:
 
 
 @lru_cache()
-def get_verse_text(verse_id: int, version: Version = DEFAULT_VERSION) -> str | None:
+def get_verse_text(verse_id: int, version: Version = DEFAULT_VERSION) -> str:
     """
     Return the scripture text of the given verse id and version of the Bible.
 
@@ -503,16 +454,7 @@ def get_verse_text(verse_id: int, version: Version = DEFAULT_VERSION) -> str | N
     :raises MissingVerseFileError: if the verse file for the given verse_id and version
                                    does not exist
     """
-    bibles = BIBLES.get(version)
-
-    if bibles is None:
-        raise MissingVerseFileError()
-
-    bible = bibles.get("plain_text_readers")
-
-    if bible is None:
-        raise MissingVerseFileError()
-
+    bible = get_bible(version, "plain_text_readers")
     return bible.get_scripture(verse_id, verse_id)
 
 

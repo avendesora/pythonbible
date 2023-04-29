@@ -2,12 +2,10 @@ from __future__ import annotations
 
 from pythonbible.books import Book
 from pythonbible.normalized_reference import NormalizedReference
-from pythonbible.verses import (
-    MAX_VERSE_NUMBER_BY_BOOK_AND_CHAPTER,
-    VERSE_IDS,
-    get_number_of_verses,
-    get_verse_id,
-)
+from pythonbible.verses import MAX_VERSE_NUMBER_BY_BOOK_AND_CHAPTER
+from pythonbible.verses import VERSE_IDS
+from pythonbible.verses import get_number_of_verses
+from pythonbible.verses import get_verse_id
 
 
 def is_valid_verse_id(verse_id: int) -> bool:
