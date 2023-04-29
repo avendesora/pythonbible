@@ -5,6 +5,7 @@ from functools import lru_cache
 
 from pythonbible.errors import InvalidVerseError
 from pythonbible.validator import is_valid_verse_id
+from pythonbible.versions import Version
 
 
 class Bible:
@@ -18,11 +19,13 @@ class Bible:
 
     def __init__(
         self: Bible,
+        version: Version,
         scripture_content: str,
         verse_start_indices: dict[int, int],
         verse_end_indices: dict[int, int],
         is_html: bool = False,
     ) -> None:
+        self.version: Version = version
         self.scripture_content: str = scripture_content
         self.verse_start_indices: dict[int, int] = verse_start_indices
         self.verse_end_indices: dict[int, int] = verse_end_indices
