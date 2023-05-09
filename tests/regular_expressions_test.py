@@ -18,7 +18,8 @@ def test_chapter_regular_expression() -> None:
     )
 
     # then the match is found
-    assert matches and matches.group(0) == "132"
+    assert matches
+    assert matches.group(0) == "132"
 
 
 def test_verse_regular_expression() -> None:
@@ -32,7 +33,8 @@ def test_verse_regular_expression() -> None:
     )
 
     # then the match is found
-    assert matches and matches.group(0) == "25"
+    assert matches
+    assert matches.group(0) == "25"
 
 
 def test_chapter_and_verse_regular_expression() -> None:
@@ -56,7 +58,8 @@ def test_chapter_and_verse_regular_expression() -> None:
         )
 
         # then the match is found
-        assert matches and matches.group(0) == reference
+        assert matches
+        assert matches.group(0) == reference
 
 
 def test_range_regular_expression() -> None:
@@ -81,7 +84,8 @@ def test_range_regular_expression() -> None:
         )
 
         # then the match is found
-        assert matches and matches.group(0) == expected_match
+        assert matches
+        assert matches.group(0) == expected_match
 
 
 def test_additional_reference_regular_expression() -> None:
@@ -104,7 +108,8 @@ def test_additional_reference_regular_expression() -> None:
         )
 
         # then the match is found
-        assert matches and matches.group(0) == reference
+        assert matches
+        assert matches.group(0) == reference
 
 
 def test_multiple_additional_references() -> None:

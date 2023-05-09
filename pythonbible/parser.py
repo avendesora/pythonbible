@@ -1,10 +1,10 @@
 from __future__ import annotations
 
 import re
+from typing import TYPE_CHECKING
 from typing import Match
 from typing import Pattern
 
-from pythonbible.books import Book
 from pythonbible.normalized_reference import NormalizedReference
 from pythonbible.regular_expressions import BOOK_REGULAR_EXPRESSIONS
 from pythonbible.regular_expressions import SCRIPTURE_REFERENCE_REGULAR_EXPRESSION
@@ -13,6 +13,9 @@ from pythonbible.validator import is_valid_reference
 from pythonbible.verses import get_number_of_chapters
 from pythonbible.verses import get_number_of_verses
 from pythonbible.verses import is_single_chapter_book
+
+if TYPE_CHECKING:
+    from pythonbible.books import Book
 
 COLON = ":"
 COMMA = ","
@@ -26,8 +29,7 @@ def get_references(
     text: str,
     book_groups: dict[str, tuple[Book, ...]] = None,
 ) -> list[NormalizedReference]:
-    """
-    Search the text for scripture references.
+    """Search the text for scripture references.
 
     Searches the text for scripture references and returns any that are found in a list
     of normalized tuple references.
@@ -59,8 +61,7 @@ def get_references(
 
 
 def normalize_reference(reference: str) -> list[NormalizedReference]:
-    """
-    Convert a scripture reference string into a list of normalized tuple references.
+    """Convert a scripture reference string into a list of normalized tuple references.
 
     :param reference: a string that is a scripture reference
     :return: a list of tuples. each tuple is in the format (book, start_chapter,
@@ -150,11 +151,8 @@ def _process_sub_references(book: Book, reference: str) -> list[NormalizedRefere
             references.append(NormalizedReference(book, 1, 1, max_chapter, max_verse))
             continue
 
-        if sub_reference.endswith(DASH):
-            sub_reference = sub_reference[:-1]
-
         start_chapter, start_verse, end_chapter, end_verse = _process_sub_reference(
-            sub_reference,
+            sub_reference if sub_reference.endswith(DASH) else sub_reference,
             book,
             start_chapter,
         )

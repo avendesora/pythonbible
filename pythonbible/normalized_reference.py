@@ -1,14 +1,15 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+from typing import TYPE_CHECKING
 
-from pythonbible.books import Book
+if TYPE_CHECKING:
+    from pythonbible.books import Book
 
 
 @dataclass
 class NormalizedReference:
-    """
-    A single scripture reference that contains one or more consecutive verses.
+    """A single scripture reference that contains one or more consecutive verses.
 
     :param book: the first book of the Bible in the reference
     :type book: Book

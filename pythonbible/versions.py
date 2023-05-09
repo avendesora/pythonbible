@@ -7,8 +7,7 @@ from types import MappingProxyType
 # This comes from crosswire.org "Standard OSIS Codes for Bible Editions"
 # noinspection SpellCheckingInspection
 class Version(Enum):
-    """
-    Version of the Bible.
+    """Version of the Bible.
 
     Version is an Enum containing all of the currently known Ancient Language
     and English versions of the Bible.

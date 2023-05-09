@@ -9,8 +9,7 @@ from pythonbible.verses import get_verse_id
 
 
 def is_valid_verse_id(verse_id: int) -> bool:
-    """
-    Check to see if the given verse_id corresponds to a valid verse in the Bible.
+    """Check to see if the given verse_id corresponds to a valid verse in the Bible.
 
     :param verse_id: a verse id
     :type verse_id: int
@@ -21,8 +20,7 @@ def is_valid_verse_id(verse_id: int) -> bool:
 
 
 def is_valid_reference(reference: NormalizedReference) -> bool:
-    """
-    Check to see if the given NormalizedReference is a valid scripture reference.
+    """Check to see if the given NormalizedReference is a valid scripture reference.
 
     (i.e. all of the verses in the reference are valid verses)
 
@@ -59,8 +57,7 @@ def is_valid_reference(reference: NormalizedReference) -> bool:
 
 
 def is_valid_book(book: Book) -> bool:
-    """
-    Check to see if the given book is a valid book of the Bible.
+    """Check to see if the given book is a valid book of the Bible.
 
     :param book: a book of the Bible
     :type book: Book
@@ -71,8 +68,7 @@ def is_valid_book(book: Book) -> bool:
 
 
 def is_valid_chapter(book: Book, chapter: int) -> bool:
-    """
-    Check to see if the given Book is a valid book of the Bible.
+    """Check to see if the given Book is a valid book of the Bible.
 
     If so, checks to see if the given chapter number is a valid chapter number for the
     given book.
@@ -96,8 +92,7 @@ def is_valid_chapter(book: Book, chapter: int) -> bool:
 
 
 def is_valid_verse(book: Book, chapter: int, verse: int) -> bool:
-    """
-    Check to see if the given Book is a valid book of the Bible.
+    """Check to see if the given Book is a valid book of the Bible.
 
     Then checks to see if the given chapter number is a valid chapter number for the
     given book, then checks to see if the given verse number is a valid verse number

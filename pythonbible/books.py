@@ -5,8 +5,7 @@ from types import MappingProxyType
 
 
 class Book(IntEnum):
-    """
-    Book is an IntEnum that contains all of the books of the Bible.
+    """Book is an IntEnum that contains all of the books of the Bible.
 
     :param name: the unique text identifier of the book
     :type name: str

@@ -35,4 +35,4 @@ def test_get_scripture_cross_book() -> None:
 
 def test_get_scripture_missing_verse_in_version() -> None:
     scripture = asv_html_readers_bible.get_scripture(40017021, 40017021)
-    assert scripture == ""
+    assert not scripture

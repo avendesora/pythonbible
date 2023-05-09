@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from typing import TYPE_CHECKING
+
 import pythonbible.bible.asv.html as asv_html
 import pythonbible.bible.asv.html_notes as asv_html_notes
 import pythonbible.bible.asv.html_readers as asv_html_readers
@@ -12,9 +14,11 @@ import pythonbible.bible.kjv.html_readers as kjv_html_readers
 import pythonbible.bible.kjv.plain_text as kjv_plain_text
 import pythonbible.bible.kjv.plain_text_notes as kjv_plain_text_notes
 import pythonbible.bible.kjv.plain_text_readers as kjv_plain_text_readers
-from pythonbible.bible.bible import Bible
 from pythonbible.errors import MissingVerseFileError
 from pythonbible.versions import Version
+
+if TYPE_CHECKING:
+    from pythonbible.bible.bible import Bible
 
 BIBLES = {
     Version.AMERICAN_STANDARD: {
@@ -37,8 +41,7 @@ BIBLES = {
 
 
 def get_bible(version: Version, bible_type: str) -> Bible:
-    """
-    Return the Bible for the given version and format.
+    """Return the Bible for the given version and format.
 
     :param version: The version of the Bible
     :type version: Version
@@ -50,4 +53,4 @@ def get_bible(version: Version, bible_type: str) -> Bible:
     try:
         return BIBLES[version][bible_type]
     except KeyError as e:
-        raise MissingVerseFileError() from e
+        raise MissingVerseFileError from e

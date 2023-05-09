@@ -1,6 +1,9 @@
 from __future__ import annotations
 
-from typing import Any
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from pythonbible.books import Book
 
 
 class InvalidBookError(Exception):
@@ -12,8 +15,7 @@ class InvalidChapterError(Exception):
 
 
 class InvalidVerseError(Exception):
-    """
-    Raise when the verse id is not a valid Bible verse.
+    """Raise when the verse id is not a valid Bible verse.
 
     Or raise when the book, chapter, and verse number being processed is not a valid
     Bible verse.
@@ -22,29 +24,26 @@ class InvalidVerseError(Exception):
     def __init__(
         self: InvalidVerseError,
         message: str | None = None,
-        **kwargs: Any,
+        verse_id: int | None = None,
+        book: Book | None = None,
+        chapter: int | None = None,
+        verse: int | None = None,
     ) -> None:
-        """
-        Initialize InvalidVerseError.
+        """Initialize InvalidVerseError.
 
         :param message: optional message string
-        :param kwargs: optional keyword arguments (verse_id, book, chapter, verse) for
-                       more specific messaging
+        :param verse_id: optional verse id
+        :param book: optional Book
+        :param chapter: optional chapter number
+        :param verse: optional verse number
         """
         self.message: str | None = message
-        self.verse_id: Any | None = kwargs.get("verse_id")
-        self.book: Any | None = kwargs.get("book")
-        self.chapter: Any | None = kwargs.get("chapter")
-        self.verse: Any | None = kwargs.get("verse")
 
         if not self.message:
-            if self.book and self.chapter and self.verse:
-                self.message = (
-                    f"{self.book.title} {self.chapter}:{self.verse} "
-                    f"is not a valid verse."
-                )
-            elif self.verse_id:
-                self.message = f"{self.verse_id} is not a valid verse."
+            if book and chapter and verse:
+                self.message = f"{book.title} {chapter}:{verse} is not a valid verse."
+            elif verse_id:
+                self.message = f"{verse_id} is not a valid verse."
 
         super().__init__(self.message)
 

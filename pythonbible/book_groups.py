@@ -8,8 +8,7 @@ from pythonbible.books import Book
 
 
 class BookGroup(Enum):
-    """
-    BookGroup is an ``Enum`` containing the default Bible book groupings.
+    """BookGroup is an ``Enum`` containing the default Bible book groupings.
 
     :param name: the unique text identifier of the book group
     :type name: str

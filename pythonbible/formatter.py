@@ -2,22 +2,25 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from functools import lru_cache
+from typing import TYPE_CHECKING
 from typing import Any
 
 from pythonbible.bible.bibles import get_bible
 from pythonbible.bible.titles import LONG_TITLES
 from pythonbible.bible.titles import SHORT_TITLES
-from pythonbible.books import Book
 from pythonbible.converter import convert_references_to_verse_ids
 from pythonbible.converter import convert_verse_ids_to_references
 from pythonbible.errors import MissingBookFileError
-from pythonbible.normalized_reference import NormalizedReference
 from pythonbible.verses import get_book_chapter_verse
 from pythonbible.verses import get_number_of_chapters
 from pythonbible.verses import get_number_of_verses
 from pythonbible.verses import is_single_chapter_book
 from pythonbible.versions import DEFAULT_VERSION
 from pythonbible.versions import Version
+
+if TYPE_CHECKING:
+    from pythonbible.books import Book
+    from pythonbible.normalized_reference import NormalizedReference
 
 
 @dataclass
@@ -33,8 +36,7 @@ def format_scripture_references(
     references: list[NormalizedReference] | None,
     **kwargs: Any,
 ) -> str:
-    """
-    Return a human-readable string of the given normalized scripture references.
+    """Return a human-readable string of the given normalized scripture references.
 
     :param references: A list of normalized scripture references
     :type references: list[NormalizedReference]
@@ -116,8 +118,7 @@ def format_single_reference(
     include_chapters: bool = True,
     **kwargs: Any,
 ) -> str:
-    """
-    Return a human-readable string of the given normalized scripture reference.
+    """Return a human-readable string of the given normalized scripture reference.
 
     :param reference: A normalized scripture reference
     :type reference: NormalizedReference
@@ -324,8 +325,7 @@ def _does_reference_include_all_verses_in_end_book(
 
 
 def format_scripture_text(verse_ids: list[int], **kwargs: Any) -> str:
-    """
-    Return the formatted scripture text for the given list of verse IDs.
+    """Return the formatted scripture text for the given list of verse IDs.
 
     :param verse_ids: A list of integer verse ids
     :type verse_ids: list[int]
@@ -413,8 +413,7 @@ def _format_paragraph(paragraph: str) -> str:
 
 @lru_cache()
 def get_verse_text(verse_id: int, version: Version = DEFAULT_VERSION) -> str:
-    """
-    Return the scripture text of the given verse id and version of the Bible.
+    """Return the scripture text of the given verse id and version of the Bible.
 
     :param verse_id: a verse id
     :type verse_id: int
@@ -433,8 +432,7 @@ def get_verse_text(verse_id: int, version: Version = DEFAULT_VERSION) -> str:
 
 @lru_cache()
 def get_book_titles(book: Book, version: Version = DEFAULT_VERSION) -> BookTitles:
-    """
-    Return the book titles for the given Book and optional Version.
+    """Return the book titles for the given Book and optional Version.
 
     :param book: a book of the Bible
     :type book: Book
