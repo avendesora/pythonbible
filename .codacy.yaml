@@ -1,0 +1,4 @@
+---
+exclude_paths:
+  - "pythonbible/bible/asv/*.py"
+  - "pythonbible/bible/kjv/*.py"

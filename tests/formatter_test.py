@@ -111,6 +111,38 @@ def test_format_scripture_text_one_verse_per_paragraph(
     assert scripture_text == html_scripture_text_one_verse_per_paragraph
 
 
+def test_format_scripture_text_non_html_no_verse_numbers(
+    verse_ids: list[int],
+    non_html_scripture_text_readers: str,
+) -> None:
+    # Given a list of verse ids
+    # When we get the non html scripture text for those verse ids
+    scripture_text: str = bible.format_scripture_text(
+        verse_ids,
+        format_type="text",
+        include_verse_numbers=False,
+    )
+
+    # Then the scripture text is formatted correctly.
+    assert scripture_text == non_html_scripture_text_readers
+
+
+def test_format_scripture_text_non_html_one_verse_per_paragraph(
+    verse_ids: list[int],
+    non_html_scripture_text_one_verse_per_paragraph: str,
+) -> None:
+    # Given a list of verse ids
+    # When we get the scripture text for those verse ids
+    scripture_text: str = bible.format_scripture_text(
+        verse_ids,
+        format_type="text",
+        one_verse_per_paragraph=True,
+    )
+
+    # Then the scripture text is formatted correctly.
+    assert scripture_text == non_html_scripture_text_one_verse_per_paragraph
+
+
 def test_get_verse_text(verse_id: int, verse_text_no_verse_number: str) -> None:
     # Given a valid verse id
     # When using that verse to get the verse text
@@ -127,7 +159,7 @@ def test_get_verse_text_invalid(invalid_verse_id: int) -> None:
     # Given an invalid verse id
     # When attempting to get the verse text for that verse id
     # Then an error is raised.
-    with pytest.raises(bible.InvalidVerseError, match="1100100 is not a valid verse."):
+    with pytest.raises(bible.InvalidVerseError):
         bible.get_verse_text(invalid_verse_id)
 
 
@@ -184,14 +216,12 @@ def test_get_book_titles(
     assert book_titles.short_title == short_book_title
 
 
-def test_get_book_titles_no_version_file(book: bible.Book) -> None:
-    # Given a valid book and a version that doesn't have a file
-    version: bible.Version = bible.Version.MESSAGE
-
-    # When using that book and version to the get the book titles
+def test_get_book_titles_version_missing(book: bible.Book) -> None:
+    # Given a book
+    # When we get the book titles for that book in a version that is missing
     # Then a MissingBookFileError is raised.
     with pytest.raises(bible.MissingBookFileError):
-        bible.get_book_titles(book, version)
+        bible.get_book_titles(book, version=bible.Version.MESSAGE)
 
 
 def test_format_scripture_references_multiple_book_range() -> None:

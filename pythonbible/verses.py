@@ -4,7 +4,8 @@ from functools import lru_cache
 from types import MappingProxyType
 
 from pythonbible.books import Book
-from pythonbible.errors import InvalidChapterError, InvalidVerseError
+from pythonbible.errors import InvalidChapterError
+from pythonbible.errors import InvalidVerseError
 
 MAX_VERSE_NUMBER_BY_BOOK_AND_CHAPTER: dict[Book, list[int]] = MappingProxyType(
     {
@@ -1525,11 +1526,11 @@ def get_number_of_verses(book: Book, chapter: int) -> int:
 
     try:
         return chapter_list[chapter - 1]
-    except IndexError:
+    except IndexError as e:
         raise InvalidChapterError(
             f"{chapter} is not a valid chapter number for the book of {book.title}. "
             f"Valid chapter numbers are 1-{len(chapter_list)}.",
-        )
+        ) from e
 
 
 @lru_cache()

@@ -2,7 +2,8 @@ from __future__ import annotations
 
 import re
 from enum import IntEnum
-from typing import Match, Pattern
+from typing import Match
+from typing import Pattern
 
 # We only need to support numbers 1-150 for our purposes. If we needed more it might
 # make sense to use an existing roman numeral library.
