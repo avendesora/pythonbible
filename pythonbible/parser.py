@@ -152,7 +152,7 @@ def _process_sub_references(book: Book, reference: str) -> list[NormalizedRefere
             continue
 
         start_chapter, start_verse, end_chapter, end_verse = _process_sub_reference(
-            sub_reference if sub_reference.endswith(DASH) else sub_reference,
+            sub_reference[:-1] if sub_reference.endswith(DASH) else sub_reference,
             book,
             start_chapter,
         )
