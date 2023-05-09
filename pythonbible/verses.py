@@ -1492,8 +1492,7 @@ VERSE_IDS: tuple[int, ...] = __generate_verse_ids()
 
 @lru_cache()
 def get_number_of_chapters(book: Book) -> int:
-    """
-    Return the number of chapters in a Book of the Bible.
+    """Return the number of chapters in a Book of the Bible.
 
     :param book: a book of the Bible
     :type book: Book
@@ -1510,8 +1509,7 @@ def is_single_chapter_book(book: Book) -> bool:
 
 @lru_cache()
 def get_number_of_verses(book: Book, chapter: int) -> int:
-    """
-    Return the number of verses in a Book and chapter.
+    """Return the number of verses in a Book and chapter.
 
     :param book: a book of the Bible
     :type book: Book
@@ -1527,16 +1525,16 @@ def get_number_of_verses(book: Book, chapter: int) -> int:
     try:
         return chapter_list[chapter - 1]
     except IndexError as e:
-        raise InvalidChapterError(
+        error_message = (
             f"{chapter} is not a valid chapter number for the book of {book.title}. "
-            f"Valid chapter numbers are 1-{len(chapter_list)}.",
-        ) from e
+            f"Valid chapter numbers are 1-{len(chapter_list)}."
+        )
+        raise InvalidChapterError(error_message) from e
 
 
 @lru_cache()
 def get_verse_id(book: Book, chapter: int, verse: int) -> int:
-    """
-    Return the verse id for the given Book, chapter number, and verse number.
+    """Return the verse id for the given Book, chapter number, and verse number.
 
     :param book: a book of the Bible
     :type book: Book
@@ -1552,18 +1550,18 @@ def get_verse_id(book: Book, chapter: int, verse: int) -> int:
     max_verse_number: int | None = get_number_of_verses(book, chapter)
 
     if max_verse_number and not 1 <= verse <= max_verse_number:
-        raise InvalidVerseError(
+        error_message = (
             f"{book.title} {chapter}:{verse} is not a valid Bible verse. "
-            f"Valid verses for that book and chapter are 1-{max_verse_number}",
+            f"Valid verses for that book and chapter are 1-{max_verse_number}"
         )
+        raise InvalidVerseError(error_message)
 
     return int(book) * BOOK_PLACE + chapter * CHAPTER_PLACE + verse
 
 
 @lru_cache()
 def get_book_chapter_verse(verse_id: int) -> tuple[Book, int, int]:
-    """
-    Return the Book, chapter number, and verse number for the given verse id.
+    """Return the Book, chapter number, and verse number for the given verse id.
 
     :param verse_id: a verse id
     :type verse_id: int
@@ -1584,8 +1582,7 @@ def get_book_chapter_verse(verse_id: int) -> tuple[Book, int, int]:
 
 @lru_cache()
 def get_book_number(verse_id: int) -> int:
-    """
-    Return the book number for the given verse id.
+    """Return the book number for the given verse id.
 
     :param verse_id: a verse id
     :type verse_id: int
@@ -1597,8 +1594,7 @@ def get_book_number(verse_id: int) -> int:
 
 @lru_cache()
 def get_chapter_number(verse_id: int) -> int:
-    """
-    Return the chapter number for the given verse id.
+    """Return the chapter number for the given verse id.
 
     :param verse_id: a verse id
     :type verse_id: int
@@ -1610,8 +1606,7 @@ def get_chapter_number(verse_id: int) -> int:
 
 @lru_cache()
 def get_verse_number(verse_id: int) -> int:
-    """
-    Return the verse number for the given verse id.
+    """Return the verse number for the given verse id.
 
     :param verse_id: a verse id
     :type verse_id: int

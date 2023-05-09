@@ -1,11 +1,14 @@
 from __future__ import annotations
 
 import time
+from typing import TYPE_CHECKING
 
 import pytest
 
 import pythonbible as bible
-from pythonbible.formatter import BookTitles
+
+if TYPE_CHECKING:
+    from pythonbible.formatter import BookTitles
 
 
 def test_format_scripture_references(

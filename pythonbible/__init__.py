@@ -1,5 +1,4 @@
-"""
-The pythonbible library.
+"""The pythonbible library.
 
 pythonbible includes features for parsing texts for scripture references,
 converting references into integer verse ids for efficient use/storage,
@@ -9,7 +8,7 @@ references as human-readable strings.
 
 from __future__ import annotations
 
-__version__ = "0.9"
+__version__ = "0.9.1"
 
 from .bible.bible import Bible
 from .book_groups import BOOK_GROUPS

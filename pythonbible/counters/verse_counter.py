@@ -11,8 +11,7 @@ from pythonbible.verses import get_number_of_verses
 
 @singledispatch
 def count_verses(references: list[NormalizedReference]) -> int:
-    """
-    Return the count of verses included in the given list of references.
+    """Return the count of verses included in the given list of references.
 
     :param references: A list of normalized references
     :type references: list[NormalizedReference]

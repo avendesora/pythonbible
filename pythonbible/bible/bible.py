@@ -2,15 +2,17 @@
 from __future__ import annotations
 
 from functools import lru_cache
+from typing import TYPE_CHECKING
 
 from pythonbible.errors import InvalidVerseError
 from pythonbible.validator import is_valid_verse_id
-from pythonbible.versions import Version
+
+if TYPE_CHECKING:
+    from pythonbible.versions import Version
 
 
 class Bible:
-    """
-    The Bible class.
+    """The Bible class.
 
     The Bible class contains the scripture content for a version and format along with
     the functionality necessary to get the scripture content for a verse or range of
@@ -25,26 +27,34 @@ class Bible:
         verse_end_indices: dict[int, int],
         is_html: bool = False,
     ) -> None:
+        """Initialize a Bible object.
+
+        :param version: The version of the Bible.
+        :param scripture_content: The scripture content for the Bible.
+        :param verse_start_indices: The start indices for each verse.
+        :param verse_end_indices: The end indices for each verse.
+        """
         self.version: Version = version
         self.scripture_content: str = scripture_content
         self.verse_start_indices: dict[int, int] = verse_start_indices
         self.verse_end_indices: dict[int, int] = verse_end_indices
         self.is_html: bool = is_html
 
-    @lru_cache()
     def get_scripture(
         self: Bible,
         start_verse_id: int,
         end_verse_id: int | None = None,
     ) -> str:
         if not is_valid_verse_id(start_verse_id):
+            msg = f"start verse id ({start_verse_id}) is not a valid verse id."
             raise InvalidVerseError(
-                f"start verse id ({start_verse_id}) is not a valid verse id.",
+                msg,
             )
 
         if end_verse_id and not is_valid_verse_id(end_verse_id):
+            msg = f"end verse id ({end_verse_id}) is not a valid verse id."
             raise InvalidVerseError(
-                f"end verse id ({end_verse_id}) is not a valid verse id.",
+                msg,
             )
 
         end_verse_id = end_verse_id or start_verse_id

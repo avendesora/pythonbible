@@ -10,8 +10,7 @@ from pythonbible.verses import get_number_of_chapters
 
 @singledispatch
 def count_chapters(references: list[NormalizedReference]) -> int:
-    """
-    Count the number of chapters in a list of references.
+    """Count the number of chapters in a list of references.
 
     :param references: A list of normalized references
     :type references: list[NormalizedReference]

@@ -1,6 +1,7 @@
 from __future__ import annotations
 
-from pythonbible.books import Book
+from typing import TYPE_CHECKING
+
 from pythonbible.errors import InvalidVerseError
 from pythonbible.normalized_reference import NormalizedReference
 from pythonbible.validator import is_valid_verse_id
@@ -8,10 +9,12 @@ from pythonbible.verses import VERSE_IDS
 from pythonbible.verses import get_book_chapter_verse
 from pythonbible.verses import get_verse_id
 
+if TYPE_CHECKING:
+    from pythonbible.books import Book
+
 
 def convert_references_to_verse_ids(references: list[NormalizedReference]) -> list[int]:
-    """
-    Convert a list of NormalizedReference objects into a list of verse id integers.
+    """Convert a list of NormalizedReference objects into a list of verse id integers.
 
     :param references: A list of normalized references
     :type references: list[NormalizedReference]
@@ -28,8 +31,7 @@ def convert_references_to_verse_ids(references: list[NormalizedReference]) -> li
 
 
 def convert_reference_to_verse_ids(reference: NormalizedReference) -> tuple[int, ...]:
-    """
-    Convert the given NormalizedReference object into a tuple of verse id integers.
+    """Convert the given NormalizedReference object into a tuple of verse id integers.
 
     :param reference: A normalized reference
     :type reference: NormalizedReference
@@ -57,8 +59,7 @@ def convert_reference_to_verse_ids(reference: NormalizedReference) -> tuple[int,
 
 
 def convert_verse_ids_to_references(verse_ids: list[int]) -> list[NormalizedReference]:
-    """
-    Convert a list of verse ids into a list of NormalizedReferences.
+    """Convert a list of verse ids into a list of NormalizedReferences.
 
     :param verse_ids: A list of verse ids
     :type verse_ids: list[int]
