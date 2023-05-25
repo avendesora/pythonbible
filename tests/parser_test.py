@@ -139,7 +139,7 @@ def test_book_alternative_names(
             alternative_references = bible.get_references(f"{alternative_name} 1:1-2")
 
             # Then the alternative references match the baseline references
-            assert alternative_references == references
+            assert references == alternative_references
 
 
 def test_cross_book_reference_just_books() -> None:

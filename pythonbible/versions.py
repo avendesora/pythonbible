@@ -1,235 +1,153 @@
 from __future__ import annotations
 
 from enum import Enum
-from types import MappingProxyType
+from typing import Any
+from typing import Type
 
 
 # This comes from crosswire.org "Standard OSIS Codes for Bible Editions"
-# noinspection SpellCheckingInspection
 class Version(Enum):
     """Version of the Bible.
 
-    Version is an Enum containing all of the currently known Ancient Language
+    Version is an Enum containing all the currently known Ancient Language
     and English versions of the Bible.
 
-    :param name: the unique text identifier of the version
-    :type name: str
-    :param value: the unique numerical identifier of the version
-    :type value: int
     :param title: the English title of the version
     :type title: str
     """
 
+    def __new__(
+        cls: Type[Version],
+        *args: dict[str, Any],
+        **kwargs: dict[str, Any],
+    ) -> Version:
+        obj: Version = object.__new__(cls)
+        obj._value_ = args[0]
+        return obj
+
+    def __init__(self: Version, _: str, title: str) -> None:
+        """Set the title property."""
+        self._title_ = title
+
     # Ancient Language Editions
-    STEPHANUS_GNT = "Steph"
-    LATIN_VULGATE = "Vul"
-    LATIN_ERASMUS = "Erasmus"
-    MASORETIC_TEXT = "MT"
-    BIBLIA_HEBRAICA_STUTTGARTENSIA = "BHS"
-    NESTLE_ALAND = "NA"
-    GREEK_SEPTUAGINT = "LXX"
+    STEPHANUS_GNT = "Steph", "Stephanus GNT"
+    LATIN_VULGATE = "Vul", "Latin Vulgate"
+    LATIN_ERASMUS = (
+        "Erasmus",
+        "Erasmus Latin translation by Desiderius Erasmus Roterodamus",
+    )
+    MASORETIC_TEXT = "MT", "Masoretic text"
+    BIBLIA_HEBRAICA_STUTTGARTENSIA = "BHS", "Biblia Hebraica Stuttgartensia"
+    NESTLE_ALAND = "NA", "Nestle-Aland Greek New Testament"
+    GREEK_SEPTUAGINT = "LXX", "Greek Septuagint"
 
     # English Editions
-    COMPLETE = "AAT"
-    AFRO = "ABT"
-    ALTERNATE_TRANSLATION = "ATB"
-    AMERICAN_STANDARD = "ASV"
-    AMPLIFIED = "AB"
-    ANALYTICAL_LITERAL = "ALT"
-    AMERICAN_SIGN_LANGUAGE = "ASL"
-    AUTHORIZED = "AV"
-    BARCLAY = "BAR"
-    BIKER = "BB"
-    WORLWIDE_ENGLISH = "BWE"
-    CHRISTIAN_COMMUNITY = "CCB"
-    COMMON = "COM"
-    COVENANT = "COV"
-    COMPLETE_JEWISH = "CJB"
-    CONCORDANT = "CONC"
-    CONTEMPORARY_ENGLISH = "CEV"
-    COTTON_PATCH = "CPV"
-    DARBY = "DAR"
-    DOUAY_RHEIMS = "DR"
-    DAVID_ROBERT_PALMER = "DRP"
-    ENGLISH_MAJORITY_TEXT = "EMTV"
-    EXTREME = "ENT"
-    EASY_TO_READ = "ERV"
-    ENGLISH_STANDARD = "ESV"
-    FERRAR_FENTON = "FF"
-    GODS_LIVING_WORD = "GLW"
-    GODS_NEW_COVENANT = "GNC"
-    GODS_WORD = "GW"
-    GOOD_NEWS = "GNB"
-    HOLMAN_CHRISTIAN_STANDARD = "HCSB"
-    INTERNATIONAL_CHILDRENS = "ICB"
-    INTERNATIONAL_STANDARD_BIBLE = "ISB"
-    INTERNATIONAL_STANDARD_VERSION = "ISV"
-    J_B_PHILLIPS = "JBP"
-    JEWISH_NEW_TESTAMENT = "JNT"
-    KING_JAMES = "KJV"
-    KING_JAMES_DEFINED = "DKJB"
-    KING_JAMES_II = "KJII"
-    KING_JAMES_21 = "KJ21"
-    KING_JAMES_2000 = "KJ2000"
-    LITERAL = "LITV"
-    KING_JAMES_MODERN = "MKJV"
-    REVISED_AUTHORISED = "RAV"
-    KING_JAMES_REVISED = "RKJV"
-    THIRD_MILLENIUM = "TMB"
-    KING_JAMES_UPDATED = "UKJV"
-    LIVING = "LB"
-    MODERN_AMERICAN_ENGLISH_VERNACULAR = "MAEV"
-    MODERN_LANGUAGE = "MLB"
-    JAMES_MOFFATT = "Mof"
-    NEW_AMERICAN = "NAB"
-    NEW_AMERICAN_STANDARD = "NASB"
-    NEW_CENTURY = "NCV"
-    NEW_ENGLISH_BIBLE = "NEB"
-    NEW_ENGLISH_TRANSLATION = "NET"
-    NEW_EVANGELICAL = "NEvT"
-    NEW_INTERNATIONAL_READERS = "NIrV"
-    NEW_INTERNATIONAL = "NIV"
-    NEW_JERUSALEM = "NJB"
-    NEW_KING_JAMES = "NKJV"
-    NEW_LIFE = "NLV"
-    NEW_LIVING = "NLT"
-    NEW_REVISED_STANDARD = "NRSV"
-    NEW_WORLD = "NWT"
-    ORIGINAL_BIBLE_PROJECT = "OBP"
-    ORTHODOX_STUDY = "OSB"
-    ORIGINAL_NEW_TESTAMENT = "ONT"
-    POSTMODERN = "PMB"
-    RECOVERY = "Rec"
-    REVISED_ENGLISH = "REB"
-    REVISED_STANDARD = "RSV"
-    REVISED = "RV"
-    SCHOCKEN = "Sch"
-    SIMPLE_ENGLISH = "SEB"
-    MESSAGE = "TM"
-    TODAYS_ENGLISH = "TEV"
-    TODAYS_NEW_INTERNATIONAL = "TNIV"
-    TYNDALE = "Tyn"
-    WEYMOUTH = "Wey"
-    WORLD_ENGLISH = "WEB"
-    CHARLES_B_WILLIAMS = "Wms"
-    WESLEYS = "WNT"
-    WUEST = "Wuest"
-    WYCLIFFE = "Wyc"
-    YES_WORD = "Yes"
-    YOUNGS_LITERAL = "YLT"
+    COMPLETE = (
+        "AAT",
+        "The Complete Bible: An American Translation, by Edgar Goodspeed and J. M. "
+        "Powis Smith",
+    )
+    AFRO = "ABT", "The Afro Bible Translation"
+    ALTERNATE_TRANSLATION = "ATB", "The Alternate Translation Bible"
+    AMERICAN_STANDARD = "ASV", "American Standard Version"
+    AMPLIFIED = "AB", "The Amplified Bible"
+    ANALYTICAL_LITERAL = "ALT", "Analytical-Literal Translation"
+    AMERICAN_SIGN_LANGUAGE = "ASL", "American Sign Language Translation"
+    AUTHORIZED = "AV", "Authorized Version"
+    BARCLAY = "BAR", "The New Testament: A New Translation, by William Barclay"
+    BIKER = "BB", "The Biker Bible"
+    WORLWIDE_ENGLISH = "BWE", "Bible in WorldWide English"
+    CHRISTIAN_COMMUNITY = "CCB", "Christian Community Bible"
+    COMMON = "COM", "The Common Edition: New Testament"
+    COVENANT = "COV", "Covenant Edition New Testament"
+    COMPLETE_JEWISH = "CJB", "Complete Jewish Bible"
+    CONCORDANT = "CONC", "Concordant Version"
+    CONTEMPORARY_ENGLISH = "CEV", "Contemporary English Version"
+    COTTON_PATCH = "CPV", "Cotton Patch Version, tr. Clarence Jordan"
+    DARBY = "DAR", "Darby"
+    DOUAY_RHEIMS = "DR", "Douay-Rheims"
+    DAVID_ROBERT_PALMER = "DRP", "David Robert Palmer's translations of the gospels"
+    ENGLISH_MAJORITY_TEXT = "EMTV", "English Majority Text Version"
+    EXTREME = "ENT", "Extreme New Testament"
+    EASY_TO_READ = "ERV", "Easy-to-Read Version"
+    ENGLISH_STANDARD = "ESV", "English Standard Version"
+    FERRAR_FENTON = "FF", "Ferrar Fenton Bible"
+    GODS_LIVING_WORD = "GLW", "God's Living Word"
+    GODS_NEW_COVENANT = (
+        "GNC",
+        "God's New Covenant: A New Testament Translation, by Heinz W. Cassirer",
+    )
+    GODS_WORD = "GW", "God's Word"
+    GOOD_NEWS = "GNB", "Good News Bible"
+    HOLMAN_CHRISTIAN_STANDARD = "HCSB", "Holman Christian Standard Bible"
+    INTERNATIONAL_CHILDRENS = "ICB", "International Children's Bible"
+    INTERNATIONAL_STANDARD_BIBLE = "ISB", "International Standard Bible"
+    INTERNATIONAL_STANDARD_VERSION = "ISV", "The International Standard Version"
+    J_B_PHILLIPS = "JBP", "New Testament in Modern English, by J. B. Phillips"
+    JEWISH_NEW_TESTAMENT = (
+        "JNT",
+        "Jewish New Testament: A Translation of the New Testament That Expresses Its "
+        "Jewishness",
+    )
+    KING_JAMES = "KJV", "King James Version"
+    KING_JAMES_DEFINED = "DKJB", "Defined King James Version"
+    KING_JAMES_II = "KJII", "King James Version II"
+    KING_JAMES_21 = "KJ21", "King James for the 21st Century"
+    KING_JAMES_2000 = "KJ2000", "King James 2000"
+    LITERAL = "LITV", "The Literal Translation of the Holy Bible"
+    KING_JAMES_MODERN = "MKJV", "Modern King James Version"
+    REVISED_AUTHORISED = "RAV", "Revised Authorised Version"
+    KING_JAMES_REVISED = "RKJV", "Revised King James New Testament"
+    THIRD_MILLENIUM = "TMB", "The Third Millenium Bible"
+    KING_JAMES_UPDATED = "UKJV", "Updated King James Version"
+    LIVING = "LB", "Living Bible"
+    MODERN_AMERICAN_ENGLISH_VERNACULAR = "MAEV", "Modern American English Vernacular"
+    MODERN_LANGUAGE = "MLB", "Modern Language Bible: New Berkeley Version"
+    JAMES_MOFFATT = "Mof", "Bible: James Moffatt Translation"
+    NEW_AMERICAN = "NAB", "New American Bible"
+    NEW_AMERICAN_STANDARD = "NASB", "New American Standard Bible"
+    NEW_CENTURY = "NCV", "New Century Version"
+    NEW_ENGLISH_BIBLE = "NEB", "New English Bible"
+    NEW_ENGLISH_TRANSLATION = "NET", "New English Translation"
+    NEW_EVANGELICAL = "NEvT", "New Evangelical Translation"
+    NEW_INTERNATIONAL_READERS = "NIrV", "New International Reader's Version"
+    NEW_INTERNATIONAL = "NIV", "New International Version"
+    NEW_JERUSALEM = "NJB", "New Jerusalem Bible"
+    NEW_KING_JAMES = "NKJV", "New King James Version"
+    NEW_LIFE = "NLV", "New Life Version"
+    NEW_LIVING = "NLT", "New Living Translation"
+    NEW_REVISED_STANDARD = "NRSV", "New Revised Standard Bible"
+    NEW_WORLD = "NWT", "New World Translation"
+    ORIGINAL_BIBLE_PROJECT = "OBP", "The Original Bible Project"
+    ORTHODOX_STUDY = "OSB", "Orthodox Study Bible"
+    ORIGINAL_NEW_TESTAMENT = (
+        "ONT",
+        "The Original New Testament: The First Definitive Translation of the New "
+        "Testament in 2000 Years, by Hugh Schonfield",
+    )
+    POSTMODERN = "PMB", "Postmodern Bible - Amos"
+    RECOVERY = "Rec", "Recovery Version"
+    REVISED_ENGLISH = "REB", "The Revised English Bible"
+    REVISED_STANDARD = "RSV", "The Revised Standard Version"
+    REVISED = "RV", "Revised Version"
+    SCHOCKEN = "Sch", "The Schocken Bible"
+    SIMPLE_ENGLISH = "SEB", "The Simple English Bible"
+    MESSAGE = "TM", "The Message"
+    TODAYS_ENGLISH = "TEV", "Today's English Version"
+    TODAYS_NEW_INTERNATIONAL = "TNIV", "Today's New International Version"
+    TYNDALE = "Tyn", "Tyndale"
+    WEYMOUTH = "Wey", "Weymouth"
+    WORLD_ENGLISH = "WEB", "World English Bible"
+    CHARLES_B_WILLIAMS = "Wms", "The New Testament in the Language of the People"
+    WESLEYS = "WNT", "Wesley's New Testament"
+    WUEST = "Wuest", "The New Testament (An Expanded Translation)"
+    WYCLIFFE = "Wyc", "Wycliffe"
+    YES_WORD = "Yes", "Yes Word"
+    YOUNGS_LITERAL = "YLT", "Young's Literal Translation of the Bible"
 
     @property
     def title(self: Version) -> str:
-        return _VERSION_TITLES.get(self, "")
+        return self._title_
 
-
-# noinspection SpellCheckingInspection
-_VERSION_TITLES: dict[Version, str] = MappingProxyType(
-    {
-        # Ancient Language Editions
-        Version.STEPHANUS_GNT: "Stephanus GNT",
-        Version.LATIN_VULGATE: "Latin Vulgate",
-        Version.LATIN_ERASMUS: "Erasmus Latin translation by Desiderius Erasmus "
-        "Roterodamus",
-        Version.MASORETIC_TEXT: "Masoretic text",
-        Version.BIBLIA_HEBRAICA_STUTTGARTENSIA: "Biblia Hebraica Stuttgartensia",
-        Version.NESTLE_ALAND: "Nestle-Aland Greek New Testament",
-        Version.GREEK_SEPTUAGINT: "Greek Septuagint",
-        # English Editions
-        Version.COMPLETE: "The Complete Bible: An American Translation, by Edgar "
-        "Goodspeed and J. M. Powis Smith",
-        Version.AFRO: "The Afro Bible Translation",
-        Version.ALTERNATE_TRANSLATION: "The Alternate Translation Bible",
-        Version.AMERICAN_STANDARD: "American Standard Version",
-        Version.AMPLIFIED: "The Amplified Bible",
-        Version.ANALYTICAL_LITERAL: "Analytical-Literal Translation",
-        Version.AMERICAN_SIGN_LANGUAGE: "American Sign Language Translation",
-        Version.AUTHORIZED: "Authorized Version",
-        Version.BARCLAY: "The New Testament: A New Translation, by William Barclay",
-        Version.BIKER: "The Biker Bible",
-        Version.WORLWIDE_ENGLISH: "Bible in WorldWide English",
-        Version.CHRISTIAN_COMMUNITY: "Christian Community Bible",
-        Version.COMMON: "The Common Edition: New Testament",
-        Version.COVENANT: "Covenant Edition New Testament",
-        Version.COMPLETE_JEWISH: "Complete Jewish Bible",
-        Version.CONCORDANT: "Concordant Version",
-        Version.CONTEMPORARY_ENGLISH: "Contemporary English Version",
-        Version.COTTON_PATCH: "Cotton Patch Version, tr. Clarence Jordan",
-        Version.DARBY: "Darby",
-        Version.DOUAY_RHEIMS: "Douay-Rheims",
-        Version.DAVID_ROBERT_PALMER: "David Robert Palmer's translations of the "
-        "gospels",
-        Version.ENGLISH_MAJORITY_TEXT: "English Majority Text Version",
-        Version.EXTREME: "Extreme New Testament",
-        Version.EASY_TO_READ: "Easy-to-Read Version",
-        Version.ENGLISH_STANDARD: "English Standard Version",
-        Version.FERRAR_FENTON: "Ferrar Fenton Bible",
-        Version.GODS_LIVING_WORD: "God's Living Word",
-        Version.GODS_NEW_COVENANT: "God's New Covenant: A New Testament Translation, "
-        "by Heinz W. Cassirer",
-        Version.GODS_WORD: "God's Word",
-        Version.GOOD_NEWS: "Good News Bible",
-        Version.HOLMAN_CHRISTIAN_STANDARD: "Holman Christian Standard Bible",
-        Version.INTERNATIONAL_CHILDRENS: "International Children's Bible",
-        Version.INTERNATIONAL_STANDARD_BIBLE: "International Standard Bible",
-        Version.INTERNATIONAL_STANDARD_VERSION: "The International Standard Version",
-        Version.J_B_PHILLIPS: "New Testament in Modern English, by J. B. Phillips",
-        Version.JEWISH_NEW_TESTAMENT: "Jewish New Testament: A Translation of the New "
-        "Testament That Expresses Its Jewishness",
-        Version.KING_JAMES: "King James Version",
-        Version.KING_JAMES_DEFINED: "Defined King James Version",
-        Version.KING_JAMES_II: "King James Version II",
-        Version.KING_JAMES_21: "King James for the 21st Century",
-        Version.KING_JAMES_2000: "King James 2000",
-        Version.LITERAL: "The Literal Translation of the Holy Bible",
-        Version.KING_JAMES_MODERN: "Modern King James Version",
-        Version.REVISED_AUTHORISED: "Revised Authorised Version",
-        Version.KING_JAMES_REVISED: "Revised King James New Testament",
-        Version.THIRD_MILLENIUM: "The Third Millenium Bible",
-        Version.KING_JAMES_UPDATED: "Updated King James Version",
-        Version.LIVING: "Living Bible",
-        Version.MODERN_AMERICAN_ENGLISH_VERNACULAR: "Modern American English "
-        "Vernacular",
-        Version.MODERN_LANGUAGE: "Modern Language Bible: New Berkeley Version",
-        Version.JAMES_MOFFATT: "Bible: James Moffatt Translation",
-        Version.NEW_AMERICAN: "New American Bible",
-        Version.NEW_AMERICAN_STANDARD: "New American Standard Bible",
-        Version.NEW_CENTURY: "New Century Version",
-        Version.NEW_ENGLISH_BIBLE: "New English Bible",
-        Version.NEW_ENGLISH_TRANSLATION: "New English Translation",
-        Version.NEW_INTERNATIONAL_READERS: "New International Reader's Version",
-        Version.NEW_INTERNATIONAL: "New International Version",
-        Version.NEW_JERUSALEM: "New Jerusalem Bible",
-        Version.NEW_KING_JAMES: "New King James Version",
-        Version.NEW_LIFE: "New Life Version",
-        Version.NEW_LIVING: "New Living Translation",
-        Version.NEW_REVISED_STANDARD: "New Revised Standard Bible",
-        Version.NEW_WORLD: "New World Translation",
-        Version.ORIGINAL_BIBLE_PROJECT: "The Original Bible Project",
-        Version.ORTHODOX_STUDY: "Orthodox Study Bible",
-        Version.ORIGINAL_NEW_TESTAMENT: "The Original New Testament: The First "
-        "Definitive Translation of the New Testament in 2000 Years, by Hugh "
-        "Schonfield",
-        Version.POSTMODERN: "Postmodern Bible - Amos",
-        Version.RECOVERY: "Recovery Version",
-        Version.REVISED_ENGLISH: "The Revised English Bible",
-        Version.REVISED_STANDARD: "The Revised Standard Version",
-        Version.REVISED: "Revised Version",
-        Version.SCHOCKEN: "The Schocken Bible",
-        Version.SIMPLE_ENGLISH: "The Simple English Bible",
-        Version.MESSAGE: "The Message",
-        Version.TODAYS_ENGLISH: "Today's English Version",
-        Version.TODAYS_NEW_INTERNATIONAL: "Today's New International Version",
-        Version.TYNDALE: "Tyndale",
-        Version.WEYMOUTH: "Weymouth",
-        Version.WORLD_ENGLISH: "World English Bible",
-        Version.CHARLES_B_WILLIAMS: "The New Testament in the Language of the People",
-        Version.WESLEYS: "Wesley's New Testament",
-        Version.WUEST: "The New Testament (An Expanded Translation)",
-        Version.WYCLIFFE: "Wycliffe",
-        Version.YES_WORD: "Yes Word",
-        Version.YOUNGS_LITERAL: "Young's Literal Translation of the Bible",
-    },
-)
 
 DEFAULT_VERSION: Version = Version.KING_JAMES
