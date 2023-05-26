@@ -6,16 +6,8 @@ Technical Reference
 Book
 ----
 
-.. py:class:: Book
-
-    Book is an ``IntEnum`` that contains all of the books of the Bible
-
-    :param name: the unique text identifier of the book
-    :type name: str
-    :param value: the unique numerical identifier of the book
-    :type value: int
-    :param title: the common English name of the book
-    :type title: str
+.. autoclass:: pythonbible.Book
+    :members:
 
 
 .. csv-table:: Book Members
@@ -100,18 +92,8 @@ Book
 BookGroup
 ---------
 
-.. py:class:: BookGroup
-
-    BookGroup is an ``Enum`` containing the default Bible book groupings
-
-    :param name: the unique text identifier of the book group
-    :type name: str
-    :param value: the unique numerical identifier of the book group
-    :type value: int
-    :param regular_expression: the regular expression used to find mentions of the book group when searching for references
-    :type regular_expression: str
-    :param books: the list of books included in the book group
-    :type books: List[str]
+.. autoclass:: pythonbible.BookGroup
+    :members:
 
 .. csv-table:: Book Group Members
     :header: "Name", "Value", "Regular Expression", "Books"
@@ -148,446 +130,218 @@ For each entry in this dictionary, the key is the regular expression string asso
 convert_reference_to_verse_ids
 ------------------------------
 
-.. py:function:: pythonbible.convert_reference_to_verse_ids(reference)
-
-    Converts the given :ref:`NormalizedReference` object into a list of verse id integers.
-
-    :param reference: A normalized reference
-    :type reference: :ref:`NormalizedReference`
-    :return: The list of verse ids associated with the reference
-    :rtype: List[int]
+.. autofunction:: pythonbible.convert_reference_to_verse_ids
 
 .. _convert_references_to_verse_ids:
 
 convert_references_to_verse_ids
 -------------------------------
 
-.. py:function:: pythonbible.convert_references_to_verse_ids(references)
-
-    Converts the given list of :ref:`NormalizedReference` objects into a list of verse id integers.
-
-    :param references: A list of normalized references
-    :type references: List[:ref:`NormalizedReference`]
-    :return: The list of verse ids associated with the references
-    :rtype: List[int]
+.. autofunction:: pythonbible.convert_references_to_verse_ids
 
 .. _convert_verse_ids_to_references:
 
 convert_verse_ids_to_references
 -------------------------------
 
-.. py:function:: pythonbible.convert_verse_ids_to_references(verse_ids)
-
-    Converts the given list of verse id integers into a list of :ref:`NormalizedReference` objects.
-
-    :param verse_ids: A list of verse ids
-    :type verse_ids: List[int]
-    :return: The list of normalized references associated with the verse ids
-    :rtype: List[:ref:`NormalizedReference`]
-    :raises InvalidVerseError: if one or more of the verse_ids does not correspond to a valid verse
+.. autofunction:: pythonbible.convert_verse_ids_to_references
 
 .. _count_books:
 
 count_books
 -----------
 
-.. py:function:: pythonbible.count_books(references)
-
-    Returns the count of books of the Bible included in the given list of references.
-
-    :param references: A list of normalized references
-    :type references: List[:ref:`NormalizedReference`]
-    :return: The count of books of the Bible included in the given list of references
-    :rtype: int
+.. autofunction:: pythonbible.count_books
 
 .. _count_chapters:
 
 count_chapters
 --------------
 
-.. py:function:: pythonbible.count_chapters(references)
-
-    Returns the count of chapters of books the Bible included in the given list of references.
-
-    :param references: A list of normalized references
-    :type references: List[:ref:`NormalizedReference`]
-    :return: The count of chapters of books of the Bible included in the given list of references
-    :rtype: int
+.. autofunction:: pythonbible.count_chapters
 
 .. _count_verses:
 
 count_verses
 ------------
 
-.. py:function:: pythonbible.count_verses(references)
-
-    Returns the count of verses included in the given list of references.
-
-    :param references: A list of normalized references
-    :type references: List[:ref:`NormalizedReference`]
-    :return: The count of verses included in the given list of references
-    :rtype: int
+.. autofunction:: pythonbible.count_verses
 
 .. _format_scripture_references:
 
 format_scripture_references
 ---------------------------
 
-.. py:function:: pythonbible.format_scripture_references(references, **kwargs)
-
-    Returns a human-readable string of the given normalized scripture references
-
-    :param references: A list of normalized scripture references
-    :type references: List[:ref:`NormalizedReference`]
-    :return: A human-readable string of the given normalized scripture references
-    :rtype: str
+.. autofunction:: pythonbible.format_scripture_references
 
 .. _format_scripture_text:
 
 format_scripture_text
 ---------------------
 
-.. py:function:: pythonbible.format_scripture_text(verse_ids, **kwargs)
-
-    Returns the formatted scripture text for the given list of verse IDs.
-
-    :param verse_ids: A list of integer verse ids
-    :type verse_ids: List[int]
-    :return: The formatted scripture text for the verse ids
-    :rtype: str
+.. autofunction:: pythonbible.format_scripture_text
 
 .. _format_single_reference:
 
 format_single_reference
 -----------------------
 
-.. py:function:: pythonbible.format_single_reference(reference, include_books, include_chapters)
-
-    Returns a human-readable string of the given normalized scripture reference
-
-    :param reference: A normalized scripture reference
-    :type reference: :ref:`NormalizedReference`
-    :param include_books: If True includes the book title(s) in the returned reference string, defaults to True
-    :type include_books: bool
-    :param include_chapters: If True includes the chapter number(s) in the returned reference string, defaults to True
-    :type include_chapters: bool
-    :return: A human-readable string of the given normalized scripture reference
-    :rtype: str
+.. autofunction:: pythonbible.format_single_reference
 
 .. _get_book_chapter_verse:
 
 get_book_chapter_verse
 ----------------------
 
-.. py:function:: pythonbible.get_book_chapter_verse(verse_id)
-
-    Returns the :ref:`Book`, chapter number, and verse number for the given verse id
-
-    :param verse_id: a verse id
-    :type verse_id: int
-    :return: A tuple containing the :ref:`Book`, chapter number, and verse number for the given verse id
-    :rtype: Tuple[:ref:`Book`, int, int]
-    :raises InvalidVerseError: if the verse id does not correspond to a valid verse
+.. autofunction:: pythonbible.get_book_chapter_verse
 
 .. _get_book_number:
 
 get_book_number
 ---------------
 
-.. py:function:: pythonbible.get_book_number(verse_id)
-
-    Returns the book number for the given verse id
-
-    :param verse_id: a verse id
-    :type verse_id: int
-    :return: The book number for the given verse id
-    :rtype: int
+.. autofunction:: pythonbible.get_book_number
 
 .. _get_book_titles:
 
 get_book_titles
 ---------------
 
-.. py:function:: pythonbible.get_book_titles(book, version)
-
-    Returns the book titles for the given :ref:`Book` and optional :ref:`Version`
-
-    :param book: a book of the Bible
-    :type book: :ref:`Book`
-    :param version: a version of the Bible, defaults to American Standard
-    :type version: :ref:`Version`
-    :return: the long and short titles of the given book and version
-    :rtype: Optional[BookTitles]
-    :raises MissingBookFileError: if the book file for the given book and version does not exist
+.. autofunction:: pythonbible.get_book_titles
 
 .. _get_chapter_number:
 
 get_chapter_number
 ------------------
 
-.. py:function:: pythonbible.get_chapter_number(verse_id)
-
-    Returns the chapter number for the given verse id
-
-    :param verse_id: a verse id
-    :type verse_id: int
-    :return: The chapter number for the given verse id
-    :rtype: int
+.. autofunction:: pythonbible.get_chapter_number
 
 .. _get_number_of_chapters:
 
 get_number_of_chapters
 ----------------------
 
-.. py:function:: pythonbible.get_number_of_chapters(book)
-
-    Return the number of chapters in a :ref:`Book` of the Bible
-
-    :param book: a book of the Bible
-    :type book: :ref:`Book`
-    :return: the number of chapters in the given book of the Bible
-    :rtype: int
+.. autofunction:: pythonbible.get_number_of_chapters
 
 .. _get_number_of_verses:
 
 get_number_of_verses
-------------------------
+--------------------
 
-.. py:function:: pythonbible.get_number_of_verses(book, chapter)
-
-    Return the number of verses in a :ref:`Book` and chapter
-
-    :param book: a book of the Bible
-    :type book: :ref:`Book`
-    :param chapter: a chapter of the given book of the Bible
-    :type chapter: int
-    :return: the number of verses in the given book and chapter
-    :rtype: int
-    :raises InvalidChapterError: if the given chapter isn't a valid chapter for the given book
+.. autofunction:: pythonbible.get_number_of_verses
 
 .. _get_references:
 
 get_references
 --------------
 
-.. py:function:: pythonbible.get_references(text, book_groups=None)
-
-    Searches the text for scripture references and returns any that are found in a list of normalized tuple references.
-
-    :param text: String that may contain zero or more scripture references
-    :type text: str
-    :param book_groups: Optional dictionary of :ref:`BookGroup` (e.g. Old Testament) to its related regular expression
-    :type book_groups: Dict[str, List[:ref:`Book`]] or None
-    :return: The list of found scripture references
-    :rtype: List[:ref:`NormalizedReference`]
+.. autofunction:: pythonbible.get_references
 
 .. _get_verse_id:
 
 get_verse_id
 ------------
 
-.. py:function:: pythonbible.get_verse_id(book, chapter, verse)
-
-    Return the verse id for the given :ref:`Book`, chapter number, and verse number
-
-    :param book: a book of the Bible
-    :type book: :ref:`Book`
-    :param chapter: a chapter number for the given book of the Bible
-    :type chapter: int
-    :param verse: a verse number for the given book and chapter
-    :type verse: int
-    :return: the verse id for the given book, chapter, and verse
-    :rtype: int
-    :raises InvalidVerseError: if the verse doesn't exist for the given book, chapter, and verse
+.. autofunction:: pythonbible.get_verse_id
 
 .. _get_verse_number:
 
 get_verse_number
 ----------------
 
-.. py:function:: pythonbible.get_verse_number(verse_id)
-
-    Returns the verse number for the given verse id
-
-    :param verse_id: a verse id
-    :type verse_id: int
-    :return: The verse number for the given verse id
-    :rtype: int
+.. autofunction:: pythonbible.get_verse_number
 
 .. _get_verse_text:
 
 get_verse_text
 --------------
 
-.. py:function:: pythonbible.get_verse_text(verse_id, version)
-
-    Returns the scripture text of the given verse id and version of the Bible.
-
-    :param verse_id: a verse id
-    :type verse_id: int
-    :param version: a version of the Bible, defaults to American Standard
-    :type version: :ref:`Version`
-    :return: The scripture text of the given verse id and version
-    :rtype: str
-    :raises InvalidVerseError: if the given verse id does not correspond to a valid verse
-    :raises MissingVerseFileError: if the verse file for the given verse_id and version does not exist
+.. autofunction:: pythonbible.get_verse_text
 
 .. _InvalidBookError:
 
 InvalidBookError
 ----------------
 
-.. py:exception:: pythonbible.InvalidBookError
-
-    Raised when the book id is not valid
+.. autoexception:: pythonbible.InvalidBookError
+    :members:
 
 .. _InvalidChapterError:
 
 InvalidChapterError
 -------------------
 
-.. py:exception:: pythonbible.InvalidChapterError
-
-    Raised when the chapter number is not a valid chapter number for the given book of the Bible
+.. autoexception:: pythonbible.InvalidChapterError
+    :members:
 
 .. _InvalidVerseError:
 
 InvalidVerseError
 -----------------
 
-.. py:exception:: pythonbible.InvalidVerseError
-
-    Raised when the verse id or book, chapter, and verse number being processed is not a valid Bible verse
+.. autoexception:: pythonbible.InvalidVerseError
+    :members:
 
 .. _is_valid_book:
 
 is_valid_book
 -------------
 
-.. py:function:: pythonbible.is_valid_book(book)
-
-    Checks to see if the given :ref:`Book` is a valid book of the Bible
-
-    :param book: a book of the Bible
-    :type book: :ref:`Book`
-    :return: True if the given book is valid; otherwise, False
-    :rtype: bool
+.. autofunction:: pythonbible.is_valid_book
 
 .. _is_valid_chapter:
 
 is_valid_chapter
 ----------------
 
-.. py:function:: pythonbible.is_valid_chapter(book, chapter)
-
-    Checks to see if the given :ref:`Book` is a valid book of the Bible; and, if so, checks to see if the given chapter number is a valid chapter number for the given book
-
-    :param book: a book of the Bible
-    :type book: :ref:`Book`
-    :param chapter: a chapter number for the given book of the Bible
-    :type chapter: int
-    :return: True if the given book and chapter are valid; otherwise, False
-    :rtype: bool
-
-.. _is_valid_reference:
+.. autofunction:: pythonbible.is_valid_chapter
 
 is_valid_reference
 ------------------
 
-.. py:function:: pythonbible.is_valid_reference(reference)
-
-    Checks to see if the given :ref:`NormalizedReference` is a valid scripture reference (i.e. all of the verses in the reference are valid verses)
-
-    :param reference: a normalized reference
-    :type reference: :ref:`NormalizedReference`
-    :return: True if the reference is valid; otherwise, False
-    :rtype: bool
+.. autofunction:: pythonbible.is_valid_reference
 
 .. _is_valid_verse:
 
 is_valid_verse
 --------------
 
-.. py:function:: pythonbible.is_valid_verse(book, chapter, verse)
-
-    Checks to see if the given :ref:`Book` is a valid book of the Bible, then checks to see if the given chapter number is a valid chapter number for the given book, then checks to see if the given verse number is a valid verse number for the given book and chapter
-
-    :param book: a book of the Bible
-    :type book: :ref:`Book`
-    :param chapter: a chapter number for the given book of the Bible
-    :type chapter: int
-    :param verse: a verse number for the given book and chapter
-    :type verse: int
-    :return: True if the given book, chapter, and verse are valid; otherwise, False
-    :rtype: bool
+.. autofunction:: pythonbible.is_valid_verse
 
 .. _is_valid_verse_id:
 
 is_valid_verse_id
 -----------------
 
-.. py:function:: pythonbible.is_valid_verse_id(verse_id)
-
-    Checks to see if the given verse_id corresponds to a valid verse in the Bible
-
-    :param verse_id: a verse id
-    :type verse_id: int
-    :return: True if the verse_id is in the list of valid verse ids; otherwise, False
-    :rtype: bool
+.. autofunction:: pythonbible.is_valid_verse_id
 
 .. _MissingBookFileError:
 
 MissingBookFileError
 --------------------
 
-.. py:exception:: pythonbible.MissingBookFileError
-
-    Raised when the book file for a given version is not found
+.. autoexception:: pythonbible.MissingBookFileError
+    :members:
 
 .. _MissingVerseFileError:
 
 MissingVerseFileError
 ---------------------
 
-.. py:exception:: pythonbible.MissingVerseFileError
-
-    Raised when the verse file for a given version is not found
+.. autoexception:: pythonbible.MissingVerseFileError
+    :members:
 
 .. _NormalizedReference:
 
 NormalizedReference
 -------------------
 
-.. py:class:: pythonbible.NormalizedReference
-
-    NormalizedReference is a dataclass that represents a single scripture reference that contains one or more consecutive verses
-
-    :param book: the first book of the Bible in the reference
-    :type book: :ref:`Book`
-    :param start_chapter: the number of the first chapter in the reference
-    :type start_chapter: int
-    :param start_verse: the number of the first verse in the reference
-    :type start_verse: int
-    :param end_chapter: the number of the last chapter in the reference
-    :type end_chapter: int
-    :param end_verse: the number of the last verse in the reference
-    :type end_verse: int
-    :param end_book: the last book of the Bible in the reference if the reference contains more than one book, defaults to None
-    :type end_book: :ref:`Book`
-
+.. autoclass:: pythonbible.NormalizedReference
 
 .. _Version:
 
 Version
 -------
 
-.. py:class:: pythonbible.Version
-
-    Version is an ``Enum`` containing all of the currently known Ancient Language and English versions of the Bible
-
-    :param name: the unique text identifier of the version
-    :type name: str
-    :param value: the unique numerical identifier of the version
-    :type value: int
-    :param title: the English title of the version
-    :type title: str
+.. autoclass:: pythonbible.Version
+    :members:

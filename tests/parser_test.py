@@ -291,3 +291,24 @@ def test_compound_references() -> None:
 
         assert len(compound_results) == 1
         assert compound_results[0] == expected_result
+
+
+def test_book_abbreviations() -> None:
+    # Given the books of the Bible and their abbreviations
+    for book in bible.Book:
+        book_number = f"{book.name[-1]} " if book.name[-1].isdigit() else ""
+        baseline_reference = f"{book_number}{book.title} 1:1-2"
+        expected = bible.get_references(baseline_reference)
+
+        for abbreviation in book.abbreviations:
+            # When we parse the references with the abbreviated title
+            abbreviated_reference = f"{book_number}{abbreviation} 1:1-2"
+            abbreviated_reference_period = f"{book_number}{abbreviation}. 1:1-2"
+            actual = bible.get_references(abbreviated_reference)
+            actual_period = bible.get_references(abbreviated_reference_period)
+
+            # Then the abbreviated references match the baseline references
+            assert expected == actual
+
+            if book != book.SONG_OF_SONGS:
+                assert expected == actual_period

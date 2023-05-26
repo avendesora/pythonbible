@@ -81,7 +81,10 @@ def test_format_scripture_reference_single_verse(verse_id: int) -> None:
 def test_format_scripture_text(verse_ids: list[int], html_scripture_text: str) -> None:
     # Given a list of verse ids
     # When we get the scripture text for those verse ids
-    scripture_text: str = bible.format_scripture_text(verse_ids)
+    scripture_text: str = bible.format_scripture_text(
+        verse_ids,
+        version=bible.Version.KING_JAMES,
+    )
 
     # Then the scripture text is formatted correctly.
     assert scripture_text == html_scripture_text
@@ -93,7 +96,11 @@ def test_format_scripture_text_non_html(
 ) -> None:
     # Given a list of verse ids
     # When we get the non html scripture text for those verse ids
-    scripture_text: str = bible.format_scripture_text(verse_ids, format_type="text")
+    scripture_text: str = bible.format_scripture_text(
+        verse_ids,
+        version=bible.Version.KING_JAMES,
+        format_type="text",
+    )
 
     # Then the scripture text is formatted correctly.
     assert scripture_text == non_html_scripture_text
@@ -107,6 +114,7 @@ def test_format_scripture_text_one_verse_per_paragraph(
     # When we get the scripture text for those verse ids
     scripture_text: str = bible.format_scripture_text(
         verse_ids_multiple_chapters,
+        version=bible.Version.KING_JAMES,
         one_verse_per_paragraph=True,
     )
 
@@ -122,6 +130,7 @@ def test_format_scripture_text_non_html_no_verse_numbers(
     # When we get the non html scripture text for those verse ids
     scripture_text: str = bible.format_scripture_text(
         verse_ids,
+        version=bible.Version.KING_JAMES,
         format_type="text",
         include_verse_numbers=False,
     )
@@ -138,6 +147,7 @@ def test_format_scripture_text_non_html_one_verse_per_paragraph(
     # When we get the scripture text for those verse ids
     scripture_text: str = bible.format_scripture_text(
         verse_ids,
+        version=bible.Version.KING_JAMES,
         format_type="text",
         one_verse_per_paragraph=True,
     )

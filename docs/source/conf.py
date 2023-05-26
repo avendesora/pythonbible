@@ -11,6 +11,10 @@ from __future__ import annotations
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #
+import os
+import sys
+
+sys.path.insert(0, os.path.abspath("../.."))
 
 
 # -- Project information -----------------------------------------------------
@@ -20,7 +24,7 @@ copyright = "2020 Nathan Patton"
 author = "Nathan Patton"
 
 # The full version, including alpha/beta/rc tags
-release = "0.9.1"
+release = "0.10.0"
 
 
 # -- General configuration ---------------------------------------------------
@@ -32,6 +36,7 @@ extensions = [
     "sphinx.ext.duration",
     "sphinx_toolbox.code",
     "sphinx_copybutton",
+    "sphinx.ext.autodoc",
 ]
 
 # Add any paths that contain templates here, relative to this directory.

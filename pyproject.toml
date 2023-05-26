@@ -109,7 +109,7 @@ ignore = [
 fix = true
 
 [tool.ruff.per-file-ignores]
-"docs/source/conf.py" = ["A001", "E501"]
+"docs/source/conf.py" = ["A001", "E501", "PTH100"]
 "pythonbible/__init__.py" = ["F401"]
 "pythonbible/bible/bible.py" = ["PLR0913", "FBT"]
 "pythonbible/books.py" = ["ARG003", "SLF001"]

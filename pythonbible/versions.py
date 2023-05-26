@@ -12,6 +12,10 @@ class Version(Enum):
     Version is an Enum containing all the currently known Ancient Language
     and English versions of the Bible.
 
+    :param name: the unique text identifier of the version
+    :type name: str
+    :param value: the unique abbreviated identifier of the version
+    :type value: str
     :param title: the English title of the version
     :type title: str
     """
@@ -28,6 +32,10 @@ class Version(Enum):
     def __init__(self: Version, _: str, title: str) -> None:
         """Set the title property."""
         self._title_ = title
+
+    @property
+    def title(self: Version) -> str:
+        return self._title_
 
     # Ancient Language Editions
     STEPHANUS_GNT = "Steph", "Stephanus GNT"
@@ -145,9 +153,5 @@ class Version(Enum):
     YES_WORD = "Yes", "Yes Word"
     YOUNGS_LITERAL = "YLT", "Young's Literal Translation of the Bible"
 
-    @property
-    def title(self: Version) -> str:
-        return self._title_
 
-
-DEFAULT_VERSION: Version = Version.KING_JAMES
+DEFAULT_VERSION: Version = Version.AMERICAN_STANDARD

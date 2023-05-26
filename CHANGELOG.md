@@ -20,10 +20,13 @@ The goal of this release was to address [Issue #90], and to make things related 
 - moved book group regular expressions to be encapsulated within the BookGroup Enum and updated the regular_expression property to use them
 - moved book group books tuple to be encapsulated within the BookGroup Enum and updated the books property to use them
 - moved version titles to be encapsulated within the Version Enum and updated the title property to use them
+- updated Technical Reference documentation to use autodocs (generate documentation from docstrings)
 
-### Removed
+### Fixed
 
-- TODO
+- changed the default Version to AMERICAN_STANDARD in order to match the existing documentation
+- updated Advanced Usage documentation to reference the format_scripture_references function rather than the format_references function (which doesn't exist)
+- fixed a typo on the documentation index page
 
 ## [0.9.1] - 2023-05-09
 
@@ -111,4 +114,4 @@ The goal of this release was to address [Issue #90], and to make things related 
 [0.0.2]: https://github.com/avendesora/pythonbible
 [0.0.1]: https://github.com/avendesora/pythonbible
 
-[Issue #90]: https://github.com/avendesora/pythonbible/issues/90
+[issue #90]: https://github.com/avendesora/pythonbible/issues/90

@@ -103,6 +103,10 @@ _NEW_TESTAMENT_APOCALYPTIC_BOOKS: tuple[Book, ...] = (Book.REVELATION,)
 class BookGroup(Enum):
     """BookGroup is an ``Enum`` containing the default Bible book groupings.
 
+    :param name: the unique text identifier of the book group
+    :type name: str
+    :param value: the unique numerical identifier of the book group
+    :type value: int
     :param regular_expression: the regular expression used to find mentions of the
                                book group when searching for references
     :type regular_expression: str
@@ -128,6 +132,14 @@ class BookGroup(Enum):
         """Set the regular expression and books."""
         self._regular_expression_ = regular_expression
         self._books_ = books
+
+    @property
+    def books(self: BookGroup) -> tuple[Book, ...]:
+        return self._books_
+
+    @property
+    def regular_expression(self: BookGroup) -> str:
+        return self._regular_expression_
 
     OLD_TESTAMENT = (
         auto(),
@@ -187,14 +199,6 @@ class BookGroup(Enum):
         _NEW_TESTAMENT_GENERAL_EPISTLES_BOOKS,
     )
     NEW_TESTAMENT_APOCALYPTIC = auto(), "Apocalyptic", _NEW_TESTAMENT_APOCALYPTIC_BOOKS
-
-    @property
-    def books(self: BookGroup) -> tuple[Book, ...]:
-        return self._books_
-
-    @property
-    def regular_expression(self: BookGroup) -> str:
-        return self._regular_expression_
 
 
 BOOK_GROUPS: dict[str, tuple[Book, ...]] = {

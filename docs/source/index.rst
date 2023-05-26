@@ -6,7 +6,7 @@
 pythonbible Documentation
 =========================
 
-**pythonbible** is a Python library serving several purposes related to Biblical Scripture referencs:
+**pythonbible** is a Python library serving several purposes related to Biblical Scripture references:
 
 * finding all Scripture references contained within text
 * converting Scripture references to a list of unique verse ids, and vice versa

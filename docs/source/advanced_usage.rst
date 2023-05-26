@@ -126,7 +126,7 @@ For example:
     import pythonbible as bible
 
     references = bible.get_references("Jude 2-8")
-    bible.format_references(references)
+    bible.format_scripture_references(references)
 
 .. output-cell:: python
     :execution-count: 1
@@ -139,7 +139,7 @@ The result should be the same even if the the chapter number is included in the 
     :execution-count: 2
 
     references = bible.get_references("Jude 1:2-8")
-    bible.format_references(references)
+    bible.format_scripture_references(references)
 
 .. output-cell:: python
     :execution-count: 2
@@ -159,7 +159,7 @@ For example:
     import pythonbible as bible
 
     references = bible.get_references("Jude 2-8")
-    bible.format_references(references, always_include_chapter_numbers=True)
+    bible.format_scripture_references(references, always_include_chapter_numbers=True)
 
 .. output-cell:: python
     :execution-count: 1
