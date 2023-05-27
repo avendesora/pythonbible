@@ -12,6 +12,10 @@ The goal of this release was to address [Issue #90], and to make things related 
 ### Added
 
 - new abbreviations list property of Book Enum
+- Jupyter notebook for Basic Usage documentation
+- Jupyter notebook for Advanced Usage, Single Chapter Books documentation
+- Jupyter notebook for Advanced Usage, Multi Book References documentation
+- Jupyter notebook for Advanced Usage, Book Groups documentation
 
 ### Changed
 

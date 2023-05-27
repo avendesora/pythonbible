@@ -1,6 +1,11 @@
 Basic Usage
 ===========
 
+.. note::
+
+    To try any of the basic usage features in an interactive jupyter notebook, download this
+    :download:`notebook file </_static/pythonbible-basic-usage.ipynb>`.
+
 Finding Scripture References in Text
 ------------------------------------
 
@@ -52,7 +57,7 @@ For example, given the following normalized scripture reference for Genesis 1:1-
         bible.NormalizedReference(bible.Book.GENESIS, 1, 1, 1, 4)
     )
 
-The conversion functionality would return the following list of verse id integers:
+The conversion functionality would return the following tuple of verse id integers:
 
 .. output-cell:: python
     :execution-count: 1

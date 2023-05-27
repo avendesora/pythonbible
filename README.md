@@ -43,7 +43,7 @@ The full documentation for pythonbible can be found at [docs.python.bible](https
 ## Installation
 
 ```shell script
-pip install pythonbible
+python3 -m pip install pythonbible
 ```
 
 ## Features
