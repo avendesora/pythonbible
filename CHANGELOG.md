@@ -7,10 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.10.0]
+
 The goal of this release was to address [Issue #90], and to make things related to Books, BookGroups, and Versions structured in a more object-oriented way.
 
 ### Added
 
+- started this Changlog
 - new abbreviations list property of Book Enum
 - Jupyter notebook for Basic Usage documentation
 - Jupyter notebook for Advanced Usage, Single Chapter Books documentation
@@ -88,8 +91,9 @@ The goal of this release was to address [Issue #90], and to make things related 
 
 ## [0.0.1] - 2020-10-08
 
-[unreleased]: https://github.com/avendesora/pythonbible
-[0.9.1]: https://github.com/avendesora/pythonbible
+[unreleased]: https://github.com/avendesora/pythonbible/compare/v0.10.0...HEAD
+[0.10.0]: https://github.com/avendesora/pythonbible/compare/v0.9.1...v0.10.0
+[0.9.1]: https://github.com/avendesora/pythonbible/compare/v0.9.0...v0.9.1
 [0.9.0]: https://github.com/avendesora/pythonbible
 [0.8.0]: https://github.com/avendesora/pythonbible
 [0.7.4]: https://github.com/avendesora/pythonbible
