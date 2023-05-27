@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Updated README to more accurately describe current OSIS parser and Bible text formatting functionality
+
 ## [0.10.0]
 
 The goal of this release was to address [Issue #90], and to make things related to Books, BookGroups, and Versions structured in a more object-oriented way.
