@@ -7,17 +7,17 @@ if TYPE_CHECKING:
 
 
 class InvalidBookError(Exception):
-    """Raise when the book id is not valid."""
+    """Raised when the book id is not valid."""
 
 
 class InvalidChapterError(Exception):
-    """Raise when the chapter number is not valid for the given book of the Bible."""
+    """Raised when the chapter number is not valid for the given book of the Bible."""
 
 
 class InvalidVerseError(Exception):
-    """Raise when the verse id is not a valid Bible verse.
+    """Raised when the verse id is not a valid Bible verse.
 
-    Or raise when the book, chapter, and verse number being processed is not a valid
+    Or raised when the book, chapter, and verse number being processed is not a valid
     Bible verse.
     """
 

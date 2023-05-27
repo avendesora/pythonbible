@@ -10,12 +10,12 @@ from pythonbible.verses import get_number_of_chapters
 
 @singledispatch
 def count_chapters(references: list[NormalizedReference]) -> int:
-    """Count the number of chapters in a list of references.
+    """Return the count of chapters in the given list of references.
 
     :param references: A list of normalized references
     :type references: list[NormalizedReference]
     :return: The count of chapters of books of the Bible included in the given list of
-    references
+             references
     :rtype: int
     """
     return _get_number_of_chapters_in_references(references)

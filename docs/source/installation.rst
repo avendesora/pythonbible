@@ -4,11 +4,14 @@ Installation
 Requirements
 ------------
 
-**pythonbible** requires Python version 3.7 or greater.
+**pythonbible** requires Python and is tested with the following versions:
 
-.. note::
-
-   **pythonbible** should work with Python 3.6 if dataclasses is installed, but it is not officially supported.
+* 3.7 (soon to be deprecated due to end-of-life on 2023-06-27 and, therefore, not recommended)
+* 3.8
+* 3.9
+* 3.10
+* 3.11
+* 3.12 dev (not recommended for use in production environments)
 
 **pythonbible** has no other dependencies.
 

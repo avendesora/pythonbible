@@ -6,6 +6,11 @@ Single Chapter Books
 
 Several books of the Bible only contain one chapter, and there is some special functionality in pythonbible related to this.
 
+.. note::
+
+    To try any of the single chapter book features in an interactive jupyter notebook, download this
+    :download:`notebook file </_static/pythonbible-single-chapter-books.ipynb>`.
+
 Finding References
 ^^^^^^^^^^^^^^^^^^
 
@@ -126,7 +131,7 @@ For example:
     import pythonbible as bible
 
     references = bible.get_references("Jude 2-8")
-    bible.format_references(references)
+    bible.format_scripture_references(references)
 
 .. output-cell:: python
     :execution-count: 1
@@ -139,7 +144,7 @@ The result should be the same even if the the chapter number is included in the 
     :execution-count: 2
 
     references = bible.get_references("Jude 1:2-8")
-    bible.format_references(references)
+    bible.format_scripture_references(references)
 
 .. output-cell:: python
     :execution-count: 2
@@ -159,7 +164,7 @@ For example:
     import pythonbible as bible
 
     references = bible.get_references("Jude 2-8")
-    bible.format_references(references, always_include_chapter_numbers=True)
+    bible.format_scripture_references(references, always_include_chapter_numbers=True)
 
 .. output-cell:: python
     :execution-count: 1
@@ -176,6 +181,11 @@ For example, the following references are all equally referencing the entire fir
 * Genesis - Deuteronomy
 * Genesis 1 - Deuteronomy 34
 * Genesis 1:1 - Deuteronomy 34:12
+
+.. note::
+
+    To try any of the multi book reference features in an interactive jupyter notebook, download this
+    :download:`notebook file </_static/pythonbible-multi-book-references.ipynb>`.
 
 Finding References
 ^^^^^^^^^^^^^^^^^^
@@ -315,10 +325,15 @@ The Epistles can be further divided into:
 * Pauline Epistles (Romans - Philemon)
 * General Epistles (Hebrews - Jude)
 
+.. note::
+
+    To try any of the book group features in an interactive jupyter notebook, download this
+    :download:`notebook file </_static/pythonbible-book-groups.ipynb>`.
+
 Finding References by Book Groups
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-By default, when pythonbible parses text to find all references contained within, it does not take book groups into consideration.
+By default, when **pythonbible** parses text to find all references contained within, it does not take book groups into consideration.
 
 For example:
 
@@ -398,7 +413,7 @@ Finding References by Custom Book Groups
 
 If you don't want to use the book groups as defined above but rather a subset of them or additional categorizations or completely custom categorizations, you can do that by passing in a custom value for the ``book_groups`` optional argument of the ``get_references`` function.
 
-The expected type of the ``book_groups`` argument is a ``Dict[str, List[Book]]`` where the string key is a regular expression to be used to match to that particular book group, and the list of :ref:`Book` objects are the books of the Bible associated with that book group.
+The expected type of the ``book_groups`` argument is a ``dict[str, list[Book]]`` where the string key is a regular expression to be used to match to that particular book group, and the list of :ref:`Book` objects are the books of the Bible associated with that book group.
 
 There is a :ref:`BookGroup` ``Enum`` included to help with this.
 

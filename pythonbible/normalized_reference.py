@@ -9,7 +9,8 @@ if TYPE_CHECKING:
 
 @dataclass
 class NormalizedReference:
-    """A single scripture reference that contains one or more consecutive verses.
+    """NormalizedReference is a dataclass that represents a single scripture reference
+    that contains one or more consecutive verses.
 
     :param book: the first book of the Bible in the reference
     :type book: Book
@@ -22,7 +23,7 @@ class NormalizedReference:
     :param end_verse: the number of the last verse in the reference
     :type end_verse: int
     :param end_book: the last book of the Bible in the reference if the reference
-    contains more than one book, defaults to None
+                     contains more than one book, defaults to None
     :type end_book: Book
     """
 

@@ -196,7 +196,7 @@ def test_philemon_not_philippians() -> None:
 
     # when evaluating the string to see if it matches the Philippians regular expression
     matches: list[Match[str]] = re.findall(
-        regular_expressions.BOOK_REGULAR_EXPRESSIONS.get(bible.Book.PHILIPPIANS, ""),
+        bible.Book.PHILIPPIANS.regular_expression,
         text,
     )
 
@@ -205,7 +205,7 @@ def test_philemon_not_philippians() -> None:
 
     # when evaluating the string to see if it matches the Philemon regular expression
     matches = re.findall(
-        regular_expressions.BOOK_REGULAR_EXPRESSIONS.get(bible.Book.PHILEMON, ""),
+        bible.Book.PHILEMON.regular_expression,
         text,
     )
 
@@ -232,7 +232,7 @@ def test_jo() -> None:
 
     # when evaluating the string to see if it matches the Philemon regular expression
     matches = re.findall(
-        regular_expressions.BOOK_REGULAR_EXPRESSIONS.get(bible.Book.JOHN, ""),
+        bible.Book.JOHN.regular_expression,
         text,
     )
 
@@ -249,7 +249,7 @@ def test_jo() -> None:
     for text in test_strings:
         # when evaluating the string to see if it matches the John regular expression
         matches: list[Match[str]] = re.findall(
-            regular_expressions.BOOK_REGULAR_EXPRESSIONS.get(bible.Book.JOHN, ""),
+            bible.Book.JOHN.regular_expression,
             f"{text} 1:1",
         )
 
@@ -265,7 +265,7 @@ def test_jud() -> None:
 
     # when evaluating the string to see if it matches the Philemon regular expression
     matches = re.findall(
-        regular_expressions.BOOK_REGULAR_EXPRESSIONS.get(bible.Book.JUDE, ""),
+        bible.Book.JUDE.regular_expression,
         text,
     )
 
@@ -278,7 +278,7 @@ def test_jud() -> None:
 
     # when evaluating the string to see if it matches the Philemon regular expression
     matches = re.findall(
-        regular_expressions.BOOK_REGULAR_EXPRESSIONS.get(bible.Book.JUDE, ""),
+        bible.Book.JUDE.regular_expression,
         text,
     )
 

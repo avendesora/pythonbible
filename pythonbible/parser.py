@@ -1,21 +1,17 @@
 from __future__ import annotations
 
 import re
-from typing import TYPE_CHECKING
 from typing import Match
 from typing import Pattern
 
+from pythonbible.books import Book
 from pythonbible.normalized_reference import NormalizedReference
-from pythonbible.regular_expressions import BOOK_REGULAR_EXPRESSIONS
 from pythonbible.regular_expressions import SCRIPTURE_REFERENCE_REGULAR_EXPRESSION
 from pythonbible.roman_numeral_util import convert_all_roman_numerals_to_integers
 from pythonbible.validator import is_valid_reference
 from pythonbible.verses import get_number_of_chapters
 from pythonbible.verses import get_number_of_verses
 from pythonbible.verses import is_single_chapter_book
-
-if TYPE_CHECKING:
-    from pythonbible.books import Book
 
 COLON = ":"
 COMMA = ","
@@ -29,9 +25,7 @@ def get_references(
     text: str,
     book_groups: dict[str, tuple[Book, ...]] = None,
 ) -> list[NormalizedReference]:
-    """Search the text for scripture references.
-
-    Searches the text for scripture references and returns any that are found in a list
+    """Search the text for scripture references and return any that are found in a list
     of normalized tuple references.
 
     :param text: String that may contain zero or more scripture references
@@ -78,9 +72,9 @@ def normalize_reference(reference: str) -> list[NormalizedReference]:
     while book_found:
         book_found = False
 
-        for book, regular_expression in BOOK_REGULAR_EXPRESSIONS.items():
+        for book in Book:
             reference_match: Match[str] | None = re.search(
-                regular_expression,
+                book.regular_expression,
                 reference_without_books,
                 re.IGNORECASE,
             )
