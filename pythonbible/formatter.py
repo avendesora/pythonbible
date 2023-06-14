@@ -351,7 +351,6 @@ def format_scripture_text(verse_ids: list[int], **kwargs: Any) -> str:
     text: str = ""
     current_book: Book | None = None
     current_chapter: int | None = None
-    previous_verse_number: int | None = None
     current_start_verse: int | None = None
     current_end_verse: int | None = None
 
@@ -360,10 +359,8 @@ def format_scripture_text(verse_ids: list[int], **kwargs: Any) -> str:
 
         if (
             one_verse_per_paragraph
-            or book != current_book
-            or chapter_number != current_chapter
-            or previous_verse_number is None
-            or verse_number != previous_verse_number + 1
+            or current_end_verse is None
+            or verse_id - current_end_verse > 1
         ):
             if current_start_verse and current_end_verse:
                 verse_text = bible.get_scripture(current_start_verse, current_end_verse)
@@ -372,7 +369,6 @@ def format_scripture_text(verse_ids: list[int], **kwargs: Any) -> str:
             current_start_verse = verse_id
 
         current_end_verse = verse_id
-        previous_verse_number = verse_number
 
         if book != current_book:
             current_book = book

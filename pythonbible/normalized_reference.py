@@ -9,8 +9,9 @@ if TYPE_CHECKING:
 
 @dataclass
 class NormalizedReference:
-    """NormalizedReference is a dataclass that represents a single scripture reference
-    that contains one or more consecutive verses.
+    """NormalizedReference is a dataclass that represents a single scripture reference.
+
+    The scripture reference contains one or more consecutive verses.
 
     :param book: the first book of the Bible in the reference
     :type book: Book

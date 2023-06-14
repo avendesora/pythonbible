@@ -1521,12 +1521,12 @@ def get_number_of_verses(book: Book, chapter: int) -> int:
 
     try:
         return chapter_list[chapter - 1]
-    except IndexError as e:
+    except IndexError as error:
         error_message = (
             f"{chapter} is not a valid chapter number for the book of {book.title}. "
             f"Valid chapter numbers are 1-{len(chapter_list)}."
         )
-        raise InvalidChapterError(error_message) from e
+        raise InvalidChapterError(error_message) from error
 
 
 @lru_cache()

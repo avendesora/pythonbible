@@ -52,5 +52,5 @@ def get_bible(version: Version, bible_type: str) -> Bible:
     """
     try:
         return BIBLES[version][bible_type]
-    except KeyError as e:
-        raise MissingVerseFileError from e
+    except KeyError as error:
+        raise MissingVerseFileError from error

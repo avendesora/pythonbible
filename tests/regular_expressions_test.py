@@ -246,11 +246,11 @@ def test_jo() -> None:
         "Jonah",
     ]
 
-    for text in test_strings:
+    for test_string in test_strings:
         # when evaluating the string to see if it matches the John regular expression
         matches: list[Match[str]] = re.findall(
             bible.Book.JOHN.regular_expression,
-            f"{text} 1:1",
+            f"{test_string} 1:1",
         )
 
         # then the matches are not found

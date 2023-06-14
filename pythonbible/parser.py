@@ -25,8 +25,9 @@ def get_references(
     text: str,
     book_groups: dict[str, tuple[Book, ...]] = None,
 ) -> list[NormalizedReference]:
-    """Search the text for scripture references and return any that are found in a list
-    of normalized tuple references.
+    """Search the text for scripture references.
+
+    Return any scripture references that are found in a list of normalized references.
 
     :param text: String that may contain zero or more scripture references
     :type text: str
