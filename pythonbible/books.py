@@ -195,7 +195,7 @@ class Book(Enum):
         22,
         "Song of Songs",
         r"(Song(?: of (Solomon|Songs|Sol\.*))?)"
-        r"|Canticles|(Canticle(?: of Canticles)?)|SOS|Cant",
+        "|Canticles|(Canticle(?: of Canticles)?)|SOS|Cant",
         ("Cant", "Canticle", "Canticles", "Song", "Song of Sol", "SOS"),
     )
     ISAIAH = 23, "Isaiah", r"Isa\.*(?:iah)?", ("Isa",)

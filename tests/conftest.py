@@ -47,7 +47,10 @@ def text_with_reference() -> str:
 
 @pytest.fixture()
 def text_with_reference_complex() -> str:
-    return "You should read Psalm 130:4,8, Jeremiah 29:32-30:10,31:12, Matthew 1:18 - 2:18, and Luke 3: 5-7."
+    return (
+        "You should read Psalm 130:4,8, Jeremiah 29:32-30:10,31:12, "
+        "Matthew 1:18 - 2:18, and Luke 3: 5-7."
+    )
 
 
 @pytest.fixture()
@@ -180,7 +183,10 @@ def formatted_reference() -> str:
 
 @pytest.fixture()
 def roman_numeral_references() -> str:
-    return "Psalm cxxx.4,8, Jeremiah xxix. 32 - xxx. 10, xxxi. 12, Matthew i. 18 - ii. 18, and Luke iii. 5-7."
+    return (
+        "Psalm cxxx.4,8, Jeremiah xxix. 32 - xxx. 10, xxxi. 12, "
+        "Matthew i. 18 - ii. 18, and Luke iii. 5-7."
+    )
 
 
 @pytest.fixture()
@@ -188,24 +194,24 @@ def html_scripture_text() -> str:
     return (
         "<h1>Matthew</h1>\n"
         "<h2>Chapter 18</h2>\n"
-        "<p><sup>12</sup> How think ye? if a man have an hundred sheep, and one of them "
-        "be gone astray, doth he not leave the ninety and nine, and goeth into "
-        "the mountains, and seeketh that which is gone astray? <sup>13</sup> And if so be "
-        "that he find it, verily I say unto you, he rejoiceth more of that "
-        "sheep, than of the ninety and nine which went not astray. <sup>14</sup> Even so "
-        "it is not the will of your Father which is in heaven, that one of "
-        "these little ones should perish.</p>\n"
+        "<p><sup>12</sup> How think ye? if a man have an hundred sheep, and one of "
+        "them be gone astray, doth he not leave the ninety and nine, and goeth into "
+        "the mountains, and seeketh that which is gone astray? <sup>13</sup> And if so "
+        "be that he find it, verily I say unto you, he rejoiceth more of that sheep, "
+        "than of the ninety and nine which went not astray. <sup>14</sup> Even so it "
+        "is not the will of your Father which is in heaven, that one of these little "
+        "ones should perish.</p>\n"
         "<h1>Luke</h1>\n"
         "<h2>Chapter 15</h2>\n"
-        "<p><sup>3</sup> And he spake this parable unto them, saying, <sup>4</sup> What man of you, "
-        "having an hundred sheep, if he lose one of them, doth not leave the "
-        "ninety and nine in the wilderness, and go after that which is lost, "
+        "<p><sup>3</sup> And he spake this parable unto them, saying, <sup>4</sup> "
+        "What man of you, having an hundred sheep, if he lose one of them, doth not "
+        "leave the ninety and nine in the wilderness, and go after that which is lost, "
         "until he find it? <sup>5</sup> And when he hath found it, he layeth it on his "
-        "shoulders, rejoicing. <sup>6</sup> And when he cometh home, he calleth together "
-        "his friends and neighbours, saying unto them, Rejoice with me; for I "
-        "have found my sheep which was lost. <sup>7</sup> I say unto you, that likewise "
-        "joy shall be in heaven over one sinner that repenteth, more than over "
-        "ninety and nine just persons, which need no repentance.</p>\n"
+        "shoulders, rejoicing. <sup>6</sup> And when he cometh home, he calleth "
+        "together his friends and neighbours, saying unto them, Rejoice with me; for I "
+        "have found my sheep which was lost. <sup>7</sup> I say unto you, that "
+        "likewise joy shall be in heaven over one sinner that repenteth, more than "
+        "over ninety and nine just persons, which need no repentance.</p>\n"
     )
 
 
@@ -266,16 +272,17 @@ def html_scripture_text_one_verse_per_paragraph() -> str:
     return (
         "<h1>Matthew</h1>\n"
         "<h2>Chapter 18</h2>\n"
-        "<p><sup>12</sup> How think ye? if a man have an hundred sheep, and one of them "
-        "be gone astray, doth he not leave the ninety and nine, and goeth into "
+        "<p><sup>12</sup> How think ye? if a man have an hundred sheep, and one of "
+        "them be gone astray, doth he not leave the ninety and nine, and goeth into "
         "the mountains, and seeketh that which is gone astray?</p>\n"
-        "<p><sup>13</sup> And if so be that he find it, verily I say unto you, he rejoiceth "
-        "more of that sheep, than of the ninety and nine which went not astray.</p>\n"
-        "<p><sup>14</sup> Even so it is not the will of your Father which is in heaven, "
-        "that one of these little ones should perish.</p>\n"
+        "<p><sup>13</sup> And if so be that he find it, verily I say unto you, he "
+        "rejoiceth more of that sheep, than of the ninety and nine which went not "
+        "astray.</p>\n"
+        "<p><sup>14</sup> Even so it is not the will of your Father which is in "
+        "heaven, that one of these little ones should perish.</p>\n"
         "<h2>Chapter 19</h2>\n"
-        "<p><sup>1</sup> And it came to pass, that when Jesus had finished these sayings, he "
-        "departed from Galilee, and came into the coasts of Judaea beyond "
+        "<p><sup>1</sup> And it came to pass, that when Jesus had finished these "
+        "sayings, he departed from Galilee, and came into the coasts of Judaea beyond "
         "Jordan;</p>\n"
     )
 
@@ -285,30 +292,25 @@ def non_html_scripture_text_one_verse_per_paragraph() -> str:
     return (
         "Matthew\n\n"
         "Chapter 18\n\n"
-        "12. How think ye? if a man have an hundred sheep, and one of them "
-        "be gone astray, doth he not leave the ninety and nine, and goeth into "
-        "the mountains, and seeketh that which is gone astray?\n"
-        "13. And if so be "
-        "that he find it, verily I say unto you, he rejoiceth more of that "
-        "sheep, than of the ninety and nine which went not astray.\n"
-        "14. Even so "
-        "it is not the will of your Father which is in heaven, that one of "
+        "12. How think ye? if a man have an hundred sheep, and one of them be gone "
+        "astray, doth he not leave the ninety and nine, and goeth into the mountains, "
+        "and seeketh that which is gone astray?\n"
+        "13. And if so be that he find it, verily I say unto you, he rejoiceth more of "
+        "that sheep, than of the ninety and nine which went not astray.\n"
+        "14. Even so it is not the will of your Father which is in heaven, that one of "
         "these little ones should perish.\n\n\n"
         "Luke\n\n"
         "Chapter 15\n\n"
         "3. And he spake this parable unto them, saying,\n"
-        "4. What man of you, "
-        "having an hundred sheep, if he lose one of them, doth not leave the "
-        "ninety and nine in the wilderness, and go after that which is lost, "
+        "4. What man of you, having an hundred sheep, if he lose one of them, doth not "
+        "leave the ninety and nine in the wilderness, and go after that which is lost, "
         "until he find it?\n"
-        "5. And when he hath found it, he layeth it on his "
-        "shoulders, rejoicing.\n"
-        "6. And when he cometh home, he calleth together "
-        "his friends and neighbours, saying unto them, Rejoice with me; for I "
-        "have found my sheep which was lost.\n"
-        "7. I say unto you, that likewise "
-        "joy shall be in heaven over one sinner that repenteth, more than over "
-        "ninety and nine just persons, which need no repentance.\n"
+        "5. And when he hath found it, he layeth it on his shoulders, rejoicing.\n"
+        "6. And when he cometh home, he calleth together his friends and neighbours, "
+        "saying unto them, Rejoice with me; for I have found my sheep which was lost.\n"
+        "7. I say unto you, that likewise joy shall be in heaven over one sinner that "
+        "repenteth, more than over ninety and nine just persons, which need no "
+        "repentance.\n"
     )
 
 
@@ -420,7 +422,10 @@ def book_alternative_names() -> dict[bible.Book, list[str]]:
             "II Kgs.",
             "II Kings",
             "The Second Book of the Kings",
-            "The Second Book of the Kings, Commonly Called the Fourth Book of the Kings",
+            (
+                "The Second Book of the Kings, Commonly Called the Fourth Book of the "
+                "Kings"
+            ),
         ],
         bible.Book.CHRONICLES_1: [
             "1 Chr",

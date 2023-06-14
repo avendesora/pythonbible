@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Updated README to more accurately describe current OSIS parser and Bible text formatting functionality
+- Minor code quality improvements based on static code analysis
 
 ## [0.10.0]
 
