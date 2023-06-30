@@ -7,18 +7,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.11.0] - 2023-06-27
+
 ### Changed
 
 - Updated README to more accurately describe current OSIS parser and Bible text formatting functionality
 - Minor code quality improvements based on static code analysis
 
-## [0.10.0]
+### Removed
+
+- Python 3.7 support (due to official end of life on June 27, 2021)
+
+## [0.10.0] - 2023-05-27
 
 The goal of this release was to address [Issue #90], and to make things related to Books, BookGroups, and Versions structured in a more object-oriented way.
 
 ### Added
 
-- started this Changlog
+- started this Changelog
 - new abbreviations list property of Book Enum
 - Jupyter notebook for Basic Usage documentation
 - Jupyter notebook for Advanced Usage, Single Chapter Books documentation
@@ -96,7 +102,8 @@ The goal of this release was to address [Issue #90], and to make things related 
 
 ## [0.0.1] - 2020-10-08
 
-[unreleased]: https://github.com/avendesora/pythonbible/compare/v0.10.0...HEAD
+[unreleased]: https://github.com/avendesora/pythonbible/compare/v0.11.0...HEAD
+[0.11.0]: https://github.com/avendesora/pythonbible/compare/v0.10.0...v0.11.0
 [0.10.0]: https://github.com/avendesora/pythonbible/compare/v0.9.1...v0.10.0
 [0.9.1]: https://github.com/avendesora/pythonbible/compare/v0.9.0...v0.9.1
 [0.9.0]: https://github.com/avendesora/pythonbible
