@@ -7,17 +7,17 @@ from typing import Type
 
 def _build_book_regular_expression(
     book: str,
-    prefix: str = None,
-    suffix: str = None,
+    prefix: str | None = None,
+    suffix: str | None = None,
 ) -> str:
     return _add_suffix(_add_prefix(book, prefix), suffix)
 
 
-def _add_prefix(regex: str, prefix: str = None) -> str:
+def _add_prefix(regex: str, prefix: str | None = None) -> str:
     return regex if prefix is None else rf"(?:{prefix})(?:\s)?{regex}"
 
 
-def _add_suffix(regex: str, suffix: str = None) -> str:
+def _add_suffix(regex: str, suffix: str | None = None) -> str:
     return regex if suffix is None else rf"{regex}(?:\s*{suffix})?"
 
 

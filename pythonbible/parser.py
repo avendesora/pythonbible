@@ -23,7 +23,7 @@ PERIOD = "."
 
 def get_references(
     text: str,
-    book_groups: dict[str, tuple[Book, ...]] = None,
+    book_groups: dict[str, tuple[Book, ...]] | None = None,
 ) -> list[NormalizedReference]:
     """Search the text for scripture references.
 
