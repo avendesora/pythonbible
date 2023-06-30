@@ -74,13 +74,11 @@ def normalize_reference(reference: str) -> list[NormalizedReference]:
         book_found = False
 
         for book in Book:
-            reference_match: Match[str] | None = re.search(
+            if reference_match := re.search(
                 book.regular_expression,
                 reference_without_books,
                 re.IGNORECASE,
-            )
-
-            if reference_match:
+            ):
                 start, end = reference_match.regs[0]
 
                 if start != 0 and not books:
