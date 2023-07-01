@@ -6,10 +6,8 @@ updates:
     schedule:
       interval: "daily"
 
- # Maintain dependencies for GitHub Actions
- - package-ecosystem: "github-actions"
-    # Workflow files stored in the
-    # default location of `.github/workflows`
+  # Maintain dependencies for GitHub Actions
+  - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
       interval: "daily"
