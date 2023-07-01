@@ -24,7 +24,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v2
+      uses: actions/setup-python@v4
       with:
         python-version: ${{ matrix.python-version }}
     - name: Install dependencies
@@ -42,7 +42,7 @@ jobs:
       run: |
         pytest --cov --cov-report xml
     - name: Run codacy-coverage-reporter
-      uses: codacy/codacy-coverage-reporter-action@master
+      uses: codacy/codacy-coverage-reporter-action@v1
       with:
         project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
         coverage-reports: coverage.xml
