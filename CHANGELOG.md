@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.11.1] - 2023-10-02
+
+The goal of this release was to address [Issue #118] (When trying to get the scripture text for a verse that is in a book that is not included in the given version, the entire scripture text for that version was returned.)
+
+### Added
+
+- VersionMissingVerseError exception
+
+### Fixed
+
+- Raise an error when trying to get scripture text for a verse that is in a book that is not included in the given version.
+
 ## [0.11.0] - 2023-06-27
 
 ### Changed
@@ -135,3 +147,4 @@ The goal of this release was to address [Issue #90], and to make things related 
 [0.0.1]: https://github.com/avendesora/pythonbible
 
 [issue #90]: https://github.com/avendesora/pythonbible/issues/90
+[issue #118]: https://github.com/avendesora/pythonbible/issues/118

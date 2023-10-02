@@ -5,6 +5,7 @@ from functools import lru_cache
 from typing import TYPE_CHECKING
 
 from pythonbible.errors import InvalidVerseError
+from pythonbible.errors import VersionMissingVerseError
 from pythonbible.validator import is_valid_verse_id
 
 if TYPE_CHECKING:
@@ -58,10 +59,29 @@ class Bible:
             )
 
         end_verse_id = end_verse_id or start_verse_id
-        start_index = self.verse_start_indices.get(start_verse_id)
-        end_index = self.verse_end_indices.get(end_verse_id)
+        start_index, end_index = self._get_start_and_end_indices(
+            start_verse_id,
+            end_verse_id,
+        )
 
         return _clean(self.scripture_content[start_index:end_index], self.is_html)
+
+    def _get_start_and_end_indices(
+        self: Bible,
+        start_verse_id: int,
+        end_verse_id: int,
+    ) -> tuple[int, int]:
+        start_index = self.verse_start_indices.get(start_verse_id)
+
+        if start_index is None:
+            raise VersionMissingVerseError(start_verse_id, self.version.value)
+
+        end_index = self.verse_end_indices.get(end_verse_id)
+
+        if end_index is None:
+            raise VersionMissingVerseError(end_verse_id, self.version.value)
+
+        return start_index, end_index
 
 
 @lru_cache()

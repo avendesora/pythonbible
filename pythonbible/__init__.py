@@ -8,7 +8,7 @@ references as human-readable strings.
 
 from __future__ import annotations
 
-__version__ = "0.11.0"
+__version__ = "0.11.1"
 
 from .bible.bible import Bible
 from .book_groups import BOOK_GROUPS
@@ -26,6 +26,7 @@ from .errors import InvalidChapterError
 from .errors import InvalidVerseError
 from .errors import MissingBookFileError
 from .errors import MissingVerseFileError
+from .errors import VersionMissingVerseError
 from .formatter import format_scripture_references
 from .formatter import format_scripture_text
 from .formatter import format_single_reference

@@ -180,9 +180,32 @@ def test_get_verse_text_no_version_file(verse_id: int) -> None:
     # Given a valid verse id and a version that doesn't have a file
     version: bible.Version = bible.Version.MESSAGE
 
-    # When using that verse id and version to the get the verse text
+    # When using that verse id and version to get the verse text
     # Then a MissingVerseFileError is raised.
     with pytest.raises(bible.MissingVerseFileError):
+        bible.get_verse_text(verse_id, version=version)
+
+
+def test_get_verse_text_verse_omitted_from_version() -> None:
+    # Given a valid verse id for a verse that has been omitted from the given version
+    version: bible.Version = bible.Version.AMERICAN_STANDARD
+    verse_id: int = 40018011
+
+    # When using that verse id and version to get the verse text
+    verse_text: str = bible.get_verse_text(verse_id, version=version)
+
+    # Then the verse text is empty.
+    assert not verse_text
+
+
+def test_get_verse_text_version_not_include_book() -> None:
+    # Given a valid verse id for a verse in a book not included in the given version
+    version: bible.Version = bible.Version.AMERICAN_STANDARD
+    verse_id: int = 67001009
+
+    # When using that verse id and version to get the verse text
+    # Then a VersionMissingVerseError is raised.
+    with pytest.raises(bible.VersionMissingVerseError):
         bible.get_verse_text(verse_id, version=version)
 
 
