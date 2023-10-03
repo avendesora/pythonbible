@@ -1,51 +1,62 @@
+ci:
+  skip: [sourcery]
+
 repos:
-  - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.4.0
-    hooks:
-      - id: trailing-whitespace
-      - id: end-of-file-fixer
-      - id: check-yaml
-      - id: debug-statements
-      - id: name-tests-test
-      - id: requirements-txt-fixer
-  - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: 'v0.0.291'
-    hooks:
-      - id: ruff
-        args: [ --fix, --exit-non-zero-on-fix ]
-  - repo: https://github.com/psf/black
-    rev: 23.9.1
-    hooks:
-      - id: black
-  - repo: https://github.com/pycqa/isort
-    rev: 5.12.0
-    hooks:
-      - id: isort
-  - repo: https://github.com/pycqa/flake8
-    rev: 6.1.0
-    hooks:
-      - id: flake8
-        additional_dependencies:
-          - flake8-alfred
-          - flake8-annotations
-          - flake8-bandit
-          - flake8-blind-except
-          - flake8-bugbear
-          - flake8-builtins
-          - flake8-comprehensions
-          - flake8-encodings
-          - flake8-logging-format
-          - flake8-no-pep420
-          - flake8-pie
-          - flake8-polyfill
-          - flake8-print
-          - flake8-pytest
-          - flake8-pytest-style
-          - flake8-return
-          - flake8-simplify
-          - flake8-tidy-imports
-          - flake8-warnings
-          - wemake-python-styleguide
+- repo: https://github.com/pre-commit/pre-commit-hooks
+  rev: v4.4.0
+  hooks:
+  - id: trailing-whitespace
+  - id: end-of-file-fixer
+  - id: check-yaml
+  - id: debug-statements
+  - id: name-tests-test
+  - id: requirements-txt-fixer
+- repo: https://github.com/astral-sh/ruff-pre-commit
+  rev: v0.0.291
+  hooks:
+  - id: ruff
+    args: [--fix, --exit-non-zero-on-fix]
+- repo: https://github.com/psf/black
+  rev: 23.9.1
+  hooks:
+  - id: black
+- repo: https://github.com/pycqa/isort
+  rev: 5.12.0
+  hooks:
+  - id: isort
+- repo: https://github.com/pycqa/flake8
+  rev: 6.1.0
+  hooks:
+  - id: flake8
+    additional_dependencies:
+    - flake8-alfred
+    - flake8-annotations
+    - flake8-bandit
+    - flake8-blind-except
+    - flake8-bugbear
+    - flake8-builtins
+    - flake8-comprehensions
+    - flake8-encodings
+    - flake8-logging-format
+    - flake8-no-pep420
+    - flake8-pie
+    - flake8-polyfill
+    - flake8-print
+    - flake8-pytest
+    - flake8-pytest-style
+    - flake8-return
+    - flake8-simplify
+    - flake8-tidy-imports
+    - flake8-warnings
+    - wemake-python-styleguide
+- repo: https://github.com/sourcery-ai/sourcery
+  rev: v1.10.0
+  hooks:
+  - id: sourcery
+    # The best way to use Sourcery in a pre-commit hook:
+    # * review only changed lines:
+    # * omit the summary
+    args: [--diff=git diff HEAD, --no-summary]
 
 exclude: |
   (?x)^(
