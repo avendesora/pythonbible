@@ -36,3 +36,13 @@ def test_get_scripture_cross_book() -> None:
 def test_get_scripture_missing_verse_in_version() -> None:
     scripture = asv_html_readers_bible.get_scripture(40017021, 40017021)
     assert not scripture
+
+
+def test_get_scripture_missing_book_in_version_start_index() -> None:
+    with pytest.raises(bible.VersionMissingVerseError):
+        asv_html_readers_bible.get_scripture(67001001, 67001001)
+
+
+def test_get_scripture_missing_book_in_version_end_index() -> None:
+    with pytest.raises(bible.VersionMissingVerseError):
+        asv_html_readers_bible.get_scripture(66001001, 67001001)
