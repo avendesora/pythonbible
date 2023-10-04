@@ -29,5 +29,6 @@ jobs:
           ]
     steps:
       - uses: actions/checkout@v3
-      - uses: ./
-      - run: nox --non-interactive --error-on-missing-interpreter --session tests
+      - uses: wntrblm/nox@2022.8.7
+        with:
+          python-versions: "3.8, 3.9, 3.10, 3.11, 3.12"
