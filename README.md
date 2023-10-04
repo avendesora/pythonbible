@@ -17,7 +17,8 @@ The pythonbible library serves several purposes related to the Christian Bible a
     <tr>
         <td>Tests</td>
         <td>
-            <img src="https://github.com/avendesora/pythonbible/workflows/Test/badge.svg">
+            <img src="https://github.com/avendesora/pythonbible/actions/workflows/tests.yml/badge.svg">
+            <img src="https://github.com/avendesora/pythonbible/actions/workflows/python-package.yml/badge.svg"><br/>
             <a href="https://www.codacy.com/gh/avendesora/pythonbible/dashboard?utm_source=github.com&utm_medium=referral&utm_content=avendesora/pythonbible&utm_campaign=Badge_Coverage"><img src="https://app.codacy.com/project/badge/Coverage/dc1333c64b434f7bb813d08750462921"></a>
         </td>
     </tr>
