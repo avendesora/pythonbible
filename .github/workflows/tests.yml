@@ -1,4 +1,4 @@
-name: NOX
+name: Tests
 
 on:
   push:

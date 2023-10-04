@@ -10,7 +10,6 @@ COVERAGE = "coverage"
 def tests(session: nox.Session) -> None:
     session.install(PYTEST)
     session.run(PYTEST)
-    session.notify(COVERAGE)
 
 
 @nox.session(python=["3.11"])
