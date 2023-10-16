@@ -1,16 +1,32 @@
 ci:
-  skip: [sourcery]
+  skip: [mypy,sourcery]
 
 repos:
 - repo: https://github.com/pre-commit/pre-commit-hooks
   rev: v4.5.0
   hooks:
-  - id: trailing-whitespace
-  - id: end-of-file-fixer
+  - id: check-ast
+  - id: check-builtin-literals
+  - id: check-case-conflict
+  - id: check-docstring-first
+  - id: check-executables-have-shebangs
+  - id: check-json
+  - id: check-merge-conflict
+  - id: check-shebang-scripts-are-executable
+  - id: check-symlinks
+  - id: check-toml
+  - id: check-vcs-permalinks
+  - id: check-xml
   - id: check-yaml
   - id: debug-statements
+  - id: destroyed-symlinks
+  - id: detect-private-key
+  - id: end-of-file-fixer
+  - id: mixed-line-ending
   - id: name-tests-test
   - id: requirements-txt-fixer
+  - id: sort-simple-yaml
+  - id: trailing-whitespace
 - repo: https://github.com/astral-sh/ruff-pre-commit
   rev: v0.0.292
   hooks:
@@ -49,6 +65,12 @@ repos:
     - flake8-tidy-imports
     - flake8-warnings
     - wemake-python-styleguide
+- repo: https://github.com/pre-commit/mirrors-mypy
+  rev: v1.6.0
+  hooks:
+  - id: mypy
+    args: ["--config-file", "pyproject.toml", "--ignore-missing-imports"]
+    #args: [--strict, --ignore-missing-imports]
 - repo: https://github.com/sourcery-ai/sourcery
   rev: v1.10.1
   hooks:

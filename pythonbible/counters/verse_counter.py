@@ -22,12 +22,12 @@ def count_verses(references: list[NormalizedReference]) -> int:
 
 
 @count_verses.register
-def _count_verses_single(reference: NormalizedReference) -> int:
+def _count_verses_single(reference: NormalizedReference) -> int:  # type: ignore[misc]
     return _get_number_of_verses_in_reference(reference)
 
 
 @count_verses.register
-def _count_verses_string(reference: str) -> int:
+def _count_verses_string(reference: str) -> int:  # type: ignore[misc]
     return _get_number_verses_in_references(get_references(reference))
 
 
@@ -43,7 +43,7 @@ def _get_number_of_verses_in_reference(reference: NormalizedReference) -> int:
     end_book = reference.end_book or start_book
 
     for book_id in range(start_book.value, end_book.value + 1):
-        book: Book = Book(book_id)
+        book: Book = Book(book_id)  # type: ignore[call-arg]
         start_chapter: int = reference.start_chapter if book == start_book else 1
         end_chapter: int = (
             reference.end_chapter if book == end_book else get_number_of_chapters(book)

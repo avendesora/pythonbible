@@ -231,13 +231,13 @@ def test_jo() -> None:
     text = "Jo 1:1"
 
     # when evaluating the string to see if it matches the Philemon regular expression
-    matches = re.findall(
+    john_matches = re.findall(
         bible.Book.JOHN.regular_expression,
         text,
     )
 
     # then the match is found
-    assert len(matches) == 1
+    assert len(john_matches) == 1
 
     # given strings that should not match
     test_strings = [

@@ -14,14 +14,14 @@ def test_is_valid_verse_id_null() -> None:
     # Given a null verse id
     # When we test to see if it is valid
     # Then the result is False
-    assert not bible.is_valid_verse_id(None)
+    assert not bible.is_valid_verse_id(None)  # type: ignore[arg-type]
 
 
 def test_is_valid_verse_id_string(verse_id: int) -> None:
     # Given a string verse id
     # When we test to see if it is valid
     # Then the result is False
-    assert not bible.is_valid_verse_id(str(verse_id))
+    assert not bible.is_valid_verse_id(str(verse_id))  # type: ignore[arg-type]
 
 
 def test_is_valid_verse_id_invalid(invalid_verse_id: int) -> None:
@@ -42,14 +42,14 @@ def test_is_valid_reference_null() -> None:
     # Given a null reference
     # When we test to see if it is valid
     # Then the result is False
-    assert not bible.is_valid_reference(None)
+    assert not bible.is_valid_reference(None)  # type: ignore[arg-type]
 
 
 def test_is_valid_reference_string(reference_string: str) -> None:
     # Given a string reference
     # When we test to see if it is valid
     # Then the result is False
-    assert not bible.is_valid_reference(reference_string)
+    assert not bible.is_valid_reference(reference_string)  # type: ignore[arg-type]
 
 
 def test_is_valid_reference_wrong_size(
@@ -60,7 +60,9 @@ def test_is_valid_reference_wrong_size(
     # Given a reference that is a tuple of the wrong size
     # When we test to see if it is valid
     # Then the result is False
-    assert not bible.is_valid_reference((book, chapter, verse))
+    assert not bible.is_valid_reference(
+        (book, chapter, verse),  # type: ignore[arg-type]
+    )
 
 
 def test_is_valid_reference_invalid_book(chapter: int, verse: int) -> None:
@@ -68,7 +70,13 @@ def test_is_valid_reference_invalid_book(chapter: int, verse: int) -> None:
     # When we test to see if it is valid
     # Then the result is False
     assert not bible.is_valid_reference(
-        bible.NormalizedReference("invalid book", chapter, verse, chapter, verse),
+        bible.NormalizedReference(
+            "invalid book",  # type: ignore[arg-type]
+            chapter,
+            verse,
+            chapter,
+            verse,
+        ),
     )
 
 
@@ -130,7 +138,7 @@ def test_is_valid_reference_smaller_end_verse(
 ) -> None:
     # Given a reference where the end verse comes before the start verse
     reference: bible.NormalizedReference = bible.NormalizedReference(
-        book.title,
+        book,
         chapter,
         verse + 1,
         chapter,
@@ -153,14 +161,14 @@ def test_is_valid_book_null() -> None:
     # Given a null book object
     # When we test to see if it is valid
     # Then the result is False
-    assert not bible.is_valid_book(None)
+    assert not bible.is_valid_book(None)  # type: ignore[arg-type]
 
 
 def test_is_valid_book_string(book: bible.Book) -> None:
     # Given a string book object
     # When we test to see if it is valid
     # Then the result is False
-    assert not bible.is_valid_book(book.title)
+    assert not bible.is_valid_book(book.title)  # type: ignore[arg-type]
 
 
 def test_is_valid_chapter(book: bible.Book, chapter: int) -> None:
@@ -174,14 +182,14 @@ def test_is_valid_chapter_null(book: bible.Book) -> None:
     # Given a valid book and a null chapter
     # When we test to see if the chapter is valid
     # Then the result is False
-    assert not bible.is_valid_chapter(book, None)
+    assert not bible.is_valid_chapter(book, None)  # type: ignore[arg-type]
 
 
 def test_is_valid_chapter_string(book: bible.Book, chapter: int) -> None:
     # Given a valid book and a string chapter
     # When we test to see if the chapter is valid
     # Then the result is False
-    assert not bible.is_valid_chapter(book, str(chapter))
+    assert not bible.is_valid_chapter(book, str(chapter))  # type: ignore[arg-type]
 
 
 def test_is_valid_chapter_invalid(book: bible.Book, invalid_chapter: int) -> None:
@@ -202,14 +210,14 @@ def test_is_valid_verse_null(book: bible.Book, chapter: int) -> None:
     # Given a valid book, chapter, and a null verse
     # When we test to see if the verse is valid
     # Then the result is False
-    assert not bible.is_valid_verse(book, chapter, None)
+    assert not bible.is_valid_verse(book, chapter, None)  # type: ignore[arg-type]
 
 
 def test_is_valid_verse_string(book: bible.Book, chapter: int, verse: int) -> None:
     # Given a valid book, chapter, and a string verse
     # When we test to see if the verse is valid
     # Then the result is False
-    assert not bible.is_valid_verse(book, chapter, str(verse))
+    assert not bible.is_valid_verse(book, chapter, str(verse))  # type: ignore[arg-type]
 
 
 def test_is_valid_verse_invalid(

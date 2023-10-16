@@ -1571,7 +1571,7 @@ def get_book_chapter_verse(verse_id: int) -> tuple[Book, int, int]:
         raise InvalidVerseError(verse_id=verse_id)
 
     return (
-        Book(get_book_number(verse_id)),
+        Book(get_book_number(verse_id)),  # type: ignore[call-arg]
         get_chapter_number(verse_id),
         get_verse_number(verse_id),
     )

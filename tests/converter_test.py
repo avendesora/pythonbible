@@ -9,7 +9,7 @@ from pythonbible.verses import VERSE_IDS
 def test_convert_reference_to_verse_ids(reference: bible.NormalizedReference) -> None:
     # Given a valid normalized scripture reference
     # When the reference is converted into a list of verse id integers
-    verse_ids: list[int] = bible.convert_reference_to_verse_ids(reference)
+    verse_ids: tuple[int, ...] = bible.convert_reference_to_verse_ids(reference)
 
     # Then the resulting list of verse id integers is accurate
     assert len(verse_ids) == 60
@@ -20,7 +20,9 @@ def test_convert_reference_to_verse_ids(reference: bible.NormalizedReference) ->
 def test_convert_reference_to_verse_ids_null() -> None:
     # Given a null reference
     # When we attempt to convert it into a list of verse ids
-    verse_ids: list[int] = bible.convert_reference_to_verse_ids(None)
+    verse_ids: tuple[int, ...] = bible.convert_reference_to_verse_ids(
+        None,  # type: ignore[arg-type]
+    )
 
     # Then the result is an empty list
     assert not verse_ids
@@ -50,7 +52,9 @@ def test_convert_references_to_verse_ids(
 def test_convert_references_to_verse_ids_null() -> None:
     # Given a null references object
     # When we attempt to convert it into a list of verse ids
-    actual_verse_ids: list[int] = bible.convert_references_to_verse_ids(None)
+    actual_verse_ids: list[int] = bible.convert_references_to_verse_ids(
+        None,  # type: ignore[arg-type]
+    )
 
     # Then the result is an empty list
     assert not actual_verse_ids
@@ -89,7 +93,9 @@ def test_convert_verse_ids_to_references_null() -> None:
     # When we attempt to convert them into a list of references
     actual_references: list[
         bible.NormalizedReference,
-    ] = bible.convert_verse_ids_to_references(None)
+    ] = bible.convert_verse_ids_to_references(
+        None,  # type: ignore[arg-type]
+    )
 
     # Then the list of references is empty
     assert not actual_references

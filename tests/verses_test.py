@@ -101,7 +101,7 @@ def test_get_book(verse_id: int, book: bible.Book) -> None:
     book_number: int = bible.get_book_number(verse_id)
 
     # Then the resulting book matches the expected book
-    assert bible.Book(book_number) == book
+    assert bible.Book(book_number) == book  # type: ignore[call-arg]
 
 
 def test_get_chapter(verse_id: int) -> None:
