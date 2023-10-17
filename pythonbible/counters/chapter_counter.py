@@ -22,12 +22,12 @@ def count_chapters(references: list[NormalizedReference]) -> int:
 
 
 @count_chapters.register
-def _count_chapters_single(reference: NormalizedReference) -> int:
+def _count_chapters_single(reference: NormalizedReference) -> int:  # type: ignore[misc]
     return _get_number_of_chapters_in_reference(reference)
 
 
 @count_chapters.register
-def _count_chapters_string(reference: str) -> int:
+def _count_chapters_string(reference: str) -> int:  # type: ignore[misc]
     return _get_number_of_chapters_in_references(get_references(reference))
 
 
@@ -48,7 +48,7 @@ def _get_number_of_chapters_in_reference(reference: NormalizedReference) -> int:
 
     # Middle book(s) chapters
     number_of_chapters += sum(
-        get_number_of_chapters(Book(book_id))
+        get_number_of_chapters(Book(book_id))  # type: ignore[call-arg,misc]
         for book_id in range(
             reference.book.value + 1,
             reference.end_book.value,

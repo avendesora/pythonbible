@@ -74,12 +74,12 @@ class Bible:
         start_index = self.verse_start_indices.get(start_verse_id)
 
         if start_index is None:
-            raise VersionMissingVerseError(start_verse_id, self.version.value)
+            raise VersionMissingVerseError(self.version.value, start_verse_id)
 
         end_index = self.verse_end_indices.get(end_verse_id)
 
         if end_index is None:
-            raise VersionMissingVerseError(end_verse_id, self.version.value)
+            raise VersionMissingVerseError(self.version.value, end_verse_id)
 
         return start_index, end_index
 
