@@ -1,10 +1,12 @@
 from __future__ import annotations
 
 import re
+from typing import Any
 from typing import Match
 from typing import Pattern
 
 from pythonbible.books import Book
+from pythonbible.fuzzy_match_util import clean_text_for_fuzzy_matching
 from pythonbible.normalized_reference import NormalizedReference
 from pythonbible.regular_expressions import SCRIPTURE_REFERENCE_REGULAR_EXPRESSION
 from pythonbible.roman_numeral_util import convert_all_roman_numerals_to_integers
@@ -24,6 +26,7 @@ PERIOD = "."
 def get_references(
     text: str,
     book_groups: dict[str, tuple[Book, ...]] | None = None,
+    **kwargs: dict[str, Any],
 ) -> list[NormalizedReference]:
     """Search the text for scripture references.
 
@@ -42,6 +45,9 @@ def get_references(
     # First replace all roman numerals in the text with integers.
     clean_text: str = convert_all_roman_numerals_to_integers(text)
     clean_text = clean_text.replace(HTML_NDASH, DASH).replace(HTML_MDASH, DASH)
+
+    if kwargs.get("fuzzy", False):
+        clean_text = clean_text_for_fuzzy_matching(clean_text)
 
     for reference_match in re.finditer(
         SCRIPTURE_REFERENCE_REGULAR_EXPRESSION,

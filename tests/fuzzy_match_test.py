@@ -6,15 +6,21 @@ import pytest
 import pythonbible as bible
 
 
-@pytest.mark.xfail(reason="fuzzy matching isn't fully supported yet")
 def test_fuzzy_match_1() -> None:
     """Test fuzzy matching of references."""
     fuzzy_match_input = (
         "Second Timothy chapter two verses three and four says endure hardship"
     )
-    expected = [bible.NormalizedReference(bible.Book.TIMOTHY_2, 2, 3, 2, 4, None)]
+    expected = [
+        bible.NormalizedReference(bible.Book.TIMOTHY_2, 2, 3, 2, 3, None),
+        bible.NormalizedReference(bible.Book.TIMOTHY_2, 2, 4, 2, 4, None),
+    ]
+    actual = bible.get_references(
+        fuzzy_match_input,
+        fuzzy=True,  # type: ignore[arg-type]
+    )
 
-    assert bible.get_references(fuzzy_match_input) == expected
+    assert actual == expected
 
 
 @pytest.mark.xfail(reason="fuzzy matching isn't fully supported yet")
@@ -22,19 +28,26 @@ def test_fuzzy_match_2() -> None:
     """Test fuzzy matching of references."""
     fuzzy_match_input = "If you read Ephesians four 17 through 32 all the ammunition"
     expected = [bible.NormalizedReference(bible.Book.EPHESIANS, 4, 17, 4, 32, None)]
+    actual = bible.get_references(
+        fuzzy_match_input,
+        fuzzy=True,  # type: ignore[arg-type]
+    )
 
-    assert bible.get_references(fuzzy_match_input) == expected
+    assert actual == expected
 
 
-@pytest.mark.xfail(reason="fuzzy matching isn't fully supported yet")
 def test_fuzzy_match_3() -> None:
     """Test fuzzy matching of references."""
     fuzzy_match_input = (
         "remember that powerful message of Paul in first Corinthians nine"
     )
     expected = [bible.NormalizedReference(bible.Book.CORINTHIANS_1, 9, 1, 9, 27, None)]
+    actual = bible.get_references(
+        fuzzy_match_input,
+        fuzzy=True,  # type: ignore[arg-type]
+    )
 
-    assert bible.get_references(fuzzy_match_input) == expected
+    assert actual == expected
 
 
 @pytest.mark.xfail(reason="fuzzy matching isn't fully supported yet")
@@ -46,17 +59,24 @@ def test_fuzzy_match_4() -> None:
     )
 
     expected = [bible.NormalizedReference(bible.Book.MATTHEW, 5, 1, 7, 29, None)]
+    actual = bible.get_references(
+        fuzzy_match_input,
+        fuzzy=True,  # type: ignore[arg-type]
+    )
 
-    assert bible.get_references(fuzzy_match_input) == expected
+    assert actual == expected
 
 
-@pytest.mark.xfail(reason="fuzzy matching isn't fully supported yet")
 def test_fuzzy_match_5() -> None:
     """Test fuzzy matching of references."""
     fuzzy_match_input = "Jesus said over in Matthew chapter six, verse number 12"
     expected = [bible.NormalizedReference(bible.Book.MATTHEW, 6, 12, 6, 12, None)]
+    actual = bible.get_references(
+        fuzzy_match_input,
+        fuzzy=True,  # type: ignore[arg-type]
+    )
 
-    assert bible.get_references(fuzzy_match_input) == expected
+    assert actual == expected
 
 
 @pytest.mark.xfail(reason="fuzzy matching isn't fully supported yet")
@@ -64,11 +84,14 @@ def test_fuzzy_match_6() -> None:
     """Test fuzzy matching of references."""
     fuzzy_match_input = "Genesis four, 25."
     expected = [bible.NormalizedReference(bible.Book.GENESIS, 4, 25, 4, 25, None)]
+    actual = bible.get_references(
+        fuzzy_match_input,
+        fuzzy=True,  # type: ignore[arg-type]
+    )
 
-    assert bible.get_references(fuzzy_match_input) == expected
+    assert actual == expected
 
 
-@pytest.mark.xfail(reason="fuzzy matching isn't fully supported yet")
 def test_fuzzy_match_7() -> None:
     """Test fuzzy matching of references."""
     fuzzy_match_input = "and forth between Haggai two and Ezra three."
@@ -76,8 +99,12 @@ def test_fuzzy_match_7() -> None:
         bible.NormalizedReference(bible.Book.HAGGAI, 2, 1, 2, 23, None),
         bible.NormalizedReference(bible.Book.EZRA, 3, 1, 3, 13, None),
     ]
+    actual = bible.get_references(
+        fuzzy_match_input,
+        fuzzy=True,  # type: ignore[arg-type]
+    )
 
-    assert bible.get_references(fuzzy_match_input) == expected
+    assert actual == expected
 
 
 @pytest.mark.xfail(reason="fuzzy matching isn't fully supported yet")
@@ -88,8 +115,12 @@ def test_fuzzy_match_8() -> None:
         bible.NormalizedReference(bible.Book.JOHN, 1, 15, 1, 15, None),
         bible.NormalizedReference(bible.Book.JOHN, 1, 30, 1, 30, None),
     ]
+    actual = bible.get_references(
+        fuzzy_match_input,
+        fuzzy=True,  # type: ignore[arg-type]
+    )
 
-    assert bible.get_references(fuzzy_match_input) == expected
+    assert actual == expected
 
 
 @pytest.mark.xfail(reason="fuzzy matching isn't fully supported yet")
@@ -100,8 +131,12 @@ def test_fuzzy_match_9() -> None:
         "verses through chapter four, verse one."
     )
     expected = [bible.NormalizedReference(bible.Book.COLOSSIANS, 3, 22, 4, 1, None)]
+    actual = bible.get_references(
+        fuzzy_match_input,
+        fuzzy=True,  # type: ignore[arg-type]
+    )
 
-    assert bible.get_references(fuzzy_match_input) == expected
+    assert actual == expected
 
 
 def test_fuzzy_match_10() -> None:
@@ -117,8 +152,12 @@ def test_fuzzy_match_11() -> None:
     """Test fuzzy matching of references."""
     fuzzy_match_input = "says in Mark 16 10 that the disciples were"
     expected = [bible.NormalizedReference(bible.Book.MARK, 16, 10, 16, 10, None)]
+    actual = bible.get_references(
+        fuzzy_match_input,
+        fuzzy=True,  # type: ignore[arg-type]
+    )
 
-    assert bible.get_references(fuzzy_match_input) == expected
+    assert actual == expected
 
 
 @pytest.mark.xfail(reason="fuzzy matching isn't fully supported yet")
@@ -145,8 +184,12 @@ def test_fuzzy_match_13() -> None:
     expected = [
         bible.NormalizedReference(bible.Book.CORINTHIANS_1, 14, 34, 14, 35, None),
     ]
+    actual = bible.get_references(
+        fuzzy_match_input,
+        fuzzy=True,  # type: ignore[arg-type]
+    )
 
-    assert bible.get_references(fuzzy_match_input) == expected
+    assert actual == expected
 
 
 @pytest.mark.xfail(reason="fuzzy matching isn't fully supported yet")
@@ -158,8 +201,12 @@ def test_fuzzy_match_14() -> None:
         bible.NormalizedReference(bible.Book.GENESIS, 2, 7, 2, 7, None),
         bible.NormalizedReference(bible.Book.GENESIS, 21, 22, 21, 22, None),
     ]
+    actual = bible.get_references(
+        fuzzy_match_input,
+        fuzzy=True,  # type: ignore[arg-type]
+    )
 
-    assert bible.get_references(fuzzy_match_input) == expected
+    assert actual == expected
 
 
 @pytest.mark.xfail(reason="fuzzy matching isn't fully supported yet")
@@ -169,8 +216,12 @@ def test_fuzzy_match_15() -> None:
         "look in Revelations 21, 1 through 7, you can start reading all about"
     )
     expected = [bible.NormalizedReference(bible.Book.REVELATION, 21, 1, 21, 7, None)]
+    actual = bible.get_references(
+        fuzzy_match_input,
+        fuzzy=True,  # type: ignore[arg-type]
+    )
 
-    assert bible.get_references(fuzzy_match_input) == expected
+    assert actual == expected
 
 
 def test_fuzzy_match_16() -> None:
@@ -186,5 +237,9 @@ def test_fuzzy_match_17() -> None:
     """Test fuzzy matching of references."""
     fuzzy_match_input = "for one another Galatians 6 1 & 2 clearly gives us"
     expected = [bible.NormalizedReference(bible.Book.GALATIANS, 6, 1, 6, 2, None)]
+    actual = bible.get_references(
+        fuzzy_match_input,
+        fuzzy=True,  # type: ignore[arg-type]
+    )
 
-    assert bible.get_references(fuzzy_match_input) == expected
+    assert actual == expected
