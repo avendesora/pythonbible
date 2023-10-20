@@ -50,7 +50,6 @@ def test_fuzzy_match_3() -> None:
     assert actual == expected
 
 
-@pytest.mark.xfail(reason="fuzzy matching isn't fully supported yet")
 def test_fuzzy_match_4() -> None:
     """Test fuzzy matching of references."""
     fuzzy_match_input = (

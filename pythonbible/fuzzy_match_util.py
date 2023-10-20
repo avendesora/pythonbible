@@ -39,7 +39,7 @@ NUMBER_WORD_DIGIT_MAP = {
 
 
 def words_to_digits(text: str) -> str:
-    words = re.findall(r"[\w]+|[.,!?:;]", text)
+    words = re.findall(r"[\w]+|[.,!?:;-]", text)
     clean_text = []
     current_number = []
 
