@@ -19,7 +19,7 @@ sys.path.insert(0, pathlib.Path(__file__).parents[2].resolve().as_posix())
 # -- Project information -----------------------------------------------------
 
 project = "pythonbible"
-copyright = "2020 Nathan Patton"
+copyright = "2020-2023 Nathan Patton"
 author = "Nathan Patton"
 
 # The full version, including alpha/beta/rc tags

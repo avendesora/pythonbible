@@ -10,7 +10,7 @@ Requirements
 * 3.9
 * 3.10
 * 3.11
-* 3.12 dev (not recommended for use in production environments)
+* 3.12
 
 **pythonbible** has no other dependencies.
 
