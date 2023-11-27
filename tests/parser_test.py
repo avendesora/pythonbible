@@ -312,3 +312,18 @@ def test_book_abbreviations() -> None:
 
             if book != book.SONG_OF_SONGS:
                 assert expected == actual_period
+
+
+def test_multiple_references_with_prefixes() -> None:
+    # Given an input string containing multiple references with prefixes,
+    # separated by commas
+    input_string = "1 Corinthians 1:1, 2 Corinthians 1:1"
+
+    # When we parse the references from that string
+    references = bible.get_references(input_string)
+
+    # Then we get the expected references
+    assert references == [
+        bible.NormalizedReference(bible.Book.CORINTHIANS_1, 1, 1, 1, 1),
+        bible.NormalizedReference(bible.Book.CORINTHIANS_2, 1, 1, 1, 1),
+    ]
