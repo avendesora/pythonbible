@@ -1299,7 +1299,7 @@ MAX_VERSE_NUMBER_BY_BOOK_AND_CHAPTER: dict[Book, list[int]] = {
         13,
     ],
     Book.JOHN_3: [
-        14,
+        15,
     ],
     Book.JUDE: [
         25,
