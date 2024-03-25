@@ -80,9 +80,9 @@ def test_convert_verse_ids_to_references(
 ) -> None:
     # Given a list of integer verse ids
     # When we convert them into a list of normalized reference tuples
-    actual_references: list[
-        bible.NormalizedReference,
-    ] = bible.convert_verse_ids_to_references(verse_ids)
+    actual_references: list[bible.NormalizedReference,] = (
+        bible.convert_verse_ids_to_references(verse_ids)
+    )
 
     # Then the resulting list of references is accurate
     assert actual_references == references
@@ -126,9 +126,9 @@ def test_convert_verse_ids_to_references_complex(
 ) -> None:
     # Given a list of "complex" verse ids
     # When we convert them into a list of references
-    actual_references: list[
-        bible.NormalizedReference,
-    ] = bible.convert_verse_ids_to_references(verse_ids_complex)
+    actual_references: list[bible.NormalizedReference,] = (
+        bible.convert_verse_ids_to_references(verse_ids_complex)
+    )
 
     # Then the list of references is correct
     assert actual_references == normalized_references_complex
