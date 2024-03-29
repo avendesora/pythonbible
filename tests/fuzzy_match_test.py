@@ -1,4 +1,5 @@
 """Tests for discussion: https://github.com/avendesora/pythonbible/discussions/120."""
+
 from __future__ import annotations
 
 import pytest
