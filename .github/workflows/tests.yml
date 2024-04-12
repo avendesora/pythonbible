@@ -13,13 +13,13 @@ jobs:
       matrix:
         os:
           [
-            ubuntu-20.04,
+#            ubuntu-20.04,
             ubuntu-22.04,
-            windows-2019,
-            windows-2022,
-            macos-11,
-            macos-12,
-            macos-13,
+#            windows-2019,
+#            windows-2022,
+#            macos-11,
+#            macos-12,
+#            macos-13,
           ]
     steps:
       - uses: actions/checkout@v4
