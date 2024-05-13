@@ -91,10 +91,10 @@ def test_convert_verse_ids_to_references(
 def test_convert_verse_ids_to_references_null() -> None:
     # Given a null verse_ids object
     # When we attempt to convert them into a list of references
-    actual_references: list[
-        bible.NormalizedReference,
-    ] = bible.convert_verse_ids_to_references(
-        None,  # type: ignore[arg-type]
+    actual_references: list[bible.NormalizedReference,] = (
+        bible.convert_verse_ids_to_references(
+            None,  # type: ignore[arg-type]
+        )
     )
 
     # Then the list of references is empty
