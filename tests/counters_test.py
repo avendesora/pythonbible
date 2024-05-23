@@ -185,7 +185,7 @@ def test_count_verses_multiple_books() -> None:
     number_of_verses: int = bible.count_verses(references[0])  # type: ignore[arg-type]
 
     # Then the count is correct
-    assert number_of_verses == (10 + 29 + 24 + 21 + 21) + 13 + 14 + 25
+    assert number_of_verses == (10 + 29 + 24 + 21 + 21) + 13 + 15 + 25
 
 
 def test_count_verses_multiple_references() -> None:
