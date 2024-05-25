@@ -1,4 +1,4 @@
-![Image](pythonbible.png)
+![Image](https://github.com/avendesora/pythonbible/raw/main/pythonbible.png)
 
 The pythonbible library serves several purposes related to the Christian Bible and Scripture references.
 
