@@ -6,6 +6,7 @@ from typing import TYPE_CHECKING
 import pytest
 
 import pythonbible as bible
+import pythonbible.bible.errors
 
 if TYPE_CHECKING:
     from pythonbible.formatter import BookTitles
@@ -205,7 +206,7 @@ def test_get_verse_text_version_not_include_book() -> None:
 
     # When using that verse id and version to get the verse text
     # Then a VersionMissingVerseError is raised.
-    with pytest.raises(bible.VersionMissingVerseError):
+    with pytest.raises(pythonbible.bible.errors.VersionMissingVerseError):
         bible.get_verse_text(verse_id, version=version)
 
 

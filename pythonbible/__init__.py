@@ -11,6 +11,7 @@ from __future__ import annotations
 __version__ = "0.13.1"
 
 from .bible.bible import Bible
+from .bible.errors import VersionMissingVerseError
 from .book_groups import BOOK_GROUPS
 from .book_groups import BookGroup
 from .books import Book
@@ -26,7 +27,6 @@ from .errors import InvalidChapterError
 from .errors import InvalidVerseError
 from .errors import MissingBookFileError
 from .errors import MissingVerseFileError
-from .errors import VersionMissingVerseError
 from .formatter import format_scripture_references
 from .formatter import format_scripture_text
 from .formatter import format_single_reference

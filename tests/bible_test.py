@@ -3,6 +3,7 @@ from __future__ import annotations
 import pytest
 
 import pythonbible as bible
+import pythonbible.bible.errors
 from pythonbible.bible.asv.html import bible as asv_html_bible
 from pythonbible.bible.asv.html_readers import bible as asv_html_readers_bible
 
@@ -39,10 +40,10 @@ def test_get_scripture_missing_verse_in_version() -> None:
 
 
 def test_get_scripture_missing_book_in_version_start_index() -> None:
-    with pytest.raises(bible.VersionMissingVerseError):
+    with pytest.raises(pythonbible.bible.errors.VersionMissingVerseError):
         asv_html_readers_bible.get_scripture(67001001, 67001001)
 
 
 def test_get_scripture_missing_book_in_version_end_index() -> None:
-    with pytest.raises(bible.VersionMissingVerseError):
+    with pytest.raises(pythonbible.bible.errors.VersionMissingVerseError):
         asv_html_readers_bible.get_scripture(66001001, 67001001)
