@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Modified the header image url to be an absolute url so that it hopefully shows up in PyPI correctly.
+
 ## [0.13.1] - 2024-05-21
 
 ### Changed
