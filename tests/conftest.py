@@ -56,12 +56,26 @@ def text_with_reference_complex() -> str:
 @pytest.fixture()
 def normalized_references_complex() -> list[bible.NormalizedReference]:
     return [
-        bible.NormalizedReference(bible.Book.PSALMS, 130, 4, 130, 4),
-        bible.NormalizedReference(bible.Book.PSALMS, 130, 8, 130, 8),
-        bible.NormalizedReference(bible.Book.JEREMIAH, 29, 32, 30, 10),
-        bible.NormalizedReference(bible.Book.JEREMIAH, 31, 12, 31, 12),
-        bible.NormalizedReference(bible.Book.MATTHEW, 1, 18, 2, 18),
-        bible.NormalizedReference(bible.Book.LUKE, 3, 5, 3, 7),
+        bible.NormalizedReference(bible.Book.PSALMS, 130, 4, 130, 4, bible.Book.PSALMS),
+        bible.NormalizedReference(bible.Book.PSALMS, 130, 8, 130, 8, bible.Book.PSALMS),
+        bible.NormalizedReference(
+            bible.Book.JEREMIAH,
+            29,
+            32,
+            30,
+            10,
+            bible.Book.JEREMIAH,
+        ),
+        bible.NormalizedReference(
+            bible.Book.JEREMIAH,
+            31,
+            12,
+            31,
+            12,
+            bible.Book.JEREMIAH,
+        ),
+        bible.NormalizedReference(bible.Book.MATTHEW, 1, 18, 2, 18, bible.Book.MATTHEW),
+        bible.NormalizedReference(bible.Book.LUKE, 3, 5, 3, 7, bible.Book.LUKE),
     ]
 
 
@@ -98,8 +112,15 @@ def reference_string() -> str:
 @pytest.fixture()
 def references() -> list[bible.NormalizedReference]:
     return [
-        bible.NormalizedReference(bible.Book.MATTHEW, 18, 12, 18, 14),
-        bible.NormalizedReference(bible.Book.LUKE, 15, 3, 15, 7),
+        bible.NormalizedReference(
+            bible.Book.MATTHEW,
+            18,
+            12,
+            18,
+            14,
+            bible.Book.MATTHEW,
+        ),
+        bible.NormalizedReference(bible.Book.LUKE, 15, 3, 15, 7, bible.Book.LUKE),
     ]
 
 

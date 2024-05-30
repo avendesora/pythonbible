@@ -21,8 +21,16 @@ def test_get_references(text_with_reference: str) -> None:
         12,
         18,
         14,
+        bible.Book.MATTHEW,
     )
-    assert references[1] == bible.NormalizedReference(bible.Book.LUKE, 15, 3, 15, 7)
+    assert references[1] == bible.NormalizedReference(
+        bible.Book.LUKE,
+        15,
+        3,
+        15,
+        7,
+        bible.Book.LUKE,
+    )
 
 
 def test_get_references_complex(
@@ -56,6 +64,7 @@ def test_normalize_reference(non_normalized_reference: str) -> None:
         12,
         18,
         14,
+        bible.Book.MATTHEW,
     )
 
 
@@ -74,10 +83,12 @@ def test_normalize_reference_without_verse_numbers(
     assert normalized_references[0] == bible.NormalizedReference(
         bible.Book.EXODUS,
         20,
-        1,
+        None,
         20,
-        26,
+        None,
+        bible.Book.EXODUS,
     )
+    assert bible.format_scripture_references(normalized_references) == "Exodus 20:1-26"
 
 
 def test_normalize_reference_range_without_verse_numbers(
@@ -95,9 +106,13 @@ def test_normalize_reference_range_without_verse_numbers(
     assert normalized_references[0] == bible.NormalizedReference(
         bible.Book.GENESIS,
         1,
-        1,
+        None,
         4,
-        26,
+        None,
+        bible.Book.GENESIS,
+    )
+    assert (
+        bible.format_scripture_references(normalized_references) == "Genesis 1:1-4:26"
     )
 
 
@@ -125,7 +140,16 @@ def test_philemon_vs_philippians() -> None:
     references: list[bible.NormalizedReference] = bible.get_references(text)
 
     # Then the parser does not raise an error and returns the appropriate reference
-    assert references == [bible.NormalizedReference(bible.Book.PHILEMON, 1, 9, 1, 9)]
+    assert references == [
+        bible.NormalizedReference(
+            bible.Book.PHILEMON,
+            1,
+            9,
+            1,
+            9,
+            bible.Book.PHILEMON,
+        )
+    ]
 
 
 def test_book_alternative_names(
@@ -158,13 +182,17 @@ def test_cross_book_reference_just_books() -> None:
     assert references == [
         bible.NormalizedReference(
             bible.Book.GENESIS,
-            1,
-            1,
-            max_chapter,
-            max_verse,
+            None,
+            None,
+            None,
+            None,
             deuteronomy,
         ),
     ]
+    assert (
+        bible.format_scripture_references(references)
+        == f"Genesis 1:1 - Deuteronomy {max_chapter}:{max_verse}"
+    )
 
 
 def test_cross_book_reference_complex() -> None:
@@ -177,9 +205,9 @@ def test_cross_book_reference_complex() -> None:
 
     # Then the parser does not raise an error and returns the appropriate reference
     assert references == [
-        bible.NormalizedReference(bible.Book.GENESIS, 1, 1, 1, 5, None),
+        bible.NormalizedReference(bible.Book.GENESIS, 1, 1, 1, 5, bible.Book.GENESIS),
         bible.NormalizedReference(bible.Book.GENESIS, 50, 3, 1, 14, bible.Book.EXODUS),
-        bible.NormalizedReference(bible.Book.EXODUS, 2, 3, 20, 5, None),
+        bible.NormalizedReference(bible.Book.EXODUS, 2, 3, 20, 5, bible.Book.EXODUS),
     ]
 
 
@@ -250,7 +278,7 @@ def test_single_chapter_book_without_chapter_number() -> None:
     # Then the parser returns the appropriate normalized reference with chapter and
     # verse numbers
     assert references == [
-        bible.NormalizedReference(bible.Book.OBADIAH, 1, 3, 1, 6, None),
+        bible.NormalizedReference(bible.Book.OBADIAH, 1, 3, 1, 6, bible.Book.OBADIAH),
     ]
 
 
@@ -324,11 +352,11 @@ def test_book_abbreviations() -> None:
             [
                 bible.NormalizedReference(
                     bible.Book.GENESIS,
-                    None,  # type: ignore[arg-type]
-                    None,  # type: ignore[arg-type]
-                    None,  # type: ignore[arg-type]
-                    None,  # type: ignore[arg-type]
                     None,
+                    None,
+                    None,
+                    None,
+                    bible.Book.GENESIS,
                 )
             ],
         ),
@@ -338,10 +366,10 @@ def test_book_abbreviations() -> None:
                 bible.NormalizedReference(
                     bible.Book.GENESIS,
                     1,
-                    None,  # type: ignore[arg-type]
-                    None,  # type: ignore[arg-type]
-                    None,  # type: ignore[arg-type]
                     None,
+                    1,
+                    None,
+                    bible.Book.GENESIS,
                 ),
             ],
         ),
@@ -352,15 +380,24 @@ def test_book_abbreviations() -> None:
                     bible.Book.GENESIS,
                     1,
                     1,
-                    None,  # type: ignore[arg-type]
-                    None,  # type: ignore[arg-type]
-                    None,
+                    1,
+                    1,
+                    bible.Book.GENESIS,
                 ),
             ],
         ),
         (
             "Genesis 1:1-2",
-            [bible.NormalizedReference(bible.Book.GENESIS, 1, 1, 1, 2, None)],
+            [
+                bible.NormalizedReference(
+                    bible.Book.GENESIS,
+                    1,
+                    1,
+                    1,
+                    2,
+                    bible.Book.GENESIS,
+                )
+            ],
         ),
         (
             "Genesis 1-2",
@@ -368,16 +405,25 @@ def test_book_abbreviations() -> None:
                 bible.NormalizedReference(
                     bible.Book.GENESIS,
                     1,
-                    None,  # type: ignore[arg-type]
-                    2,
-                    None,  # type: ignore[arg-type]
                     None,
+                    2,
+                    None,
+                    bible.Book.GENESIS,
                 ),
             ],
         ),
         (
             "Genesis 1:1-2:3",
-            [bible.NormalizedReference(bible.Book.GENESIS, 1, 1, 2, 3)],
+            [
+                bible.NormalizedReference(
+                    bible.Book.GENESIS,
+                    1,
+                    1,
+                    2,
+                    3,
+                    bible.Book.GENESIS,
+                )
+            ],
         ),
     ],
 )

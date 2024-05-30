@@ -108,7 +108,8 @@ def test_fuzzy_match_9() -> None:
 def test_fuzzy_match_10() -> None:
     """Test fuzzy matching of references."""
     fuzzy_match_input = "In 1 Corinthians 9.22, you see Paul saying"
-    expected = [bible.NormalizedReference(bible.Book.CORINTHIANS_1, 9, 22, 9, 22, None)]
+    book = bible.Book.CORINTHIANS_1
+    expected = [bible.NormalizedReference(book, 9, 22, 9, 22, book)]
 
     assert bible.get_references(fuzzy_match_input) == expected
 
@@ -177,7 +178,8 @@ def test_fuzzy_match_15() -> None:
 def test_fuzzy_match_16() -> None:
     """Test fuzzy matching of references."""
     fuzzy_match_input = "Psalms 103.12 says"
-    expected = [bible.NormalizedReference(bible.Book.PSALMS, 103, 12, 103, 12, None)]
+    book = bible.Book.PSALMS
+    expected = [bible.NormalizedReference(book, 103, 12, 103, 12, book)]
 
     assert bible.get_references(fuzzy_match_input) == expected
 

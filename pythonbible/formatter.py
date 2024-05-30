@@ -109,7 +109,7 @@ def _is_reference_with_a_new_chapter(
     ):
         return True
 
-    return current_reference.end_chapter > current_reference.start_chapter
+    return (current_reference.end_chapter or 0) > (current_reference.start_chapter or 1)
 
 
 def format_single_reference(
@@ -215,7 +215,7 @@ def _get_start_chapter(
     if is_single_chapter_book(reference.book) and not force_include_chapters:
         return ""
 
-    return f"{reference.start_chapter}:"
+    return f"{reference.start_chapter or 1}:"
 
 
 def _get_start_verse(reference: NormalizedReference, **kwargs: Any) -> str:
@@ -227,7 +227,7 @@ def _get_start_verse(reference: NormalizedReference, **kwargs: Any) -> str:
     ):
         return ""
 
-    return f"{reference.start_verse}"
+    return f"{reference.start_verse or 1}"
 
 
 def _get_end_chapter(
@@ -250,7 +250,7 @@ def _get_end_chapter(
         if is_single_chapter_book(reference.end_book) and not force_include_chapters:
             return ""
 
-        return f"{reference.end_chapter}:"
+        return f"{reference.end_chapter or get_number_of_chapters(reference.end_book)}:"
 
     if (
         _does_reference_include_all_verses_in_start_book(reference)
@@ -264,7 +264,7 @@ def _get_end_chapter(
     if reference.start_chapter == reference.end_chapter:
         return ""
 
-    return f"{reference.end_chapter}:"
+    return f"{reference.end_chapter or get_number_of_chapters(reference.book)}:"
 
 
 def _get_end_verse(reference: NormalizedReference, **kwargs: Any) -> str:
@@ -277,7 +277,13 @@ def _get_end_verse(reference: NormalizedReference, **kwargs: Any) -> str:
         ):
             return ""
 
-        return f"{reference.end_verse}"
+        end_chapter = reference.end_chapter or get_number_of_chapters(
+            reference.end_book
+        )
+        end_verse = reference.end_verse or get_number_of_verses(
+            reference.end_book, end_chapter
+        )
+        return f"{end_verse}"
 
     if (
         _does_reference_include_all_verses_in_start_book(reference)
@@ -285,10 +291,14 @@ def _get_end_verse(reference: NormalizedReference, **kwargs: Any) -> str:
     ):
         return ""
 
+    start_chapter = reference.start_chapter or 1
+    start_verse = reference.start_verse or 1
+    end_chapter = reference.end_chapter or get_number_of_chapters(reference.book)
+    end_verse = reference.end_verse or get_number_of_verses(reference.book, end_chapter)
+
     return (
-        f"{reference.end_verse}"
-        if reference.start_verse != reference.end_verse
-        or reference.start_chapter != reference.end_chapter
+        f"{end_verse}"
+        if start_verse != end_verse or start_chapter != end_chapter
         else ""
     )
 

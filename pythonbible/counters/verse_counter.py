@@ -44,9 +44,11 @@ def _get_number_of_verses_in_reference(reference: NormalizedReference) -> int:
 
     for book_id in range(start_book.value, end_book.value + 1):
         book: Book = Book(book_id)  # type: ignore[call-arg]
-        start_chapter: int = reference.start_chapter if book == start_book else 1
+        start_chapter: int = reference.start_chapter or 1 if book == start_book else 1
         end_chapter: int = (
-            reference.end_chapter if book == end_book else get_number_of_chapters(book)
+            reference.end_chapter or get_number_of_chapters(book)
+            if book == end_book
+            else get_number_of_chapters(book)
         )
 
         for chapter in range(start_chapter, end_chapter + 1):
