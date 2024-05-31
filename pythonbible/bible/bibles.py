@@ -8,6 +8,12 @@ import pythonbible.bible.asv.html_readers as asv_html_readers
 import pythonbible.bible.asv.plain_text as asv_plain_text
 import pythonbible.bible.asv.plain_text_notes as asv_plain_text_notes
 import pythonbible.bible.asv.plain_text_readers as asv_plain_text_readers
+import pythonbible.bible.dr.html as dr_html
+import pythonbible.bible.dr.html_notes as dr_html_notes
+import pythonbible.bible.dr.html_readers as dr_html_readers
+import pythonbible.bible.dr.plain_text as dr_plain_text
+import pythonbible.bible.dr.plain_text_notes as dr_plain_text_notes
+import pythonbible.bible.dr.plain_text_readers as dr_plain_text_readers
 import pythonbible.bible.kjv.html as kjv_html
 import pythonbible.bible.kjv.html_notes as kjv_html_notes
 import pythonbible.bible.kjv.html_readers as kjv_html_readers
@@ -28,6 +34,14 @@ BIBLES = {
         "plain_text": asv_plain_text.bible,
         "plain_text_notes": asv_plain_text_notes.bible,
         "plain_text_readers": asv_plain_text_readers.bible,
+    },
+    Version.DOUAY_RHEIMS: {
+        "html": dr_html.bible,
+        "html_notes": dr_html_notes.bible,
+        "html_readers": dr_html_readers.bible,
+        "plain_text": dr_plain_text.bible,
+        "plain_text_notes": dr_plain_text_notes.bible,
+        "plain_text_readers": dr_plain_text_readers.bible,
     },
     Version.KING_JAMES: {
         "html": kjv_html.bible,

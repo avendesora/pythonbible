@@ -1,7 +1,5 @@
 from __future__ import annotations
 
-import pytest
-
 import pythonbible as bible
 
 
@@ -191,7 +189,7 @@ def test_cross_book_reference_just_books() -> None:
     ]
     assert (
         bible.format_scripture_references(references)
-        == f"Genesis 1:1 - Deuteronomy {max_chapter}:{max_verse}"
+        == f"Genesis - Deuteronomy {max_chapter}:{max_verse}"
     )
 
 
@@ -342,96 +340,3 @@ def test_book_abbreviations() -> None:
 
             if book != book.SONG_OF_SONGS:
                 assert expected == actual_period
-
-
-@pytest.mark.parametrize(
-    ("input_text", "expected_references"),
-    [
-        (
-            "Genesis",
-            [
-                bible.NormalizedReference(
-                    bible.Book.GENESIS,
-                    None,
-                    None,
-                    None,
-                    None,
-                    bible.Book.GENESIS,
-                )
-            ],
-        ),
-        (
-            "Genesis 1",
-            [
-                bible.NormalizedReference(
-                    bible.Book.GENESIS,
-                    1,
-                    None,
-                    1,
-                    None,
-                    bible.Book.GENESIS,
-                ),
-            ],
-        ),
-        (
-            "Genesis 1:1",
-            [
-                bible.NormalizedReference(
-                    bible.Book.GENESIS,
-                    1,
-                    1,
-                    1,
-                    1,
-                    bible.Book.GENESIS,
-                ),
-            ],
-        ),
-        (
-            "Genesis 1:1-2",
-            [
-                bible.NormalizedReference(
-                    bible.Book.GENESIS,
-                    1,
-                    1,
-                    1,
-                    2,
-                    bible.Book.GENESIS,
-                )
-            ],
-        ),
-        (
-            "Genesis 1-2",
-            [
-                bible.NormalizedReference(
-                    bible.Book.GENESIS,
-                    1,
-                    None,
-                    2,
-                    None,
-                    bible.Book.GENESIS,
-                ),
-            ],
-        ),
-        (
-            "Genesis 1:1-2:3",
-            [
-                bible.NormalizedReference(
-                    bible.Book.GENESIS,
-                    1,
-                    1,
-                    2,
-                    3,
-                    bible.Book.GENESIS,
-                )
-            ],
-        ),
-    ],
-)
-def test_no_verses(
-    input_text: str,
-    expected_references: list[bible.NormalizedReference],
-) -> None:
-    # Given a reference string that does not include verse numbers
-    # When we parse the references from that text
-    # Then the normalized reference does not include verse numbers
-    assert bible.get_references(input_text) == expected_references

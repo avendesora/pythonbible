@@ -29,7 +29,7 @@ class Bible:
     verse_end_indices: dict[int, int]
     is_html: bool
 
-    _max_verse_number_by_book_and_chapter: dict[Book, list[int]]
+    _max_verses: dict[Book, dict[int, int]]
 
     def __init__(
         self: Bible,
@@ -51,25 +51,25 @@ class Bible:
         self.verse_start_indices = verse_start_indices
         self.verse_end_indices = verse_end_indices
         self.is_html = is_html
-        self._max_verse_number_by_book_and_chapter = {}
+        self._max_verses = {}
 
     @property
-    def max_verse_number_by_book_and_chapter(self: Bible) -> dict[Book, list[int]]:
+    def max_verse_number_by_book_and_chapter(self: Bible) -> dict[Book, dict[int, int]]:
         """Get the maximum verse number by book and chapter."""
-        if not self._max_verse_number_by_book_and_chapter:
+        if not self._max_verses:
             for verse_id in self.verse_start_indices:
                 book, chapter, verse = get_book_chapter_verse(verse_id)
-                chapters: list[int] = self._max_verse_number_by_book_and_chapter.get(
+                chapters: dict[int, int] = self._max_verses.get(
                     book,
-                    [],
+                    {},
                 )
-                verses = chapters[chapter] if len(chapters) >= chapter - 1 else 0
+                verses = chapters.get(chapter, 0)
 
                 if verse > verses:
                     chapters[chapter] = verse
-                    self._max_verse_number_by_book_and_chapter[book] = chapters
+                    self._max_verses[book] = chapters
 
-        return self._max_verse_number_by_book_and_chapter
+        return self._max_verses
 
     def get_scripture(
         self: Bible,
