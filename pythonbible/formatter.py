@@ -1,13 +1,12 @@
 from __future__ import annotations
 
-from dataclasses import dataclass
 from functools import lru_cache
 from typing import TYPE_CHECKING
 from typing import Any
 
-from pythonbible.bible.bibles import get_bible
-from pythonbible.bible.titles import LONG_TITLES
-from pythonbible.bible.titles import SHORT_TITLES
+from pythonbible.bible import get_bible
+from pythonbible.bible import get_long_title
+from pythonbible.bible import get_short_title
 from pythonbible.converter import convert_references_to_verse_ids
 from pythonbible.converter import convert_verse_ids_to_references
 from pythonbible.errors import MissingBookFileError
@@ -22,12 +21,6 @@ if TYPE_CHECKING:
     from pythonbible.bible.bible import Bible
     from pythonbible.books import Book
     from pythonbible.normalized_reference import NormalizedReference
-
-
-@dataclass
-class BookTitles:
-    long_title: str
-    short_title: str
 
 
 # TODO - handle Psalms vs Psalm appropriately
@@ -188,12 +181,9 @@ def _get_book_title(book: Book, include_books: bool = True, **kwargs: Any) -> st
 
     version: Version = kwargs.get("version", DEFAULT_VERSION)
     full_title: bool = kwargs.get("full_title", False)
-    version_book_titles: BookTitles = get_book_titles(book, version)
 
     return (
-        version_book_titles.long_title
-        if full_title
-        else version_book_titles.short_title
+        get_long_title(version, book) if full_title else get_short_title(version, book)
     )
 
 
@@ -205,7 +195,7 @@ def _is_single_chapter_book(book: Book, **kwargs: Any) -> bool:
 
     try:
         bible: Bible = get_bible(version, "plain_text")
-        chapters = bible.max_verse_number_by_book_and_chapter.get(book)
+        chapters = bible.max_verses.get(book)
         return len(chapters) == 1 if chapters else is_single_chapter_book(book)
     except MissingBookFileError:
         return is_single_chapter_book(book)
@@ -219,7 +209,7 @@ def _get_number_of_chapters(book: Book, **kwargs: Any) -> int:
 
     try:
         bible: Bible = get_bible(version, "plain_text")
-        chapters = bible.max_verse_number_by_book_and_chapter.get(book)
+        chapters = bible.max_verses.get(book)
         return len(chapters) if chapters else get_number_of_chapters(book)
     except MissingBookFileError:
         return get_number_of_chapters(book)
@@ -233,7 +223,7 @@ def _get_number_of_verses(book: Book, chapter: int, **kwargs: Any) -> int:
 
     try:
         bible: Bible = get_bible(version, "plain_text")
-        chapters = bible.max_verse_number_by_book_and_chapter.get(book)
+        chapters = bible.max_verses.get(book)
 
         if not chapters:
             return get_number_of_verses(book, chapter)
@@ -470,11 +460,10 @@ def format_scripture_text(verse_ids: list[int], **kwargs: Any) -> str:
         if book != current_book:
             current_book = book
             current_chapter = chapter_number
-            version_book_titles: BookTitles = get_book_titles(book, version)
             title: str = (
-                version_book_titles.long_title
+                get_long_title(version, book)
                 if full_title
-                else version_book_titles.short_title
+                else get_short_title(version, book)
             )
             text += _format_title(title, is_html, not text)
             text += _format_chapter(chapter_number, is_html)
@@ -521,33 +510,3 @@ def get_verse_text(verse_id: int, version: Version = DEFAULT_VERSION) -> str:
     """
     bible = get_bible(version, "plain_text_readers")
     return bible.get_scripture(verse_id, verse_id)
-
-
-@lru_cache()
-def get_book_titles(book: Book, version: Version = DEFAULT_VERSION) -> BookTitles:
-    """Return the book titles for the given Book and optional Version.
-
-    :param book: a book of the Bible
-    :type book: Book
-    :param version: a version of the Bible, defaults to American Standard
-    :type version: Version
-    :return: the long and short titles of the given book and version
-    :rtype: BookTitles
-    :raises MissingBookFileError: if the book file for the given book and version does
-                                  not exist
-    """
-    short_titles, long_titles = _get_version_book_titles(version)
-    short_title = short_titles.get(book, book.title)
-    long_title = long_titles.get(book, book.title)
-
-    return BookTitles(long_title, short_title)
-
-
-@lru_cache()
-def _get_version_book_titles(
-    version: Version,
-) -> tuple[dict[Book, str], dict[Book, str]]:
-    try:
-        return SHORT_TITLES[version], LONG_TITLES[version]
-    except KeyError as key_error:
-        raise MissingBookFileError(key_error) from key_error

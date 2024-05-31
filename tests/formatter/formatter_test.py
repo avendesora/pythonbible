@@ -1,15 +1,11 @@
 from __future__ import annotations
 
 import time
-from typing import TYPE_CHECKING
 
 import pytest
 
 import pythonbible as bible
 import pythonbible.bible.errors
-
-if TYPE_CHECKING:
-    from pythonbible.formatter import BookTitles
 
 
 def test_format_scripture_references(
@@ -242,23 +238,25 @@ def test_get_book_titles(
 ) -> None:
     # Given a book
     # When we get the book titles for that book
-    book_titles: BookTitles | None = bible.get_book_titles(
-        book,
-        version=bible.Version.KING_JAMES,
-    )
+    version: bible.Version = bible.Version.KING_JAMES
+    long_title = bible.get_long_title(version, book)
+    short_title = bible.get_short_title(version, book)
 
     # Then the long and short book titles match what is expected.
-    assert book_titles is not None
-    assert book_titles.long_title == long_book_title
-    assert book_titles.short_title == short_book_title
+    assert long_title == long_book_title
+    assert short_title == short_book_title
 
 
 def test_get_book_titles_version_missing(book: bible.Book) -> None:
     # Given a book
     # When we get the book titles for that book in a version that is missing
-    # Then a MissingBookFileError is raised.
-    with pytest.raises(bible.MissingBookFileError):
-        bible.get_book_titles(book, version=bible.Version.MESSAGE)
+    # Then the default book title for that book is returned.
+    version = bible.Version.MESSAGE
+    long_title = bible.get_long_title(version, book)
+    short_title = bible.get_short_title(version, book)
+
+    assert long_title == book.title
+    assert short_title == book.title
 
 
 def test_format_scripture_references_multiple_book_range() -> None:

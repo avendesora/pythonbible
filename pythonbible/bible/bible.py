@@ -8,7 +8,6 @@ from typing import TYPE_CHECKING
 from pythonbible.bible.errors import VersionMissingVerseError
 from pythonbible.errors import InvalidVerseError
 from pythonbible.validator import is_valid_verse_id
-from pythonbible.verses import get_book_chapter_verse
 
 if TYPE_CHECKING:
     from pythonbible.books import Book
@@ -27,9 +26,8 @@ class Bible:
     scripture_content: str
     verse_start_indices: dict[int, int]
     verse_end_indices: dict[int, int]
+    max_verses: dict[Book, dict[int, int]]
     is_html: bool
-
-    _max_verses: dict[Book, dict[int, int]]
 
     def __init__(
         self: Bible,
@@ -37,6 +35,7 @@ class Bible:
         scripture_content: str,
         verse_start_indices: dict[int, int],
         verse_end_indices: dict[int, int],
+        max_verses: dict[Book, dict[int, int]],
         is_html: bool = False,
     ) -> None:
         """Initialize a Bible object.
@@ -45,31 +44,15 @@ class Bible:
         :param scripture_content: The scripture content for the Bible.
         :param verse_start_indices: The start indices for each verse.
         :param verse_end_indices: The end indices for each verse.
+        :param max_verses: The maximum verses for each book and chapter.
+        :param is_html: Whether the scripture content is HTML.
         """
         self.version = version
         self.scripture_content = scripture_content
         self.verse_start_indices = verse_start_indices
         self.verse_end_indices = verse_end_indices
+        self.max_verses = max_verses
         self.is_html = is_html
-        self._max_verses = {}
-
-    @property
-    def max_verse_number_by_book_and_chapter(self: Bible) -> dict[Book, dict[int, int]]:
-        """Get the maximum verse number by book and chapter."""
-        if not self._max_verses:
-            for verse_id in self.verse_start_indices:
-                book, chapter, verse = get_book_chapter_verse(verse_id)
-                chapters: dict[int, int] = self._max_verses.get(
-                    book,
-                    {},
-                )
-                verses = chapters.get(chapter, 0)
-
-                if verse > verses:
-                    chapters[chapter] = verse
-                    self._max_verses[book] = chapters
-
-        return self._max_verses
 
     def get_scripture(
         self: Bible,
