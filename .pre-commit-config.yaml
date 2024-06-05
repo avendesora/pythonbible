@@ -48,20 +48,4 @@ repos:
     # * omit the summary
     args: [--diff=git diff HEAD, --no-summary]
 
-exclude: |
-  (?x)^(
-      pythonbible/bible/asv/html.py|
-      pythonbible/bible/asv/html_notes.py|
-      pythonbible/bible/asv/html_readers.py|
-      pythonbible/bible/asv/plain_text.py|
-      pythonbible/bible/asv/plain_text_notes.py|
-      pythonbible/bible/asv/plain_text_readers.py|
-      pythonbible/bible/asv/titles.py|
-      pythonbible/bible/kjv/html.py|
-      pythonbible/bible/kjv/html_notes.py|
-      pythonbible/bible/kjv/html_readers.py|
-      pythonbible/bible/kjv/plain_text.py|
-      pythonbible/bible/kjv/plain_text_notes.py|
-      pythonbible/bible/kjv/plain_text_readers.py|
-      pythonbible/bible/kjv/titles.py
-  )$
+exclude: pythonbible/bible/.*/.*\.py$

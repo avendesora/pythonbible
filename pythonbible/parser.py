@@ -135,13 +135,11 @@ def normalize_reference(reference: str) -> list[NormalizedReference]:
 
 def _process_sub_references(book: Book, reference: str) -> list[NormalizedReference]:
     references: list[NormalizedReference] = []
-    start_chapter: int = 0
+    start_chapter: int | None = None
 
     for sub_reference in reference.split(COMMA):
         if (not sub_reference or sub_reference in {DASH, PERIOD}) and not references:
-            max_chapter: int = get_number_of_chapters(book)
-            max_verse: int = get_number_of_verses(book, max_chapter)
-            references.append(NormalizedReference(book, 1, 1, max_chapter, max_verse))
+            references.append(NormalizedReference(book, None, None, None, None, book))
             continue
 
         start_chapter, start_verse, end_chapter, end_verse = _process_sub_reference(
@@ -156,6 +154,7 @@ def _process_sub_references(book: Book, reference: str) -> list[NormalizedRefere
             start_verse,
             end_chapter,
             end_verse,
+            book,
         )
 
         if is_valid_reference(new_reference):
@@ -169,11 +168,11 @@ def _process_sub_references(book: Book, reference: str) -> list[NormalizedRefere
 def _process_sub_reference(
     sub_reference: str,
     book: Book,
-    start_chapter: int,
-) -> tuple[int, int, int, int]:
-    start_verse: int = 0
-    end_chapter: int = start_chapter
-    end_verse: int = start_verse
+    start_chapter: int | None,
+) -> tuple[int | None, int | None, int | None, int | None]:
+    start_verse: int | None = None
+    end_chapter: int | None = None
+    end_verse: int | None = None
     no_verses: bool = False
 
     clean_sub_reference: str = sub_reference.replace(PERIOD, COLON)
@@ -181,26 +180,17 @@ def _process_sub_reference(
     min_chapter_and_verse: list[str] = chapter_and_verse_range[0].strip().split(COLON)
 
     if len(min_chapter_and_verse) == 1:
-        if start_chapter > 0:
+        if start_chapter:
             start_verse = int(min_chapter_and_verse[0].strip())
-            end_chapter = start_chapter
-            end_verse = start_verse
         elif is_single_chapter_book(book):
             start_chapter = 1
             start_verse = int(min_chapter_and_verse[0].strip())
-            end_chapter = 1
-            end_verse = start_verse
         else:
             start_chapter = int(min_chapter_and_verse[0].strip())
-            start_verse = 1
-            end_chapter = start_chapter
-            end_verse = get_number_of_verses(book, end_chapter)
             no_verses = True
     elif len(min_chapter_and_verse) == 2:
         start_chapter = int(min_chapter_and_verse[0].strip())
-        end_chapter = start_chapter
         start_verse = int(min_chapter_and_verse[1].strip())
-        end_verse = start_verse
 
     if len(chapter_and_verse_range) > 1:
         max_chapter_and_verse = chapter_and_verse_range[1].split(COLON)
@@ -208,12 +198,15 @@ def _process_sub_reference(
         if len(max_chapter_and_verse) == 1:
             if no_verses:
                 end_chapter = int(max_chapter_and_verse[0].strip())
-                end_verse = get_number_of_verses(book, end_chapter)
             else:
+                end_chapter = start_chapter
                 end_verse = int(max_chapter_and_verse[0].strip())
         elif len(max_chapter_and_verse) == 2:
             end_chapter = int(max_chapter_and_verse[0].strip())
             end_verse = int(max_chapter_and_verse[1].strip())
+
+    end_chapter = end_chapter or start_chapter
+    end_verse = end_verse or start_verse
 
     return start_chapter, start_verse, end_chapter, end_verse
 

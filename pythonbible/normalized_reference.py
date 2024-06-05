@@ -29,8 +29,8 @@ class NormalizedReference:
     """
 
     book: Book
-    start_chapter: int
-    start_verse: int
-    end_chapter: int
-    end_verse: int
+    start_chapter: int | None = None
+    start_verse: int | None = None
+    end_chapter: int | None = None
+    end_verse: int | None = None
     end_book: Book | None = None

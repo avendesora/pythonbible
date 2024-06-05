@@ -38,13 +38,15 @@ def _get_number_of_chapters_in_references(references: list[NormalizedReference])
 
 
 def _get_number_of_chapters_in_reference(reference: NormalizedReference) -> int:
+    # TODO - require a Version, since the number of chapters can vary by version
+    start_chapter = reference.start_chapter or 1
+
     if not reference.end_book or reference.book == reference.end_book:
-        return reference.end_chapter - reference.start_chapter + 1
+        end_chapter = reference.end_chapter or get_number_of_chapters(reference.book)
+        return end_chapter - start_chapter + 1
 
     # Start book chapters
-    number_of_chapters: int = (
-        get_number_of_chapters(reference.book) - reference.start_chapter + 1
-    )
+    number_of_chapters: int = get_number_of_chapters(reference.book) - start_chapter + 1
 
     # Middle book(s) chapters
     number_of_chapters += sum(
@@ -56,6 +58,7 @@ def _get_number_of_chapters_in_reference(reference: NormalizedReference) -> int:
     )
 
     # End book chapters
-    number_of_chapters += reference.end_chapter
+    end_chapter = reference.end_chapter or get_number_of_chapters(reference.end_book)
+    number_of_chapters += end_chapter
 
     return number_of_chapters

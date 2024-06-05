@@ -7,9 +7,42 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Added several new English version/translation Bibles:
+  - American King James Version (AKJV)
+  - Bible in Basic English (BBE)
+  - Bible in Worldwide English NT (BWE)
+  - Darby (DAR)
+  - Diaglot NT - 1865 (DIAGLOT)
+  - Douay-Rheims (DR)
+  - The Emphasized Bible by J. B. Rotherham (ROTHERHAM)
+  - Geneva Bible (GB)
+  - Leeser Old Testament (LEESER)
+  - Living Oracles NT (LONT)
+  - Modern KJV 1963 (MKJV1963)
+  - Montgomery New Testament (MONT)
+  - New Heart English Bible (NHEB)
+  - Open English Bible (OEB)
+  - The Peschito Syriac New Testament (ETHERIDGE)
+  - Revised 1833 Webster Version (RWEBSTER)
+  - Revised Young's Literal Translation NT (RYLT)
+  - Updated King James Version (UKJV)
+  - Webster (WBS)
+  - Wesley's New Testament (WESLEY)
+  - Weymouth NT (WMTH)
+  - Willam Tyndale Bible (TYN)
+  - World English Bible (WEB)
+  - Wycliffe Bible (WYC)
+  - Young's Literal Translation of the Bible (YLT)
+- Added functionality to the Bible class to be able to get the books, chapter numbers, and verse numbers for the given version/translation.
+
 ### Changed
 
 - Modified the header image url to be an absolute url so that it hopefully shows up in PyPI correctly.
+- **BREAKING CHANGE**: Modified the NormalizedReference class to allow start chapter, start verse, end chapter, and end verse to be None.
+  - The parser has also been updated to set those values to None unless they are explicitly set in the reference string. As we added more version/translation Bible texts, we realized the differences in chapter and verse numbers between versions/translations was much greater than initially assumed. This change allows for more flexibility in handling those differences.
+  - The formatter has also been updated to get the appropriate start chapter, start verse, end chapter, and end verse at format time rather than parse time.
 
 ## [0.13.1] - 2024-05-21
 
@@ -17,7 +50,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Modified max verses dictionary with chapter/verse info from multiple versions/translations.
 
-## [0.13.0] = 2024-05-21
+## [0.13.0] - 2024-05-21
 
 ### Added
 
