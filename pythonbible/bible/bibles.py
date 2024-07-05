@@ -14,6 +14,12 @@ import pythonbible.bible.kjv.html_readers as kjv_html_readers
 import pythonbible.bible.kjv.plain_text as kjv_plain_text
 import pythonbible.bible.kjv.plain_text_notes as kjv_plain_text_notes
 import pythonbible.bible.kjv.plain_text_readers as kjv_plain_text_readers
+import pythonbible.bible.web.html as web_html
+import pythonbible.bible.web.html_notes as web_html_notes
+import pythonbible.bible.web.html_readers as web_html_readers
+import pythonbible.bible.web.plain_text as web_plain_text
+import pythonbible.bible.web.plain_text_notes as web_plain_text_notes
+import pythonbible.bible.web.plain_text_readers as web_plain_text_readers
 from pythonbible.errors import MissingVerseFileError
 from pythonbible.versions import Version
 
@@ -36,6 +42,14 @@ BIBLES = {
         "plain_text": kjv_plain_text.bible,
         "plain_text_notes": kjv_plain_text_notes.bible,
         "plain_text_readers": kjv_plain_text_readers.bible,
+    },
+    Version.WORLD_ENGLISH: {
+        "html": web_html.bible,
+        "html_notes": web_html_notes.bible,
+        "html_readers": web_html_readers.bible,
+        "plain_text": web_plain_text.bible,
+        "plain_text_notes": web_plain_text_notes.bible,
+        "plain_text_readers": web_plain_text_readers.bible,
     },
 }
 
