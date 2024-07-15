@@ -28,19 +28,19 @@ repos:
   - id: sort-simple-yaml
   - id: trailing-whitespace
 - repo: https://github.com/astral-sh/ruff-pre-commit
-  rev: v0.4.7
+  rev: v0.5.2
   hooks:
   - id: ruff
     args: [--fix, --exit-non-zero-on-fix]
   - id: ruff-format
 - repo: https://github.com/pre-commit/mirrors-mypy
-  rev: v1.10.0
+  rev: v1.10.1
   hooks:
   - id: mypy
     args: ["--config-file", "pyproject.toml", "--ignore-missing-imports"]
     #args: [--strict, --ignore-missing-imports]
 - repo: https://github.com/sourcery-ai/sourcery
-  rev: v1.18.0
+  rev: v1.21.0
   hooks:
   - id: sourcery
     # The best way to use Sourcery in a pre-commit hook:
