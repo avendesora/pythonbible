@@ -8,9 +8,14 @@ references as human-readable strings.
 
 from __future__ import annotations
 
-__version__ = "0.13.1"
+__version__ = "0.14.0"
 
+from .bible import add_bible
+from .bible import get_bible
+from .bible import get_long_title
+from .bible import get_short_title
 from .bible.bible import Bible
+from .bible.errors import VersionMissingVerseError
 from .book_groups import BOOK_GROUPS
 from .book_groups import BookGroup
 from .books import Book
@@ -26,11 +31,9 @@ from .errors import InvalidChapterError
 from .errors import InvalidVerseError
 from .errors import MissingBookFileError
 from .errors import MissingVerseFileError
-from .errors import VersionMissingVerseError
 from .formatter import format_scripture_references
 from .formatter import format_scripture_text
 from .formatter import format_single_reference
-from .formatter import get_book_titles
 from .formatter import get_verse_text
 from .normalized_reference import NormalizedReference
 from .parser import get_references

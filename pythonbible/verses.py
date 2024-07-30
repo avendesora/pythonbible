@@ -1195,6 +1195,7 @@ def get_number_of_verses(book: Book, chapter: int) -> int:
     :raises InvalidChapterError: if the given chapter isn't a valid chapter for the
                                  given book
     """
+    # TODO - require a version parameter since verse count differs by version
     chapter_list: list[int] = MAX_VERSE_NUMBER_BY_BOOK_AND_CHAPTER[book]
 
     try:

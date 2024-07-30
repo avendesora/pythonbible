@@ -58,19 +58,3 @@ class MissingVerseFileError(Exception):
 
 class MissingBookFileError(Exception):
     """Raised when the book file for a given version is not found."""
-
-
-class VersionMissingVerseError(Exception):
-    """Raised when the verse for a given version is missing from the version."""
-
-    def __init__(
-        self: VersionMissingVerseError,
-        version: str,
-        verse_id: int,
-    ) -> None:
-        """Initialize VersionMissingVerseError.
-
-        :param version: version string
-        :param verse_id: verse id
-        """
-        super().__init__(f"{version} is missing verse {verse_id}.")

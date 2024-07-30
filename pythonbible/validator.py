@@ -4,6 +4,7 @@ from pythonbible.books import Book
 from pythonbible.normalized_reference import NormalizedReference
 from pythonbible.verses import MAX_VERSE_NUMBER_BY_BOOK_AND_CHAPTER
 from pythonbible.verses import VERSE_IDS
+from pythonbible.verses import get_number_of_chapters
 from pythonbible.verses import get_number_of_verses
 from pythonbible.verses import get_verse_id
 
@@ -32,25 +33,33 @@ def is_valid_reference(reference: NormalizedReference) -> bool:
     if reference is None or not isinstance(reference, NormalizedReference):
         return False
 
+    start_book: Book = reference.book
+    start_chapter: int = reference.start_chapter or 1
+    start_verse: int = reference.start_verse or 1
+
     if not is_valid_verse(
-        reference.book,
-        reference.start_chapter,
-        reference.start_verse,
+        start_book,
+        start_chapter,
+        start_verse,
     ):
         return False
 
-    if not is_valid_verse(reference.book, reference.end_chapter, reference.end_verse):
+    end_book: Book = reference.end_book or start_book
+    end_chapter: int = reference.end_chapter or get_number_of_chapters(end_book)
+    end_verse: int = reference.end_verse or get_number_of_verses(end_book, end_chapter)
+
+    if not is_valid_verse(end_book, end_chapter, end_verse):
         return False
 
     start_verse_id: int = get_verse_id(
-        reference.book,
-        reference.start_chapter,
-        reference.start_verse,
+        start_book,
+        start_chapter,
+        start_verse,
     )
     end_verse_id: int = get_verse_id(
-        reference.book,
-        reference.end_chapter,
-        reference.end_verse,
+        end_book,
+        end_chapter,
+        end_verse,
     )
 
     return start_verse_id <= end_verse_id

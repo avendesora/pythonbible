@@ -7,6 +7,8 @@ from pythonbible.normalized_reference import NormalizedReference
 from pythonbible.validator import is_valid_verse_id
 from pythonbible.verses import VERSE_IDS
 from pythonbible.verses import get_book_chapter_verse
+from pythonbible.verses import get_number_of_chapters
+from pythonbible.verses import get_number_of_verses
 from pythonbible.verses import get_verse_id
 
 if TYPE_CHECKING:
@@ -38,20 +40,27 @@ def convert_reference_to_verse_ids(reference: NormalizedReference) -> tuple[int,
     :return: The tuple of verse ids associated with the reference
     :rtype: tuple[int, ...]
     """
+    # TODO - require version since chapter and verse counts can differ by version
     if reference is None:
         return ()
 
-    end_book = reference.book if reference.end_book is None else reference.end_book
+    start_book: Book = reference.book
+    start_chapter: int = reference.start_chapter or 1
+    start_verse: int = reference.start_verse or 1
+
+    end_book: Book = reference.end_book or start_book
+    end_chapter: int = reference.end_chapter or get_number_of_chapters(end_book)
+    end_verse: int = reference.end_verse or get_number_of_verses(end_book, end_chapter)
 
     start_verse_id: int = get_verse_id(
-        reference.book,
-        reference.start_chapter,
-        reference.start_verse,
+        start_book,
+        start_chapter,
+        start_verse,
     )
     end_verse_id: int = get_verse_id(
         end_book,
-        reference.end_chapter,
-        reference.end_verse,
+        end_chapter,
+        end_verse,
     )
     return VERSE_IDS[
         VERSE_IDS.index(start_verse_id) : VERSE_IDS.index(end_verse_id) + 1
@@ -120,7 +129,7 @@ def convert_verse_ids_to_references(verse_ids: list[int]) -> list[NormalizedRefe
                 start_verse,
                 previous_chapter,
                 previous_verse,
-                None if start_book == previous_book else previous_book,
+                previous_book,
             ),
         )
 
@@ -140,7 +149,7 @@ def convert_verse_ids_to_references(verse_ids: list[int]) -> list[NormalizedRefe
             start_verse,
             previous_chapter,
             previous_verse,
-            None if start_book == previous_book else previous_book,
+            previous_book,
         ),
     )
 
