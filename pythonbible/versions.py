@@ -40,6 +40,7 @@ class Version(Enum):
     # Open Source or Public Domain English Translations
     AMERICAN_KING_JAMES = "AKJV", "American King James Version"
     AMERICAN_STANDARD = "ASV", "American Standard Version"
+    BEREAN_STANDARD = "BSB", "Berean Standard Bible"
     BIBLE_IN_BASIC_ENGLISH = "BBE", "Bible in Basic English"
     WORLWIDE_ENGLISH = "BWE", "Bible in WorldWide English NT"
     DARBY = "DAR", "Darby"
