@@ -1,8 +1,7 @@
 from __future__ import annotations
 
 from enum import Enum
-from typing import Any
-from typing import Type
+from typing import Any, Type
 
 
 # This comes from crosswire.org "Standard OSIS Codes for Bible Editions"
@@ -181,4 +180,4 @@ class Version(Enum):
     YES_WORD = "YES", "Yes Word"
 
 
-DEFAULT_VERSION: Version = Version.AMERICAN_STANDARD
+DEFAULT_VERSION: Version = Version.BEREAN_STANDARD
