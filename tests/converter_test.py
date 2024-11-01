@@ -144,7 +144,14 @@ def test_whole_book() -> None:
 
     # Then it should return the normalized reference for the entire book.
     assert len(references) == 1
-    assert references[0] == bible.NormalizedReference(bible.Book.GENESIS, 1, 1, 50, 26)
+    assert references[0] == bible.NormalizedReference(
+        bible.Book.GENESIS,
+        None,
+        None,
+        None,
+        None,
+        bible.Book.GENESIS,
+    )
 
 
 def test_cross_book() -> None:
