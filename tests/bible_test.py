@@ -5,6 +5,9 @@ import pytest
 import pythonbible as bible
 from pythonbible.bible.asv.html import bible as asv_html_bible
 from pythonbible.bible.asv.html_readers import bible as asv_html_readers_bible
+from pythonbible.bible.bsb.html_readers import bible as bsb_html_readers_bible
+from pythonbible.bible.kjv.html_readers import bible as kjv_html_readers_bible
+from pythonbible.bible.web.html_readers import bible as web_html_readers_bible
 
 
 def test_get_scripture_end_verse_invalid() -> None:
@@ -35,6 +38,12 @@ def test_get_scripture_cross_book() -> None:
 
 def test_get_scripture_missing_verse_in_version() -> None:
     scripture = asv_html_readers_bible.get_scripture(40017021, 40017021)
+    assert not scripture
+    scripture = bsb_html_readers_bible.get_scripture(40017021, 40017021)
+    assert not scripture
+    scripture = kjv_html_readers_bible.get_scripture(40017021, 40017021)
+    assert not scripture
+    scripture = web_html_readers_bible.get_scripture(40017021, 40017021)
     assert not scripture
 
 
