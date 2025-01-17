@@ -92,6 +92,7 @@ ignore = [
 ]
 
 [tool.ruff.lint.per-file-ignores]
+"docs/source/_static/pythonbible-book-groups.ipynb" = ["E501", "T201"]
 "docs/source/conf.py" = ["A001", "E501"]
 "pythonbible/__init__.py" = ["F401"]
 "pythonbible/bible/bible.py" = ["PLR0913", "FBT"]
@@ -101,8 +102,8 @@ ignore = [
 "pythonbible/counters/chapter_counter.py" = ["TCH001"]
 "pythonbible/counters/verse_counter.py" = ["TCH001"]
 "pythonbible/errors.py" = ["PLR0913"]
-"pythonbible/formatter.py" = ["ANN401", "FBT", "PLR0911"]
-"pythonbible/parser.py" = ["PLR2004"]
+"pythonbible/formatter.py" = ["A005", "ANN401", "FBT", "PLR0911"]
+"pythonbible/parser.py" = ["A005", "PLR2004"]
 "pythonbible/roman_numeral_util.py" = ["E741"]
 "pythonbible/versions.py" = ["ARG003", "PYI034"]
 "tests/*.py" = ["D100", "D103", "D104", "PLR2004", "S101", "TRY301"]
