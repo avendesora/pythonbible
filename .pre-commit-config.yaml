@@ -40,7 +40,7 @@ repos:
     args: ["--config-file", "pyproject.toml", "--ignore-missing-imports"]
     #args: [--strict, --ignore-missing-imports]
 - repo: https://github.com/sourcery-ai/sourcery
-  rev: v1.33.0
+  rev: v1.34.0
   hooks:
   - id: sourcery
     # The best way to use Sourcery in a pre-commit hook:
