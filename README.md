@@ -33,7 +33,7 @@ The pythonbible library serves several purposes related to the Christian Bible a
     </tr>
     <tr>
         <td>Supported Python Versions</td>
-        <td><a href="https://www.python.org/downloads/"><img src="https://img.shields.io/badge/python-3.8%20%7C%203.9%20%7C%203.10%20%7C%203.11%20%7C%203.12-blue?logo=python&logoColor=lightgray"></a></td>
+        <td><a href="https://www.python.org/downloads/"><img src="https://img.shields.io/badge/python-3.8%20%7C%203.9%20%7C%203.10%20%7C%203.11%20%7C%203.12%20%7C%203.13-blue?logo=python&logoColor=lightgray"></a></td>
     </tr>
 </table>
 

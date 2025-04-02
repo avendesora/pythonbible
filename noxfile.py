@@ -6,7 +6,7 @@ PYTEST = "pytest"
 COVERAGE = "coverage"
 
 
-@nox.session(python=["3.8", "3.9", "3.10", "3.11", "3.12"])
+@nox.session(python=["3.8", "3.9", "3.10", "3.11", "3.12", "3.13"])
 def tests(session: nox.Session) -> None:
     session.install(PYTEST)
     session.run(PYTEST)
