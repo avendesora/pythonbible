@@ -27,6 +27,8 @@ class Bible:
     verse_start_indices: dict[int, int]
     verse_end_indices: dict[int, int]
     max_verses: dict[Book, dict[int, int]]
+    short_titles: dict[Book, str]
+    long_titles: dict[Book, str]
     is_html: bool
 
     def __init__(
@@ -36,6 +38,8 @@ class Bible:
         verse_start_indices: dict[int, int],
         verse_end_indices: dict[int, int],
         max_verses: dict[Book, dict[int, int]],
+        short_titles: dict[Book, str],
+        long_titles: dict[Book, str],
         is_html: bool = False,
     ) -> None:
         """Initialize a Bible object.
@@ -45,6 +49,8 @@ class Bible:
         :param verse_start_indices: The start indices for each verse.
         :param verse_end_indices: The end indices for each verse.
         :param max_verses: The maximum verses for each book and chapter.
+        :param short_titles: The short titles for each book.
+        :param long_titles: The long titles for each book.
         :param is_html: Whether the scripture content is HTML.
         """
         self.version = version
@@ -52,6 +58,8 @@ class Bible:
         self.verse_start_indices = verse_start_indices
         self.verse_end_indices = verse_end_indices
         self.max_verses = max_verses
+        self.short_titles = short_titles
+        self.long_titles = long_titles
         self.is_html = is_html
 
     def get_scripture(

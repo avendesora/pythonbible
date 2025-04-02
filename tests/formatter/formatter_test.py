@@ -231,34 +231,6 @@ def test_verse_text_caching() -> None:
     assert first_verses == second_verses
 
 
-def test_get_book_titles(
-    book: bible.Book,
-    long_book_title: str,
-    short_book_title: str,
-) -> None:
-    # Given a book
-    # When we get the book titles for that book
-    version: bible.Version = bible.Version.KING_JAMES
-    long_title = bible.get_long_title(version, book)
-    short_title = bible.get_short_title(version, book)
-
-    # Then the long and short book titles match what is expected.
-    assert long_title == long_book_title
-    assert short_title == short_book_title
-
-
-def test_get_book_titles_version_missing(book: bible.Book) -> None:
-    # Given a book
-    # When we get the book titles for that book in a version that is missing
-    # Then the default book title for that book is returned.
-    version = bible.Version.MESSAGE
-    long_title = bible.get_long_title(version, book)
-    short_title = bible.get_short_title(version, book)
-
-    assert long_title == book.title
-    assert short_title == book.title
-
-
 def test_format_scripture_references_multiple_book_range() -> None:
     # Given a reference that spans multiple books
     references: list[bible.NormalizedReference] = bible.get_references(

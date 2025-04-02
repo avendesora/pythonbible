@@ -12,8 +12,6 @@ __version__ = "0.14.0"
 
 from .bible import add_bible
 from .bible import get_bible
-from .bible import get_long_title
-from .bible import get_short_title
 from .bible.bible import Bible
 from .bible.errors import VersionMissingVerseError
 from .book_groups import BOOK_GROUPS

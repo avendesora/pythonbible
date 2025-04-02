@@ -8,15 +8,12 @@ from pythonbible.errors import MissingVerseFileError
 
 if TYPE_CHECKING:
     from pythonbible.bible.bible import Bible
-    from pythonbible.books import Book
     from pythonbible.versions import Version
 
 
 CURRENT_FOLDER = Path(__file__).parent
 
 BIBLES: dict[Version, dict[str, Bible]] = {}
-SHORT_TITLES: dict[Version, dict[Book, str]] = {}
-LONG_TITLES: dict[Version, dict[Book, str]] = {}
 
 
 def get_bible(version: Version, bible_type: str) -> Bible:
@@ -70,61 +67,6 @@ def add_bible(version: Version, bible_type: str, version_bible: Bible) -> None:
         BIBLES[version] = {}
 
     BIBLES[version][bible_type] = version_bible
-
-
-def get_short_title(version: Version, book: Book) -> str:
-    """Return the short title for the given book and version.
-
-    :param version: The version of the Bible
-    :type version: Version
-    :param book: The book of the Bible
-    :type book: Book
-    :return: The short title for the given book and version
-    :rtype: str
-    """
-    version_short_titles = SHORT_TITLES.get(version, {})
-
-    if not version_short_titles:
-        # Lazy-loading of Bible files to conserve memory
-        if not _do_version_files_exist(version):
-            return book.title
-
-        version_module = import_module(
-            f".{version.value.lower()}",
-            "pythonbible.bible.versions",
-        )
-        version_short_titles = version_module.SHORT_TITLES
-        return version_short_titles.get(book, book.title)
-
-    return version_short_titles.get(book, book.title)
-
-
-def get_long_title(version: Version, book: Book) -> str:
-    """Return the long title for the given book and version.
-
-    :param version: The version of the Bible
-    :type version: Version
-    :param book: The book of the Bible
-    :type book: Book
-    :return: The long title for the given book and version
-    :rtype: str
-    """
-    # Lazy-loading of Bible files to conserve memory
-    version_long_titles = LONG_TITLES.get(version, {})
-
-    if not version_long_titles:
-        # Lazy-loading of Bible files to conserve memory
-        if not _do_version_files_exist(version):
-            return book.title
-
-        version_module = import_module(
-            f".{version.value.lower()}",
-            "pythonbible.bible.versions",
-        )
-        version_long_titles = version_module.LONG_TITLES
-        return version_long_titles.get(book, book.title)
-
-    return version_long_titles.get(book, book.title)
 
 
 def _do_version_files_exist(version: Version) -> bool:

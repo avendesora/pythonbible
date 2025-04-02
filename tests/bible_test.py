@@ -68,6 +68,9 @@ def test_add_bible() -> None:
         {1: 1},
         {1: 1},
         {bible.Book.GENESIS: {1: 1}},
+        {bible.Book.GENESIS: "Genesis"},
+        {bible.Book.GENESIS: "Genesis"},
+        False,
     )
 
     # When adding the Bible instance to the Bible class
@@ -83,7 +86,8 @@ def test_get_long_title_init_version() -> None:
     book = bible.Book.MATTHEW
 
     # When getting the long title for the book
-    long_title = bible.get_long_title(version, book)
+    version_bible = bible.get_bible(version, "plain_text")
+    long_title = version_bible.long_titles.get(book)
 
     # Then the version is initialized and the long title is returned
     assert long_title == book.title

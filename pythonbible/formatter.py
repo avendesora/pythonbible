@@ -5,11 +5,10 @@ from typing import TYPE_CHECKING
 from typing import Any
 
 from pythonbible.bible import get_bible
-from pythonbible.bible import get_long_title
-from pythonbible.bible import get_short_title
 from pythonbible.converter import convert_references_to_verse_ids
 from pythonbible.converter import convert_verse_ids_to_references
 from pythonbible.errors import MissingBookFileError
+from pythonbible.errors import MissingVerseFileError
 from pythonbible.verses import get_book_chapter_verse
 from pythonbible.verses import get_number_of_chapters
 from pythonbible.verses import get_number_of_verses
@@ -125,10 +124,13 @@ def format_single_reference(
     :return: A human-readable string of the given normalized scripture reference
     :rtype: str
     """
-    start_book: str = _get_start_book(reference, include_books, **kwargs)
+    version: Version = kwargs.get("version", DEFAULT_VERSION)
+    full_title: bool = kwargs.get("full_title", False)
+
+    start_book: str = _get_start_book(reference, version, full_title, include_books)
     start_chapter: str = _get_start_chapter(reference, include_chapters, **kwargs)
     start_verse: str = _get_start_verse(reference, **kwargs)
-    end_book: str = _get_end_book(reference, include_books, **kwargs)
+    end_book: str = _get_end_book(reference, version, full_title, include_books)
     end_chapter: str = _get_end_chapter(reference, include_chapters, **kwargs)
     end_verse: str = _get_end_verse(reference, **kwargs)
 
@@ -158,33 +160,43 @@ def format_single_reference(
 
 def _get_start_book(
     reference: NormalizedReference,
+    version: Version,
+    full_title: bool,
     include_books: bool = True,
-    **kwargs: Any,
 ) -> str:
-    return _get_book_title(reference.book, include_books, **kwargs)
+    return _get_book_title(reference.book, version, full_title, include_books)
 
 
 def _get_end_book(
     reference: NormalizedReference,
+    version: Version,
+    full_title: bool,
     include_books: bool = True,
-    **kwargs: Any,
 ) -> str:
     if reference.end_book and reference.end_book != reference.book:
-        return _get_book_title(reference.end_book, include_books, **kwargs)
+        return _get_book_title(reference.end_book, version, full_title, include_books)
 
     return ""
 
 
-def _get_book_title(book: Book, include_books: bool = True, **kwargs: Any) -> str:
+def _get_book_title(
+    book: Book,
+    version: Version,
+    full_title: bool,
+    include_books: bool = True,
+) -> str:
     if not include_books:
         return ""
 
-    version: Version = kwargs.get("version", DEFAULT_VERSION)
-    full_title: bool = kwargs.get("full_title", False)
-
-    return (
-        get_long_title(version, book) if full_title else get_short_title(version, book)
-    )
+    try:
+        bible: Bible = get_bible(version, "plain_text")
+        return (
+            bible.long_titles.get(book, book.title)
+            if full_title
+            else bible.short_titles.get(book, book.title)
+        )
+    except MissingVerseFileError:
+        return book.title
 
 
 def _is_single_chapter_book(book: Book, **kwargs: Any) -> bool:
@@ -422,6 +434,7 @@ def format_scripture_text(verse_ids: list[int], **kwargs: Any) -> str:
     one_verse_per_paragraph: bool = kwargs.get("one_verse_per_paragraph", False)
     full_title: bool = kwargs.get("full_title", False)
     format_type: str = kwargs.get("format_type", "html")
+    include_books: bool = kwargs.get("include_books", True)
     include_verse_numbers: bool = kwargs.get("include_verse_numbers", True)
     version: Version = kwargs.get("version", DEFAULT_VERSION)
 
@@ -461,9 +474,9 @@ def format_scripture_text(verse_ids: list[int], **kwargs: Any) -> str:
             current_book = book
             current_chapter = chapter_number
             title: str = (
-                get_long_title(version, book)
+                bible.long_titles.get(book, book.title)
                 if full_title
-                else get_short_title(version, book)
+                else bible.short_titles.get(book, book.title)
             )
             text += _format_title(title, is_html, not text)
             text += _format_chapter(chapter_number, is_html)
