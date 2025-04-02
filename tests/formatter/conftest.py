@@ -3,12 +3,12 @@ from __future__ import annotations
 import pytest
 
 
-@pytest.fixture()
+@pytest.fixture
 def formatted_reference() -> str:
     return "Psalms 130:4,8;Jeremiah 29:32-30:10,31:12;Matthew 1:18-2:18;Luke 3:5-7"
 
 
-@pytest.fixture()
+@pytest.fixture
 def html_scripture_text() -> str:
     return (
         "<h1>Matthew</h1>\n"
@@ -34,7 +34,7 @@ def html_scripture_text() -> str:
     )
 
 
-@pytest.fixture()
+@pytest.fixture
 def non_html_scripture_text() -> str:
     return (
         "Matthew\n"
@@ -65,7 +65,7 @@ def non_html_scripture_text() -> str:
     )
 
 
-@pytest.fixture()
+@pytest.fixture
 def non_html_scripture_text_readers() -> str:
     return (
         "Matthew\n"
@@ -95,7 +95,7 @@ def non_html_scripture_text_readers() -> str:
     )
 
 
-@pytest.fixture()
+@pytest.fixture
 def html_scripture_text_one_verse_per_paragraph() -> str:
     return (
         "<h1>Matthew</h1>\n"
@@ -115,7 +115,7 @@ def html_scripture_text_one_verse_per_paragraph() -> str:
     )
 
 
-@pytest.fixture()
+@pytest.fixture
 def non_html_scripture_text_one_verse_per_paragraph() -> str:
     return (
         "Matthew\n"
@@ -149,22 +149,22 @@ def non_html_scripture_text_one_verse_per_paragraph() -> str:
     )
 
 
-@pytest.fixture()
+@pytest.fixture
 def verse_text_no_verse_number() -> str:
     return "In the beginning God created the heaven and the earth."
 
 
-@pytest.fixture()
+@pytest.fixture
 def long_book_title() -> str:
     return "The First Book of Moses, called Genesis"
 
 
-@pytest.fixture()
+@pytest.fixture
 def short_book_title() -> str:
     return "Genesis"
 
 
-@pytest.fixture()
+@pytest.fixture
 def verse_ids_multiple_chapters() -> list[int]:
     return [
         40018012,

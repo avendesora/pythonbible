@@ -5,12 +5,12 @@ import pytest
 import pythonbible as bible
 
 
-@pytest.fixture()
+@pytest.fixture
 def text_with_reference() -> str:
     return "The parable of the lost sheep is told in Matthew 18:12-14 and Luke 15:3-7."
 
 
-@pytest.fixture()
+@pytest.fixture
 def text_with_reference_complex() -> str:
     return (
         "You should read Psalm 130:4,8, Jeremiah 29:32-30:10,31:12, "
@@ -18,22 +18,22 @@ def text_with_reference_complex() -> str:
     )
 
 
-@pytest.fixture()
+@pytest.fixture
 def non_normalized_reference() -> str:
     return "Matthew 18:12-14"
 
 
-@pytest.fixture()
+@pytest.fixture
 def reference_without_verse_numbers() -> str:
     return "Exodus 20"
 
 
-@pytest.fixture()
+@pytest.fixture
 def reference_range_without_verse_numbers() -> str:
     return "Genesis 1-4"
 
 
-@pytest.fixture()
+@pytest.fixture
 def roman_numeral_references() -> str:
     return (
         "Psalm cxxx.4,8, Jeremiah xxix. 32 - xxx. 10, xxxi. 12, "
@@ -41,7 +41,7 @@ def roman_numeral_references() -> str:
     )
 
 
-@pytest.fixture()
+@pytest.fixture
 def book_alternative_names() -> dict[bible.Book, list[str]]:
     return {
         bible.Book.GENESIS: [
@@ -542,7 +542,7 @@ def book_alternative_names() -> dict[bible.Book, list[str]]:
     }
 
 
-@pytest.fixture()
+@pytest.fixture
 def book_alternative_names_verbum() -> dict[bible.Book, list[str]]:
     """Return the abbreviations supported by verbum.
 
