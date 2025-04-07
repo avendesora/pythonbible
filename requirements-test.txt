@@ -1,2 +1,2 @@
 nox==2025.2.9
-pytest-cov==6.1.0
+pytest-cov==6.1.1
