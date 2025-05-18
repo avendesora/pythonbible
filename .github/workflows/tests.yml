@@ -23,7 +23,7 @@ jobs:
           ]
     steps:
       - uses: actions/checkout@v4
-      - uses: wntrblm/nox@2025.02.09
+      - uses: wntrblm/nox@2025.05.01
         with:
           python-versions: "3.8, 3.9, 3.10, 3.11, 3.12, 3.13"
       - name: Test with NOX
