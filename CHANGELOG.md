@@ -7,9 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Added Python 3.14 to the list of supported Python versions.
+
 ### Changed
 
 - Modified the header image url to be an absolute url so that it hopefully shows up in PyPI correctly.
+
+### Removed
+
+- Removed Python 3.8 from the list of supported Python versions.
 
 ## [0.13.1] - 2024-05-21
 
