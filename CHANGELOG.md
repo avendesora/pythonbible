@@ -14,6 +14,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Modified the header image url to be an absolute url so that it hopefully shows up in PyPI correctly.
+- Switched package build and publish tool from flit to uv.
+- Updated GitHub Actions workflow to use uv for building and publishing to PyPI.
 
 ### Removed
 
