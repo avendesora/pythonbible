@@ -1,12 +1,24 @@
 [build-system]
-requires = ["flit_core >=2,<4"]
-build-backend = "flit_core.buildapi"
+requires = ["uv_build>=0.8.9,<0.9.0"]
+build-backend = "uv_build"
 
-[tool.flit.metadata]
-module = "pythonbible"
-author = "Nathan Patton"
-author-email = "npatton@gmail.com"
-home-page = "https://docs.python.bible"
+[tool.uv]
+default-groups = ["dev", "docs", "test"]
+
+[tool.uv.build-backend]
+module-root = ""
+module-name = "pythonbible"
+
+[project]
+name = "pythonbible"
+version = "0.14.0"
+description-file = "README.md"
+requires-python = ">=3.9"
+authors = [
+    { name = "Nathan Patton", email = "npatton@gmail.com" }
+]
+readme = "README.md"
+license = { text = "MIT" }
 classifiers = [
     "Intended Audience :: Information Technology",
     "Intended Audience :: Developers",
@@ -25,13 +37,24 @@ classifiers = [
     "Programming Language :: Python :: 3.14",
     "License :: OSI Approved :: MIT License"
 ]
-requires = []
-description-file = "README.md"
-requires-python = ">=3.9"
+urls = { Documentation = "https://docs.python.bible", Source = "https://github.com/avendesora/pythonbible" }
+dependencies = []
 
-[tool.flit.metadata.urls]
-Documentation = "https://docs.python.bible"
-Source = "https://github.com/avendesora/pythonbible"
+[dependency-groups]
+dev = [
+    "pre-commit==4.3.0",
+]
+docs = [
+    "furo>=2025.7.19",
+    "jupyter>=1.1.1",
+    "sphinx>=7.4.7",
+    "sphinx-copybutton>=0.5.2",
+    "sphinx-toolbox>=4.0.0",
+]
+test = [
+    "nox[uv]==2025.5.1",
+    "pytest-cov==6.2.1",
+]
 
 [tool.ruff.lint]
 select = [

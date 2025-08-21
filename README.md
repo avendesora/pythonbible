@@ -6,7 +6,7 @@ The pythonbible library serves several purposes related to the Christian Bible a
     <tr>
         <td>Latest Version</td>
         <td>
-            <a href="https://pypi.org/project/pythonbible/"><img src="https://img.shields.io/pypi/v/pythonbible?color=gold&logo=pypi&logoColor=lightgray"></a>
+            <a href="https://pypi.org/project/pythonbible/"><img src="https://img.shields.io/pypi/v/pythonbible?color=gold&logo=pypi&logoColor=lightgray"></a><br />
             <img src="https://img.shields.io/pypi/dm/pythonbible?color=gold">
         </td>
     </tr>
@@ -15,20 +15,20 @@ The pythonbible library serves several purposes related to the Christian Bible a
         <td><a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/license-MIT-orange.svg"></a></td>
     </tr>
     <tr>
-        <td>Tests</td>
+        <td>Workflows</td>
         <td>
-            <img src="https://github.com/avendesora/pythonbible/actions/workflows/tests.yml/badge.svg">
             <img src="https://github.com/avendesora/pythonbible/actions/workflows/python-package.yml/badge.svg"><br/>
-            <a href="https://www.codacy.com/gh/avendesora/pythonbible/dashboard?utm_source=github.com&utm_medium=referral&utm_content=avendesora/pythonbible&utm_campaign=Badge_Coverage"><img src="https://app.codacy.com/project/badge/Coverage/dc1333c64b434f7bb813d08750462921"></a>
+            <img src="https://github.com/avendesora/pythonbible/workflows/CodeQL/badge.svg"><br />
+            <img src="https://github.com/avendesora/pythonbible/actions/workflows/tests.yml/badge.svg">
         </td>
     </tr>
     <tr>
         <td>Code Quality</td>
         <td>
-            <img src="https://github.com/avendesora/pythonbible/workflows/CodeQL/badge.svg">
             <a href="https://www.codacy.com/gh/avendesora/pythonbible/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=avendesora/pythonbible&amp;utm_campaign=Badge_Grade"><img src="https://app.codacy.com/project/badge/Grade/dc1333c64b434f7bb813d08750462921"></a><br/>
-            <a href="https://results.pre-commit.ci/latest/github/avendesora/pythonbible/main"><img src="https://results.pre-commit.ci/badge/github/avendesora/pythonbible/main.svg"></a>
-            <a href="https://github.com/psf/black"><img src="https://img.shields.io/badge/code%20style-black-000000.svg"></a>
+            <a href="https://app.codacy.com/gh/avendesora/pythonbible/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_coverage"><img src="https://app.codacy.com/project/badge/Coverage/dc1333c64b434f7bb813d08750462921"></a><br />
+            <a href="https://results.pre-commit.ci/latest/github/avendesora/pythonbible/main"><img src="https://results.pre-commit.ci/badge/github/avendesora/pythonbible/main.svg"></a><br />
+            <a href="https://sourcery.ai"><img src="https://img.shields.io/badge/Sourcery-enabled-brightgreen"></a>
         </td>
     </tr>
     <tr>

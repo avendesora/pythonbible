@@ -1,5 +1,0 @@
-furo
-jupyter
-sphinx
-sphinx-copybutton
-sphinx-toolbox
