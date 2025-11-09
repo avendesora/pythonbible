@@ -1,2 +1,2 @@
-nox[uv]==2025.5.1
-pytest-cov==6.3.0
+nox[uv]==2025.10.14
+pytest-cov==7.0.0
