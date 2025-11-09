@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.14.0] - 2024-06-10
+
 ### Added
 
 - Added Python 3.14 to the list of supported Python versions.
@@ -20,6 +22,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Removed
 
 - Removed Python 3.8 from the list of supported Python versions.
+- Removed Python 3.9 from the list of supported Python versions.
 
 ## [0.13.1] - 2024-05-21
 
@@ -27,7 +30,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Modified max verses dictionary with chapter/verse info from multiple versions/translations.
 
-## [0.13.0] = 2024-05-21
+## [0.13.0] - 2024-05-21
 
 ### Added
 
@@ -151,7 +154,8 @@ The goal of this release was to address [Issue #90], and to make things related 
 
 ## [0.0.1] - 2020-10-08
 
-[unreleased]: https://github.com/avendesora/pythonbible/compare/v0.13.1...HEAD
+[unreleased]: https://github.com/avendesora/pythonbible/compare/v0.14.0...HEAD
+[0.14.0]: https://github.com/avendesora/pythonbible/compare/v0.13.1...v0.14.0
 [0.13.1]: https://github.com/avendesora/pythonbible/compare/v0.13.0...v0.13.1
 [0.13.0]: https://github.com/avendesora/pythonbible/compare/v0.12.0...v0.13.0
 [0.12.0]: https://github.com/avendesora/pythonbible/compare/v0.11.1...v0.12.0
