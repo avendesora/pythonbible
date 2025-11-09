@@ -13,7 +13,7 @@ module-name = "pythonbible"
 name = "pythonbible"
 version = "0.14.0"
 description-file = "README.md"
-requires-python = ">=3.9"
+requires-python = ">=3.10"
 authors = [
     { name = "Nathan Patton", email = "npatton@gmail.com" }
 ]
@@ -29,7 +29,6 @@ classifiers = [
     "Programming Language :: Python",
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3 :: Only",
-    "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
@@ -42,7 +41,7 @@ dependencies = []
 
 [dependency-groups]
 dev = [
-    "pre-commit==4.3.0",
+    "pre-commit>=4.3.0",
 ]
 docs = [
     "furo>=2025.7.19",
@@ -52,8 +51,8 @@ docs = [
     "sphinx-toolbox>=4.0.0",
 ]
 test = [
-    "nox[uv]==2025.5.1",
-    "pytest-cov==6.2.1",
+    "nox[uv]>=2025.10.14",
+    "pytest-cov>=7.0.0",
 ]
 
 [tool.ruff.lint]
