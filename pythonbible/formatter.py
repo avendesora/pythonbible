@@ -355,7 +355,7 @@ def format_scripture_text(verse_ids: list[int], **kwargs: Any) -> str:
     current_end_verse: int | None = None
 
     for verse_id in verse_ids:
-        book, chapter_number, verse_number = get_book_chapter_verse(verse_id)
+        book, chapter_number, _ = get_book_chapter_verse(verse_id)
 
         if (
             one_verse_per_paragraph
