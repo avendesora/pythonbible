@@ -18,7 +18,7 @@ authors = [
     { name = "Nathan Patton", email = "npatton@gmail.com" }
 ]
 readme = "README.md"
-license = { text = "MIT" }
+license = "MIT"
 classifiers = [
     "Intended Audience :: Information Technology",
     "Intended Audience :: Developers",

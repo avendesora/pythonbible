@@ -33,7 +33,16 @@ jobs:
           echo "tag=${TAG_NAME}  pyproject=${VERSION}"
           # Accept tags like v1.2.3 -> 1.2.3
           TAG_STRIPPED="${TAG_NAME#v}"
-          test "${VERSION}" = "${TAG_STRIPPED}"
+          if [ "${VERSION}" != "${TAG_STRIPPED}" ]; then
+            echo "::error::Version mismatch detected!"
+            echo "Release tag: ${TAG_NAME}"
+            echo "pyproject.toml version: ${VERSION}"
+            echo ""
+            echo "To fix:"
+            echo " - Ensure the release tag matches the version in pyproject.toml (e.g., tag 'v${VERSION}')"
+            echo " - If the tag is incorrect, delete and recreate the release with the correct tag."
+            exit 1
+          fi
 
       - name: Build distributions
         run: uv build --no-sources
