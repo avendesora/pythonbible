@@ -44,6 +44,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - The parser has also been updated to set those values to None unless they are explicitly set in the reference string. As we added more version/translation Bible texts, we realized the differences in chapter and verse numbers between versions/translations was much greater than initially assumed. This change allows for more flexibility in handling those differences.
   - The formatter has also been updated to get the appropriate start chapter, start verse, end chapter, and end verse at format time rather than parse time.
 
+## [0.14.0] - 2024-06-10
+
+### Added
+
+- Added Python 3.14 to the list of supported Python versions.
+
+### Changed
+
+- Modified the header image url to be an absolute url so that it hopefully shows up in PyPI correctly.
+- Switched package build and publish tool from flit to uv.
+- Updated GitHub Actions workflow to use uv for building and publishing to PyPI.
+
+### Removed
+
+- Removed Python 3.8 from the list of supported Python versions.
+- Removed Python 3.9 from the list of supported Python versions.
+
 ## [0.13.1] - 2024-05-21
 
 ### Changed
@@ -174,7 +191,8 @@ The goal of this release was to address [Issue #90], and to make things related 
 
 ## [0.0.1] - 2020-10-08
 
-[unreleased]: https://github.com/avendesora/pythonbible/compare/v0.13.1...HEAD
+[unreleased]: https://github.com/avendesora/pythonbible/compare/v0.14.0...HEAD
+[0.14.0]: https://github.com/avendesora/pythonbible/compare/v0.13.1...v0.14.0
 [0.13.1]: https://github.com/avendesora/pythonbible/compare/v0.13.0...v0.13.1
 [0.13.0]: https://github.com/avendesora/pythonbible/compare/v0.12.0...v0.13.0
 [0.12.0]: https://github.com/avendesora/pythonbible/compare/v0.11.1...v0.12.0

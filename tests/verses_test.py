@@ -42,7 +42,7 @@ def test_get_verse_id_invalid_verse(
     # When the get_verse_id() function is called, Then an exception is raised.
     with pytest.raises(
         bible.InvalidVerseError,
-        match="Genesis 1:100 is not a valid Bible verse. Valid verses for that book "
+        match=r"Genesis 1:100 is not a valid Bible verse. Valid verses for that book "
         "and chapter are 1-31",
     ):
         bible.verses.get_verse_id(book, chapter, invalid_verse)
@@ -91,7 +91,7 @@ def test_get_book_chapter_verse_invalid(invalid_verse_id: int) -> None:
     # Given an invalid verse id
     # When attempting to get the book, chapter, and verse
     # Then an error is raised.
-    with pytest.raises(bible.InvalidVerseError, match="1100100 is not a valid verse."):
+    with pytest.raises(bible.InvalidVerseError, match=r"1100100 is not a valid verse."):
         bible.get_book_chapter_verse(invalid_verse_id)
 
 
