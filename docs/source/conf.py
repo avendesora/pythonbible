@@ -19,12 +19,13 @@ sys.path.insert(0, pathlib.Path(__file__).parents[2].resolve().as_posix())
 # -- Project information -----------------------------------------------------
 
 project = "pythonbible"
-copyright = "2020-2025 Nathan Patton"
+start_year = 2020
+copyright = f"{start_year} Nathan Patton"
 author = "Nathan Patton"
 
 # The full version, including alpha/beta/rc tags
 release = "0.14.0"
-
+html_js_files = ["js/current-year.js"]
 
 # -- General configuration ---------------------------------------------------
 

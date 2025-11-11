@@ -1,0 +1,112 @@
+name: docs-publish
+
+on:
+  release:
+    types: [published]
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  build-and-deploy-docs:
+    runs-on: ubuntu-latest
+    environment: docs
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v7
+
+      - name: Ensure Python (uses your .python-version / requires-python)
+        run: uv python install
+
+      - name: Build Sphinx docs
+        working-directory: docs
+        run: make html
+
+      - name: Deploy docs to avendesora/pythonbible-docs
+        if: success()
+        env:
+          DOCS_DEPLOY_KEY: ${{ secrets.DOCS_DEPLOY_KEY }}
+        run: |
+          if [ -z "${DOCS_DEPLOY_KEY}" ]; then
+            echo "::error::DOCS_DEPLOY_KEY is not set. Add the private SSH key as the 'DOCS_DEPLOY_KEY' secret in the 'docs' environment."
+            exit 1
+          fi
+
+          # Configure SSH
+          mkdir -p ~/.ssh
+          umask 077
+          echo "Writing deploy key to ~/.ssh/id_rsa"
+          printf '%s' "${DOCS_DEPLOY_KEY}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          # Add GitHub's public host key to known_hosts to avoid interactive prompt
+          ssh-keyscan github.com >> ~/.ssh/known_hosts
+
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          TMPDIR=$(mktemp -d)
+          echo "Cloning target docs repo into ${TMPDIR} via SSH"
+          set -x
+          if ! git clone --depth=1 "git@github.com:avendesora/pythonbible-docs.git" "${TMPDIR}"; then
+            echo "Clone failed - creating an empty repo directory"
+            rm -rf "${TMPDIR}"
+            mkdir -p "${TMPDIR}"
+            cd "${TMPDIR}"
+            git init
+            git remote add origin "git@github.com:avendesora/pythonbible-docs.git"
+            # Create an initial empty main branch if none exists
+            touch .keep
+            git add .keep
+            git commit -m "chore: initialize repo for docs"
+            git push origin HEAD:main || true
+          fi
+
+          # Prepare a branch for the docs update, so we can merge it into main
+          cd "${TMPDIR}"
+          # Ensure we have the latest main
+          git fetch origin +refs/heads/main:refs/remotes/origin/main || true
+          if git show-ref --verify --quiet refs/heads/main; then
+            git checkout main
+            git reset --hard origin/main || true
+          else
+            # Create main branch tracking origin/main (or create new main)
+            git checkout -B main origin/main || git checkout -B main
+          fi
+
+          BRANCH="docs-update-$(date +%s)"
+          git checkout -b "${BRANCH}"
+
+          # Clean repository contents (but keep .git)
+          # Remove all tracked and untracked files except .git
+          git rm -rf . || true
+          find . -maxdepth 1 -mindepth 1 ! -name '.git' -exec rm -rf -- '{}' + || true
+
+          # Sync the built html into the repo working tree
+          # Use GITHUB_WORKSPACE to find the built docs reliably
+          rsync -av --delete --exclude '.git' "${GITHUB_WORKSPACE}/docs/build/html/" "${TMPDIR}/"
+
+          git add --all
+          COMMIT_MSG="Update docs for release ${GITHUB_REF#refs/tags/}"
+          git commit -m "${COMMIT_MSG}" || echo "No changes to commit"
+
+          # Push the docs branch and merge into main locally, then push main
+          git push origin "${BRANCH}":refs/heads/${BRANCH}
+
+          # Ensure main is up to date, then merge the docs branch
+          git checkout main
+          git pull --rebase origin main || true
+          git merge --no-ff "${BRANCH}" -m "Merge ${BRANCH} into main: ${COMMIT_MSG}" || true
+
+          # Push the updated main branch
+          git push origin main
+
+          # Optionally, delete the temporary branch on remote
+          git push origin --delete "${BRANCH}" || true
+
+          echo "Docs merged into avendesora/pythonbible-docs main branch via SSH"
