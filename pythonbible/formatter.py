@@ -410,6 +410,9 @@ def _does_reference_include_all_verses_in_end_book(
     reference: NormalizedReference,
     **kwargs: Any,
 ) -> bool:
+    if reference.start_chapter is None and reference.end_chapter is None:
+        return True
+
     end_book: Book = reference.end_book or reference.book
     max_chapters = _get_number_of_chapters(end_book, **kwargs)
 
@@ -434,7 +437,6 @@ def format_scripture_text(verse_ids: list[int], **kwargs: Any) -> str:
     one_verse_per_paragraph: bool = kwargs.get("one_verse_per_paragraph", False)
     full_title: bool = kwargs.get("full_title", False)
     format_type: str = kwargs.get("format_type", "html")
-    include_books: bool = kwargs.get("include_books", True)
     include_verse_numbers: bool = kwargs.get("include_verse_numbers", True)
     version: Version = kwargs.get("version", DEFAULT_VERSION)
 

@@ -155,16 +155,6 @@ def verse_text_no_verse_number() -> str:
 
 
 @pytest.fixture
-def long_book_title() -> str:
-    return "The First Book of Moses, called Genesis"
-
-
-@pytest.fixture
-def short_book_title() -> str:
-    return "Genesis"
-
-
-@pytest.fixture
 def verse_ids_multiple_chapters() -> list[int]:
     return [
         40018012,

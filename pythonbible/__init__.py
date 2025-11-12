@@ -8,7 +8,7 @@ references as human-readable strings.
 
 from __future__ import annotations
 
-__version__ = "0.14.0"
+__version__ = "0.15.0"
 
 from .bible import add_bible
 from .bible import get_bible
@@ -49,3 +49,89 @@ from .verses import get_number_of_verses
 from .verses import get_verse_id
 from .verses import get_verse_number
 from .versions import Version
+
+__all__ = [
+    "BOOK_GROUPS",
+    "Bible",
+    "Book",
+    "BookGroup",
+    "InvalidBibleParserError",
+    "InvalidBookError",
+    "InvalidChapterError",
+    "InvalidVerseError",
+    "MissingBookFileError",
+    "MissingVerseFileError",
+    "NormalizedReference",
+    "Version",
+    "VersionMissingVerseError",
+    "__version__",
+    "add_bible",
+    "convert_reference_to_verse_ids",
+    "convert_references_to_verse_ids",
+    "convert_verse_ids_to_references",
+    "count_books",
+    "count_chapters",
+    "count_verses",
+    "format_scripture_references",
+    "format_scripture_text",
+    "format_single_reference",
+    "get_bible",
+    "get_book_chapter_verse",
+    "get_book_number",
+    "get_chapter_number",
+    "get_number_of_chapters",
+    "get_number_of_verses",
+    "get_references",
+    "get_verse_id",
+    "get_verse_number",
+    "get_verse_text",
+    "is_valid_book",
+    "is_valid_chapter",
+    "is_valid_reference",
+    "is_valid_verse",
+    "is_valid_verse_id",
+    "normalize_reference",
+]
+# Reference the imported names so ruff/auto-fixes do not remove them as "unused".
+_ = (
+    add_bible,
+    get_bible,
+    Bible,
+    VersionMissingVerseError,
+    BOOK_GROUPS,
+    BookGroup,
+    Book,
+    convert_reference_to_verse_ids,
+    convert_references_to_verse_ids,
+    convert_verse_ids_to_references,
+    count_books,
+    count_chapters,
+    count_verses,
+    InvalidBibleParserError,
+    InvalidBookError,
+    InvalidChapterError,
+    InvalidVerseError,
+    MissingBookFileError,
+    MissingVerseFileError,
+    format_scripture_references,
+    format_scripture_text,
+    format_single_reference,
+    get_verse_text,
+    NormalizedReference,
+    get_references,
+    normalize_reference,
+    is_valid_book,
+    is_valid_chapter,
+    is_valid_reference,
+    is_valid_verse,
+    is_valid_verse_id,
+    get_book_chapter_verse,
+    get_book_number,
+    get_chapter_number,
+    get_number_of_chapters,
+    get_number_of_verses,
+    get_verse_id,
+    get_verse_number,
+    Version,
+    __version__,
+)

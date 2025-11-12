@@ -36,7 +36,7 @@ Example: Obadiah 1 vs Genesis 1
         start_verse=1,
         end_chapter=1,
         end_verse=1,
-        end_book=None
+        end_book=<Book.OBADIAH: 31>
     )
 
 If a reference like this was found for a non single chapter book, the number would be assumed to be a chapter number rather than a verse number.
@@ -56,7 +56,7 @@ If a reference like this was found for a non single chapter book, the number wou
         start_verse=1,
         end_chapter=1,
         end_verse=31,
-        end_book=None
+        end_book=<Book.GENESIS: 1>
     )
 
 Rather than being interpreted as Genesis 1:1, this would be interpreted as Genesis 1:1-31.
@@ -81,7 +81,7 @@ Example: Philemon 3-6 vs Genesis 3-6
         start_verse=3,
         end_chapter=1,
         end_verse=6,
-        end_book=None
+        end_book=<Book.PHILEMON: 57>
     )
 
 This is interpreted as Philemon 1:3-6. If a similar reference were encountered for a non single chapter book, both numbers would be assumed to be chapter numbers rather than verse numbers.
@@ -100,10 +100,10 @@ This is interpreted as Philemon 1:3-6. If a similar reference were encountered f
     NormalizedReference(
         book=<Book.GENESIS: 1>,
         start_chapter=3,
-        start_verse=1,
+        start_verse=None,
         end_chapter=6,
-        end_verse=22,
-        end_book=None
+        end_verse=None,
+        end_book=<Book.GENESIS: 1>
     )
 
 Rather than being interpreted as Genesis 1:3-6, this would be interpreted as Genesis 3:1-6:22.
@@ -205,7 +205,7 @@ For example, "Genesis - Deuteronomy" vs "Genesis;Exodus;Numbers;Leviticus;Deuter
     :execution-count: 1
 
     [
-        NormalizedReference(book=<Book.GENESIS: 1>, start_chapter=1, start_verse=1, end_chapter=34, end_verse=12, end_book=<Book.DEUTERONOMY: 5>),
+        NormalizedReference(book=<Book.GENESIS: 1>, start_chapter=None, start_verse=None, end_chapter=None, end_verse=None, end_book=<Book.DEUTERONOMY: 5>),
     ]
 
 If rather than using the range, the text specified each book of the Bible separated by a comma or semi-colon (or just about anything), then the result would be a list of five normalized references, one for each of the five books referenced.
@@ -219,11 +219,11 @@ If rather than using the range, the text specified each book of the Bible separa
     :execution-count: 2
 
     [
-        NormalizedReference(book=<Book.GENESIS: 1>, start_chapter=1, start_verse=1, end_chapter=50, end_verse=26, end_book=None),
-        NormalizedReference(book=<Book.EXODUS: 2>, start_chapter=1, start_verse=1, end_chapter=40, end_verse=38, end_book=None),
-        NormalizedReference(book=<Book.LEVITICUS: 3>, start_chapter=1, start_verse=1, end_chapter=27, end_verse=34, end_book=None),
-        NormalizedReference(book=<Book.NUMBERS: 4>, start_chapter=1, start_verse=1, end_chapter=36, end_verse=13, end_book=None),
-        NormalizedReference(book=<Book.DEUTERONOMY: 5>, start_chapter=1, start_verse=1, end_chapter=34, end_verse=12, end_book=None),
+        NormalizedReference(book=<Book.GENESIS: 1>, start_chapter=None, start_verse=None, end_chapter=None, end_verse=None, end_book=<Book.GENESIS: 1>),
+        NormalizedReference(book=<Book.EXODUS: 2>, start_chapter=None, start_verse=None, end_chapter=None, end_verse=None, end_book=<Book.EXODUS: 2>),
+        NormalizedReference(book=<Book.LEVITICUS: 3>, start_chapter=None, start_verse=None, end_chapter=None, end_verse=None, end_book=<Book.LEVITICUS: 3>),
+        NormalizedReference(book=<Book.NUMBERS: 4>, start_chapter=None, start_verse=None, end_chapter=None, end_verse=None, end_book=<Book.NUMBERS: 4>),
+        NormalizedReference(book=<Book.DEUTERONOMY: 5>, start_chapter=None, start_verse=None, end_chapter=None, end_verse=None, end_book=<Book.DEUTERONOMY: 5>)
     ]
 
 That list can optionally be optimized by converting it to verse ids and then back into references if so desired.

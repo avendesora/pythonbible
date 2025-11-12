@@ -26,8 +26,8 @@ For example, given the text "The parable of the lost sheep is told in Matthew 18
     :execution-count: 1
 
     [
-        NormalizedReference(book=<Book.MATTHEW: 40>, start_chapter=18, start_verse=12, end_chapter=18, end_verse=14, end_book=None),
-        NormalizedReference(book=<Book.LUKE: 42>, start_chapter=15, start_verse=3, end_chapter=15, end_verse=7, end_book=None)
+        NormalizedReference(book=<Book.MATTHEW: 40>, start_chapter=18, start_verse=12, end_chapter=18, end_verse=14, end_book=<Book.MATTHEW: 40>),
+        NormalizedReference(book=<Book.LUKE: 42>, start_chapter=15, start_verse=3, end_chapter=15, end_verse=7, end_book=<Book.LUKE: 42>)
     ]
 
 Converting References to Verse IDs
@@ -62,7 +62,7 @@ The conversion functionality would return the following tuple of verse id intege
 .. output-cell:: python
     :execution-count: 1
 
-    [1001001, 1001002, 1001003, 1001004]
+    (1001001, 1001002, 1001003, 1001004)
 
 Converting a List of References to a List of Verse IDs
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -106,8 +106,8 @@ The conversion functionality would return the following list of normalized scrip
     :execution-count: 1
 
     [
-        NormalizedReference(book=<Book.MATTHEW: 40>, start_chapter=18, start_verse=12, end_chapter=18, end_verse=14. end_book=None),
-        NormalizedReference(book=<Book.LUKE: 42>, start_chapter=15, start_verse=3, end_chapter=15, end_verse=7, end_book=None),
+        NormalizedReference(book=<Book.MATTHEW: 40>, start_chapter=18, start_verse=12, end_chapter=18, end_verse=14, end_book=<Book.MATTHEW: 40>),
+        NormalizedReference(book=<Book.LUKE: 42>, start_chapter=15, start_verse=3, end_chapter=15, end_verse=7, end_book=<Book.LUKE: 42>)
     ]
 
 Formatting Scripture References

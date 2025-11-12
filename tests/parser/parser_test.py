@@ -174,9 +174,6 @@ def test_cross_book_reference_just_books() -> None:
     references: list[bible.NormalizedReference] = bible.get_references(text)
 
     # Then the parser does not raise an error and returns the appropriate reference
-    deuteronomy: bible.Book = bible.Book.DEUTERONOMY
-    max_chapter: int = bible.get_number_of_chapters(deuteronomy)
-    max_verse: int = bible.get_number_of_verses(deuteronomy, max_chapter)
     assert references == [
         bible.NormalizedReference(
             bible.Book.GENESIS,
@@ -184,13 +181,10 @@ def test_cross_book_reference_just_books() -> None:
             None,
             None,
             None,
-            deuteronomy,
+            bible.Book.DEUTERONOMY,
         ),
     ]
-    assert (
-        bible.format_scripture_references(references)
-        == f"Genesis - Deuteronomy {max_chapter}:{max_verse}"
-    )
+    assert bible.format_scripture_references(references) == "Genesis - Deuteronomy"
 
 
 def test_cross_book_reference_complex() -> None:

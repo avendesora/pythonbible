@@ -37,15 +37,11 @@ repos:
   rev: v1.18.2
   hooks:
   - id: mypy
-    args: ["--config-file", "pyproject.toml", "--ignore-missing-imports"]
-    #args: [--strict, --ignore-missing-imports]
 - repo: https://github.com/sourcery-ai/sourcery
   rev: v1.40.1b10
   hooks:
   - id: sourcery
-    # The best way to use Sourcery in a pre-commit hook:
-    # * review only changed lines:
-    # * omit the summary
     args: [--diff=git diff HEAD, --no-summary]
 
-exclude: pythonbible/bible/.*/.*\.py$
+# The versions files are huge and generated automatically.
+exclude: pythonbible/bible/versions/.*\.py$

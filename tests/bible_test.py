@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from typing import NoReturn
+
 import pytest
 
 import pythonbible as bible
@@ -91,3 +93,59 @@ def test_get_long_title_init_version() -> None:
 
     # Then the version is initialized and the long title is returned
     assert long_title == book.title
+
+
+def test_get_bible_import_failure_raises_missing_verse_file_error() -> None:
+    # Choose a version that has files on disk but ensure it's not cached in BIBLES
+    version = bible.Version.KING_JAMES
+
+    # Remove any existing cached bible for this version so the code will attempt to
+    # import
+    bible.bible.BIBLES.pop(version, None)
+
+    # Request a bible type that does not exist to force ModuleNotFoundError
+    # in import_module
+    with pytest.raises(pythonbible.errors.MissingVerseFileError):
+        bible.get_bible(version, "this_bible_type_does_not_exist")
+
+
+def test_get_bible_import_module_raises_missing_verse_file() -> None:
+    version = bible.Version.KING_JAMES
+    # Ensure no cached entry so get_bible will attempt to import
+    bible.bible.BIBLES.pop(version, None)
+
+    # Now calling get_bible should run the try import_module and hit the except,
+    # which should raise MissingVerseFileError derived from ModuleNotFoundError.
+    with pytest.raises(pythonbible.errors.MissingVerseFileError):
+        bible.get_bible(version, "any_type")
+
+
+def test_get_bible_import_module_raises_module_not_found_in_module(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    # Monkeypatch the import_module function used inside pythonbible.bible.get_bible
+    version = bible.Version.KING_JAMES
+    bible.bible.BIBLES.pop(version, None)
+
+    def raise_module_not_found(name: str, package: str | None = None) -> NoReturn:
+        error_message = f"No module named '{name}' in package '{package}'"
+        raise ModuleNotFoundError(error_message)
+
+    monkeypatch.setattr(bible.bible, "import_module", raise_module_not_found)
+
+    with pytest.raises(pythonbible.errors.MissingVerseFileError):
+        bible.get_bible(version, "any_type")
+
+
+def test_get_bible_with_missing_version_files_raises_missing_verse_file_error() -> None:
+    # Create a minimal version-like object with a value for which no folder exists
+    class DummyVersion:
+        value = "this_version_folder_does_not_exist"
+
+    # Ensure no cached entry exists for this dummy key
+    bible.bible.BIBLES.pop(DummyVersion, None)  # type: ignore[arg-type,call-overload]
+
+    # Calling get_bible should check _do_version_files_exist and raise
+    # MissingVerseFileError
+    with pytest.raises(pythonbible.errors.MissingVerseFileError):
+        bible.get_bible(DummyVersion, "plain_text")  # type: ignore[arg-type]
