@@ -1,8 +1,7 @@
 from __future__ import annotations
 
 from enum import Enum
-from typing import Any
-from typing import Type
+from typing import Any, Type
 
 
 # This comes from crosswire.org "Standard OSIS Codes for Bible Editions"
@@ -40,6 +39,7 @@ class Version(Enum):
     # Open Source or Public Domain English Translations
     AMERICAN_KING_JAMES = "AKJV", "American King James Version"
     AMERICAN_STANDARD = "ASV", "American Standard Version"
+    BEREAN_STANDARD = "BSB", "Berean Standard Bible"
     BIBLE_IN_BASIC_ENGLISH = "BBE", "Bible in Basic English"
     WORLWIDE_ENGLISH = "BWE", "Bible in WorldWide English NT"
     DARBY = "DAR", "Darby"
@@ -180,4 +180,4 @@ class Version(Enum):
     YES_WORD = "YES", "Yes Word"
 
 
-DEFAULT_VERSION: Version = Version.AMERICAN_STANDARD
+DEFAULT_VERSION: Version = Version.BEREAN_STANDARD
