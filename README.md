@@ -71,7 +71,7 @@ The search functionality should return the following list of scripture reference
         start_verse=12,
         end_chapter=18,
         end_verse=14,
-        end_book=None
+        end_book=<Book.MATTHEW: 40>
     ),
     NormalizedReference(
         book=<Book.LUKE: 42>,
@@ -79,7 +79,7 @@ The search functionality should return the following list of scripture reference
         start_verse=3,
         end_chapter=15,
         end_verse=7,
-        end_book=None
+        end_book=<Book.LUKE: 42>
     )
 ]
 ```
@@ -111,14 +111,14 @@ For example, given the following normalized scripture reference for Genesis 1:1-
 ```python
 import pythonbible as bible
 
-reference = bible.NormalizedReference(bible.Book.GENESIS, 1, 1, 1, 4)
+reference = bible.NormalizedReference(bible.Book.GENESIS, 1, 1, 1, 4, bible.Book.GENESIS)
 verse_ids = bible.convert_reference_to_verse_ids(reference)
 ```
 
 The conversion functionality would return the following list of verse id integers:
 
 ```python
-[1001001, 1001002, 1001003, 1001004]
+(1001001, 1001002, 1001003, 1001004)
 ```
 
 ### Converting a list of verse id integers into a list of normalized scripture references
@@ -143,7 +143,7 @@ The conversion functionality would return the following list of normalized scrip
         start_verse=12,
         end_chapter=18,
         end_verse=14,
-        end_book=None
+        end_book=<Book.MATTHEW: 40>
     ),
     NormalizedReference(
         book=<Book.LUKE: 42>,
@@ -151,7 +151,7 @@ The conversion functionality would return the following list of normalized scrip
         start_verse=3,
         end_chapter=15,
         end_verse=7,
-        end_book=None
+        end_book=<Book.LUKE: 42>
     )
 ]
 ```
