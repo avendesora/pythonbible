@@ -13,7 +13,7 @@ on:
       - 'pythonbible/bible/versions/**'
   pull_request:
     paths-ignore:
-      - 'pythonbible/bible/versions/**'
+      - '**/bible/versions/**'
 jobs:
   analyze:
     name: Analyze
