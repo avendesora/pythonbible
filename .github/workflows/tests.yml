@@ -18,6 +18,6 @@ jobs:
         with:
           python-versions: "3.10, 3.11, 3.12, 3.13, 3.14"
       - name: Test with NOX
-        working-directory: pythonbible
         run: |
+          cd pythonbible
           nox --session tests
