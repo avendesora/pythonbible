@@ -1,0 +1,132 @@
+[build-system]
+requires = ["uv_build>=0.8.9,<0.10.0"]
+build-backend = "uv_build"
+
+[tool.uv]
+default-groups = ["dev", "docs", "test"]
+
+[tool.uv.build-backend]
+module-root = ""
+module-name = "pythonbible"
+
+[project]
+name = "pythonbible"
+version = "0.15.0"
+description-file = "README.md"
+requires-python = ">=3.10"
+authors = [
+    { name = "Nathan Patton", email = "npatton@gmail.com" }
+]
+readme = "README.md"
+license = "MIT"
+classifiers = [
+    "Intended Audience :: Information Technology",
+    "Intended Audience :: Developers",
+    "Operating System :: OS Independent",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Software Development :: Libraries",
+    "Topic :: Software Development",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "License :: OSI Approved :: MIT License"
+]
+urls = { Documentation = "https://docs.python.bible", Source = "https://github.com/avendesora/pythonbible" }
+dependencies = []
+
+[dependency-groups]
+dev = [
+    "pre-commit>=4.3.0",
+]
+docs = [
+    "furo>=2025.7.19",
+    "jupyter>=1.1.1",
+    "sphinx>=7.4.7",
+    "sphinx-copybutton>=0.5.2",
+    "sphinx-toolbox>=4.0.0",
+]
+test = [
+    "nox[uv]>=2025.10.14",
+    "pytest-cov>=7.0.0",
+]
+
+[tool.ruff.lint]
+select = [
+    "A",
+    "ANN",
+    "ARG",
+    "B",
+    "BLE",
+    "COM",
+    "C4",
+    "C90",
+    "D",
+    "DTZ",
+    "E",
+    "EM",
+    "ERA",
+    "EXE",
+    "F",
+    "FBT",
+    "G",
+    "I",
+    "ICN",
+    "INP",
+    "ISC",
+    "N",
+    "NPY",
+    "PD",
+    "PGH",
+    "PIE",
+    "PL",
+    "PT",
+    "PTH",
+    "PYI",
+    "Q",
+    "RET",
+    "RSE",
+    "RUF",
+    "S",
+    "SIM",
+    "SLF",
+    "TCH",
+    "TID",
+    "TRY",
+    "T10",
+    "T20",
+    "W",
+]
+ignore = [
+    "COM812",  # conflicts with formatter
+    "D100",
+    "D101",
+    "D102",
+    "D103",
+    "D104",
+    "D205",
+    "D203",
+    "D213",
+    "ISC001",  # conflicts with formatter
+]
+
+[tool.ruff.lint.per-file-ignores]
+"docs/source/_static/pythonbible-book-groups.ipynb" = ["E501", "T201"]
+"docs/source/conf.py" = ["A001", "E501"]
+"pythonbible/bible/bible.py" = ["PLR0913", "FBT001", "FBT002"]
+"pythonbible/books.py" = ["ARG004", "PYI034"]
+"pythonbible/book_groups.py" = ["ARG004", "PYI034"]
+"pythonbible/formatter.py" = ["ANN401", "FBT001", "FBT002", "PLR0911"]
+"pythonbible/parser.py" = ["PLR2004"]
+"pythonbible/roman_numeral_util.py" = ["E741"]
+"pythonbible/versions.py" = ["ARG004", "PYI034"]
+"tests/*.py" = ["FBT003", "PLR2004", "S101", "TRY301"]
+"tests/docs/advanced_usage_test.py" = ["FBT001"]
+"tests/formatter/missing_file_handling_test.py" = ["SLF001"]
+
+[tool.ruff.lint.isort]
+force-single-line = true
