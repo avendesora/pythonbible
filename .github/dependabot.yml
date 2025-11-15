@@ -1,8 +1,10 @@
 version: 2
 updates:
   # Maintain Python dependencies
-  - package-ecosystem: "pip"
-    directory: "/"
+  - package-ecosystem: "uv"
+    directories:
+      - "/pythonbible"
+      - "/pythonbible-kjv"
     schedule:
       interval: "daily"
     groups:
