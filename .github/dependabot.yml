@@ -4,6 +4,7 @@ updates:
   - package-ecosystem: "uv"
     directories:
       - "/pythonbible"
+      - "/pythonbible-akjv"
       - "/pythonbible-kjv"
     schedule:
       interval: "daily"

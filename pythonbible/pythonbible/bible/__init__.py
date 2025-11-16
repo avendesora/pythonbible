@@ -4,16 +4,22 @@ from importlib import import_module
 from pathlib import Path
 from typing import TYPE_CHECKING
 
+from pythonbible.errors import MissingBiblePackageError
 from pythonbible.errors import MissingVerseFileError
+from pythonbible.versions import Version
 
 if TYPE_CHECKING:
     from pythonbible.bible.bible import Bible
-    from pythonbible.versions import Version
 
 
 CURRENT_FOLDER = Path(__file__).parent
 
 BIBLES: dict[Version, dict[str, Bible]] = {}
+
+BIBLE_PACKAGE_NAMES: dict[Version, str] = {
+    Version.AMERICAN_KING_JAMES: "pythonbible_akjv",
+    Version.KING_JAMES: "pythonbible_kjv",
+}
 
 
 def get_bible(version: Version, bible_type: str) -> Bible:
@@ -29,17 +35,25 @@ def get_bible(version: Version, bible_type: str) -> Bible:
     version_bibles = BIBLES.get(version, {})
 
     if not version_bibles:
-        # Lazy-loading of Bible files to conserve memory
-        if not _do_version_files_exist(version):
-            raise MissingVerseFileError
+        # First, try to import the Bible from a separate package.
+        package_name = BIBLE_PACKAGE_NAMES.get(version)
+        module_package = None
+
+        if package_name:
+            module_name = f"{package_name}.{bible_type.lower()}_bible"
+        else:
+            # Lazy-loading of Bible files to conserve memory
+            if not _do_version_files_exist(version):
+                raise MissingVerseFileError
+
+            module_name = f".{version.value.lower()}.{bible_type.lower()}_bible"
+            module_package = "pythonbible.bible.versions"
 
         try:
-            version_module = import_module(
-                f".{version.value.lower()}.{bible_type.lower()}_bible",
-                "pythonbible.bible.versions",
-            )
+            version_module = import_module(module_name, module_package)
         except ModuleNotFoundError as e:
-            raise MissingVerseFileError from e
+            error_message = f"No package found for {version.value} ({version.title})."
+            raise MissingBiblePackageError(error_message) from e
 
         return version_module.bible
 

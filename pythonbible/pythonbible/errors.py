@@ -58,3 +58,7 @@ class MissingVerseFileError(Exception):
 
 class MissingBookFileError(Exception):
     """Raised when the book file for a given version is not found."""
+
+
+class MissingBiblePackageError(Exception):
+    """Raised when the Bible package for a given version is not found."""
