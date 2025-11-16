@@ -9,6 +9,9 @@ on:
 jobs:
   tests:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: pythonbible
     steps:
       - uses: actions/checkout@v5
       - name: Install uv
@@ -19,5 +22,4 @@ jobs:
           python-versions: "3.10, 3.11, 3.12, 3.13, 3.14"
       - name: Test with NOX
         run: |
-          cd pythonbible
           nox --session tests

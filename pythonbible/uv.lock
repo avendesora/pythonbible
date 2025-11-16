@@ -1,5 +1,5 @@
 version = 1
-revision = 2
+revision = 3
 requires-python = ">=3.10"
 resolution-markers = [
     "python_full_version >= '3.14'",
@@ -1793,8 +1793,31 @@ wheels = [
 
 [[package]]
 name = "pythonbible"
-version = "0.15.0"
+version = "0.15.1"
 source = { editable = "." }
+dependencies = [
+    { name = "pythonbible-asv" },
+]
+
+[package.optional-dependencies]
+akjv = [
+    { name = "pythonbible-akjv" },
+]
+all = [
+    { name = "pythonbible-akjv" },
+    { name = "pythonbible-asv" },
+    { name = "pythonbible-bbe" },
+    { name = "pythonbible-kjv" },
+]
+asv = [
+    { name = "pythonbible-asv" },
+]
+bbe = [
+    { name = "pythonbible-bbe" },
+]
+kjv = [
+    { name = "pythonbible-kjv" },
+]
 
 [package.dev-dependencies]
 dev = [
@@ -1811,9 +1834,22 @@ docs = [
 test = [
     { name = "nox", extra = ["uv"] },
     { name = "pytest-cov" },
+    { name = "pythonbible-kjv" },
 ]
 
 [package.metadata]
+requires-dist = [
+    { name = "pythonbible-akjv", marker = "extra == 'akjv'" },
+    { name = "pythonbible-akjv", marker = "extra == 'all'" },
+    { name = "pythonbible-asv" },
+    { name = "pythonbible-asv", marker = "extra == 'all'" },
+    { name = "pythonbible-asv", marker = "extra == 'asv'" },
+    { name = "pythonbible-bbe", marker = "extra == 'all'" },
+    { name = "pythonbible-bbe", marker = "extra == 'bbe'" },
+    { name = "pythonbible-kjv", marker = "extra == 'all'" },
+    { name = "pythonbible-kjv", marker = "extra == 'kjv'" },
+]
+provides-extras = ["akjv", "asv", "bbe", "kjv", "all"]
 
 [package.metadata.requires-dev]
 dev = [{ name = "pre-commit", specifier = ">=4.3.0" }]
@@ -1827,6 +1863,55 @@ docs = [
 test = [
     { name = "nox", extras = ["uv"], specifier = ">=2025.10.14" },
     { name = "pytest-cov", specifier = ">=7.0.0" },
+    { name = "pythonbible-kjv" },
+]
+
+[[package]]
+name = "pythonbible-akjv"
+version = "0.0.1"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "pythonbible" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/1c/3d/90fc35eea80f796b8bbd3e86d0f57e4dbea25f5759085aaf858c6f8c4dea/pythonbible_akjv-0.0.1.tar.gz", hash = "sha256:4bcbcc7ac07cb102dbd711e396d7adab341074eb27a41981538929222b50f236", size = 9794860, upload-time = "2025-11-16T04:29:44.675Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/c5/2c/3d17d2ce85f6bc7b488d0a863cd659f1706ef1e1f9ff98aa3354948f5a39/pythonbible_akjv-0.0.1-py3-none-any.whl", hash = "sha256:df2cf79a7a4338b64c47aecce2d1d3e7231f5b10980556e07fd2a8ca159056b8", size = 9793648, upload-time = "2025-11-16T04:29:41.837Z" },
+]
+
+[[package]]
+name = "pythonbible-asv"
+version = "0.0.1"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "pythonbible" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/a8/1c/028d4c643ec39458017f9221cbcdb308dd57b9a0cf9dac2d87a4f55ffac2/pythonbible_asv-0.0.1.tar.gz", hash = "sha256:8256f6d6d2d101d6a6487053a934952fbf37b8ab08e8108204fc1e6058313b78", size = 9979682, upload-time = "2025-11-16T04:19:18.02Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/98/9f/3df476f563a07633b303ae1fc26b3395fc5583c8294b53a22e61a2d34594/pythonbible_asv-0.0.1-py3-none-any.whl", hash = "sha256:199575a77769e1023ea6ce61a3defdfbc92cb01bb0d6781f2b1da14f305380de", size = 9978693, upload-time = "2025-11-16T04:19:14.705Z" },
+]
+
+[[package]]
+name = "pythonbible-bbe"
+version = "0.0.1"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "pythonbible" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/9c/1e/049f291671c6fe7538ddd194805af98d8bb62ec881a9f605f1740b1786b9/pythonbible_bbe-0.0.1.tar.gz", hash = "sha256:b29db88678ddcf28d102c62820f00adb3ce8dc2da84966acefef3ae71ee19990", size = 9719083, upload-time = "2025-11-16T04:34:03.646Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/4a/19/296c270dfc4c7fd6c7618166e0c188601f35664bbf9bd99d1688563cf927/pythonbible_bbe-0.0.1-py3-none-any.whl", hash = "sha256:c5f2fcdacdf082894f088521dd10aff22af9c443c6b664eb2d21014909fbb933", size = 9718234, upload-time = "2025-11-16T04:34:00.403Z" },
+]
+
+[[package]]
+name = "pythonbible-kjv"
+version = "0.0.1"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "pythonbible" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/47/df/b22e79e0d4d2bab08c7cfe94b100d22aee29aba619af2e0c815e8b72fddd/pythonbible_kjv-0.0.1.tar.gz", hash = "sha256:079ebaaa4f24a42c3b2535fff4342f5f6c1e0ae29065ce797fc8cb5439bb5f54", size = 10116444, upload-time = "2025-11-16T04:35:54.965Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/38/9f/6a52552d3e684960022b03be8b7a3d3ae456213893d3dabdc07c7c6a1405/pythonbible_kjv-0.0.1-py3-none-any.whl", hash = "sha256:f272c4dcec526b2699636251d27076aa61eb648ad9b01a0a7b40f5f46fc0c302", size = 10115037, upload-time = "2025-11-16T04:35:51.521Z" },
 ]
 
 [[package]]
