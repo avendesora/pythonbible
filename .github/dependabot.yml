@@ -5,6 +5,7 @@ updates:
     directories:
       - "/pythonbible"
       - "/pythonbible-akjv"
+      - "/pythonbible-bbe"
       - "/pythonbible-kjv"
     schedule:
       interval: "daily"
