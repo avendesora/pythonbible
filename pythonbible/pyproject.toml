@@ -67,6 +67,7 @@ docs = [
 test = [
     "nox[uv]>=2025.10.14",
     "pytest-cov>=7.0.0",
+    "pythonbible-kjv",
 ]
 
 [tool.ruff.lint]
