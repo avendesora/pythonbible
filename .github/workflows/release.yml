@@ -34,6 +34,7 @@ jobs:
           PACKAGES=(
             pythonbible
             pythonbible-akjv
+            pythonbible-asv
             pythonbible-bbe
             pythonbible-kjv
           )

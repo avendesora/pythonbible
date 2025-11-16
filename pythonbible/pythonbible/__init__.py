@@ -8,7 +8,7 @@ references as human-readable strings.
 
 from __future__ import annotations
 
-__version__ = "0.15.0"
+__version__ = "0.15.1"
 
 from .bible import add_bible
 from .bible import get_bible

@@ -2,16 +2,13 @@
 requires = ["uv_build>=0.8.9,<0.10.0"]
 build-backend = "uv_build"
 
-[tool.uv]
-default-groups = ["dev", "docs", "test"]
-
 [tool.uv.build-backend]
 module-root = ""
-module-name = "pythonbible"
+module-name = "pythonbible_asv"
 
 [project]
-name = "pythonbible"
-version = "0.15.1"
+name = "pythonbible-asv"
+version = "0.1.0"
 description-file = "README.md"
 requires-python = ">=3.10"
 authors = [
@@ -38,35 +35,7 @@ classifiers = [
 ]
 urls = { Documentation = "https://docs.python.bible", Source = "https://github.com/avendesora/pythonbible" }
 dependencies = [
-    "pythonbible-asv",  # default version of the Bible is the American Standard Version
-]
-
-[project.optional-dependencies]
-AKJV = ["pythonbible-akjv"]
-ASV = ["pythonbible-asv"]
-BBE = ["pythonbible-bbe"]
-KJV = ["pythonbible-kjv"]
-all = [
-    "pythonbible-akjv",
-    "pythonbible-asv",
-    "pythonbible-bbe",
-    "pythonbible-kjv",
-]
-
-[dependency-groups]
-dev = [
-    "pre-commit>=4.3.0",
-]
-docs = [
-    "furo>=2025.7.19",
-    "jupyter>=1.1.1",
-    "sphinx>=7.4.7",
-    "sphinx-copybutton>=0.5.2",
-    "sphinx-toolbox>=4.0.0",
-]
-test = [
-    "nox[uv]>=2025.10.14",
-    "pytest-cov>=7.0.0",
+    "pythonbible",
 ]
 
 [tool.ruff.lint]
@@ -125,22 +94,11 @@ ignore = [
     "D205",
     "D203",
     "D213",
+    "E501",  # Bible text is going to exceed line length
+    "FBT003",
+    "RUF001",  # right single quotation mark in Bible text
     "ISC001",  # conflicts with formatter
 ]
-
-[tool.ruff.lint.per-file-ignores]
-"docs/source/_static/pythonbible-book-groups.ipynb" = ["E501", "T201"]
-"docs/source/conf.py" = ["A001", "E501"]
-"pythonbible/bible/bible.py" = ["PLR0913", "FBT001", "FBT002"]
-"pythonbible/books.py" = ["ARG004", "PYI034"]
-"pythonbible/book_groups.py" = ["ARG004", "PYI034"]
-"pythonbible/formatter.py" = ["ANN401", "FBT001", "FBT002", "PLR0911"]
-"pythonbible/parser.py" = ["PLR2004"]
-"pythonbible/roman_numeral_util.py" = ["E741"]
-"pythonbible/versions.py" = ["ARG004", "PYI034"]
-"tests/*.py" = ["FBT003", "PLR2004", "S101", "TRY301"]
-"tests/docs/advanced_usage_test.py" = ["FBT001"]
-"tests/formatter/missing_file_handling_test.py" = ["SLF001"]
 
 [tool.ruff.lint.isort]
 force-single-line = true

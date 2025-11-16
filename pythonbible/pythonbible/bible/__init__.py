@@ -18,6 +18,7 @@ BIBLES: dict[Version, dict[str, Bible]] = {}
 
 BIBLE_PACKAGE_NAMES: dict[Version, str] = {
     Version.AMERICAN_KING_JAMES: "pythonbible_akjv",
+    Version.AMERICAN_STANDARD: "pythonbible_asv",
     Version.BIBLE_IN_BASIC_ENGLISH: "pythonbible_bbe",
     Version.KING_JAMES: "pythonbible_kjv",
 }

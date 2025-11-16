@@ -4,7 +4,6 @@ from pythonbible.bible.bible import Bible
 from pythonbible.books import Book
 from pythonbible.versions import Version
 
-
 bible = Bible(
     Version.AMERICAN_STANDARD,
     """
