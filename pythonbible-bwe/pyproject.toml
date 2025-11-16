@@ -4,10 +4,10 @@ build-backend = "uv_build"
 
 [tool.uv.build-backend]
 module-root = ""
-module-name = "pythonbible_bbe"
+module-name = "pythonbible_bwe"
 
 [project]
-name = "pythonbible-bbe"
+name = "pythonbible-bwe"
 version = "0.0.1"
 description-file = "README.md"
 requires-python = ">=3.10"

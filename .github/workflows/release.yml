@@ -36,6 +36,7 @@ jobs:
             pythonbible-akjv
             pythonbible-asv
             pythonbible-bbe
+            pythonbible-bwe
             pythonbible-kjv
           )
 

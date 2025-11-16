@@ -45,11 +45,13 @@ dependencies = [
 AKJV = ["pythonbible-akjv"]
 ASV = ["pythonbible-asv"]
 BBE = ["pythonbible-bbe"]
+BWE = ["pythonbible-bwe"]
 KJV = ["pythonbible-kjv"]
 all = [
     "pythonbible-akjv",
     "pythonbible-asv",
     "pythonbible-bbe",
+    "pythonbible-bwe",
     "pythonbible-kjv",
 ]
 
