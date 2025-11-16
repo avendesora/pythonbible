@@ -31,7 +31,7 @@ jobs:
           uv sync --group test
       - name: Test with pytest
         run: |
-          uv python -m pytest --cov --cov-report xml
+          uv run pytest --cov --cov-report xml
       - name: Run codacy-coverage-reporter
         uses: codacy/codacy-coverage-reporter-action@v1
         with:
