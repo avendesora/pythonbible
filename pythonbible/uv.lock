@@ -1807,6 +1807,10 @@ all = [
     { name = "pythonbible-akjv" },
     { name = "pythonbible-asv" },
     { name = "pythonbible-bbe" },
+    { name = "pythonbible-bwe" },
+    { name = "pythonbible-dar" },
+    { name = "pythonbible-diaglot" },
+    { name = "pythonbible-dr" },
     { name = "pythonbible-kjv" },
 ]
 asv = [
@@ -1814,6 +1818,18 @@ asv = [
 ]
 bbe = [
     { name = "pythonbible-bbe" },
+]
+bwe = [
+    { name = "pythonbible-bwe" },
+]
+dar = [
+    { name = "pythonbible-dar" },
+]
+dialgot = [
+    { name = "pythonbible-diaglot" },
+]
+dr = [
+    { name = "pythonbible-dr" },
 ]
 kjv = [
     { name = "pythonbible-kjv" },
@@ -1834,6 +1850,7 @@ docs = [
 test = [
     { name = "nox", extra = ["uv"] },
     { name = "pytest-cov" },
+    { name = "pythonbible-dr" },
     { name = "pythonbible-kjv" },
 ]
 
@@ -1846,10 +1863,18 @@ requires-dist = [
     { name = "pythonbible-asv", marker = "extra == 'asv'" },
     { name = "pythonbible-bbe", marker = "extra == 'all'" },
     { name = "pythonbible-bbe", marker = "extra == 'bbe'" },
+    { name = "pythonbible-bwe", marker = "extra == 'all'" },
+    { name = "pythonbible-bwe", marker = "extra == 'bwe'" },
+    { name = "pythonbible-dar", marker = "extra == 'all'" },
+    { name = "pythonbible-dar", marker = "extra == 'dar'" },
+    { name = "pythonbible-diaglot", marker = "extra == 'all'" },
+    { name = "pythonbible-diaglot", marker = "extra == 'dialgot'" },
+    { name = "pythonbible-dr", marker = "extra == 'all'" },
+    { name = "pythonbible-dr", marker = "extra == 'dr'" },
     { name = "pythonbible-kjv", marker = "extra == 'all'" },
     { name = "pythonbible-kjv", marker = "extra == 'kjv'" },
 ]
-provides-extras = ["akjv", "asv", "bbe", "kjv", "all"]
+provides-extras = ["akjv", "asv", "bbe", "bwe", "dar", "dialgot", "dr", "kjv", "all"]
 
 [package.metadata.requires-dev]
 dev = [{ name = "pre-commit", specifier = ">=4.3.0" }]
@@ -1863,6 +1888,7 @@ docs = [
 test = [
     { name = "nox", extras = ["uv"], specifier = ">=2025.10.14" },
     { name = "pytest-cov", specifier = ">=7.0.0" },
+    { name = "pythonbible-dr" },
     { name = "pythonbible-kjv" },
 ]
 
@@ -1900,6 +1926,54 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/9c/1e/049f291671c6fe7538ddd194805af98d8bb62ec881a9f605f1740b1786b9/pythonbible_bbe-0.0.1.tar.gz", hash = "sha256:b29db88678ddcf28d102c62820f00adb3ce8dc2da84966acefef3ae71ee19990", size = 9719083, upload-time = "2025-11-16T04:34:03.646Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/4a/19/296c270dfc4c7fd6c7618166e0c188601f35664bbf9bd99d1688563cf927/pythonbible_bbe-0.0.1-py3-none-any.whl", hash = "sha256:c5f2fcdacdf082894f088521dd10aff22af9c443c6b664eb2d21014909fbb933", size = 9718234, upload-time = "2025-11-16T04:34:00.403Z" },
+]
+
+[[package]]
+name = "pythonbible-bwe"
+version = "0.0.1"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "pythonbible" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/19/a6/298b79025164acd75a9f61d10e5773f1c8d292b4d4dab5ec596e70cd47c1/pythonbible_bwe-0.0.1.tar.gz", hash = "sha256:5e3faf0567da9c3ffcc024255392143d4b06dbb69fbaa1db50c30e07eb836462", size = 2487024, upload-time = "2025-11-16T05:19:08.136Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/71/7e/122df4da0e8d8ffeda642005a23fe917a96c589c533c1c0d9ceeb8e48334/pythonbible_bwe-0.0.1-py3-none-any.whl", hash = "sha256:6dd9f74a9bab4191fca2c036f4b7382cf333590b3b8e5a19c6bc920920d16a5a", size = 2486048, upload-time = "2025-11-16T05:19:06.446Z" },
+]
+
+[[package]]
+name = "pythonbible-dar"
+version = "0.0.1"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "pythonbible" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/9a/04/5bdabbe9edcede23cf6c867c1d9896e198993bc27a230483beedcceec181/pythonbible_dar-0.0.1.tar.gz", hash = "sha256:df0da6caa4890f4efb89d2eaee5fd85e8419b47a569c5498203493b02410aed4", size = 9939649, upload-time = "2025-11-17T01:36:00.15Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/e1/78/917f4520925fd5a3b3ee9b822cc923c8f94c41e9bfb356e4c0153f73fa51/pythonbible_dar-0.0.1-py3-none-any.whl", hash = "sha256:93e638317cc8b4eceb3ef0b6b6da4dcb9a09c73896029d1dd193fd61a82a56cf", size = 9938619, upload-time = "2025-11-17T01:35:56.953Z" },
+]
+
+[[package]]
+name = "pythonbible-diaglot"
+version = "0.0.1"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "pythonbible" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/db/6b/eb592d0438e86a69b1dbea950ce313c0e4182fe56c3483799b24bc872d4f/pythonbible_diaglot-0.0.1.tar.gz", hash = "sha256:7a8d02ca59a1021faf47f21aa65e6d4c2bc30b12876872890cf7c187a11a63d0", size = 2512928, upload-time = "2025-11-17T01:41:55.345Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/1d/e5/cd198a7ed847209e9d2510de604579faabf289995a8f54a0f394bd9c3a5d/pythonbible_diaglot-0.0.1-py3-none-any.whl", hash = "sha256:3a0f6d90702c9ad9d17e9acdcada76708acef1b645afcd565485904f0d5a4c43", size = 2510689, upload-time = "2025-11-17T01:41:53.679Z" },
+]
+
+[[package]]
+name = "pythonbible-dr"
+version = "0.0.1"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "pythonbible" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/32/98/f9930b89c92aa5e5528841dae458859f90058807bb6fbb60a36b44ac8bb7/pythonbible_dr-0.0.1.tar.gz", hash = "sha256:77e22ccfc6cc454d6c002c2f84c79600ca90d79baffac85a3110362cb872aab5", size = 10474617, upload-time = "2025-11-17T01:48:26.102Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/f9/7e/cfb67c9bd74555b0313e33877bb047c2dd1fa41c2bdbd35774031ad8b42f/pythonbible_dr-0.0.1-py3-none-any.whl", hash = "sha256:acf45372f3216db3b06f82e64137dbb9f3f136ce46a57a46ac0a9a2b12188a39", size = 10472705, upload-time = "2025-11-17T01:48:22.718Z" },
 ]
 
 [[package]]

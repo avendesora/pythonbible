@@ -10,6 +10,7 @@ updates:
       - "/pythonbible-bwe"
       - "/pythonbible-dar"
       - "/pythonbible-diaglot"
+      - "/pythonbible-dr"
       - "/pythonbible-kjv"
     schedule:
       interval: "daily"
