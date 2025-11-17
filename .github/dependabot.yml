@@ -11,6 +11,7 @@ updates:
       - "/pythonbible-dar"
       - "/pythonbible-diaglot"
       - "/pythonbible-dr"
+      - "/pythonbible-etheridge"
       - "/pythonbible-kjv"
     schedule:
       interval: "daily"
