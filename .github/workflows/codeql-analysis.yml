@@ -10,10 +10,10 @@ on:
     branches:
       - main
     paths:
-      - 'pythonbible/pythonbible/pythonbible/**'
+      - 'pythonbible/pythonbible/**'
   pull_request:
     paths:
-      - 'pythonbible/pythonbible/pythonbible/**'
+      - 'pythonbible/pythonbible/**'
 jobs:
   analyze:
     name: Analyze
