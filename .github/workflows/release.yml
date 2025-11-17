@@ -38,6 +38,7 @@ jobs:
             pythonbible-bbe
             pythonbible-bwe
             pythonbible-dar
+            pythonbible-diaglot
             pythonbible-kjv
           )
 
