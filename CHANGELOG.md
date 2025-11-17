@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [0.15.0] - 2025-11-11
+## [0.15.0] - 2025-11-??
 
 ### Added
 
@@ -44,6 +44,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **BREAKING CHANGE**: Modified the NormalizedReference class to allow start chapter, start verse, end chapter, and end verse to be None.
   - The parser has also been updated to set those values to None unless they are explicitly set in the reference string. As we added more version/translation Bible texts, we realized the differences in chapter and verse numbers between versions/translations was much greater than initially assumed. This change allows for more flexibility in handling those differences.
   - The formatter has also been updated to get the appropriate start chapter, start verse, end chapter, and end verse at format time rather than parse time.
+- Moved all versions to be separate python packages that can be optionally installed.
+  - The ASV version is still included as the default version.
+- Updated release workflow to publish all version packages to PyPI as well as the pythonbible package.
+  - The release workflow will compare the version of each package to the version in the previous tag/release and only publish if the version number has increased.
 
 ## [0.14.0] - 2025-11-09
 

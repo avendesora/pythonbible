@@ -8,6 +8,7 @@ updates:
       - "/pythonbible-asv"
       - "/pythonbible-bbe"
       - "/pythonbible-bwe"
+      - "/pythonbible-dar"
       - "/pythonbible-kjv"
     schedule:
       interval: "daily"
