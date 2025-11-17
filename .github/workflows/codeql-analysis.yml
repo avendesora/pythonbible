@@ -9,11 +9,11 @@ on:
   push:
     branches:
       - main
-    paths-ignore:
-      - 'pythonbible/bible/versions/**'
+    paths:
+      - 'pythonbible/**'
   pull_request:
-    paths-ignore:
-      - '**/bible/versions/**'
+    paths:
+      - 'pythonbible/**'
 jobs:
   analyze:
     name: Analyze
