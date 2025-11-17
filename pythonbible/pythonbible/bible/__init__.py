@@ -22,6 +22,7 @@ BIBLE_PACKAGE_NAMES: dict[Version, str] = {
     Version.BIBLE_IN_BASIC_ENGLISH: "pythonbible_bbe",
     Version.WORLWIDE_ENGLISH: "pythonbible_bwe",
     Version.DARBY: "pythonbible_dar",
+    Version.DIAGLOT_NT: "pythonbible_diaglot",
     Version.KING_JAMES: "pythonbible_kjv",
 }
 
