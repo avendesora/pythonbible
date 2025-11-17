@@ -41,6 +41,7 @@ jobs:
             pythonbible-diaglot
             pythonbible-dr
             pythonbible-etheridge
+            pythonbible-gb
             pythonbible-kjv
           )
 
