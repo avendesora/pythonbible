@@ -24,7 +24,7 @@ MAX_VERSE_NUMBER_BY_BOOK_AND_CHAPTER: dict[Book, list[int]] = {
         24,
         21,
         16,
-        28,
+        27,
         34,
         38,
         19,

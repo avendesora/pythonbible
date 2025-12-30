@@ -210,3 +210,14 @@ def test_count_verses_string() -> None:
 
     # Then the count is correct
     assert number_of_verses == 1 + 1 + (3 + 1)
+
+
+def test_count_verses_genesis_17() -> None:
+    # To address https://github.com/avendesora/pythonbible/issues/223
+    reference: str = "Genesis 17"
+
+    # Retrieve number of verses in Genesis 17
+    number_of_verses: int = bible.count_verses(reference)  # type: ignore[arg-type]
+
+    # Genesis 17 should have 27 verses
+    assert number_of_verses == 27
