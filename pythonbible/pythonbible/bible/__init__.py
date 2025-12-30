@@ -30,6 +30,7 @@ BIBLE_PACKAGE_NAMES: dict[Version, str] = {
     Version.LEESER: "pythonbible_leeser",
     Version.LIVING_ORACLES_NT: "pythonbible_lont",
     Version.KING_JAMES_MODERN_1963: "pythonbible_mkjv1963",
+    Version.MONTGOMERY_NT: "pythonbible_mont",
 }
 
 
