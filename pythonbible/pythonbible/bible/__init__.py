@@ -28,6 +28,7 @@ BIBLE_PACKAGE_NAMES: dict[Version, str] = {
     Version.GENEVA: "pythonbible_gb",
     Version.KING_JAMES: "pythonbible_kjv",
     Version.LEESER: "pythonbible_leeser",
+    Version.LIVING_ORACLES_NT: "pythonbible_lont",
 }
 
 
