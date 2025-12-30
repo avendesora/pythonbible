@@ -14,6 +14,7 @@ updates:
       - "/pythonbible-etheridge"
       - "/pythonbible-gb"
       - "/pythonbible-kjv"
+      - "/pythonbible-leeser"
     schedule:
       interval: "daily"
     groups:

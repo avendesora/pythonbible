@@ -43,6 +43,7 @@ jobs:
             pythonbible-etheridge
             pythonbible-gb
             pythonbible-kjv
+            pythonbible-leeser
           )
 
           git fetch --prune --tags
