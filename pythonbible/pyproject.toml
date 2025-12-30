@@ -57,6 +57,7 @@ LONT = ["pythonbible-lont"]
 MKJV1963 = ["pythonbible-mkjv1963"]
 MONT = ["pythonbible-mont"]
 NHEB = ["pythonbible-nheb"]
+OEB = ["pythonbible-oeb"]
 all = [
     "pythonbible-akjv",
     "pythonbible-asv",
@@ -73,6 +74,7 @@ all = [
     "pythonbible-mkjv1963",
     "pythonbible-mont",
     "pythonbible-nheb",
+    "pythonbible-oeb",
 ]
 
 [dependency-groups]

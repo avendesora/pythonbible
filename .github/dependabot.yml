@@ -19,6 +19,7 @@ updates:
       - "/pythonbible-mkjv1963."
       - "/pythonbible-mont"
       - "/pythonbible-nheb"
+      - "/pythonbible-oeb"
     schedule:
       interval: "daily"
     groups:

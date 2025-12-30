@@ -32,6 +32,7 @@ BIBLE_PACKAGE_NAMES: dict[Version, str] = {
     Version.KING_JAMES_MODERN_1963: "pythonbible_mkjv1963",
     Version.MONTGOMERY_NT: "pythonbible_mont",
     Version.NEW_HEART: "pythonbible_nheb",
+    Version.OPEN_ENGLISH: "pythonbible_oeb",
 }
 
 
