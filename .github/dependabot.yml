@@ -16,6 +16,7 @@ updates:
       - "/pythonbible-kjv"
       - "/pythonbible-leeser"
       - "/pythonbible-lont"
+      - "/pythonbible-mkjv1963"
     schedule:
       interval: "daily"
     groups:

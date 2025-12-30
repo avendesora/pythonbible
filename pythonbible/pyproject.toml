@@ -54,6 +54,7 @@ GB = ["pythonbible-gb"]
 KJV = ["pythonbible-kjv"]
 LEESER = ["pythonbible-leeser"]
 LONT = ["pythonbible-lont"]
+MKJV1963 = ["pythonbible-mkjv1963"]
 all = [
     "pythonbible-akjv",
     "pythonbible-asv",
@@ -67,6 +68,7 @@ all = [
     "pythonbible-kjv",
     "pythonbible-leeser",
     "pythonbible-lont",
+    "pythonbible-mkjv1963",
 ]
 
 [dependency-groups]

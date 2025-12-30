@@ -45,6 +45,7 @@ jobs:
             pythonbible-kjv
             pythonbible-leeser
             pythonbible-lont
+            pythonbible-mkjv1963
           )
 
           git fetch --prune --tags
