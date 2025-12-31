@@ -123,3 +123,8 @@ def test_formatting_scripture_references() -> None:
 def test_formatting_scripture_text() -> None:
     formatted_text = bible.get_verse_text(1001001)
     assert formatted_text == "In the beginning God created the heavens and the earth."
+
+
+def test_formatting_scripture_text_with_version() -> None:
+    formatted_text = bible.get_verse_text(1001001, version=bible.Version.KING_JAMES)
+    assert formatted_text == "In the beginning God created the heaven and the earth."

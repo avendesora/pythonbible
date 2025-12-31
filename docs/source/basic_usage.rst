@@ -157,3 +157,17 @@ For example:
     :execution-count: 1
 
     'In the beginning God created the heavens and the earth.'
+
+By default, the :ref:`get_verse_text` function retrieves verses from the American Standard Version. To retrieve verses from a different version, specify the desired :ref:`Version` using the ``version`` parameter. For example:
+
+.. code-cell:: python
+    :execution-count: 1
+
+    import pythonbible as bible
+
+    bible.get_verse_text(1001001, version=bible.Version.KING_JAMES)
+
+.. output-cell:: python
+    :execution-count: 1
+
+    'In the beginning God created the heaven and the earth.'

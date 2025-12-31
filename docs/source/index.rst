@@ -26,4 +26,5 @@ pythonbible Documentation
    basic_usage
    book_abbreviations
    advanced_usage
+   available_translations
    technical_reference
