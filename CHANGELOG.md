@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.15.2] - 2025-12-31
+
+### Fixed
+
+- Fixed the pythonbible package README file to, for now, be a copy of the main project README file so that it displays in PyPI correctly.
+
 ## [0.15.1] - 2025-12-31
 
 ### Added
@@ -214,9 +220,10 @@ The goal of this release was to address [Issue #90], and to make things related 
 
 ## [0.0.1] - 2020-10-08
 
-[unreleased]: https://github.com/avendesora/pythonbible/compare/v0.15.1...HEAD
-[0.15.1]: https://github.com/avendesora/pythonbible/compare/v0.15.0...v0.15.1
-[0.15.0]: https://github.com/avendesora/pythonbible/compare/v0.14.0...v0.15.0
+[unreleased]: https://github.com/avendesora/pythonbible/compare/v0.15.2...HEAD
+[0.15.2]: https://github.com/avendesora/pythonbible/compare/v0.15.1...v0.15.2
+[0.15.1]: https://github.com/avendesora/pythonbible/compare/v0.14.0...v0.15.1
+[0.15.0]: https://github.com/avendesora/pythonbible/compare/v0.14.0...v0.15.1
 [0.14.0]: https://github.com/avendesora/pythonbible/compare/v0.13.1...v0.14.0
 [0.13.1]: https://github.com/avendesora/pythonbible/compare/v0.13.0...v0.13.1
 [0.13.0]: https://github.com/avendesora/pythonbible/compare/v0.12.0...v0.13.0

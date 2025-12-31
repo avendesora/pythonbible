@@ -23,7 +23,7 @@ copyright = "2020-2026 Nathan Patton (under MIT License)"
 author = "Nathan Patton"
 
 # The full version, including alpha/beta/rc tags
-release = "0.15.1"
+release = "0.15.2"
 
 
 # -- General configuration ---------------------------------------------------
