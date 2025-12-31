@@ -1793,7 +1793,7 @@ wheels = [
 
 [[package]]
 name = "pythonbible"
-version = "0.15.2"
+version = "0.15.3"
 source = { editable = "." }
 dependencies = [
     { name = "pythonbible-asv" },
@@ -1844,7 +1844,7 @@ bwe = [
 dar = [
     { name = "pythonbible-dar" },
 ]
-dialgot = [
+diaglot = [
     { name = "pythonbible-diaglot" },
 ]
 dr = [
@@ -1945,7 +1945,7 @@ requires-dist = [
     { name = "pythonbible-dar", marker = "extra == 'all'" },
     { name = "pythonbible-dar", marker = "extra == 'dar'" },
     { name = "pythonbible-diaglot", marker = "extra == 'all'" },
-    { name = "pythonbible-diaglot", marker = "extra == 'dialgot'" },
+    { name = "pythonbible-diaglot", marker = "extra == 'diaglot'" },
     { name = "pythonbible-dr", marker = "extra == 'all'" },
     { name = "pythonbible-dr", marker = "extra == 'dr'" },
     { name = "pythonbible-etheridge", marker = "extra == 'all'" },
@@ -1989,7 +1989,7 @@ requires-dist = [
     { name = "pythonbible-ylt", marker = "extra == 'all'" },
     { name = "pythonbible-ylt", marker = "extra == 'ylt'" },
 ]
-provides-extras = ["akjv", "asv", "bbe", "bwe", "dar", "dialgot", "dr", "etheridge", "gb", "kjv", "leeser", "lont", "mkjv1963", "mont", "nheb", "oeb", "roth", "rwebster", "rylt", "tyn", "ukjv", "wbs", "web", "wesley", "wmth", "wyc", "ylt", "all"]
+provides-extras = ["akjv", "asv", "bbe", "bwe", "dar", "diaglot", "dr", "etheridge", "gb", "kjv", "leeser", "lont", "mkjv1963", "mont", "nheb", "oeb", "roth", "rwebster", "rylt", "tyn", "ukjv", "wbs", "web", "wesley", "wmth", "wyc", "ylt", "all"]
 
 [package.metadata.requires-dev]
 dev = [{ name = "pre-commit", specifier = ">=4.3.0" }]
