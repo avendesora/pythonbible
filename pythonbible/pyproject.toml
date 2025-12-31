@@ -11,7 +11,7 @@ module-name = "pythonbible"
 
 [project]
 name = "pythonbible"
-version = "0.15.2"
+version = "0.15.3"
 description-file = "README.md"
 requires-python = ">=3.10"
 authors = [
@@ -47,7 +47,7 @@ ASV = ["pythonbible-asv"]
 BBE = ["pythonbible-bbe"]
 BWE = ["pythonbible-bwe"]
 DAR = ["pythonbible-dar"]
-Dialgot = ["pythonbible-diaglot"]
+Diaglot = ["pythonbible-diaglot"]
 DR = ["pythonbible-dr"]
 ETHERIDGE = ["pythonbible-etheridge"]
 GB = ["pythonbible-gb"]
