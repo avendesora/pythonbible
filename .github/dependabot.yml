@@ -20,6 +20,17 @@ updates:
       - "/pythonbible-mont"
       - "/pythonbible-nheb"
       - "/pythonbible-oeb"
+      - "/pythonbible-roth"
+      - "/pythonbible-rwebster"
+      - "/pythonbible-rylt"
+      - "/pythonbible-tyn"
+      - "/pythonbible-ukjv"
+      - "/pythonbible-wbs"
+      - "/pythonbible-web"
+      - "/pythonbible-wesley"
+      - "/pythonbible-wmth"
+      - "/pythonbible-wyc"
+      - "/pythonbible-ylt"
     schedule:
       interval: "daily"
     groups:

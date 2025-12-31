@@ -58,6 +58,17 @@ MKJV1963 = ["pythonbible-mkjv1963"]
 MONT = ["pythonbible-mont"]
 NHEB = ["pythonbible-nheb"]
 OEB = ["pythonbible-oeb"]
+ROTH = ["pythonbible-roth"]
+RWEBSTER = ["pythonbible-rwebster"]
+RYLT = ["pythonbible-rylt"]
+TYN = ["pythonbible-tyn"]
+UKJV = ["pythonbible-ukjv"]
+WBS = ["pythonbible-wbs"]
+WEB = ["pythonbible-web"]
+WESLEY = ["pythonbible-wesley"]
+WMTH = ["pythonbible-wmth"]
+WYC = ["pythonbible-wyc"]
+YLT = ["pythonbible-ylt"]
 all = [
     "pythonbible-akjv",
     "pythonbible-asv",
@@ -75,6 +86,17 @@ all = [
     "pythonbible-mont",
     "pythonbible-nheb",
     "pythonbible-oeb",
+    "pythonbible-roth",
+    "pythonbible-rwebster",
+    "pythonbible-rylt",
+    "pythonbible-tyn",
+    "pythonbible-ukjv",
+    "pythonbible-wbs",
+    "pythonbible-web",
+    "pythonbible-wesley",
+    "pythonbible-wmth",
+    "pythonbible-wyc",
+    "pythonbible-ylt",
 ]
 
 [dependency-groups]
@@ -93,6 +115,7 @@ test = [
     "pytest-cov>=7.0.0",
     "pythonbible-dr",
     "pythonbible-kjv",
+    "pythonbible-wmth",
 ]
 
 [tool.ruff.lint]

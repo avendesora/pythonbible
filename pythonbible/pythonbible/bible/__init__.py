@@ -33,6 +33,17 @@ BIBLE_PACKAGE_NAMES: dict[Version, str] = {
     Version.MONTGOMERY_NT: "pythonbible_mont",
     Version.NEW_HEART: "pythonbible_nheb",
     Version.OPEN_ENGLISH: "pythonbible_oeb",
+    Version.ROTHERHAM: "pythonbible_roth",
+    Version.REVISED_WEBSTER: "pythonbible_rwebster",
+    Version.REVISED_YOUNGS: "pythonbible_rylt",
+    Version.TYNDALE: "pythonbible_tyndale",
+    Version.KING_JAMES_UPDATED: "pythonbible_ukjv",
+    Version.WEBSTER: "pythonbible_wbs",
+    Version.WORLD_ENGLISH: "pythonbible_web",
+    Version.WESLEY_NT: "pythonbible_wesley",
+    Version.WEYMOUTH_NT: "pythonbible_wmth",
+    Version.WYCLIFFE: "pythonbible_wyc",
+    Version.YOUNGS: "pythonbible_ylt",
 }
 
 
@@ -49,22 +60,14 @@ def get_bible(version: Version, bible_type: str) -> Bible:
     version_bibles = BIBLES.get(version, {})
 
     if not version_bibles:
-        # First, try to import the Bible from a separate package.
-        package_name = BIBLE_PACKAGE_NAMES.get(version)
-        module_package = None
-
-        if package_name:
+        if package_name := BIBLE_PACKAGE_NAMES.get(version):
             module_name = f"{package_name}.{bible_type.lower()}_bible"
         else:
-            # Lazy-loading of Bible files to conserve memory
-            if not _do_version_files_exist(version):
-                raise MissingVerseFileError
-
-            module_name = f".{version.value.lower()}.{bible_type.lower()}_bible"
-            module_package = "pythonbible.bible.versions"
+            error_message = f"No package found for {version.value} ({version.title})."
+            raise MissingBiblePackageError(error_message)
 
         try:
-            version_module = import_module(module_name, module_package)
+            version_module = import_module(module_name)
         except ModuleNotFoundError as e:
             error_message = f"No package found for {version.value} ({version.title})."
             raise MissingBiblePackageError(error_message) from e
@@ -95,8 +98,3 @@ def add_bible(version: Version, bible_type: str, version_bible: Bible) -> None:
         BIBLES[version] = {}
 
     BIBLES[version][bible_type] = version_bible
-
-
-def _do_version_files_exist(version: Version) -> bool:
-    version_folder = CURRENT_FOLDER / "versions" / version.value.lower()
-    return version_folder.exists()

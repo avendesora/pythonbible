@@ -12,7 +12,7 @@ ASV_HTML_READERS = bible.get_bible(bible.Version.AMERICAN_STANDARD, "html_reader
 
 
 def test_get_scripture_end_verse_invalid() -> None:
-    with pytest.raises(bible.InvalidVerseError):
+    with pytest.raises(bible.bible.errors.VersionMissingVerseError):
         ASV_HTML.get_scripture(1001001, 99999999)
 
 
@@ -149,15 +149,31 @@ def test_get_bible_import_module_raises_module_not_found_in_module(
         bible.get_bible(version, "any_type")
 
 
-def test_get_bible_with_missing_version_files_raises_missing_verse_file_error() -> None:
-    # Create a minimal version-like object with a value for which no folder exists
+def test_get_bible_dummy_version_files_raises_missing_bible_package_error() -> None:
+    # Create a minimal version-like object with a value for which no package exists
     class DummyVersion:
         value = "this_version_folder_does_not_exist"
+        title = "Dummy Version"
 
     # Ensure no cached entry exists for this dummy key
     bible.bible.BIBLES.pop(DummyVersion, None)  # type: ignore[arg-type,call-overload]
 
     # Calling get_bible should check _do_version_files_exist and raise
-    # MissingVerseFileError
-    with pytest.raises(pythonbible.errors.MissingVerseFileError):
+    # MissingBiblePackageError
+    with pytest.raises(pythonbible.errors.MissingBiblePackageError):
         bible.get_bible(DummyVersion, "plain_text")  # type: ignore[arg-type]
+
+
+def test_get_number_of_chapters_invalid_book() -> None:
+    with pytest.raises(pythonbible.bible.errors.VersionMissingBookError):
+        ASV_HTML.get_number_of_chapters(bible.Book(67))  # type: ignore[call-arg]
+
+
+def test_get_number_of_verses_invalid_book() -> None:
+    with pytest.raises(pythonbible.bible.errors.VersionMissingBookError):
+        ASV_HTML.get_number_of_verses(bible.Book(67), 1)  # type: ignore[call-arg]
+
+
+def test_get_number_of_verses_invalid_chapter() -> None:
+    with pytest.raises(pythonbible.bible.errors.VersionMissingChapterError):
+        ASV_HTML.get_number_of_verses(bible.Book.GENESIS, 9999)

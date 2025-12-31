@@ -1,0 +1,23 @@
+version = 1
+revision = 3
+requires-python = ">=3.10"
+
+[[package]]
+name = "pythonbible"
+version = "0.14.0"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/19/d1/8a3578e58c61eeffa27e82c33095e042823f390136a87004b368a79fc8cb/pythonbible-0.14.0.tar.gz", hash = "sha256:2e973be3b59529d1b68133246221e9c90b559d2e4906f0bc705dd91609cf3b83", size = 19755534, upload-time = "2025-11-09T21:12:59.724Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/96/64/451bf4e6d60e1348739afc9f403040b5a7f19fab4a343e667671c33082b4/pythonbible-0.14.0-py3-none-any.whl", hash = "sha256:aca8678d81eb86acde835dde14964798de31748a13c582d7c5741e2ec416fc4a", size = 19754530, upload-time = "2025-11-09T21:12:55.885Z" },
+]
+
+[[package]]
+name = "pythonbible-ylt"
+version = "0.0.1"
+source = { editable = "." }
+dependencies = [
+    { name = "pythonbible" },
+]
+
+[package.metadata]
+requires-dist = [{ name = "pythonbible" }]

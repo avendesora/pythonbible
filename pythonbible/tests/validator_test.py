@@ -31,6 +31,16 @@ def test_is_valid_verse_id_invalid(invalid_verse_id: int) -> None:
     assert not bible.is_valid_verse_id(invalid_verse_id)
 
 
+def test_is_valid_verse_id_with_bible(verse_id: int) -> None:
+    # Given a valid verse id and a Bible object
+    bible_version: bible.Bible = bible.get_bible(
+        bible.Version.AMERICAN_STANDARD, "plain_text"
+    )
+    # When we test to see if it is valid
+    # Then the result is True
+    assert bible.is_valid_verse_id(verse_id, bible_version)
+
+
 def test_is_valid_reference(reference: bible.NormalizedReference) -> None:
     # Given a valid normalized reference tuple
     # When we test to see if it is valid
@@ -150,6 +160,18 @@ def test_is_valid_reference_smaller_end_verse(
     assert not bible.is_valid_reference(reference)
 
 
+def test_is_valid_reference_with_bible(
+    reference: bible.NormalizedReference,
+) -> None:
+    # Given a valid normalized reference tuple and a Bible object
+    bible_version: bible.Bible = bible.get_bible(
+        bible.Version.AMERICAN_STANDARD, "plain_text"
+    )
+    # When we test to see if it is valid
+    # Then the result is True
+    assert bible.is_valid_reference(reference, bible_version)
+
+
 def test_is_valid_book(book: bible.Book) -> None:
     # Given a valid book object
     # When we test to see if it is valid
@@ -169,6 +191,16 @@ def test_is_valid_book_string(book: bible.Book) -> None:
     # When we test to see if it is valid
     # Then the result is False
     assert not bible.is_valid_book(book.title)  # type: ignore[arg-type]
+
+
+def test_is_valid_book_with_bible(book: bible.Book) -> None:
+    # Given a valid book object and a Bible object
+    bible_version: bible.Bible = bible.get_bible(
+        bible.Version.AMERICAN_STANDARD, "plain_text"
+    )
+    # When we test to see if it is valid
+    # Then the result is True
+    assert bible.is_valid_book(book, bible_version)
 
 
 def test_is_valid_chapter(book: bible.Book, chapter: int) -> None:
@@ -197,6 +229,16 @@ def test_is_valid_chapter_invalid(book: bible.Book, invalid_chapter: int) -> Non
     # When we test to see if the chapter is valid
     # Then the result is False
     assert not bible.is_valid_chapter(book, invalid_chapter)
+
+
+def test_is_valid_chapter_with_bible(book: bible.Book, chapter: int) -> None:
+    # Given a valid book and chapter and a Bible object
+    bible_version: bible.Bible = bible.get_bible(
+        bible.Version.AMERICAN_STANDARD, "plain_text"
+    )
+    # When we test to see if the chapter is valid
+    # Then the result is True
+    assert bible.is_valid_chapter(book, chapter, bible_version)
 
 
 def test_is_valid_verse(book: bible.Book, chapter: int, verse: int) -> None:
@@ -229,3 +271,17 @@ def test_is_valid_verse_invalid(
     # When we test to see if the verse is valid
     # Then the result is False
     assert not bible.is_valid_verse(book, chapter, invalid_verse)
+
+
+def test_is_valid_verse_with_bible(
+    book: bible.Book,
+    chapter: int,
+    verse: int,
+) -> None:
+    # Given a valid book, chapter, and verse and a Bible object
+    bible_version: bible.Bible = bible.get_bible(
+        bible.Version.AMERICAN_STANDARD, "plain_text"
+    )
+    # When we test to see if the verse is valid
+    # Then the result is True
+    assert bible.is_valid_verse(book, chapter, verse, bible_version)

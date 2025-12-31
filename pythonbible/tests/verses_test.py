@@ -120,3 +120,77 @@ def test_get_verse(verse_id: int) -> None:
 
     # Then the resulting verse number matching the expected verse number (1)
     assert verse_number == 1
+
+
+def test_get_number_of_chapters_with_bible(book: bible.Book) -> None:
+    # Given a book of the Bible and a Bible instance
+    version_bible: bible.Bible = bible.get_bible(
+        bible.Version.AMERICAN_STANDARD,
+        "plain_text",
+    )
+
+    # When getting the number of chapters for the book
+    number_of_chapters: int = bible.get_number_of_chapters(book, version_bible)
+
+    # Then the number of chapters is the expected value
+    assert number_of_chapters == 50
+
+
+def test_is_single_chapter_book_with_bible() -> None:
+    # Given a single-chapter book of the Bible and a Bible instance
+    book = bible.Book.JUDE
+    version_bible: bible.Bible = bible.get_bible(
+        bible.Version.AMERICAN_STANDARD,
+        "plain_text",
+    )
+
+    # When checking to see if the book is a single-chapter book
+    is_single_chapter: bool = bible.verses.is_single_chapter_book(
+        book,
+        version_bible,
+    )
+
+    # Then the result is True
+    assert is_single_chapter
+
+
+def test_get_number_of_verses_with_bible(book: bible.Book) -> None:
+    # Given a book of the Bible, a chapter number, and a Bible instance
+    chapter = 1
+    version_bible: bible.Bible = bible.get_bible(
+        bible.Version.AMERICAN_STANDARD,
+        "plain_text",
+    )
+
+    # When getting the number of verses for the book and chapter
+    number_of_verses: int = bible.get_number_of_verses(
+        book,
+        chapter,
+        version_bible,
+    )
+
+    # Then the number of verses is the expected value
+    assert number_of_verses == 31
+
+
+def test_get_verse_id_with_bible(
+    book: bible.Book,
+    chapter: int,
+    verse: int,
+) -> None:
+    # Given a book of the Bible, a chapter number, a verse number, and a Bible instance
+    version_bible: bible.Bible = bible.get_bible(
+        bible.Version.AMERICAN_STANDARD,
+        "plain_text",
+    )
+
+    # When getting the verse id for the book, chapter, and verse
+    verse_id: int = bible.get_verse_id(
+        book,
+        chapter,
+        verse,
+        version_bible,
+    )
+
+    # Then the verse id is the expected value
+    assert verse_id == 1001001

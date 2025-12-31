@@ -5,9 +5,9 @@ from __future__ import annotations
 from functools import lru_cache
 from typing import TYPE_CHECKING
 
+from pythonbible.bible.errors import VersionMissingBookError
+from pythonbible.bible.errors import VersionMissingChapterError
 from pythonbible.bible.errors import VersionMissingVerseError
-from pythonbible.errors import InvalidVerseError
-from pythonbible.validator import is_valid_verse_id
 
 if TYPE_CHECKING:
     from pythonbible.books import Book
@@ -67,13 +67,11 @@ class Bible:
         start_verse_id: int,
         end_verse_id: int | None = None,
     ) -> str:
-        if not is_valid_verse_id(start_verse_id):
-            msg = f"start verse id ({start_verse_id}) is not a valid verse id."
-            raise InvalidVerseError(msg)
+        if not self.is_valid_verse_id(start_verse_id):
+            raise VersionMissingVerseError(self.version, start_verse_id)
 
-        if end_verse_id and not is_valid_verse_id(end_verse_id):
-            msg = f"end verse id ({end_verse_id}) is not a valid verse id."
-            raise InvalidVerseError(msg)
+        if end_verse_id and not self.is_valid_verse_id(end_verse_id):
+            raise VersionMissingVerseError(self.version, end_verse_id)
 
         end_verse_id = end_verse_id or start_verse_id
         start_index, end_index = self._get_start_and_end_indices(
@@ -88,17 +86,55 @@ class Bible:
         start_verse_id: int,
         end_verse_id: int,
     ) -> tuple[int, int]:
-        start_index = self.verse_start_indices.get(start_verse_id)
-
-        if start_index is None:
-            raise VersionMissingVerseError(self.version.value, start_verse_id)
-
-        end_index = self.verse_end_indices.get(end_verse_id)
-
-        if end_index is None:
-            raise VersionMissingVerseError(self.version.value, end_verse_id)
-
+        start_index = self.verse_start_indices.get(start_verse_id, -1)
+        end_index = self.verse_end_indices.get(end_verse_id, -1)
         return start_index, end_index
+
+    def is_valid_verse_id(self, verse_id: int) -> bool:
+        """Check if the given verse ID is valid in this Bible version.
+
+        :param verse_id: a verse id
+        :type verse_id: int
+        :return: True if the verse_id is valid; otherwise, False.
+        :rtype: bool
+        """
+        return verse_id in self.verse_start_indices
+
+    def get_number_of_chapters(self, book: Book) -> int:
+        """Get the number of chapters in the given book.
+
+        :param book: a book of the Bible
+        :type book: Book
+        :return: the number of chapters in the given book
+        :rtype: int
+        :raises VersionMissingBookError: if the book is not valid for the version
+        """
+        if chapters := self.max_verses.get(book):
+            return len(chapters)
+
+        raise VersionMissingBookError(self.version, book)
+
+    def get_number_of_verses(self, book: Book, chapter: int) -> int:
+        """Get the number of verses in the given book and chapter.
+
+        :param book: a book of the Bible
+        :type book: Book
+        :param chapter: a chapter number
+        :type chapter: int
+        :return: the number of verses in the given book and chapter
+        :rtype: int
+        :raises VersionMissingBookError: if the book is not valid for the version
+        :raises VersionMissingChapterError: if the chapter is not valid for the book
+        """
+        chapters = self.max_verses.get(book)
+
+        if not chapters:
+            raise VersionMissingBookError(self.version, book)
+
+        if chapter not in chapters:
+            raise VersionMissingChapterError(self.version, book, chapter)
+
+        return chapters.get(chapter, -1)
 
 
 @lru_cache()
