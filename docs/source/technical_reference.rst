@@ -1,6 +1,21 @@
 Technical Reference
 ===================
 
+.. _add_bible:
+
+add_bible
+---------
+
+.. autofunction:: pythonbible.add_bible
+
+.. _Bible:
+
+Bible
+-----
+
+.. autoclass:: pythonbible.Bible
+    :members:
+
 .. _Book:
 
 Book
@@ -8,7 +23,6 @@ Book
 
 .. autoclass:: pythonbible.Book
     :members:
-
 
 .. csv-table:: Book Members
     :header: "Name", "Value", "Title"
@@ -188,6 +202,13 @@ format_single_reference
 
 .. autofunction:: pythonbible.format_single_reference
 
+.. _get_bible:
+
+get_bible
+---------
+
+.. autofunction:: pythonbible.get_bible
+
 .. _get_book_chapter_verse:
 
 get_book_chapter_verse
@@ -203,13 +224,6 @@ get_book_number
 .. autofunction:: pythonbible.get_book_number
 
 .. _get_book_titles:
-
-get_book_titles
----------------
-
-.. autofunction:: pythonbible.get_book_titles
-
-.. _get_chapter_number:
 
 get_chapter_number
 ------------------
@@ -296,6 +310,8 @@ is_valid_chapter
 
 .. autofunction:: pythonbible.is_valid_chapter
 
+.. _is_valid_reference:
+
 is_valid_reference
 ------------------
 
@@ -315,21 +331,20 @@ is_valid_verse_id
 
 .. autofunction:: pythonbible.is_valid_verse_id
 
-.. _MissingBookFileError:
+.. _MissingBiblePackageError:
 
-MissingBookFileError
---------------------
+MissingBiblePackageError
+------------------------
 
-.. autoexception:: pythonbible.MissingBookFileError
+.. autoexception:: pythonbible.MissingBiblePackageError
     :members:
 
-.. _MissingVerseFileError:
+.. _normalize_reference:
 
-MissingVerseFileError
----------------------
+normalize_reference
+-------------------
 
-.. autoexception:: pythonbible.MissingVerseFileError
-    :members:
+.. autofunction:: pythonbible.normalize_reference
 
 .. _NormalizedReference:
 
@@ -344,4 +359,28 @@ Version
 -------
 
 .. autoclass:: pythonbible.Version
+    :members:
+
+.. _VersionMissingBookError:
+
+VersionMissingBookError
+-----------------------
+
+.. autoexception:: pythonbible.VersionMissingBookError
+    :members:
+
+.. _VersionMissingChapterError:
+
+VersionMissingChapterError
+--------------------------
+
+.. autoexception:: pythonbible.VersionMissingChapterError
+    :members:
+
+.. _VersionMissingVerseError:
+
+VersionMissingVerseError
+------------------------
+
+.. autoexception:: pythonbible.VersionMissingVerseError
     :members:

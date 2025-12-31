@@ -1,0 +1,104 @@
+[build-system]
+requires = ["uv_build>=0.8.9,<0.10.0"]
+build-backend = "uv_build"
+
+[tool.uv.build-backend]
+module-root = ""
+module-name = "pythonbible_kjv"
+
+[project]
+name = "pythonbible-kjv"
+version = "0.0.1"
+description-file = "README.md"
+requires-python = ">=3.10"
+authors = [
+    { name = "Nathan Patton", email = "npatton@gmail.com" }
+]
+readme = "README.md"
+license = "MIT"
+classifiers = [
+    "Intended Audience :: Information Technology",
+    "Intended Audience :: Developers",
+    "Operating System :: OS Independent",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Software Development :: Libraries",
+    "Topic :: Software Development",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "License :: OSI Approved :: MIT License"
+]
+urls = { Documentation = "https://docs.python.bible", Source = "https://github.com/avendesora/pythonbible" }
+dependencies = [
+    "pythonbible",
+]
+
+[tool.ruff.lint]
+select = [
+    "A",
+    "ANN",
+    "ARG",
+    "B",
+    "BLE",
+    "COM",
+    "C4",
+    "C90",
+    "D",
+    "DTZ",
+    "E",
+    "EM",
+    "ERA",
+    "EXE",
+    "F",
+    "FBT",
+    "G",
+    "I",
+    "ICN",
+    "INP",
+    "ISC",
+    "N",
+    "NPY",
+    "PD",
+    "PGH",
+    "PIE",
+    "PL",
+    "PT",
+    "PTH",
+    "PYI",
+    "Q",
+    "RET",
+    "RSE",
+    "RUF",
+    "S",
+    "SIM",
+    "SLF",
+    "TCH",
+    "TID",
+    "TRY",
+    "T10",
+    "T20",
+    "W",
+]
+ignore = [
+    "COM812",  # conflicts with formatter
+    "D100",
+    "D101",
+    "D102",
+    "D103",
+    "D104",
+    "D205",
+    "D203",
+    "D213",
+    "E501",  # Bible text is going to exceed line length
+    "FBT003",
+    "RUF001",  # right single quotation mark in Bible text
+    "ISC001",  # conflicts with formatter
+]
+
+[tool.ruff.lint.isort]
+force-single-line = true

@@ -1,8 +1,36 @@
 version: 2
 updates:
   # Maintain Python dependencies
-  - package-ecosystem: "pip"
-    directory: "/"
+  - package-ecosystem: "uv"
+    directories:
+      - "/pythonbible"
+      - "/pythonbible-akjv"
+      - "/pythonbible-asv"
+      - "/pythonbible-bbe"
+      - "/pythonbible-bwe"
+      - "/pythonbible-dar"
+      - "/pythonbible-diaglot"
+      - "/pythonbible-dr"
+      - "/pythonbible-etheridge"
+      - "/pythonbible-gb"
+      - "/pythonbible-kjv"
+      - "/pythonbible-leeser"
+      - "/pythonbible-lont"
+      - "/pythonbible-mkjv1963."
+      - "/pythonbible-mont"
+      - "/pythonbible-nheb"
+      - "/pythonbible-oeb"
+      - "/pythonbible-roth"
+      - "/pythonbible-rwebster"
+      - "/pythonbible-rylt"
+      - "/pythonbible-tyn"
+      - "/pythonbible-ukjv"
+      - "/pythonbible-wbs"
+      - "/pythonbible-web"
+      - "/pythonbible-wesley"
+      - "/pythonbible-wmth"
+      - "/pythonbible-wyc"
+      - "/pythonbible-ylt"
     schedule:
       interval: "daily"
     groups:
