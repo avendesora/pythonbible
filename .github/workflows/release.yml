@@ -62,7 +62,7 @@ jobs:
             pythonbible-ylt
           )
 
-          git fetch --prune --tags
+          git fetch --prune --tags || git fetch --prune
 
           # find previous tag (by creation date) excluding current release tag
           PREV_TAG=$(git tag --sort=-creatordate | grep -v -x "${TAG_NAME}" | head -n1 || true)
