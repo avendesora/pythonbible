@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
+from pythonbible import VersionMissingVerseError
 from pythonbible.errors import InvalidVerseError
 from pythonbible.normalized_reference import NormalizedReference
 from pythonbible.validator import is_valid_verse_id
@@ -12,14 +13,20 @@ from pythonbible.verses import get_number_of_verses
 from pythonbible.verses import get_verse_id
 
 if TYPE_CHECKING:
+    from pythonbible.bible.bible import Bible
     from pythonbible.books import Book
 
 
-def convert_references_to_verse_ids(references: list[NormalizedReference]) -> list[int]:
+def convert_references_to_verse_ids(
+    references: list[NormalizedReference],
+    bible: Bible | None = None,
+) -> list[int]:
     """Convert a list of NormalizedReference objects into a list of verse id integers.
 
     :param references: A list of normalized references
     :type references: list[NormalizedReference]
+    :param bible: An optional Bible object to validate verse ids against
+    :type bible: Bible | None
     :return: The list of verse ids associated with the references
     :rtype: list[int]
     """
@@ -27,20 +34,28 @@ def convert_references_to_verse_ids(references: list[NormalizedReference]) -> li
 
     if references is not None:
         for reference in references:
-            verse_ids.extend(convert_reference_to_verse_ids(reference))
+            verse_ids.extend(convert_reference_to_verse_ids(reference, bible))
 
     return verse_ids
 
 
-def convert_reference_to_verse_ids(reference: NormalizedReference) -> tuple[int, ...]:
+def convert_reference_to_verse_ids(
+    reference: NormalizedReference,
+    bible: Bible | None = None,
+) -> tuple[int, ...]:
     """Convert the given NormalizedReference object into a tuple of verse id integers.
 
     :param reference: A normalized reference
     :type reference: NormalizedReference
+    :param bible: An optional Bible object to validate verse ids against
+    :type bible: Bible | None
     :return: The tuple of verse ids associated with the reference
     :rtype: tuple[int, ...]
+    :raises VersionMissingBookError: if a book in the reference is not present in
+                                     the given Bible version
+    :raises VersionMissingChapterError: if a chapter in the reference is not present in
+                                       the given Bible version
     """
-    # TODO - require version since chapter and verse counts can differ by version
     if reference is None:
         return ()
 
@@ -49,33 +64,49 @@ def convert_reference_to_verse_ids(reference: NormalizedReference) -> tuple[int,
     start_verse: int = reference.start_verse or 1
 
     end_book: Book = reference.end_book or start_book
-    end_chapter: int = reference.end_chapter or get_number_of_chapters(end_book)
-    end_verse: int = reference.end_verse or get_number_of_verses(end_book, end_chapter)
+    end_chapter: int = reference.end_chapter or get_number_of_chapters(end_book, bible)
+    end_verse: int = reference.end_verse or get_number_of_verses(
+        end_book,
+        end_chapter,
+        bible,
+    )
 
     start_verse_id: int = get_verse_id(
         start_book,
         start_chapter,
         start_verse,
+        bible,
     )
     end_verse_id: int = get_verse_id(
         end_book,
         end_chapter,
         end_verse,
+        bible,
     )
-    return VERSE_IDS[
-        VERSE_IDS.index(start_verse_id) : VERSE_IDS.index(end_verse_id) + 1
+
+    verse_ids = VERSE_IDS if bible is None else bible.get_verse_ids()
+
+    return verse_ids[
+        verse_ids.index(start_verse_id) : verse_ids.index(end_verse_id) + 1
     ]
 
 
-def convert_verse_ids_to_references(verse_ids: list[int]) -> list[NormalizedReference]:
+def convert_verse_ids_to_references(
+    verse_ids: list[int],
+    bible: Bible | None = None,
+) -> list[NormalizedReference]:
     """Convert a list of verse ids into a list of NormalizedReferences.
 
     :param verse_ids: A list of verse ids
     :type verse_ids: list[int]
+    :param bible: An optional Bible object to validate verse ids against
+    :type bible: Bible | None
     :return: The list of normalized references associated with the verse ids
     :rtype: list[NormalizedReference]
     :raises InvalidVerseError: if one or more of the verse_ids does not correspond to
                                a valid verse
+    :raises VersionMissingVerseError: if one or more of the verse_ids does not exist
+                                     in the given Bible version
     """
     references: list[NormalizedReference] = []
 
@@ -87,8 +118,7 @@ def convert_verse_ids_to_references(verse_ids: list[int]) -> list[NormalizedRefe
     # Initialize with the first verse id in the list
     first_verse = verse_ids[0]
 
-    if not is_valid_verse_id(first_verse):
-        raise InvalidVerseError(verse_id=first_verse)
+    _validate_verse_id(first_verse, bible)
 
     previous_verse_id: int = verse_ids[0]
 
@@ -106,8 +136,7 @@ def convert_verse_ids_to_references(verse_ids: list[int]) -> list[NormalizedRefe
 
     # Loop through the remaining verse ids in the list
     for verse_id in verse_ids[1:]:
-        if not is_valid_verse_id(verse_id):
-            raise InvalidVerseError(verse_id=verse_id)
+        _validate_verse_id(verse_id, bible)
 
         book, chapter, verse = get_book_chapter_verse(verse_id)
 
@@ -154,3 +183,14 @@ def convert_verse_ids_to_references(verse_ids: list[int]) -> list[NormalizedRefe
     )
 
     return references
+
+
+def _validate_verse_id(
+    verse_id: int,
+    bible: Bible | None = None,
+) -> None:
+    if bible is not None and not bible.is_valid_verse_id(verse_id):
+        raise VersionMissingVerseError(bible.version, verse_id)
+
+    if not is_valid_verse_id(verse_id):
+        raise InvalidVerseError(verse_id=verse_id)

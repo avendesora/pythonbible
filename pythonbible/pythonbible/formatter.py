@@ -4,11 +4,10 @@ from functools import lru_cache
 from typing import TYPE_CHECKING
 from typing import Any
 
+from pythonbible import VersionMissingBookError
 from pythonbible.bible import get_bible
 from pythonbible.converter import convert_references_to_verse_ids
 from pythonbible.converter import convert_verse_ids_to_references
-from pythonbible.errors import MissingBookFileError
-from pythonbible.errors import MissingVerseFileError
 from pythonbible.verses import get_book_chapter_verse
 from pythonbible.verses import get_number_of_chapters
 from pythonbible.verses import get_number_of_verses
@@ -27,14 +26,26 @@ if TYPE_CHECKING:
 #        Obadiah 1:1-4)
 def format_scripture_references(
     references: list[NormalizedReference] | None,
+    bible: Bible | None = None,
     **kwargs: Any,
 ) -> str:
     """Return a human-readable string of the given normalized scripture references.
 
     :param references: A list of normalized scripture references
     :type references: list[NormalizedReference]
+    :param bible: An optional Bible object to format against
+    :type bible: Bible | None
+    :param kwargs: Additional keyword arguments to pass to the formatter functions
+    :type kwargs: Any
     :return: A human-readable string of the given normalized scripture references
     :rtype: str
+    :raises InvalidVerseError: If a verse id in the reference is not valid
+    :raises VersionMissingBookError: If a book in the reference is not present in the
+                                     given Bible version
+    :raises VersionMissingChapterError: If a chapter in the reference is not present in
+                                        the given Bible version
+    :raises VersionMissingVerseError: If a verse in the reference is not present in
+                                      the given Bible version
     """
     if references is None:
         return ""
@@ -44,9 +55,9 @@ def format_scripture_references(
     # Only sort if there is more than one reference as it can take a long time if there
     # are a lot of verses covered by the references.
     if len(references) > 1:
-        verse_ids: list[int] = convert_references_to_verse_ids(references)
+        verse_ids: list[int] = convert_references_to_verse_ids(references, bible)
         verse_ids.sort()
-        sorted_references = convert_verse_ids_to_references(verse_ids)
+        sorted_references = convert_verse_ids_to_references(verse_ids, bible)
 
     formatted_reference: str = ""
 
@@ -59,7 +70,9 @@ def format_scripture_references(
             if previous_reference:
                 formatted_reference += ";"
 
-            formatted_reference += format_single_reference(reference, **kwargs)
+            formatted_reference += format_single_reference(
+                reference, bible=bible, **kwargs
+            )
             previous_reference = reference
             continue
 
@@ -68,6 +81,7 @@ def format_scripture_references(
             formatted_reference += format_single_reference(
                 reference,
                 include_books=False,
+                bible=bible,
                 **kwargs,
             )
             continue
@@ -78,6 +92,7 @@ def format_scripture_references(
             reference,
             include_books=False,
             include_chapters=False,
+            bible=bible,
             **kwargs,
         )
         previous_reference = reference
@@ -109,6 +124,7 @@ def format_single_reference(
     reference: NormalizedReference,
     include_books: bool = True,
     include_chapters: bool = True,
+    bible: Bible | None = None,
     **kwargs: Any,
 ) -> str:
     """Return a human-readable string of the given normalized scripture reference.
@@ -121,18 +137,38 @@ def format_single_reference(
     :param include_chapters: If True includes the chapter number(s) in the returned
                              reference string, defaults to True
     :type include_chapters: bool
+    :param bible: An optional Bible object to format against
+    :type bible: Bible | None
+    :param kwargs: Additional keyword arguments to pass to the formatter functions
+    :type kwargs: Any
     :return: A human-readable string of the given normalized scripture reference
     :rtype: str
+    :raises InvalidVerseError: If a verse id in the reference is not valid
+    :raises VersionMissingBookError: If a book in the reference is not present in the
+                                     given Bible version
+    :raises VersionMissingChapterError: If a chapter in the reference is not present in
+                                        the given Bible version
+    :raises VersionMissingVerseError: If a verse in the reference is not present in
+                                      the given Bible version
     """
-    version: Version = kwargs.get("version", DEFAULT_VERSION)
     full_title: bool = kwargs.get("full_title", False)
 
-    start_book: str = _get_start_book(reference, version, full_title, include_books)
-    start_chapter: str = _get_start_chapter(reference, include_chapters, **kwargs)
-    start_verse: str = _get_start_verse(reference, **kwargs)
-    end_book: str = _get_end_book(reference, version, full_title, include_books)
-    end_chapter: str = _get_end_chapter(reference, include_chapters, **kwargs)
-    end_verse: str = _get_end_verse(reference, **kwargs)
+    start_book: str = _get_start_book(reference, full_title, include_books, bible)
+    start_chapter: str = _get_start_chapter(
+        reference,
+        include_chapters,
+        bible=bible,
+        **kwargs,
+    )
+    start_verse: str = _get_start_verse(reference, bible=bible, **kwargs)
+    end_book: str = _get_end_book(reference, full_title, include_books, bible)
+    end_chapter: str = _get_end_chapter(
+        reference,
+        include_chapters,
+        bible=bible,
+        **kwargs,
+    )
+    end_verse: str = _get_end_verse(reference, bible=bible, **kwargs)
 
     start_separator: str = " " if start_book and (start_chapter or start_verse) else ""
     end_separator: str = " " if end_book and (end_chapter or end_verse) else ""
@@ -160,95 +196,49 @@ def format_single_reference(
 
 def _get_start_book(
     reference: NormalizedReference,
-    version: Version,
     full_title: bool,
     include_books: bool = True,
+    bible: Bible | None = None,
 ) -> str:
-    return _get_book_title(reference.book, version, full_title, include_books)
+    return _get_book_title(reference.book, full_title, include_books, bible)
 
 
 def _get_end_book(
     reference: NormalizedReference,
-    version: Version,
     full_title: bool,
     include_books: bool = True,
+    bible: Bible | None = None,
 ) -> str:
     if reference.end_book and reference.end_book != reference.book:
-        return _get_book_title(reference.end_book, version, full_title, include_books)
+        return _get_book_title(reference.end_book, full_title, include_books, bible)
 
     return ""
 
 
 def _get_book_title(
     book: Book,
-    version: Version,
     full_title: bool,
     include_books: bool = True,
+    bible: Bible | None = None,
 ) -> str:
     if not include_books:
         return ""
 
-    try:
-        bible: Bible = get_bible(version, "plain_text")
-        return (
-            bible.long_titles.get(book, book.title)
-            if full_title
-            else bible.short_titles.get(book, book.title)
-        )
-    except MissingVerseFileError:
+    if bible is None:
         return book.title
 
+    title = bible.long_titles.get(book) if full_title else bible.short_titles.get(book)
 
-def _is_single_chapter_book(book: Book, **kwargs: Any) -> bool:
-    version: Version | None = kwargs.get("version")
+    if title is not None:
+        return title
 
-    if not version:
-        return is_single_chapter_book(book)
-
-    try:
-        bible: Bible = get_bible(version, "plain_text")
-        chapters = bible.max_verses.get(book)
-        return len(chapters) == 1 if chapters else is_single_chapter_book(book)
-    except MissingBookFileError:
-        return is_single_chapter_book(book)
-
-
-def _get_number_of_chapters(book: Book, **kwargs: Any) -> int:
-    version: Version | None = kwargs.get("version")
-
-    if not version:
-        return get_number_of_chapters(book)
-
-    try:
-        bible: Bible = get_bible(version, "plain_text")
-        chapters = bible.max_verses.get(book)
-        return len(chapters) if chapters else get_number_of_chapters(book)
-    except MissingBookFileError:
-        return get_number_of_chapters(book)
-
-
-def _get_number_of_verses(book: Book, chapter: int, **kwargs: Any) -> int:
-    version: Version | None = kwargs.get("version")
-
-    if not version:
-        return get_number_of_verses(book, chapter)
-
-    try:
-        bible: Bible = get_bible(version, "plain_text")
-        chapters = bible.max_verses.get(book)
-
-        if not chapters:
-            return get_number_of_verses(book, chapter)
-
-        verses = chapters.get(chapter) if chapters else None
-        return verses or get_number_of_verses(book, chapter)
-    except MissingBookFileError:
-        return get_number_of_verses(book, chapter)
+    raise VersionMissingBookError(bible.version, book)
 
 
 def _get_start_chapter(
     reference: NormalizedReference,
     include_chapters: bool = True,
+    bible: Bible | None = None,
     **kwargs: Any,
 ) -> str:
     if not include_chapters:
@@ -257,22 +247,26 @@ def _get_start_chapter(
     force_include_chapters: bool = kwargs.get("always_include_chapter_numbers", False)
 
     if (
-        _does_reference_include_all_verses_in_start_book(reference, **kwargs)
+        _does_reference_include_all_verses_in_start_book(reference, bible)
         and not force_include_chapters
     ):
         return ""
 
-    if _is_single_chapter_book(reference.book, **kwargs) and not force_include_chapters:
+    if is_single_chapter_book(reference.book, bible) and not force_include_chapters:
         return ""
 
     return f"{reference.start_chapter or 1}:"
 
 
-def _get_start_verse(reference: NormalizedReference, **kwargs: Any) -> str:
+def _get_start_verse(
+    reference: NormalizedReference,
+    bible: Bible | None = None,
+    **kwargs: Any,
+) -> str:
     force_include_chapters: bool = kwargs.get("always_include_chapter_numbers", False)
 
     if (
-        _does_reference_include_all_verses_in_start_book(reference, **kwargs)
+        _does_reference_include_all_verses_in_start_book(reference, bible)
         and not force_include_chapters
     ):
         return ""
@@ -283,6 +277,7 @@ def _get_start_verse(reference: NormalizedReference, **kwargs: Any) -> str:
 def _get_end_chapter(
     reference: NormalizedReference,
     include_chapters: bool = True,
+    bible: Bible | None = None,
     **kwargs: Any,
 ) -> str:
     if not include_chapters:
@@ -292,30 +287,30 @@ def _get_end_chapter(
 
     if reference.end_book and reference.book != reference.end_book:
         if (
-            _does_reference_include_all_verses_in_end_book(reference, **kwargs)
+            _does_reference_include_all_verses_in_end_book(reference, bible)
             and not force_include_chapters
         ):
             return ""
 
         if (
-            _is_single_chapter_book(reference.end_book, **kwargs)
+            is_single_chapter_book(reference.end_book, bible)
             and not force_include_chapters
         ):
             return ""
 
-        end_chapter = reference.end_chapter or _get_number_of_chapters(
+        end_chapter = reference.end_chapter or get_number_of_chapters(
             reference.end_book,
-            **kwargs,
+            bible,
         )
         return f"{end_chapter}:"
 
     if (
-        _does_reference_include_all_verses_in_start_book(reference, **kwargs)
+        _does_reference_include_all_verses_in_start_book(reference, bible)
         and not force_include_chapters
     ):
         return ""
 
-    if _is_single_chapter_book(reference.book, **kwargs):
+    if is_single_chapter_book(reference.book, bible):
         return ""
 
     if (
@@ -325,50 +320,54 @@ def _get_end_chapter(
     ):
         return ""
 
-    end_chapter = reference.end_chapter or _get_number_of_chapters(
+    end_chapter = reference.end_chapter or get_number_of_chapters(
         reference.book,
-        **kwargs,
+        bible,
     )
     return f"{end_chapter}:"
 
 
-def _get_end_verse(reference: NormalizedReference, **kwargs: Any) -> str:
+def _get_end_verse(
+    reference: NormalizedReference,
+    bible: Bible | None = None,
+    **kwargs: Any,
+) -> str:
     force_include_chapters: bool = kwargs.get("always_include_chapter_numbers", False)
 
     if reference.end_book and reference.book != reference.end_book:
         if (
-            _does_reference_include_all_verses_in_end_book(reference, **kwargs)
+            _does_reference_include_all_verses_in_end_book(reference, bible)
             and not force_include_chapters
         ):
             return ""
 
-        end_chapter = reference.end_chapter or _get_number_of_chapters(
+        end_chapter = reference.end_chapter or get_number_of_chapters(
             reference.end_book,
-            **kwargs,
+            bible,
         )
-        end_verse = reference.end_verse or _get_number_of_verses(
+        end_verse = reference.end_verse or get_number_of_verses(
             reference.end_book,
             end_chapter,
-            **kwargs,
+            bible,
         )
         return f"{end_verse}"
 
     if (
-        _does_reference_include_all_verses_in_start_book(reference, **kwargs)
+        _does_reference_include_all_verses_in_start_book(reference, bible)
         and not force_include_chapters
     ):
         return ""
 
     start_chapter = reference.start_chapter or 1
     start_verse = reference.start_verse or 1
-    end_chapter = reference.end_chapter or _get_number_of_chapters(
+    end_chapter = reference.end_chapter or get_number_of_chapters(
         reference.book,
-        **kwargs,
+        bible,
     )
-    end_verse = reference.end_verse or _get_number_of_verses(
+    end_verse = reference.end_verse or get_number_of_verses(
         reference.book,
         end_chapter,
-        **kwargs,
+        bible,
     )
 
     return (
@@ -380,7 +379,7 @@ def _get_end_verse(reference: NormalizedReference, **kwargs: Any) -> str:
 
 def _does_reference_include_all_verses_in_start_book(
     reference: NormalizedReference,
-    **kwargs: Any,
+    bible: Bible | None = None,
 ) -> bool:
     if reference.start_chapter is None and reference.end_chapter is None:
         return True
@@ -394,45 +393,52 @@ def _does_reference_include_all_verses_in_start_book(
     if reference.end_book and reference.end_book != reference.book:
         return True
 
-    max_chapters = _get_number_of_chapters(reference.book, **kwargs)
+    max_chapters = get_number_of_chapters(reference.book, bible)
 
     if reference.end_chapter != max_chapters:
         return False
 
-    return reference.end_verse == _get_number_of_verses(
+    return reference.end_verse == get_number_of_verses(
         reference.book,
         max_chapters,
-        **kwargs,
+        bible,
     )
 
 
 def _does_reference_include_all_verses_in_end_book(
     reference: NormalizedReference,
-    **kwargs: Any,
+    bible: Bible | None = None,
 ) -> bool:
     if reference.start_chapter is None and reference.end_chapter is None:
         return True
 
     end_book: Book = reference.end_book or reference.book
-    max_chapters = _get_number_of_chapters(end_book, **kwargs)
+    max_chapters = get_number_of_chapters(end_book, bible)
 
     if reference.end_chapter != max_chapters:
         return False
 
-    return reference.end_verse == _get_number_of_verses(
+    return reference.end_verse == get_number_of_verses(
         end_book,
         max_chapters,
-        **kwargs,
+        bible,
     )
 
 
-def format_scripture_text(verse_ids: list[int], **kwargs: Any) -> str:
+def format_scripture_text(
+    verse_ids: list[int],
+    **kwargs: Any,
+) -> str:
     """Return the formatted scripture text for the given list of verse IDs.
 
     :param verse_ids: A list of integer verse ids
     :type verse_ids: list[int]
     :return: The formatted scripture text for the verse ids
     :rtype: str
+    :raises VersionMissingBookError: if a book in the verse ids is not present in
+                                     the given Bible version
+    :raises VersionMissingVerseError: if a verse in the verse ids is not present in
+                                      the given Bible version
     """
     one_verse_per_paragraph: bool = kwargs.get("one_verse_per_paragraph", False)
     full_title: bool = kwargs.get("full_title", False)
@@ -475,11 +481,7 @@ def format_scripture_text(verse_ids: list[int], **kwargs: Any) -> str:
         if book != current_book:
             current_book = book
             current_chapter = chapter_number
-            title: str = (
-                bible.long_titles.get(book, book.title)
-                if full_title
-                else bible.short_titles.get(book, book.title)
-            )
+            title = _get_book_title(book, full_title, bible=bible)
             text += _format_title(title, is_html, not text)
             text += _format_chapter(chapter_number, is_html)
         elif chapter_number != current_chapter:
@@ -518,10 +520,10 @@ def get_verse_text(verse_id: int, version: Version = DEFAULT_VERSION) -> str:
     :type version: Version
     :return: The scripture text of the given verse id and version
     :rtype: str
-    :raises InvalidVerseError: if the given verse id does not correspond to a valid
-                               verse
-    :raises MissingVerseFileError: if the verse file for the given verse_id and version
-                                   does not exist
+    :raises MissingBiblePackageError: if the Bible package for the given version is not
+                                     installed
+    :raises VersionMissingVerseError: if the verse id does not exist in the given Bible
+                                     version
     """
     bible = get_bible(version, "plain_text_readers")
     return bible.get_scripture(verse_id, verse_id)

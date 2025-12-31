@@ -20,6 +20,23 @@ class Bible:
     The Bible class contains the scripture content for a version and format along with
     the functionality necessary to get the scripture content for a verse or range of
     verses.
+
+    :param version: The version of the Bible.
+    :type version: Version
+    :param scripture_content: The scripture content for the Bible.
+    :type scripture_content: str
+    :param verse_start_indices: The start indices for each verse.
+    :type verse_start_indices: dict[int, int]
+    :param verse_end_indices: The end indices for each verse.
+    :type verse_end_indices: dict[int, int]
+    :param max_verses: The maximum verses for each book and chapter.
+    :type max_verses: dict[Book, dict[int, int]]
+    :param short_titles: The short titles for each book.
+    :type short_titles: dict[Book, str]
+    :param long_titles: The long titles for each book.
+    :type long_titles: dict[Book, str]
+    :param is_html: Whether the scripture content is HTML.
+    :type is_html: bool
     """
 
     version: Version
@@ -45,13 +62,21 @@ class Bible:
         """Initialize a Bible object.
 
         :param version: The version of the Bible.
+        :type version: Version
         :param scripture_content: The scripture content for the Bible.
+        :type scripture_content: str
         :param verse_start_indices: The start indices for each verse.
+        :type verse_start_indices: dict[int, int]
         :param verse_end_indices: The end indices for each verse.
+        :type verse_end_indices: dict[int, int]
         :param max_verses: The maximum verses for each book and chapter.
+        :type max_verses: dict[Book, dict[int, int]]
+        :param short_titles: The short titles for each book.
         :param short_titles: The short titles for each book.
         :param long_titles: The long titles for each book.
+        :type long_titles: dict[Book, str]
         :param is_html: Whether the scripture content is HTML.
+        :type is_html: bool
         """
         self.version = version
         self.scripture_content = scripture_content
@@ -67,6 +92,16 @@ class Bible:
         start_verse_id: int,
         end_verse_id: int | None = None,
     ) -> str:
+        """Get the scripture content for the given verse ID or range of verse IDs.
+
+        :param start_verse_id: The starting verse ID.
+        :type start_verse_id: int
+        :param end_verse_id: The ending verse ID.
+        :type end_verse_id: int | None
+        :return: The scripture content for the given verse ID or range of verse IDs.
+        :rtype: str
+        :raises VersionMissingVerseError: if a verse ID is not valid for the version
+        """
         if not self.is_valid_verse_id(start_verse_id):
             raise VersionMissingVerseError(self.version, start_verse_id)
 
@@ -135,6 +170,14 @@ class Bible:
             raise VersionMissingChapterError(self.version, book, chapter)
 
         return chapters.get(chapter, -1)
+
+    def get_verse_ids(self) -> tuple[int, ...]:
+        """Get all verse IDs in this Bible version.
+
+        :return: A tuple of all verse IDs
+        :rtype: tuple[int, ...]
+        """
+        return tuple(self.verse_start_indices.keys())
 
 
 @lru_cache()

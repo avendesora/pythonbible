@@ -189,7 +189,7 @@ ignore = [
 "pythonbible/versions.py" = ["ARG004", "PYI034"]
 "tests/*.py" = ["FBT003", "PLR2004", "S101", "TRY301"]
 "tests/docs/advanced_usage_test.py" = ["FBT001"]
-"tests/formatter/missing_file_handling_test.py" = ["SLF001"]
+"tests/formatter/formatter_test.py" = ["SLF001"]
 
 [tool.ruff.lint.isort]
 force-single-line = true

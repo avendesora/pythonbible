@@ -13,6 +13,8 @@ __version__ = "0.15.1"
 from .bible import add_bible
 from .bible import get_bible
 from .bible.bible import Bible
+from .bible.errors import VersionMissingBookError
+from .bible.errors import VersionMissingChapterError
 from .bible.errors import VersionMissingVerseError
 from .book_groups import BOOK_GROUPS
 from .book_groups import BookGroup
@@ -23,12 +25,10 @@ from .converter import convert_verse_ids_to_references
 from .counters.book_counter import count_books
 from .counters.chapter_counter import count_chapters
 from .counters.verse_counter import count_verses
-from .errors import InvalidBibleParserError
 from .errors import InvalidBookError
 from .errors import InvalidChapterError
 from .errors import InvalidVerseError
-from .errors import MissingBookFileError
-from .errors import MissingVerseFileError
+from .errors import MissingBiblePackageError
 from .formatter import format_scripture_references
 from .formatter import format_scripture_text
 from .formatter import format_single_reference
@@ -55,14 +55,14 @@ __all__ = [
     "Bible",
     "Book",
     "BookGroup",
-    "InvalidBibleParserError",
     "InvalidBookError",
     "InvalidChapterError",
     "InvalidVerseError",
-    "MissingBookFileError",
-    "MissingVerseFileError",
+    "MissingBiblePackageError",
     "NormalizedReference",
     "Version",
+    "VersionMissingBookError",
+    "VersionMissingChapterError",
     "VersionMissingVerseError",
     "__version__",
     "add_bible",
@@ -93,45 +93,4 @@ __all__ = [
     "normalize_reference",
 ]
 # Reference the imported names so ruff/auto-fixes do not remove them as "unused".
-_ = (
-    add_bible,
-    get_bible,
-    Bible,
-    VersionMissingVerseError,
-    BOOK_GROUPS,
-    BookGroup,
-    Book,
-    convert_reference_to_verse_ids,
-    convert_references_to_verse_ids,
-    convert_verse_ids_to_references,
-    count_books,
-    count_chapters,
-    count_verses,
-    InvalidBibleParserError,
-    InvalidBookError,
-    InvalidChapterError,
-    InvalidVerseError,
-    MissingBookFileError,
-    MissingVerseFileError,
-    format_scripture_references,
-    format_scripture_text,
-    format_single_reference,
-    get_verse_text,
-    NormalizedReference,
-    get_references,
-    normalize_reference,
-    is_valid_book,
-    is_valid_chapter,
-    is_valid_reference,
-    is_valid_verse,
-    is_valid_verse_id,
-    get_book_chapter_verse,
-    get_book_number,
-    get_chapter_number,
-    get_number_of_chapters,
-    get_number_of_verses,
-    get_verse_id,
-    get_verse_number,
-    Version,
-    __version__,
-)
+_ = tuple(globals().get(name) for name in __all__)

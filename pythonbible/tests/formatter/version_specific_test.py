@@ -36,13 +36,15 @@ def test_format_scripture_references(
     # When the scripture references are formatted,
     for version, expected_references in expected_references_by_version.items():
         # Then the actual references should match the expected references by version.
+        version_bible = bible.get_bible(version, "plain_text")
+
         actual_reference = bible.format_scripture_references(
             bible.get_references(reference_string),
-            version=version,
+            bible=version_bible,
         )
         actual_reference_with_chapters = bible.format_scripture_references(
             bible.get_references(reference_string),
-            version=version,
+            bible=version_bible,
             always_include_chapter_numbers=True,
         )
 

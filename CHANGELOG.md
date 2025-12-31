@@ -11,13 +11,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Added the ability to override the standard max verses dict with the Bible version-specific max verses dict.
+- Added an optional `bible` parameter to most public functions so that standard book, chapter, verse, and text definitions can be overridden by a specific Bible translation.
 
 ### Changed
 
 - Modified the values in the max verses dictionary to be the mode (instead of max) chapter/verse info across all versions/translations.
 - Separated the Bible versions/translations into their own packages to reduce the file size of the main pythonbible package.
   - The main pythonbible package now only includes the ASV version by default.
+  - Other versions/translations can be optionally installed along with the pythonbible package or separately as their own package.
+
+### Removed
+
+- Removed all versions/translations except for ASV from the main pythonbible package to reduce file size.
   - Other versions/translations can be optionally installed along with the pythonbible package or separately as their own package.
 
 ## [0.15.0] - unreleased due to file size restrictions on PyPI

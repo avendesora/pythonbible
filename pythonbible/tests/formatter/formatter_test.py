@@ -50,24 +50,27 @@ def test_format_scripture_reference_single_verse(verse_id: int) -> None:
     verse: int
     book, chapter, verse = bible.get_book_chapter_verse(verse_id)
 
+    kjv_bible = bible.get_bible(bible.Version.KING_JAMES, "plain_text")
+    asv_bible = bible.get_bible(bible.Version.AMERICAN_STANDARD, "plain_text")
+
     # When we format the reference for it for different versions
     short_kjv_reference: str = bible.format_single_reference(
         bible.NormalizedReference(book, chapter, verse, chapter, verse),
-        version=bible.Version.KING_JAMES,
+        bible=kjv_bible,
     )
     short_asv_reference: str = bible.format_single_reference(
         bible.NormalizedReference(book, chapter, verse, chapter, verse),
-        version=bible.Version.KING_JAMES,
+        bible=asv_bible,
     )
     long_kjv_reference: str = bible.format_single_reference(
         bible.NormalizedReference(book, chapter, verse, chapter, verse),
-        version=bible.Version.KING_JAMES,
         full_title=True,
+        bible=kjv_bible,
     )
     long_asv_reference: str = bible.format_single_reference(
         bible.NormalizedReference(book, chapter, verse, chapter, verse),
-        version=bible.Version.AMERICAN_STANDARD,
         full_title=True,
+        bible=asv_bible,
     )
 
     # Then the short references should match, but the long ones should be different.
@@ -179,7 +182,7 @@ def test_get_verse_text_no_version_file(verse_id: int) -> None:
 
     # When using that verse id and version to get the verse text
     # Then a MissingVerseFileError is raised.
-    with pytest.raises(bible.MissingVerseFileError):
+    with pytest.raises(bible.MissingBiblePackageError):
         bible.get_verse_text(verse_id, version=version)
 
 
@@ -315,3 +318,13 @@ def test_multi_chapter_book_reference_contains_whole_book() -> None:
 
     # Then the resulting reference string does not include chapter and verse numbers
     assert reference_string == "Genesis"
+
+
+def test_get_book_title_with_bible_missing_book() -> None:
+    # Given a bible that is missing a book
+    asv_bible = bible.get_bible(bible.Version.AMERICAN_STANDARD, "plain_text")
+
+    # When we attempt to get the book title for the missing book
+    # Then a BookNotInBibleError is raised.
+    with pytest.raises(bible.VersionMissingBookError):
+        bible.formatter._get_book_title(bible.Book.MACCABEES_2, True, bible=asv_bible)

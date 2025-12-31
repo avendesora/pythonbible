@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import re
+from typing import TYPE_CHECKING
 from typing import Match
 from typing import Pattern
 
@@ -13,6 +14,9 @@ from pythonbible.verses import get_number_of_chapters
 from pythonbible.verses import get_number_of_verses
 from pythonbible.verses import is_single_chapter_book
 
+if TYPE_CHECKING:
+    from pythonbible.bible.bible import Bible
+
 COLON = ":"
 COMMA = ","
 DASH = "-"
@@ -24,6 +28,7 @@ PERIOD = "."
 def get_references(
     text: str,
     book_groups: dict[str, tuple[Book, ...]] | None = None,
+    bible: Bible | None = None,
 ) -> list[NormalizedReference]:
     """Search the text for scripture references.
 
@@ -34,6 +39,8 @@ def get_references(
     :param book_groups: Optional dictionary of BookGroup (e.g. Old Testament) to its
                         related regular expression
     :type book_groups: dict[str, tuple[Book, ...]] or None
+    :param bible: An optional Bible object to validate against
+    :type bible: Bible | None
     :return: The list of found scripture references
     :rtype: list[NormalizedReference]
     """
@@ -47,7 +54,7 @@ def get_references(
         SCRIPTURE_REFERENCE_REGULAR_EXPRESSION,
         clean_text,
     ):
-        references.extend(normalize_reference(reference_match[0]))
+        references.extend(normalize_reference(reference_match[0], bible))
 
     if book_groups:
         references.extend(_get_book_group_references(clean_text, book_groups))
@@ -55,12 +62,19 @@ def get_references(
     return references
 
 
-def normalize_reference(reference: str) -> list[NormalizedReference]:
+def normalize_reference(
+    reference: str,
+    bible: Bible | None = None,
+) -> list[NormalizedReference]:
     """Convert a scripture reference string into a list of normalized tuple references.
 
     :param reference: a string that is a scripture reference
+    :type reference: str
+    :param bible: an optional Bible object to validate against
+    :type bible: Bible | None
     :return: a list of tuples. each tuple is in the format (book, start_chapter,
              start_verse, end_chapter, end_verse)
+    :rtype: list[NormalizedReference]
     """
     references: list[NormalizedReference] = []
     books: list[Book] = []
@@ -98,6 +112,7 @@ def normalize_reference(reference: str) -> list[NormalizedReference]:
     first_book_references = _process_sub_references(
         books[0],
         cleaned_references[0].strip(),
+        bible,
     )
 
     if len(books) == 1:
@@ -107,6 +122,7 @@ def normalize_reference(reference: str) -> list[NormalizedReference]:
     second_book_references = _process_sub_references(
         books[1],
         cleaned_references[1].strip(),
+        bible,
     )
 
     if len(first_book_references) > 1:
@@ -133,7 +149,11 @@ def normalize_reference(reference: str) -> list[NormalizedReference]:
     return references
 
 
-def _process_sub_references(book: Book, reference: str) -> list[NormalizedReference]:
+def _process_sub_references(
+    book: Book,
+    reference: str,
+    bible: Bible | None = None,
+) -> list[NormalizedReference]:
     references: list[NormalizedReference] = []
     start_chapter: int | None = None
 
@@ -157,7 +177,7 @@ def _process_sub_references(book: Book, reference: str) -> list[NormalizedRefere
             book,
         )
 
-        if is_valid_reference(new_reference):
+        if is_valid_reference(new_reference, bible):
             references.append(new_reference)
 
         start_chapter = end_chapter

@@ -32,10 +32,15 @@ class InvalidVerseError(Exception):
         """Initialize InvalidVerseError.
 
         :param message: optional message string
+        :type message: str | None
         :param verse_id: optional verse id
+        :type verse_id: int | None
         :param book: optional Book
+        :type book: Book | None
         :param chapter: optional chapter number
+        :type chapter: int | None
         :param verse: optional verse number
+        :type verse: int | None
         """
         self.message: str | None = message
 
@@ -46,18 +51,6 @@ class InvalidVerseError(Exception):
                 self.message = f"{verse_id} is not a valid verse."
 
         super().__init__(self.message)
-
-
-class InvalidBibleParserError(Exception):
-    """Raised when the Bible parser is not valid."""
-
-
-class MissingVerseFileError(Exception):
-    """Raised when the verse file for a given version is not found."""
-
-
-class MissingBookFileError(Exception):
-    """Raised when the book file for a given version is not found."""
 
 
 class MissingBiblePackageError(Exception):

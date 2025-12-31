@@ -5,7 +5,6 @@ from pathlib import Path
 from typing import TYPE_CHECKING
 
 from pythonbible.errors import MissingBiblePackageError
-from pythonbible.errors import MissingVerseFileError
 from pythonbible.versions import Version
 
 if TYPE_CHECKING:
@@ -56,20 +55,20 @@ def get_bible(version: Version, bible_type: str) -> Bible:
     :type bible_type: str
     :return: The Bible for the given version and type
     :rtype: Bible
+    :raises MissingBiblePackageError: If no package is found for the given version
     """
     version_bibles = BIBLES.get(version, {})
+    error_message = f"No package found for {version.value} ({version.title})."
 
     if not version_bibles:
         if package_name := BIBLE_PACKAGE_NAMES.get(version):
             module_name = f"{package_name}.{bible_type.lower()}_bible"
         else:
-            error_message = f"No package found for {version.value} ({version.title})."
             raise MissingBiblePackageError(error_message)
 
         try:
             version_module = import_module(module_name)
         except ModuleNotFoundError as e:
-            error_message = f"No package found for {version.value} ({version.title})."
             raise MissingBiblePackageError(error_message) from e
 
         return version_module.bible
@@ -77,7 +76,7 @@ def get_bible(version: Version, bible_type: str) -> Bible:
     if version_bible := version_bibles.get(bible_type):
         return version_bible
 
-    raise MissingVerseFileError
+    raise MissingBiblePackageError(error_message)
 
 
 def add_bible(version: Version, bible_type: str, version_bible: Bible) -> None:

@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import re
+
 import pytest
 
 import pythonbible as bible
@@ -37,6 +39,24 @@ def test_convert_reference_to_verse_ids_invalid(
         bible.convert_reference_to_verse_ids(invalid_reference)
 
 
+def test_convert_reference_to_verse_ids_with_bible(
+    reference: bible.NormalizedReference,
+) -> None:
+    # Given a valid normalized scripture reference and a Bible object
+    asv_bible = bible.get_bible(bible.Version.AMERICAN_STANDARD, "plain_text")
+
+    # When the reference is converted into a list of verse id integers
+    verse_ids: tuple[int, ...] = bible.convert_reference_to_verse_ids(
+        reference,
+        bible=asv_bible,
+    )
+
+    # Then the resulting list of verse id integers is accurate
+    assert len(verse_ids) == 60
+    assert verse_ids[0] == 1001001
+    assert verse_ids[59] == 1003004
+
+
 def test_convert_references_to_verse_ids(
     references: list[bible.NormalizedReference],
     verse_ids: list[int],
@@ -72,6 +92,23 @@ def test_convert_references_to_verse_ids_complex(
 
     # Then the list of verse ids is correct
     assert actual_verse_ids == verse_ids_complex
+
+
+def test_convert_references_to_verse_ids_with_bible(
+    references: list[bible.NormalizedReference],
+    verse_ids: list[int],
+) -> None:
+    # Given a list of valid normalized scripture references and a Bible object
+    asv_bible = bible.get_bible(bible.Version.AMERICAN_STANDARD, "plain_text")
+
+    # When the references are converted into a list of verse id integers
+    actual_verse_ids: list[int] = bible.convert_references_to_verse_ids(
+        references,
+        bible=asv_bible,
+    )
+
+    # Then the resulting list of verse id integers is accurate
+    assert actual_verse_ids == verse_ids
 
 
 def test_convert_verse_ids_to_references(
@@ -132,6 +169,40 @@ def test_convert_verse_ids_to_references_complex(
 
     # Then the list of references is correct
     assert actual_references == normalized_references_complex
+
+
+def test_convert_verse_ids_to_references_with_bible(
+    verse_ids: list[int],
+    references: list[bible.NormalizedReference],
+) -> None:
+    # Given a list of integer verse ids and a Bible object
+    asv_bible = bible.get_bible(bible.Version.AMERICAN_STANDARD, "plain_text")
+
+    # When we convert them into a list of normalized reference tuples
+    actual_references: list[bible.NormalizedReference] = (
+        bible.convert_verse_ids_to_references(
+            verse_ids,
+            bible=asv_bible,
+        )
+    )
+
+    # Then the resulting list of references is accurate
+    assert actual_references == references
+
+
+def test_convert_verse_ids_to_references_with_bible_invalid(
+    invalid_verse_id: int,
+) -> None:
+    # Given a list of verse ids with an invalid verse id and a Bible object
+    asv_bible = bible.get_bible(bible.Version.AMERICAN_STANDARD, "plain_text")
+
+    # When we attempt to convert them into a list of references
+    # Then an error is raised
+    expected_error_message = re.escape(
+        "American Standard Version is missing verse 1100100 (Genesis 100:100).",
+    )
+    with pytest.raises(bible.VersionMissingVerseError, match=expected_error_message):
+        bible.convert_verse_ids_to_references([invalid_verse_id], bible=asv_bible)
 
 
 def test_whole_book() -> None:

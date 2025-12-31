@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import pytest
+
 import pythonbible as bible
 
 
@@ -62,6 +64,47 @@ def test_count_books_string() -> None:
 
     # Then the count is correct
     assert number_of_books == 5 + 2 + 1
+
+
+def test_count_books_with_bible() -> None:
+    # Given a string containing one or more Scripture references
+    reference: str = "Genesis - Deuteronomy, Matthew 19:3 - Mark 6:9, James 1:4-6"
+    asv_bible = bible.get_bible(bible.Version.AMERICAN_STANDARD, "plain_text")
+
+    # When we get the count of books in the references with a Bible object
+    number_of_books: int = bible.count_books(
+        reference,  # type: ignore[arg-type]
+        bible=asv_bible,
+    )
+
+    # Then the count is correct
+    assert number_of_books == 5 + 2 + 1
+
+
+def test_count_books_with_bible_missing_book() -> None:
+    # Given a string containing one or more Scripture references
+    reference: str = "2 Maccabees 1:1"
+    asv_bible = bible.get_bible(bible.Version.AMERICAN_STANDARD, "plain_text")
+
+    # When we try to get the count of books in the references with a Bible object
+    with pytest.raises(bible.VersionMissingBookError):
+        bible.count_books(
+            reference,  # type: ignore[arg-type]
+            bible=asv_bible,
+        )
+
+
+def test_count_books_with_bible_missing_end_book() -> None:
+    # Given a string containing one or more Scripture references
+    reference: str = "Matthew 1:1 - 2 Maccabees 1:1"
+    asv_bible = bible.get_bible(bible.Version.AMERICAN_STANDARD, "plain_text")
+
+    # When we try to get the count of books in the references with a Bible object
+    with pytest.raises(bible.VersionMissingBookError):
+        bible.count_books(
+            reference,  # type: ignore[arg-type]
+            bible=asv_bible,
+        )
 
 
 def test_count_chapters_single_chapter() -> None:
@@ -137,6 +180,21 @@ def test_count_chapters_string() -> None:
 
     # When we get the count of chapters in the reference
     number_of_chapters: int = bible.count_chapters(reference)  # type: ignore[arg-type]
+
+    # Then the count is correct
+    assert number_of_chapters == 50 + 28 + 16 + 24 + 21 + 28  # 167 total
+
+
+def test_count_chapters_with_bible() -> None:
+    # Given a string containing one or more Scripture references
+    reference: str = "Genesis, Matthew - Acts"
+    asv_bible = bible.get_bible(bible.Version.AMERICAN_STANDARD, "plain_text")
+
+    # When we get the count of chapters in the reference with a Bible object
+    number_of_chapters: int = bible.count_chapters(
+        reference,  # type: ignore[arg-type]
+        bible=asv_bible,
+    )
 
     # Then the count is correct
     assert number_of_chapters == 50 + 28 + 16 + 24 + 21 + 28  # 167 total
@@ -221,3 +279,18 @@ def test_count_verses_genesis_17() -> None:
 
     # Genesis 17 should have 27 verses
     assert number_of_verses == 27
+
+
+def test_count_verses_with_bible() -> None:
+    # Given a string containing one or more Scripture references
+    reference: str = "Genesis 1:1; John 3:16; Romans 15:5-7,13"
+    asv_bible = bible.get_bible(bible.Version.AMERICAN_STANDARD, "plain_text")
+
+    # When we get the count of verses in the reference with a Bible object
+    number_of_verses: int = bible.count_verses(
+        reference,  # type: ignore[arg-type]
+        bible=asv_bible,
+    )
+
+    # Then the count is correct
+    assert number_of_verses == 1 + 1 + (3 + 1)
