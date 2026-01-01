@@ -235,7 +235,7 @@ The goal of this release was to address [Issue #90], and to make things related 
 ## [0.0.1] - 2020-10-08
 
 [unreleased]: https://github.com/avendesora/pythonbible/compare/v0.15.4...HEAD
-[0.15.3]: https://github.com/avendesora/pythonbible/compare/v0.15.3...v0.15.4
+[0.15.4]: https://github.com/avendesora/pythonbible/compare/v0.15.3...v0.15.4
 [0.15.3]: https://github.com/avendesora/pythonbible/compare/v0.15.2...v0.15.3
 [0.15.2]: https://github.com/avendesora/pythonbible/compare/v0.15.1...v0.15.2
 [0.15.1]: https://github.com/avendesora/pythonbible/compare/v0.14.0...v0.15.1
