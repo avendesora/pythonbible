@@ -4,11 +4,26 @@ requires-python = ">=3.10"
 
 [[package]]
 name = "pythonbible"
-version = "0.14.0"
+version = "0.15.3"
 source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/19/d1/8a3578e58c61eeffa27e82c33095e042823f390136a87004b368a79fc8cb/pythonbible-0.14.0.tar.gz", hash = "sha256:2e973be3b59529d1b68133246221e9c90b559d2e4906f0bc705dd91609cf3b83", size = 19755534, upload-time = "2025-11-09T21:12:59.724Z" }
+dependencies = [
+    { name = "pythonbible-asv" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/a5/4d/fbda47c78716c3dd65f8e482a64a27764cfd04f0c40fc82a0c397517acdb/pythonbible-0.15.3.tar.gz", hash = "sha256:9e176376f7d2bba01221c32d69bafde6bbd6a0026bc29abbdeec86f98b2f7aa5", size = 28248, upload-time = "2025-12-31T23:06:55.947Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/96/64/451bf4e6d60e1348739afc9f403040b5a7f19fab4a343e667671c33082b4/pythonbible-0.14.0-py3-none-any.whl", hash = "sha256:aca8678d81eb86acde835dde14964798de31748a13c582d7c5741e2ec416fc4a", size = 19754530, upload-time = "2025-11-09T21:12:55.885Z" },
+    { url = "https://files.pythonhosted.org/packages/6f/9a/4524b064b296f99cd5e6c232bd159c59e12b3134b717a87a5b016af2a463/pythonbible-0.15.3-py3-none-any.whl", hash = "sha256:01c0008ec5082463ae3808bddd450f48618ce6d83ffd9133498feec0b4456840", size = 35760, upload-time = "2025-12-31T23:06:57.193Z" },
+]
+
+[[package]]
+name = "pythonbible-asv"
+version = "0.0.1"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "pythonbible" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/a8/1c/028d4c643ec39458017f9221cbcdb308dd57b9a0cf9dac2d87a4f55ffac2/pythonbible_asv-0.0.1.tar.gz", hash = "sha256:8256f6d6d2d101d6a6487053a934952fbf37b8ab08e8108204fc1e6058313b78", size = 9979682, upload-time = "2025-11-16T04:19:18.02Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/98/9f/3df476f563a07633b303ae1fc26b3395fc5583c8294b53a22e61a2d34594/pythonbible_asv-0.0.1-py3-none-any.whl", hash = "sha256:199575a77769e1023ea6ce61a3defdfbc92cb01bb0d6781f2b1da14f305380de", size = 9978693, upload-time = "2025-11-16T04:19:14.705Z" },
 ]
 
 [[package]]
