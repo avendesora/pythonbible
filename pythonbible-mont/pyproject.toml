@@ -8,7 +8,7 @@ module-name = "pythonbible_mont"
 
 [project]
 name = "pythonbible-mont"
-version = "0.0.1"
+version = "0.0.2"
 description-file = "README.md"
 requires-python = ">=3.10"
 authors = [
