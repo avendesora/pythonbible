@@ -4,14 +4,14 @@ requires-python = ">=3.10"
 
 [[package]]
 name = "pythonbible"
-version = "0.15.3"
+version = "0.15.4"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "pythonbible-asv" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/a5/4d/fbda47c78716c3dd65f8e482a64a27764cfd04f0c40fc82a0c397517acdb/pythonbible-0.15.3.tar.gz", hash = "sha256:9e176376f7d2bba01221c32d69bafde6bbd6a0026bc29abbdeec86f98b2f7aa5", size = 28248, upload-time = "2025-12-31T23:06:55.947Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/33/47/f717c3b9d1dbacb9c2e0575b27c1f52917173b90250e3800398139e17ba1/pythonbible-0.15.4.tar.gz", hash = "sha256:8f6b445d9fcb6dbdf21b57e8b5ccdf4283220064063482f9b5ed445c07eef7d7", size = 28144, upload-time = "2026-01-01T21:32:47.215Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/6f/9a/4524b064b296f99cd5e6c232bd159c59e12b3134b717a87a5b016af2a463/pythonbible-0.15.3-py3-none-any.whl", hash = "sha256:01c0008ec5082463ae3808bddd450f48618ce6d83ffd9133498feec0b4456840", size = 35760, upload-time = "2025-12-31T23:06:57.193Z" },
+    { url = "https://files.pythonhosted.org/packages/bb/65/3211053b833c3bdc08ef9b765e3b734887bc85f24e635384ab620a9bda5e/pythonbible-0.15.4-py3-none-any.whl", hash = "sha256:235650f78ba7ccbf2315bba2bdd385188efee4bf046d100ee9d453c2d38ddf43", size = 35762, upload-time = "2026-01-01T21:32:48.475Z" },
 ]
 
 [[package]]
@@ -28,7 +28,7 @@ wheels = [
 
 [[package]]
 name = "pythonbible-bwe"
-version = "0.0.1"
+version = "0.0.2"
 source = { editable = "." }
 dependencies = [
     { name = "pythonbible" },
