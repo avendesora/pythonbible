@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import pytest
+
 import pythonbible as bible
 
 
@@ -382,7 +383,7 @@ def test_book_abbreviations() -> None:
                 end_chapter=None,
                 end_verse=None,
                 end_book=bible.Book.JOHN,
-            )
+            ),
         ),
     ],
 )
