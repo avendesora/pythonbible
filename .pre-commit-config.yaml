@@ -28,7 +28,7 @@ repos:
   - id: sort-simple-yaml
   - id: trailing-whitespace
 - repo: https://github.com/astral-sh/ruff-pre-commit
-  rev: v0.14.10
+  rev: v0.14.13
   hooks:
   - id: ruff
     args: [--fix, --exit-non-zero-on-fix]
@@ -38,7 +38,7 @@ repos:
   hooks:
   - id: mypy
 - repo: https://github.com/sourcery-ai/sourcery
-  rev: v1.41.1
+  rev: v1.43.0
   hooks:
   - id: sourcery
     args: [--diff=git diff HEAD, --no-summary]
