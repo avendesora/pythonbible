@@ -1,6 +1,6 @@
 [project]
 name = "pythonbible-docs"
-version = "0.15.4"
+version = "0.15.5"
 description-file = "README.md"
 requires-python = ">=3.13"
 authors = [
