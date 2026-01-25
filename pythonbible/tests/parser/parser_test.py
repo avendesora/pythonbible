@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import pytest
+
 import pythonbible as bible
 
 
@@ -338,7 +339,7 @@ def test_book_abbreviations() -> None:
 
 
 @pytest.mark.parametrize(
-    "input_reference, expected_output",
+    ("input_reference", "expected_output"),
     [
         (
             "micah-jon",
@@ -348,7 +349,7 @@ def test_book_abbreviations() -> None:
                 start_verse=None,
                 end_chapter=None,
                 end_verse=None,
-                end_book=None,
+                end_book=bible.Book.JONAH,
             ),
         ),
         (
@@ -359,7 +360,7 @@ def test_book_abbreviations() -> None:
                 start_verse=None,
                 end_chapter=None,
                 end_verse=None,
-                end_book=None,
+                end_book=bible.Book.JONAH,
             ),
         ),
         (
@@ -382,7 +383,7 @@ def test_book_abbreviations() -> None:
                 end_chapter=None,
                 end_verse=None,
                 end_book=bible.Book.JOHN,
-            )
+            ),
         ),
     ],
 )
