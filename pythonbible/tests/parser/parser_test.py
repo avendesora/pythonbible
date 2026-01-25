@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import pytest
+
 import pythonbible as bible
 
 
@@ -334,3 +336,69 @@ def test_book_abbreviations() -> None:
 
             if book != book.SONG_OF_SONGS:
                 assert expected == actual_period
+
+
+@pytest.mark.parametrize(
+    ("input_reference", "expected_output"),
+    [
+        (
+            "micah-jon",
+            bible.NormalizedReference(
+                book=bible.Book.MICAH,
+                start_chapter=None,
+                start_verse=None,
+                end_chapter=None,
+                end_verse=None,
+                end_book=bible.Book.JONAH,
+            ),
+        ),
+        (
+            "jon-jon",
+            bible.NormalizedReference(
+                book=bible.Book.JONAH,
+                start_chapter=None,
+                start_verse=None,
+                end_chapter=None,
+                end_verse=None,
+                end_book=bible.Book.JONAH,
+            ),
+        ),
+        (
+            "obadiah-jon",
+            bible.NormalizedReference(
+                book=bible.Book.OBADIAH,
+                start_chapter=None,
+                start_verse=None,
+                end_chapter=None,
+                end_verse=None,
+                end_book=bible.Book.JONAH,
+            ),
+        ),
+        (
+            "jon-john",
+            bible.NormalizedReference(
+                book=bible.Book.JONAH,
+                start_chapter=None,
+                start_verse=None,
+                end_chapter=None,
+                end_verse=None,
+                end_book=bible.Book.JOHN,
+            ),
+        ),
+    ],
+)
+def test_issue_235_jonah_abbreviation(
+    input_reference: str,
+    expected_output: bible.NormalizedReference,
+) -> None:
+    """Test for Issue 235 "Error getting reference to Jonah".
+
+    :param input_reference: The input reference string to test.
+    :param expected_output: The expected normalized reference output.
+    """
+    # Given a text string with an abbreviation for the book of Jonah
+    # When we parse the references from that text
+    references: list[bible.NormalizedReference] = bible.get_references(input_reference)
+
+    # Then the parser returns the appropriate normalized reference
+    assert references == [expected_output]

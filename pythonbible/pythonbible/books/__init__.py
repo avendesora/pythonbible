@@ -4,6 +4,13 @@ from enum import Enum
 from typing import Any
 from typing import Type
 
+from pythonbible.books.common_constants import FIRST
+from pythonbible.books.common_constants import FIRST_BOOK
+from pythonbible.books.common_constants import SECOND
+from pythonbible.books.common_constants import SECOND_BOOK
+from pythonbible.books.common_constants import THIRD
+from pythonbible.books.john import JOHN_REGULAR_EXPRESSION
+
 
 def _build_book_regular_expression(
     book: str,
@@ -24,7 +31,6 @@ def _add_suffix(regex: str, suffix: str | None = None) -> str:
 _SAMUEL_REGULAR_EXPRESSION = r"(Samuel|Sam\.*|Sa\.*|Sm\.*)"
 _KINGS_REGULAR_EXPRESSION = r"(Kings|Kgs\.*|Kin\.*|Ki\.*)"
 _CHRONICLES_REGULAR_EXPRESSION = r"(Chronicles|Chron\.*|Chro\.*|Chr\.*|Ch\.*)"
-_JOHN_REGULAR_EXPRESSION = r"(John|Joh\.*|Jhn\.*|Jo\.*(?!shua|b|nah|el)|Jn\.*)"
 _CORINTHIANS_REGULAR_EXPRESSION = r"Co\.*(?:r\.*(?:inthians)?)?"
 _THESSALONIANS_REGULAR_EXPRESSION = r"Th\.*(?:(s|(es(?:s)?))\.*(?:alonians)?)?"
 _TIMOTHY_REGULAR_EXPRESSION = r"Ti\.*(?:m\.*(?:othy)?)?"
@@ -32,22 +38,15 @@ _PETER_REGULAR_EXPRESSION = r"(Pe\.*(?:t\.*(?:er)?)?|Pt\.*)"
 
 _MACCABEES_REGULAR_EXPRESSION = r"(Maccabees|Macc\.*|Mac\.*|Ma\.*|M\.*)"
 
-_FIRST = r"1|I\s+|1st\s+|First\s+"
-_SECOND = r"2|II|2nd\s+|Second\s+"
-_THIRD = r"3|III|3rd\s+|Third\s+"
-
-_FIRST_BOOK = rf"{_FIRST}|(First\s+Book\s+of(?:\s+the)?)"
-_SECOND_BOOK = rf"{_SECOND}|(Second\s+Book\s+of(?:\s+the)?)"
-
 _EPISTLE_OF_PAUL_TO = r"Epistle\s+of\s+Paul\s+(?:the\s+Apostle\s+)?to(?:\s+the)?"
 _GENERAL_EPISTLE_OF = r"(?:General\s+)?Epistle\s+(?:General\s+)?of"
 
-_FIRST_PAUL_EPISTLE = rf"{_FIRST}|(First\s+{_EPISTLE_OF_PAUL_TO})"
-_SECOND_PAUL_EPISTLE = rf"{_SECOND}|(Second\s+{_EPISTLE_OF_PAUL_TO})"
+_FIRST_PAUL_EPISTLE = rf"{FIRST}|(First\s+{_EPISTLE_OF_PAUL_TO})"
+_SECOND_PAUL_EPISTLE = rf"{SECOND}|(Second\s+{_EPISTLE_OF_PAUL_TO})"
 
-_FIRST_GENERAL_EPISTLE = rf"{_FIRST}|(First\s+{_GENERAL_EPISTLE_OF})"
-_SECOND_GENERAL_EPISTLE = rf"{_SECOND}|(Second\s+{_GENERAL_EPISTLE_OF})"
-_THIRD_GENERAL_EPISTLE = rf"{_THIRD}|(Third\s+{_GENERAL_EPISTLE_OF})"
+_FIRST_GENERAL_EPISTLE = rf"{FIRST}|(First\s+{_GENERAL_EPISTLE_OF})"
+_SECOND_GENERAL_EPISTLE = rf"{SECOND}|(Second\s+{_GENERAL_EPISTLE_OF})"
+_THIRD_GENERAL_EPISTLE = rf"{THIRD}|(Third\s+{_GENERAL_EPISTLE_OF})"
 
 
 class Book(Enum):
@@ -111,7 +110,7 @@ class Book(Enum):
         "1 Samuel",
         _build_book_regular_expression(
             _SAMUEL_REGULAR_EXPRESSION,
-            prefix=_FIRST_BOOK,
+            prefix=FIRST_BOOK,
             suffix=r"Otherwise\s+Called\s+The\s+First\s+Book\s+of\s+the\s+Kings",
         ),
         ("Sa", "Sam", "Sm"),
@@ -121,7 +120,7 @@ class Book(Enum):
         "2 Samuel",
         _build_book_regular_expression(
             _SAMUEL_REGULAR_EXPRESSION,
-            prefix=_SECOND_BOOK,
+            prefix=SECOND_BOOK,
             suffix=r"Otherwise\s+Called\s+The\s+Second\s+Book\s+of\s+the\s+Kings",
         ),
         ("Sa", "Sam", "Sm"),
@@ -131,7 +130,7 @@ class Book(Enum):
         "1 Kings",
         _build_book_regular_expression(
             _KINGS_REGULAR_EXPRESSION,
-            prefix=_FIRST_BOOK,
+            prefix=FIRST_BOOK,
             suffix=r"\,\s+Commonly\s+Called\s+the\s+Third\s+Book\s+of\s+the\s+Kings",
         ),
         ("Kgs", "Ki", "Kin"),
@@ -141,7 +140,7 @@ class Book(Enum):
         "2 Kings",
         _build_book_regular_expression(
             _KINGS_REGULAR_EXPRESSION,
-            prefix=_SECOND_BOOK,
+            prefix=SECOND_BOOK,
             suffix=r"\,\s+Commonly\s+Called\s+the\s+Fourth\s+Book\s+of\s+the\s+Kings",
         ),
         ("Kgs", "Ki", "Kin"),
@@ -151,7 +150,7 @@ class Book(Enum):
         "1 Chronicles",
         _build_book_regular_expression(
             _CHRONICLES_REGULAR_EXPRESSION,
-            prefix=_FIRST_BOOK,
+            prefix=FIRST_BOOK,
         ),
         ("Ch", "Chr", "Chro", "Chron"),
     )
@@ -160,7 +159,7 @@ class Book(Enum):
         "2 Chronicles",
         _build_book_regular_expression(
             _CHRONICLES_REGULAR_EXPRESSION,
-            prefix=_SECOND_BOOK,
+            prefix=SECOND_BOOK,
         ),
         ("Ch", "Chr", "Chro", "Chron"),
     )
@@ -229,7 +228,7 @@ class Book(Enum):
     JOHN = (
         43,
         "John",
-        rf"(?<!(?:1|2|3|I)\s)(?<!(?:1|2|3|I)){_JOHN_REGULAR_EXPRESSION}",
+        rf"(?<!(?:1|2|3|I)\s)(?<!(?:1|2|3|I)){JOHN_REGULAR_EXPRESSION}",
         ("Jhn", "Jn", "Jo", "Joh"),
     )
     ACTS = (
@@ -336,7 +335,7 @@ class Book(Enum):
         62,
         "1 John",
         _build_book_regular_expression(
-            _JOHN_REGULAR_EXPRESSION,
+            JOHN_REGULAR_EXPRESSION,
             prefix=_FIRST_GENERAL_EPISTLE,
         ),
         ("Jhn", "Jn", "Jo", "Joh"),
@@ -345,7 +344,7 @@ class Book(Enum):
         63,
         "2 John",
         _build_book_regular_expression(
-            _JOHN_REGULAR_EXPRESSION,
+            JOHN_REGULAR_EXPRESSION,
             prefix=_SECOND_GENERAL_EPISTLE,
         ),
         ("Jhn", "Jn", "Jo", "Joh"),
@@ -354,7 +353,7 @@ class Book(Enum):
         64,
         "3 John",
         _build_book_regular_expression(
-            _JOHN_REGULAR_EXPRESSION,
+            JOHN_REGULAR_EXPRESSION,
             prefix=_THIRD_GENERAL_EPISTLE,
         ),
         ("Jhn", "Jn", "Jo", "Joh"),
@@ -374,7 +373,7 @@ class Book(Enum):
         "1 Esdras",
         _build_book_regular_expression(
             r"(Esdras|Esdr\.*|Esd\.*|Es\.*)",
-            _FIRST,
+            FIRST,
         ),
         ("Es", "Esd", "Esdr"),
     )
@@ -396,7 +395,7 @@ class Book(Enum):
         "1 Maccabees",
         _build_book_regular_expression(
             _MACCABEES_REGULAR_EXPRESSION,
-            _FIRST,
+            FIRST,
         ),
         ("M", "Ma", "Mac", "Macc"),
     )
@@ -405,7 +404,7 @@ class Book(Enum):
         "2 Maccabees",
         _build_book_regular_expression(
             _MACCABEES_REGULAR_EXPRESSION,
-            _SECOND,
+            SECOND,
         ),
         ("M", "Ma", "Mac", "Macc"),
     )
