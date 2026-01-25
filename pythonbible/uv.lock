@@ -623,14 +623,14 @@ wheels = [
 
 [[package]]
 name = "pythonbible-dr"
-version = "0.0.1"
+version = "0.0.2"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "pythonbible" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/32/98/f9930b89c92aa5e5528841dae458859f90058807bb6fbb60a36b44ac8bb7/pythonbible_dr-0.0.1.tar.gz", hash = "sha256:77e22ccfc6cc454d6c002c2f84c79600ca90d79baffac85a3110362cb872aab5", size = 10474617, upload-time = "2025-11-17T01:48:26.102Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/e9/ac/558b01d7e169b95f3a1045aed118dc10934b61a115bea91d6f7d4c46c93b/pythonbible_dr-0.0.2.tar.gz", hash = "sha256:694aeef01c7108b70dfeb16ae4ea13b69e994bec838c67b7c37d957cc00eb09a", size = 10474637, upload-time = "2026-01-01T21:33:31.458Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/f9/7e/cfb67c9bd74555b0313e33877bb047c2dd1fa41c2bdbd35774031ad8b42f/pythonbible_dr-0.0.1-py3-none-any.whl", hash = "sha256:acf45372f3216db3b06f82e64137dbb9f3f136ce46a57a46ac0a9a2b12188a39", size = 10472705, upload-time = "2025-11-17T01:48:22.718Z" },
+    { url = "https://files.pythonhosted.org/packages/89/16/7f4c29bb1c5026c7a58fc9b0f37de6ad9818fc085e39de9bb706cdeefb64/pythonbible_dr-0.0.2-py3-none-any.whl", hash = "sha256:562e35d3ac041d239c5a7fcfdcdae96f40891d68a5a5889821f7f12d8581fe29", size = 10472707, upload-time = "2026-01-01T21:33:29.27Z" },
 ]
 
 [[package]]
@@ -659,14 +659,14 @@ wheels = [
 
 [[package]]
 name = "pythonbible-kjv"
-version = "0.0.1"
+version = "0.0.2"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "pythonbible" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/47/df/b22e79e0d4d2bab08c7cfe94b100d22aee29aba619af2e0c815e8b72fddd/pythonbible_kjv-0.0.1.tar.gz", hash = "sha256:079ebaaa4f24a42c3b2535fff4342f5f6c1e0ae29065ce797fc8cb5439bb5f54", size = 10116444, upload-time = "2025-11-16T04:35:54.965Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/e3/9a/52b16287e5526e7113cfd3436649e1c081627a0bfd484056b998594d25cc/pythonbible_kjv-0.0.2.tar.gz", hash = "sha256:62abdc30c2c7e2f27644da0734a427dffce72e34601946df04b6538585c81872", size = 10116456, upload-time = "2026-01-01T21:33:48.459Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/38/9f/6a52552d3e684960022b03be8b7a3d3ae456213893d3dabdc07c7c6a1405/pythonbible_kjv-0.0.1-py3-none-any.whl", hash = "sha256:f272c4dcec526b2699636251d27076aa61eb648ad9b01a0a7b40f5f46fc0c302", size = 10115037, upload-time = "2025-11-16T04:35:51.521Z" },
+    { url = "https://files.pythonhosted.org/packages/4a/6a/05dc5b611f4bfa51fac1d15fb9e20c6f3618ea739a62b5c771a7f3756cb2/pythonbible_kjv-0.0.2-py3-none-any.whl", hash = "sha256:513f152479533971ac01b476e9d7e3d7522bd13e17f1bbaab63373195fb04914", size = 10115040, upload-time = "2026-01-01T21:33:46.416Z" },
 ]
 
 [[package]]
@@ -839,14 +839,14 @@ wheels = [
 
 [[package]]
 name = "pythonbible-wmth"
-version = "0.0.1"
+version = "0.0.2"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "pythonbible" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/8d/cb/06dc754e4302d8de8e4333dc89dff2f62291a5d775c5c8e69f9da52e57ca/pythonbible_wmth-0.0.1.tar.gz", hash = "sha256:b864d042fccdf8cd124635860a5f53cc3eea076d73f98e3bfbfd88d5a1a374bf", size = 2822138, upload-time = "2025-12-31T00:01:52.692Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/4f/48/91eb708395deaf177cf5daa5c299aee65b7de8a4e9760a7de2d84568b49e/pythonbible_wmth-0.0.2.tar.gz", hash = "sha256:601cbf48d7e321bc7096612f079705df1421c6a5f99f3b59536a7012c963e32b", size = 2822137, upload-time = "2026-01-01T21:35:09.942Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/4d/4a/92fd9fe147f875c52f46624532a6258c0bafc07a3df673b11be9207dd6dc/pythonbible_wmth-0.0.1-py3-none-any.whl", hash = "sha256:7d6ff35ea5f6846f4da4658ec78ab81497aa5d7c840a58dea9158b03d429f2ac", size = 2820968, upload-time = "2025-12-31T00:01:51.061Z" },
+    { url = "https://files.pythonhosted.org/packages/7f/07/23ce6d28af728efa599b437ea7b5784d498a32401a41794dada6c517e19d/pythonbible_wmth-0.0.2-py3-none-any.whl", hash = "sha256:7d7900a29a39b587a827c204734ba8bd7c431959bd6102f1d7088cf34a71563a", size = 2820967, upload-time = "2026-01-01T21:35:07.975Z" },
 ]
 
 [[package]]
