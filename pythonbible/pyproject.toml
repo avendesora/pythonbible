@@ -172,7 +172,7 @@ ignore = [
 
 [tool.ruff.lint.per-file-ignores]
 "pythonbible/bible/bible.py" = ["PLR0913", "FBT001", "FBT002"]
-"pythonbible/books.py" = ["ARG004", "PYI034"]
+"pythonbible/books/__init__.py" = ["ARG004", "PYI034"]
 "pythonbible/book_groups.py" = ["ARG004", "PYI034"]
 "pythonbible/formatter.py" = ["ANN401", "FBT001", "FBT002", "PLR0911"]
 "pythonbible/parser.py" = ["PLR2004"]
