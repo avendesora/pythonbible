@@ -349,7 +349,7 @@ wheels = [
 
 [[package]]
 name = "pythonbible"
-version = "0.15.3"
+version = "0.15.5"
 source = { editable = "." }
 dependencies = [
     { name = "pythonbible-asv" },
