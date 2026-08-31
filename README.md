@@ -111,7 +111,9 @@ For example, given the following normalized scripture reference for Genesis 1:1-
 ```python
 import pythonbible as bible
 
-reference = bible.NormalizedReference(bible.Book.GENESIS, 1, 1, 1, 4, bible.Book.GENESIS)
+reference = bible.NormalizedReference(
+    bible.Book.GENESIS, 1, 1, 1, 4, bible.Book.GENESIS
+)
 verse_ids = bible.convert_reference_to_verse_ids(reference)
 ```
 
@@ -129,7 +131,16 @@ For example, the following list of verse ids represents the references Matthew 1
 ```python
 import pythonbible as bible
 
-verse_ids = [40018012, 40018013, 40018014, 42015003, 42015004, 42015005, 42015006, 42015007, ]
+verse_ids = [
+    40018012,
+    40018013,
+    40018014,
+    42015003,
+    42015004,
+    42015005,
+    42015006,
+    42015007,
+]
 references = bible.convert_verse_ids_to_references(verse_ids)
 ```
 
@@ -175,7 +186,7 @@ formatted_reference = bible.format_scripture_references(references)
 The resulting formatted reference should be:
 
 ```python
-'Isaiah 55:13;Philippians 4:4-8'
+"Isaiah 55:13;Philippians 4:4-8"
 ```
 
 There are a couple of reference formatting features not yet implemented:
@@ -197,7 +208,7 @@ verse_text = bible.get_verse_text(1001001, version=bible.Version.KING_JAMES)
 The resulting verse_text would be:
 
 ```python
-'In the beginning God created the heaven and the earth.'
+"In the beginning God created the heaven and the earth."
 ```
 
 The version argument is optional and currently defaults to ``AMERICAN_STANDARD``. Ideally, that default will be configurable in a future release.
