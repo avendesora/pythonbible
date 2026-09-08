@@ -158,12 +158,19 @@ def _process_sub_references(
     start_chapter: int | None = None
 
     for sub_reference in reference.split(COMMA):
-        if (not sub_reference or sub_reference in {DASH, PERIOD}) and not references:
+        normalized_sub_reference = sub_reference.strip().lstrip(" .,:;-")
+
+        if (
+            not normalized_sub_reference
+            or normalized_sub_reference in {DASH, PERIOD}
+        ) and not references:
             references.append(NormalizedReference(book, None, None, None, None, book))
             continue
 
         start_chapter, start_verse, end_chapter, end_verse = _process_sub_reference(
-            sub_reference[:-1] if sub_reference.endswith(DASH) else sub_reference,
+            normalized_sub_reference[:-1]
+            if normalized_sub_reference.endswith(DASH)
+            else normalized_sub_reference,
             book,
             start_chapter,
         )
@@ -195,7 +202,8 @@ def _process_sub_reference(
     end_verse: int | None = None
     no_verses: bool = False
 
-    clean_sub_reference: str = sub_reference.replace(PERIOD, COLON)
+    clean_sub_reference: str = sub_reference.strip().lstrip(" .,:;-")
+    clean_sub_reference = clean_sub_reference.replace(PERIOD, COLON)
     chapter_and_verse_range: list[str] = clean_sub_reference.split(DASH)
     min_chapter_and_verse: list[str] = chapter_and_verse_range[0].strip().split(COLON)
 

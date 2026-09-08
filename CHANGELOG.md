@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- [Issue #168](https://github.com/avendesora/pythonbible/issues/168) - Parse references when book names are followed by periods.
+
 ## [0.15.5] - 2026-01-24
 
 ### Fixed

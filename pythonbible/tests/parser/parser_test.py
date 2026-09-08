@@ -116,6 +116,75 @@ def test_normalize_reference_range_without_verse_numbers(
     )
 
 
+@pytest.mark.parametrize(
+    ("text", "expected"),
+    [
+        (
+            "Micah. 2",
+            [
+                bible.NormalizedReference(
+                    bible.Book.MICAH,
+                    2,
+                    None,
+                    2,
+                    None,
+                    bible.Book.MICAH,
+                )
+            ],
+        ),
+        (
+            "Psalm. 46",
+            [
+                bible.NormalizedReference(
+                    bible.Book.PSALMS,
+                    46,
+                    None,
+                    46,
+                    None,
+                    bible.Book.PSALMS,
+                )
+            ],
+        ),
+        (
+            "Psalms. 74",
+            [
+                bible.NormalizedReference(
+                    bible.Book.PSALMS,
+                    74,
+                    None,
+                    74,
+                    None,
+                    bible.Book.PSALMS,
+                )
+            ],
+        ),
+        (
+            "1Peter. 1:22",
+            [
+                bible.NormalizedReference(
+                    bible.Book.PETER_1,
+                    1,
+                    22,
+                    1,
+                    22,
+                    bible.Book.PETER_1,
+                )
+            ],
+        ),
+    ],
+)
+def test_get_references_book_name_followed_by_period(
+    text: str,
+    expected: list[bible.NormalizedReference],
+) -> None:
+    # Given a reference where a book name is immediately followed by a period
+    # When it is parsed
+    references: list[bible.NormalizedReference] = bible.get_references(text)
+
+    # Then the reference is returned without crashing or discarding the chapter/verse
+    assert references == expected
+
+
 def test_get_references_roman_numerals(
     roman_numeral_references: str,
     normalized_references_complex: list[bible.NormalizedReference],
