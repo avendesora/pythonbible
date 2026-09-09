@@ -161,8 +161,7 @@ def _process_sub_references(
         normalized_sub_reference = sub_reference.strip().lstrip(" .,:;-")
 
         if (
-            not normalized_sub_reference
-            or normalized_sub_reference in {DASH}
+            not normalized_sub_reference or normalized_sub_reference in {DASH}
         ) and not references:
             references.append(NormalizedReference(book, None, None, None, None, book))
             continue
