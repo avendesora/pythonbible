@@ -182,7 +182,8 @@ def test_get_references_book_name_followed_by_period(
     references: list[bible.NormalizedReference] = bible.get_references(text)
 
     # Then the reference is returned without crashing or discarding the chapter/verse
-    assert references == expected
+    if references != expected:
+        raise AssertionError(f"Expected {expected!r}, got {references!r}")
 
 
 def test_get_references_roman_numerals(
